@@ -1,0 +1,54 @@
+<%
+# View which displays a single user's information.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title (@user.full_name, 'Contacts', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_button_if(@user.updatable?, :edit_user, edit_instance_user_path(@instance, @user), 'Edit User') %>
+	<%= flashes %>
+	<div id="wrap">
+		<h1><%=@user.full_name%> <span class="tiny">&laquo; profile</span></h1>
+		<ul id="contact-info-list">
+			<% if @user.email %>
+			<li class="email">
+				<span class="tiny">email:</span> <%=mail_to @user.email%>
+			</li>
+			<% end
+			if @user.cell_phone %>
+			<li>
+				<span class="tiny">cell phone:</span> 
+				<%=phone @user.cell_phone%><%=preferred if @user.preferred_is_cell%>
+			</li>
+			<% end
+			if @user.desk_phone %>
+			<li>
+				<span class="tiny">desk phone:</span>
+				<%= phone @user.desk_phone%>
+				<% if @user.desk_phone_ext %>
+					<%= 'x'+@user.desk_phone_ext%>
+				<% end %>
+				<%=preferred unless @user.preferred_is_cell%>
+			</li>
+			<% end %>
+			
+		</ul>
+		<% unless @user.groups.empty? %>
+			<div id="contact-groups">Groups:</div>
+			<ul>
+			<% @user.groups.each do |g| %>
+				<li><%= link_to g.name, instance_group_type_group_url(@instance, g.group_type, g)%>
+					<% if g.chairs.include?(@user) %>
+						<span class="chair">[Chair]</span>
+					<% end %>
+				</li>
+			<% end %>
+			</ul>
+		<% end %>
+	</div>
+<% end %>

@@ -1,0 +1,49 @@
+.subtitle{
+	font-size: .7em;
+	color: #999	
+}
+
+#latest-users, #latest-incidents{
+	float: left;
+	padding: 0 30px;
+	margin: 0 0 20px 0;
+}
+
+#latest-incidents{
+	border-right: solid 1px #ccc;
+	padding-left: 0;
+}
+
+	#latest-users h2, #latest-incidents h2,  #latest-updates h2{
+		margin:0;
+		padding: 0;
+		color: #444;
+	}
+	
+	#latest-users ul, #latest-incidents ul, #latest-updates ul{
+		margin: 0;
+		padding:0 0 0 3px;
+		list-style-type: none;
+	}
+		#latest-users ul li, #latest-incidents ul li, #latest-updates ul li{
+			margin: 0;
+			padding: 0;
+		}
+			#latest-users ul li a, #latest-incidents ul li a, #latest-updates ul li a{
+				color: #333;
+			}
+#latest-updates{
+	border-top: 1px solid #ccc;
+	padding: 10px 0 0 0;
+	clear:both;	
+}
+
+.edit-instance-button{
+	float: right;
+	background: #006;
+	border-top: none;
+	margin-right: 10px;
+}
+	.edit-instance-button:hover{
+		background: #009;
+	}

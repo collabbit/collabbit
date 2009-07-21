@@ -1,0 +1,39 @@
+#content{
+	text-align: center;
+	background: transparent;
+	border:none;
+	margin-top: 50px;
+}
+	#wrap{
+		width: 350px;
+		text-align: left;
+		margin: 0 auto;
+		padding: 10px;
+		
+		border-right: 2px solid #ccc;
+		border-bottom: 2px solid #ccc;
+		background: #fff;
+	}
+		#login-title{
+			font-size: 16px;
+			font-weight: bold;
+		}
+		label{
+			font-size: 14px;
+		}
+		#account-links{
+			list-style-type: none;
+			margin: 25px 0 0 0;
+			padding: 0;
+		}
+			#account-links li{
+				display: inline;
+			}
+				#account-links li a{
+					padding: 2px 4px;
+					color: #666;
+					font-size: 14px;
+				}
+					#account-links li a:hover{
+						color: #000;
+					}

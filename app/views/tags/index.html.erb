@@ -1,0 +1,27 @@
+<%
+# View which displays all tags in an instance.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Tags', @instance.short_name)%>
+
+<% content_for :body do%>
+	<%= flashes %>
+	<div id="wrap">
+		<h1>Tags <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
+		<ul id="tags" class="listy">
+		<% @tags.each do |t| %>
+			<li><%=link_to t.name, instance_tag_path(@instance, t), :class=>'title' %>
+			&mdash; <%=t.updates.size%> updates, <%=t.groups.size%> groups
+			<% if t.destroyable? %> 
+			<span class="delete-tag">[<%=link_to 'X', instance_tag_path(@instance, t), :method => :delete, :confirm => 'Really delete tag?'%>]</span></li>
+			<% end %>
+		<% end %>
+		</ul>
+		<%= will_paginate @tags %>
+	</div>
+<% end %>

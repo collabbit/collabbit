@@ -1,0 +1,25 @@
+adam: 
+  id:                        5
+  first_name:                Adam
+  last_name:                 Sandler
+  email:                     asandler@sandler.com
+  crypted_password:          8c74e51ec42d76a397e2d64275f677c1adc33819 #'blah'
+  salt:                      65009056c92984a5764f66eec5b075348d2871c9
+  activation_code:           123
+  activated_at:              <%= 5.days.ago.to_s :db %>
+  created_at:                <%= 5.days.ago.to_s :db %>
+  instance:                  first
+  state:                     active
+
+james: 
+  id:                        6
+  first_name:                James
+  last_name:                 Gordon
+  email:                     gordonj@jgordon.com
+  crypted_password:          8c74e51ec42d76a397e2d64275f677c1adc33819 #'blah'
+  salt:                      65009056c92984a5764f66eec5b075348d2871c9
+  activation_code:           124
+  activated_at:              <%= 3.days.ago.to_s :db %>
+  created_at:                <%= 4.days.ago.to_s :db %>
+  instance:                  second
+  state:                     active

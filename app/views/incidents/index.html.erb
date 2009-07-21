@@ -1,0 +1,27 @@
+<%
+# View which displays a list of all the incidents under an instance,
+# specified by @instance.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Incidents', @instance.short_name)%>
+
+<% content_for :body do%>
+<%= flashes %>
+<%=pretty_button_if Incident.creatable?, :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
+	<div id="wrap">
+		<h1>Latest Incidents <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>		
+		<ul id="incidents-list" class="listy">
+		<% (@incidents.sort {|a,b| a.created_at <=> b.created_at}).each do |i| %>
+			<li><%= link_to i.name, instance_incident_url(@instance, i), :class=>:title %> 
+				&ndash; <%=h i.description%>
+				<span class="tiny">(<%=mdy i.created_at%>)</span>
+			</li>
+		<% end %>
+		</ul>
+	</div>
+<% end %>

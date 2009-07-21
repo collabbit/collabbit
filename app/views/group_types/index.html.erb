@@ -1,0 +1,27 @@
+<%
+# View which displays a list of all the group_types under an instance,
+# specified by @instance.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Group Types', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%=pretty_button_if GroupType.creatable?, :new_group_type, new_instance_group_type_url(@instance), 'New Group Type' -%>
+	<%= flashes %>
+	<div id="wrap">
+		<h1>Group Types <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
+		<ul id="group-type-list" class="listy">
+		<% @group_types.each do |gt| %>
+			<li>
+				<%= link_to gt.name, instance_group_type_url(@instance, gt), :class=>:title %>
+				&mdash; <%= gt.groups.size%> groups
+			</li>
+		<% end %>
+		</ul>
+	</div>
+<% end %>

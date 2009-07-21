@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title><%= yield :title or title %></title>
+		<%= stylesheet_link_tag 'sitewide' %>
+		<%= stylesheet_link_tag controller_name %>
+		<%= yield :styles %>
+		<%= yield :javascripts %>
+	</head>
+	<body>
+		<div id="header">
+			<div id="header-wrapper">
+				<div id="branding">
+					<%= yield :branding or render :partial => 'shared/branding' -%>
+				</div>
+				<% # If there's content_for :menu, do that. Then, if there's _menu.html.erb, do that. Finally, do the shared menu. %>
+				<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
+			</div>
+			<div id="submenu"><%= yield :submenu or render :partial => 'submenu' rescue nil %></div>
+		</div>
+		<div id="content">
+			<%= yield :body or yield %>
+		</div>
+		<div id="footer">
+			&copy; 2009 HFOSS &middot; <%= 'Terms of Use' %> &middot; <%= 'Privacy'%>
+		</div>
+	</body>
+</html>

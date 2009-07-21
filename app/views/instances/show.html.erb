@@ -1,0 +1,51 @@
+<%
+# View which displays a single instance's information.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title(@instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_button_if @instance.updatable?, :edit_instance, {:action => "edit", :id => @instance}, 'Edit Instance Settings' %>
+	<%= flashes -%>
+	<div id="wrap">
+		<h1>Overview <span class="subtitle">&laquo; <%= @instance.long_name %></span></h1>
+		<% unless @instance.incidents.empty? %>
+			<div id="latest-incidents">
+				<h2>Latest Incidents</h2>
+				<ul>
+				<% @incidents.each do |i| %>
+					<% if i.created_at > 2.months.ago %>
+						<li>
+							<%= link_to i.name, instance_incident_url(@instance, i) %> 
+							<span class="tiny">(<%=mdy i.created_at%>)</span>							
+						</li>
+					<% end %>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+		<% unless @instance.users.empty? %>
+			<div id="latest-users">
+				<h2>Newest Users</h2>
+				<ul>
+				<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10).each do |u| %>
+					<li><%= link_to u.full_name, instance_user_url(@instance, u) %> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+		<div id="latest-updates">
+			<h2>Latest Updates</h2>
+			<ul>
+			<% (@instance.updates.sort {|a,b| b.created_at <=> a.created_at}).slice(0,10).each do|u| -%>
+				<li><%=link_to u.title, instance_incident_update_path(@instance, u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
+			<% end %>	
+			</ul>
+		</div>
+	</div>
+<% end %>

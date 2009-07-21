@@ -1,0 +1,25 @@
+<%
+# View which displays a form for editing an incident.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Edit incident', @incident.name, 'Incidents', @instance.short_name)%>
+
+<% content_for :body do %>
+<%= flashes %>
+	<h1>Edit incident: <%=@incident.name%></h1>
+	<%= error_messages_for :incident %>
+	<% form_for [@instance, @incident] do |f| -%>
+		<p><%= label_tag 'name' %><br/>
+		<%= f.text_field :name %></p>
+	
+		<p><%= label_tag 'description' %><br/>
+		<%= f.text_field :description %></p>
+		
+		<p><%= submit_tag 'Save' %></p>
+	<% end -%>
+<% end %>

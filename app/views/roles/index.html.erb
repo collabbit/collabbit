@@ -1,0 +1,22 @@
+<%
+# View which displays a list of all the roles under an instance,
+# specified by @instance.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Roles', @instance.short_name)%>
+
+<% content_for :body do%>
+<%= flashes %>
+
+	<h1>List of roles for <%=@instance.long_name%></h1>
+	<ul>
+	<% @roles.each do |r| %>
+		<li><%= link_to r.name, instance_role_url(@instance, r) %></li>
+	<% end %>
+	</ul>
+<% end %>

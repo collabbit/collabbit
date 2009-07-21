@@ -1,0 +1,125 @@
+.chair{
+	font-size: .7em;
+	color: #999	
+}
+
+#index{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+	#index li{
+		display: inline;
+		margin: 0;
+		padding: 4px;
+	}
+		#index li a{
+			color: #666
+		}
+#contacts{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+	#contacts > li{
+		width: 290px;
+		height: 110px;
+		float:left;
+		margin: 8px;
+		padding: 0 5px;
+		border-right: 1px solid #666;
+		border-bottom: 1px solid #666;
+		border-left: 1px solid #ccc;
+		border-top: 1px solid #ccc;
+	}
+		#contacts > li:hover{
+			border-color: #000;
+		}
+			#contacts > li.separator{
+				width: auto;
+				font-weight: bold;
+				border: solid;
+				border-color: #ccc;
+				border-width: 1px 1px 1px 0;
+				color: #666;
+				clear:left;
+				height: auto;
+				background: #eee;
+				margin: 8px 0;
+			}
+
+		#contacts li ul.groups{
+			list-style-type: none;
+			margin:0;
+			padding: 0;
+		}
+			#contacts li ul.groups li{
+				margin: 0 1px;
+				display: inline;
+			}
+				#contacts li ul.groups li a{
+					color: #666;
+					font-size: 13px;
+				}
+					#contacts li ul.groups li a:hover{
+						color: #000;
+					}
+		#contacts a{
+			color: #000;
+		}
+		
+		#contacts .name{
+			border-bottom: 1px solid #ccc;
+			font-weight: bold;
+		}	
+		
+		#contacts .email a{
+			color: #00a;
+			text-decoration: none;
+		}
+		.person-info{
+			clear:both;
+		}
+		.phone, .email{display: block}
+		.groups{display:inline}
+		.contact-label{
+			color: #aaa;
+			font-size: 13px;
+		}
+		
+#filters{
+	float:right;
+	margin: 0;
+	padding: 8px 4px 4px 4px;
+	color: #333;
+	border: solid #ccc;
+	border-width: 0 0 1px 1px;
+}
+	#filters h3{
+		display:inline;
+		font-size: 16px;
+	}
+	#search{
+		border: 1px solid #ccc;
+		padding: 2px;
+	}
+		.blank{
+			color: #999;
+		}
+		
+.edit-user-button{
+	float: right;
+	background: #009;
+	border-top: none;
+	margin-right: 10px;
+}
+	.edit-user-button:hover{
+		background: #006;
+	}
+	
+/* SHOW */
+#contact-info-list{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}

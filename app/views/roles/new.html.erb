@@ -1,0 +1,24 @@
+<%
+# View which displays a form for creating a role.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Create a role', 'Roles', @instance.short_name)%>
+
+<% content_for :body do %>
+<%= flashes %>
+
+	<h1>Create a role</h1>
+
+	<%= error_messages_for :role %>
+	<% form_for [@instance, @role] do |f| -%>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+		<p><%= f.submit 'Create' %></p>
+	<% end %>
+<% end %>

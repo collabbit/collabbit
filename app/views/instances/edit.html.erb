@@ -1,0 +1,56 @@
+<%
+# View which displays a form for editing an instance.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Edit', @instance.short_name) %>
+
+<% content_for :body do%>
+	<%= flashes %>
+	<div id="wrap">
+		<h1>Edit instance: <%=@instance.short_name%></h1>
+		
+		<%= error_messages_for :instance %>
+		<% form_for @instance do |f| -%>
+			<p><%= f.label :long_name, 'Name' %><br/>
+			<%= f.text_field :long_name %></p>
+		
+			<table border="1">
+				<thead>
+					<tr>
+						<th colspan="2">Permissions</th>
+						<% @roles.each do |r| %>
+							<th><%= link_to r.name, instance_role_url(@instance, r) %></th>
+						<% end %>
+					</tr>
+				</thead>
+				<tbody>
+					<% @perms_hash.each_pair do |model, actions| %> 
+						<tr>
+							<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
+							<td><%= actions[0] %></td>
+							<% @roles.each do |r| %>
+								<td><%= permission_checkbox r, actions[0], model %></td>
+							<% end %>
+							</tr>
+							<% actions[1..actions.length].each do |a|%>
+								<tr><td><%= a %></td> 
+								<% @roles.each do |r| %>
+									<td><%= permission_checkbox r, a, model %></td>
+								<% end %>
+								</tr>
+							<% end %>
+							<% count = 0 %>
+							<% permissions = []%>
+					<% end %> 
+				</tbody>
+			</table>
+		
+			<p><%= submit_tag 'Save' %></p>
+		<% end -%>
+	</div>
+<% end %>

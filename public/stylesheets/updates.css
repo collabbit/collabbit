@@ -1,0 +1,110 @@
+#incident-description{
+	color: #777;
+	font-size: 16px;	
+}
+
+.button-link{
+	float: right;
+	border-top: none;
+	margin-right: 10px;	
+}
+
+.edit-incident-button{
+	background: #006;
+}
+	.edit-incident-button:hover{
+		background: #009;
+	}
+	
+.delete-incident-button{
+	background: #600;
+}
+	.delete-incident-button:hover{
+		background: #900;
+	}
+	
+.add-update-button{
+	background: #060;
+}
+	.add-update-button:hover{
+		background: #090;
+	}
+	
+	
+#updates-list{
+	list-style-type: none;
+	margin: 20px 0;
+	padding: 0;
+}
+	#updates-list > li{
+		padding: 0 0 10px 0;
+		margin: 20px 0 0 0;
+		border-bottom: 1px solid #ddd;
+	}
+		#updates-list li a.update-title{
+			color: #009;
+			font-weight: bold;
+			
+		}
+			.update-title:hover{
+				text-decoration: none;
+			}
+		.update-meta{
+			font-size: 14px;
+			color: #777;
+		}
+		.update-meta a{
+			color: #777;
+		}
+		.update-text{
+			width: 600px;
+			margin: 9px 0;
+		}
+		
+		.relevant-groups, .tags{
+			font-size: 13px;
+			color: #777;
+		}
+			.relevant-groups ul, .tags ul{
+				list-style-type: none;
+				display: inline;
+				padding: 0;
+				margin:0;
+			}
+				.relevant-groups ul li, .tags ul li{
+					display: inline;
+					padding: 0;
+					margin: 0 2px;
+				}
+					.relevant-groups ul li a, .tags ul li a{
+						color: #777;
+					}
+
+.edit-update-button{
+	float: right;
+	background: #006;
+	border-top: none;
+	margin-right: 10px;
+}
+	.edit-update-button:hover{
+		background: #009;
+	}
+.delete-update-button{
+	float: right;
+	background: #600;
+	border-top: none;
+	margin-right: 10px;
+}
+	.delete-update-button:hover{
+		background: #900;
+	}
+/* #new */
+
+/* #show */
+#relevant-groups, #tags{
+	color: #999;
+}
+	#relevant-groups ul, #tags ul{
+		color: #000;
+		display: inline;
+	}

@@ -1,0 +1,24 @@
+<%
+# View which displays a single group's information.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title(@group.name, 'Groups', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_button_if(@group.updatable?, :edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+	<h1>Page for <%=@group.name%> Group [<%= link_to @group.group_type.name, instance_group_type_url(@instance, @group.group_type)%>]</h1>
+	<%= flashes %>
+	<% unless @group.users.empty? %>
+		<h2>Group users:</h2>
+		<ul>
+			<% @group.users.each do |u| %>
+				<li><%= link_to u.full_name, instance_user_url(@instance, u) %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<% end %>

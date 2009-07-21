@@ -1,0 +1,51 @@
+<%
+# View which displays a form for editing a user's data.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title ('Edit user', @user.full_name, 'Contacts', @instance.short_name)%>
+
+<% content_for :body do%>
+
+<%= flashes %>
+
+	<h1>Edit your account: <%= @user.full_name%></h1>
+	<% @user.password = @user.password_confirmation = nil %>
+	
+	<%= error_messages_for :user %>
+	<% form_for [@instance, @user] do |f| -%>
+		<p><%= label_tag 'email' %><br/>
+		<%= f.text_field :email %></p>
+		
+		<p><%= label_tag 'desk_phone' %><br/>
+		<%= f.text_field :desk_phone %></p>
+		
+		<p><%= label_tag 'Extension' %><br/>
+		<%= f.text_field :desk_phone_ext %></p>
+		
+		<p><%= label_tag 'cell_phone' %><br/>
+		<%= f.text_field :cell_phone %></p>
+		
+		<p>Preferred:</p>
+		<%= f.radio_button(:preferred_is_cell, true) + f.label("Cell Phone") %>
+		<%= f.radio_button(:preferred_is_cell, false) + f.label("Desk phone") %>
+		
+		<p><%= label_tag 'carrier' %>
+		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
+
+		<p><%= f.check_box(:wants_alerts)%>
+		<%= label_tag 'wants_alerts' %></p>
+	
+		<p><%= label_tag 'password' %><br/>
+		<%= f.password_field :password %></p>
+	
+		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+		<%= f.password_field :password_confirmation %></p>
+	
+		<p><%= submit_tag 'Save' %></p>
+	<% end -%>
+<% end %>

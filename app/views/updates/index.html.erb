@@ -1,0 +1,64 @@
+<%
+# View which displays the list of updates in an incident'.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title ('Updates', @incident.name, 'Incidents', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_button_if(@incident.destroyable?, :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
+	<%= pretty_button_if(@incident.updatable?, :edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
+	<%= pretty_button_if((Update.creatable? and @instance.viewable?), :add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
+	
+<%= flashes %>
+
+	<div id="wrap">
+		<h1 id="incident-name">
+			<%= @incident.name%>
+			<span id="incident-description"><%= @incident.description%></span>
+		</h1>
+		<div id="view-options">
+			Filters, search, concise vs detailed, etc.
+		</div>
+		<% unless @incident.updates.empty? %>
+			<ul id="updates-list">
+			<% @updates.each do |u| %>
+				<li>
+					<%= link_to u.title, instance_incident_update_url(@instance, @incident, u), :class => 'update-title' %>
+					<span class="update-meta">by <%= issuer_link(u)%> on <%= time_mdy u.created_at%></span>
+					<p class="update-text">
+						<%=h u.text %>
+					</p>
+				<% unless u.relevant_groups.empty? %>
+					<div class="relevant-groups">
+						<em>Relevant Groups:</em>
+						<ul>
+						<% u.relevant_groups.each do |g| %>
+							<li><%=link_to g.name, instance_group_type_group_path(@instance, g.group_type, g) %></li>		
+						<% end %>	
+						</ul>
+					</div>
+				<% end 
+				   unless u.tags.empty? %>
+					<div class="tags">
+						<em>Tags:</em>
+						<ul>
+						<% u.tags.each do |t| %>
+							<li><%=link_to t.name, instance_tag_path(@instance, t) %></li>
+						<% end %>
+						</ul>
+					</div>
+				<% end %>
+				</li>
+			<% end %>
+			</ul>
+		<% else %>
+			<h3>There have not been any updates yet. To post one, <%=link_to 'go here', new_instance_incident_update_path(@instance, @incident)%>.</h3>
+		<% end %>
+		<%= will_paginate @updates %>
+	</div>
+<% end %>

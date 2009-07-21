@@ -1,0 +1,45 @@
+<%
+# View which displays a specified tag.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title(@tag.name, 'Tags', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_button_if(@tag.destroyable?, :delete_tag, instance_tag_path(@instance, @tag), 'Delete Tag', :method => :delete, :confirm => 'Do you really want to delete?') %>
+	
+	<%= flashes %>
+	<div id="wrap">
+		<h1><%=h @tag.name%> <span class="tiny">&laquo; tag</span></h1>
+		<% unless @tag.groups.empty? %>
+			<div id="groups-tagged">
+				<h2>Groups Tagged</h2>
+				<ul class="listy">
+				<% @tag.groups.each do |g|%>
+					<li>
+						<%=link_to g.name, instance_group_types_group_path(@instance, g.group_type, g), :class => 'title'%>
+						(<%=easy_link_to g.group_type.name, g.group_type%>)
+					</li>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+		<% unless @tag.updates.empty? %>
+			<div id="updates-tagged">
+				<h2>Updates Tagged</h2>
+				<ul class="listy">
+				<% @tag.updates.each do |u|%>
+					<li>
+						<%=easy_link_to u.title, u, :class => 'title'%>
+						by <%=link_to_issuer u.issuer%> from <%=easy_link_to u.incident.name, u.incident %> on <%=mdy u.created_at%>.
+					</li>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+	</div>
+<% end %>

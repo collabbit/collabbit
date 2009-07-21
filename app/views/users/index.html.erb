@@ -1,0 +1,89 @@
+<%
+# View which displays a list of all the users under an instance,
+# specified by @instance.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Contacts', @instance.short_name)%>
+<% content_for :javascripts, javascript_include_tag('jquery','users')%>
+<% content_for :body do %>
+
+<%= flashes %>
+	<div id="filters">
+		<% form_tag instance_users_path(@instance), :method => :get, :id => 'filter-bar' do %>
+			<h3>Filters</h3>
+			<%= select(:filters, 'groups][id', @instance.groups.map{|g| [g.name, g.id]},
+					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
+			<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 12, :class=>'blank' %>
+			<%= submit_tag "Go", :name => nil %>
+		<% end %>
+	</div>	
+	<!-- A through Z clickable letters for easy navigation through the contacts -->
+	<div id="wrap">
+		<% if @search or @group_filter %>
+			<h1>
+				<%="Results for #{h @search}" if @search %>
+				<%=' in ' if @search and @group_filter %>
+				<%="#{h @group_filter.name} " if @group_filter%>
+				<span class="tiny">&laquo; Contacts</span></h1>
+		<% else %>
+			<h1>Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
+		<% end %>
+		<ul id="index">
+			<li><em>Jump to last name:</em></li>
+		<% ('A'..'Z').each do |l| %>
+			<li><a href="#<%=l%>"><%=l%></a></li>	
+		<% end %>
+		</ul>
+	</div>
+		<!-- List of users with their associated information (e-mail, groups, phone, etc) -->
+		<ul id="contacts">
+		<% 	last = ''
+			@users.each do |u|
+				if u.last_name[0,1] != last
+					last = u.last_name[0,1]
+				%>
+					<li class="separator" id="<%=last%>"><%=last%></li>
+				<% end %>
+			<li>
+				<div class="name"><%= u.last_first %></div>
+				<div class="person-info">
+					<% if u.cell_phone %>
+						<span class="phone">
+							<span class="contact-label">cell phone:</span>
+							<%=phone u.cell_phone %> <%= preferred if u.preferred_is_cell and u.desk_phone%>
+						</span>
+					<% end %>
+					<% if u.desk_phone %>
+						<span class="phone">
+							<span class="contact-label">desk phone:</span>
+							<%=phone u.desk_phone_with_ext %> <%= preferred if !u.preferred_is_cell and u.cell_phone%>
+						</span>
+					<% end %>
+					<% if u.email %>
+						<span class="email">
+							<span class="contact-label">email:</span>
+							<%=mail_to u.email %>
+						</span>
+					<% end %>
+					<% if u.groups and u.groups.length > 0 %>
+						<div class="groups-container">
+							<span class="contact-label">groups:</span>
+							<ul class="groups">
+							<% u.groups.each do |g| %>
+								<li><%= link_to g.name, instance_group_type_group_path(@instance,g.group_type,g) %></li>
+							<% end %>
+							</ul>
+						</div>
+					<% end %>
+				</div>
+			</li>
+		<% end %>
+		</ul>
+		<div style="clear:both"></div>
+		<%= will_paginate @users %>
+<% end %>

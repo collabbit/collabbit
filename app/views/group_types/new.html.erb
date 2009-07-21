@@ -1,0 +1,24 @@
+<%
+# View which displays a form for creating a group type.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Create a group type', 'Group Types', @instance.short_name)%>
+
+<% content_for :body do %>
+	<h1>Create a group type</h1>
+
+	<%= error_messages_for :group_type %>
+	<% form_for [@instance, @group_type] do |f| -%>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+		<%= collection_select(:group_type, :instance_id, Instance.all, :id, :long_name) %> 
+
+		<p><%= f.submit 'Create' %></p>
+	<% end %>
+<% end %>

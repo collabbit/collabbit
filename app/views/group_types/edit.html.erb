@@ -1,0 +1,21 @@
+<%
+# View which displays a form for editing a group type.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Edit group type', @group_type.name, 'Group Types', @instance.short_name)%>
+
+<% content_for :body do %>
+	<h1>Edit group type: <%=@group_type.name%></h1>
+	<%= error_messages_for :group_type %>
+	<% form_for [@instance, @group_type] do |f| -%>
+		<p><%= label_tag 'name' %><br/>
+		<%= f.text_field :name %></p>
+		
+		<p><%= submit_tag 'Save' %></p>
+	<% end -%>
+<% end %>

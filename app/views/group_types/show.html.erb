@@ -1,0 +1,26 @@
+<%
+# View which displays a single group type's information.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title(@group_type.name, 'Group Types', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%= pretty_delete_button @group_type %>
+	<%= pretty_button_if(@group_type.updatable?, :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type') %>
+	<%= pretty_button_if Group.creatable?, :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
+	<%= flashes %>
+	<h1>Page for group type: <%=@group_type.name%></h1>
+	<% unless @group_type.groups.empty? %>
+		<h2>Groups:</h2>
+		<ul>
+		<% @group_type.groups.each do |g| %>
+			<li><%= link_to g.name, instance_group_type_group_url(@instance, @group_type, g)%></li>
+		<% end %>
+		</ul>
+	<% end %>
+<% end %>

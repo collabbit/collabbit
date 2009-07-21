@@ -1,0 +1,49 @@
+<%
+# View which displays a form for editing an update.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title ('Edit update', @update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
+
+<% content_for :body do %>
+<%= flashes %>
+
+	<h1>Edit update: <%=@update.title%></h1>
+
+	<%= error_messages_for :update %>
+	<% form_for [@instance, @incident, @update] do |f| -%>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+		<p>
+		<%= f.label :text %>
+		<%= f.text_area :text %>
+		</p>
+		<% unless User.current.groups.empty? %>
+			<p>Issuer: 
+			<%= f.radio_button(:issuer , 'myself', :checked => @update.issuer == 'myself') + f.label(:issuer_myself, 'Myself')%>
+			<% User.current.groups.each do |g| %>
+				<%= f.radio_button(:issuer, g.id,:checked => @update.issuer == g) + f.label("issuer_#{g.id}".to_sym, g.name) %>
+			<% end %>
+			</p>
+		<% else %> 
+			<%= hidden_field_tag('update[issuer]' , 'myself')%>
+		<% end %>
+		<h2>Relevant Groups:</h2>
+		<% @instance.groups.each do |g| %>
+			<%= check_box_tag("relevant_groups[#{g.id}]", 1, @update.relevant_groups.include?(g) ) + label_tag("relevant_groups[#{g.id}]", g.name) %>
+		<% end %>
+		<h3>Tags:</h3>
+		<% @instance.tags.each do |t| %>
+			<%= check_box_tag("tags[#{t.id}]", 1, @update.tags.include?(t)) + label_tag("tags[#{t.id}]", t.name) %>
+		<% end %>
+		<p>
+		<%= f.label :additional_tags %>
+		<%= f.text_field :additional_tags %>
+		</p>
+		<p><%= f.submit 'Save' %></p>
+	<% end %>
+<% end %>

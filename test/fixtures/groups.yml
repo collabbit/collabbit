@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+group1:
+  name: Some group
+  group_type: grouptype1
+
+group2:
+  name: Another group
+  group_type: grouptype1 

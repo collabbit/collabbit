@@ -1,0 +1,30 @@
+.new-group-button{
+	float: right;
+	background: #090;
+	border-top: none;
+	margin-right: 10px;
+}
+	.new-group-button:hover{
+		background: #060;
+	}
+
+.edit-group-type-button{
+	float: right;
+	background: #009;
+	border-top: none;
+	margin-right: 10px;
+}
+	.edit-group-type-button:hover{
+		background: #006;
+	}
+	
+.new-group-type-button{
+	float: right;
+	background: #060;
+	border-top: none;
+	margin-right: 10px;
+}
+	.new-group-type-button:hover{
+		background: #090;
+	}
+	

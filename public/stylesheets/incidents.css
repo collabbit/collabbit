@@ -1,0 +1,9 @@
+.new-incident-button{
+	float: right;
+	background: #060;
+	border-top: none;
+	margin-right: 10px;
+}
+	.new-incident-button:hover{
+		background: #090;
+	}

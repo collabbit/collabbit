@@ -1,0 +1,10 @@
+#Default Carriers
+Carrier.create_or_update(:id => 1, :name => 'AT&T', :format => '@txt.att.net')
+Carrier.create_or_update(:id => 2, :name => 'Boost', :format => '@myboostmobile.com')
+Carrier.create_or_update(:id => 3, :name => 'Cricket', :format => '@sms.mycricket.com')
+Carrier.create_or_update(:id => 4, :name => 'Nextel', :format => '@messaging.nextel.com')
+Carrier.create_or_update(:id => 5, :name => 'T-Mobile', :format => '@tmomail.net')
+Carrier.create_or_update(:id => 6, :name => 'Virgin Mobile', :format => '@vmobl.com')
+Carrier.create_or_update(:id => 7, :name => 'Verizon', :format => '@vtext.com')
+Carrier.create_or_update(:id => 8, :name => 'Sprint', :format => '@messaging.sprintpcs.com')
+Carrier.create_or_update(:id => 9, :name => 'Alltel Wireless', :format => '@message.alltel.com')

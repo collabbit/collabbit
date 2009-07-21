@@ -1,0 +1,23 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: 
+  username: 
+  password: 
+  host: 
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: 
+  username: 
+  password: 
+  host: 
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: 
+  username: 
+  password: 
+  host: 

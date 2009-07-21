@@ -1,0 +1,25 @@
+<%
+# View which displays a list of all the instances in the database.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('List of Instances')%>
+
+<% content_for :body do %>
+<%= flashes %>
+
+	<h1>List of instances</h1>
+	<ul>
+	<% @instances.each do |i| %>
+		<li><%= link_to i.long_name, i %><ul>
+			<% i.incidents.each do |incid| %>
+				<li><%= link_to incid.name, instance_incident_url(i, incid) %></li>
+			<% end %>
+		</ul></li>
+	<% end %>
+	</ul>
+<% end %>

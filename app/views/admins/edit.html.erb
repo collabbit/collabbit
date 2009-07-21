@@ -1,0 +1,29 @@
+<%
+# View which displays a form for editing an admin.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Edit an admin', @instance.short_name)%>
+
+<% content_for :branding, '' %>
+
+<% content_for :body do %>
+	<h1>Edit admin: <%= @admin.email %></h1>
+	<% @admin.password = @admin.password_confirmation = nil %>
+	
+	<%= error_messages_for :admin %>
+	<% form_for [@admin] do |f| -%>
+	
+		<p><%= label_tag 'password' %><br/>
+		<%= f.password_field :password %></p>
+	
+		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+		<%= f.password_field :password_confirmation %></p>
+	
+		<p><%= submit_tag 'Save' %></p>
+	<% end %>
+<% end %>

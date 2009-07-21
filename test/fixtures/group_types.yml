@@ -1,0 +1,14 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+grouptype1:
+  name: Agency
+  instance: first
+
+grouptype2:
+  name: Agency
+  instance: second
+  
+grouptype3:
+  name: Committee
+  instance: first
+

@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+hurricane:
+  name: Hurricane Bertha
+  description: There was a hurricane somewhere!
+  instance: first
+
+earthquake:
+  name: Earthquake Sandy
+  description: There was an earthquake somewhere!
+  instance: first
+
+storm:
+  name: Coastal Storm Maria
+  description: There was a coastal storm somewhere!
+  instance: second
+
+tornado:
+  name: Tornado Gomez
+  description: There was a tornado which destroyed several houses somewhere!
+  instance: second

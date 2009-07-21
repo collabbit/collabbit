@@ -1,0 +1,23 @@
+<%
+# View which displays a form for editing a role.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Edit role', @role.name, 'Roles', @instance.short_name)%>
+
+<% content_for :body do%>
+<%= flashes %>
+
+	<h1>Edit role:</h1>
+	<%= error_messages_for :role %>
+	<% form_for [@instance, @role] do |f| -%>
+		<p><%= label_tag 'name' %><br/>
+		<%= f.text_field :name %></p>
+		
+		<p><%= submit_tag 'Save' %></p>
+	<% end -%>
+<% end %>

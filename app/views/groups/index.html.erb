@@ -1,0 +1,33 @@
+<%
+# View which displays a list of all the groups under an instance,
+# specified by @instance.  
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Groups', @instance.short_name)%>
+
+<% content_for :body do %>
+	<%=pretty_button_if(@group_type.updatable?, :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type') %>
+	<%=pretty_button_if Group.creatable?, :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
+	<%= flashes %>
+	<div id="wrap">
+		<h1><%=@group_type.name.pluralize%> <span class="subtitle">&laquo; Group Type</span></h1>
+		<ul id="groups-list" class="listy">
+		<% @group_type.groups.each do |g| %>
+			<li>
+				<%= link_to g.name, instance_group_type_group_url(@instance, g.group_type, g) %>
+				&ndash; <%= g.users.size %> members.
+				<% unless g.chairs.empty? %>
+					Chairs: 
+					<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
+				<% end %>
+				</span>
+			</li>
+		<% end %>
+		</ul>
+	</div>
+<% end %>

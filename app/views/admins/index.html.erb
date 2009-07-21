@@ -1,0 +1,31 @@
+<%
+# View which displays a list of all the admins.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title('Admins', @instance.short_name)%>
+
+<% content_for :branding, ''%>
+
+<% content_for :body do %>
+	<div id="wrap">
+		<h1>Admins</h1>
+		<ul id="index">
+		<% ('A'..'Z').each do |l| %>
+			<li><a href="#<%=l%>"><%=l%></a></li>	
+		<% end %>
+		</ul>
+		<ul id="contacts">
+		<% @admins.each do |a| %>
+			<li>
+				<div class="name"><%=link_to a.email, admin_url(a) %></div>
+			</li>
+		<% end %>
+		</ul>
+		<div style="clear:both"></div>
+	</div>
+<% end %>

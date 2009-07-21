@@ -1,0 +1,22 @@
+#wrap{
+	padding-top: 0px;	
+}
+
+.button-link{
+	float: right;
+	border-top: none;
+	margin-right: 10px;	
+}
+
+.delete-tag-button{
+	background: #600;
+}
+	.delete-tag-button:hover{
+		background: #900;
+	}
+	
+#groups-tagged h2, #updates-tagged h2{
+	font-size: 18px;
+	color: #777;
+	margin-bottom: 5px;
+}
