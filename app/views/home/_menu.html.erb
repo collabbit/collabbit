@@ -1,3 +1,7 @@
-<% if @user and @user.roles.contains?(Roles.admin) %>
-	blah
-<% end %>
+<ul id="menu">
+	<li><%=menu_item('Overview', '/', action_name == 'index') %></li>
+	<li><%=menu_item('Hosted Plans', '/plans', action_name == 'plans') %></li>
+	<li><%=menu_item('Download', '/download', action_name == 'download') %></li>
+	<li><%=menu_item('Community', '/community', action_name == 'community') %></li>
+	<li><%=menu_item('Support', '/support', action_name == 'support') %></li>
+</ul>

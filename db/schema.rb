@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20090713200746) do
   end
 
   create_table "instances", :force => true do |t|
-    t.string   "short_name"
+    t.string   "short_name", :limit => 16
     t.string   "long_name"
     t.datetime "created_at"
     t.datetime "updated_at"

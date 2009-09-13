@@ -5,29 +5,14 @@
 
 class HomeController < ApplicationController
   
-  before_filter :foo
-  
-  def foo
-    logger.info '^'*100
-    logger.info action_name
-    logger.info controller_name
-    logger.info params.inspect
-    return true
-  end
+  skip_before_filter :login, :require_login
+
   
   def index
   end
   
   def show
-    while true
-      puts 'foo'
-    end
-    logger.info '#'*100
-    render params[:page]
-  end
-  
-  def terms
-    
+    render :action => params[:page]
   end
   
 end

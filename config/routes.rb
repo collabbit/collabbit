@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.root :controller => 'home'
-  map.home '/:page', :controller => 'home', :action => :show
+  map.home '/:page', :controller => 'home', :action => 'show'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
