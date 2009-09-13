@@ -19,7 +19,7 @@ class Group < ActiveRecord::Base
   
   validates_presence_of :name
   validates_associated  :group_type
-  validates_uniqueness_of :name, :scope => :group_type
+  validates_uniqueness_of :name, :scope => :group_type_id
 
   # Checks if a specified user has permission to update a group; 
   # If he is the chair, he will have permission.
