@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :session
   end
   
-  map.resources :instances do |instance|
+  map.resources :instances, :as => 'for' do |instance|
     instance.resources :incidents do |incident|
       incident.resources :updates do |update|
         update.attachment 'attachments/:id', :controller => 'attachments', :action => 'show'
