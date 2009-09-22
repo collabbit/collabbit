@@ -1,3 +1,34 @@
-body {
-	
+h1,h2,h3 {
+	margin: 0;
+	padding: 0;
 }
+body {
+}
+	#content {
+		padding: 20px 40px;
+		color: #333;
+		line-height: 1.5em;
+	}
+		h2 {
+			margin: 10px 0 20px;
+		}
+		p {
+			margin-bottom: 30px;
+		}
+		ol {
+			padding: 0;
+		}
+			ol li {
+				margin-bottom: 30px;
+			}
+				h3 {
+					font-size: 1em;
+					margin-bottom: 4px;
+				}
+				ul {
+					margin-top: 15px;
+				}
+					ul li {
+						margin-bottom: 10px;
+						padding-left:
+					}
