@@ -90,7 +90,7 @@ module ApplicationHelper
   end
   
   def easy_path_to(target)
-    fmt = PATH_FORMATS[loc.class.name]
+    fmt = PATH_FORMATS[target.class.name]
     fun = (fmt.reverse.map {|p| p.to_s}).join('_')+"_path"
     args = []
     fmt.each do |p|

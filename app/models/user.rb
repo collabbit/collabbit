@@ -36,7 +36,15 @@ class User < ActiveRecord::Base
   attr_accessible :first_name,    :last_name,       :email,
                   :desk_phone,    :cell_phone,      :preferred_is_cell,
                   :wants_alerts,  :desk_phone_ext,  :password,
-                  :password_confirmation
+                  :password_confirmation, :carrier, :carrier_id
+  
+  # Reencrypt passwords
+  def before_update
+    logger.info 'before_update callback'
+    logger.info self.inspect
+    self.crypted_password = generate_crypted_password(@password) if @password
+    logger.info self.inspect
+  end
   
   # Provides a user's full name for convenience
   def full_name
@@ -56,6 +64,14 @@ class User < ActiveRecord::Base
   # Returns the non-primary phone
   def nonprimary_phone
     (preferred_is_cell && desk_phone_with_ext) || (!preferred_is_cell && cell_phone) || nil
+  end
+  
+  def primary_phone_name
+    preferred_is_cell ? 'cell' : 'desk'  
+  end
+  
+  def nonprimary_phone_name
+    preferred_is_cell ? 'desk' : 'cell'
   end
   
   # Returns the desk phone with its extension
@@ -90,6 +106,24 @@ class User < ActiveRecord::Base
   # Combines the user's cell phone and their carrier into one string
   def text_email
     cell_phone+carrier.format
+  end
+  
+  def to_vcard
+    Vpim::Vcard::Maker.make2 do |maker|
+      maker.add_name do |name|
+        name.given = first_name
+        name.family = last_name
+      end
+      if primary_phone
+        maker.add_tel(primary_phone) do |t|
+          t.location = primary_phone_name
+          t.preferred = true
+        end
+      end
+      maker.add_tel(nonprimary_phone) {|t| t.location = nonprimary_phone_name} if nonprimary_phone
+      maker.add_email(email) if email
+    end
+    
   end
   
   ### Tokens ###

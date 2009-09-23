@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     instance.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
     instance.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgotpassword'
     instance.resetpassword 'resetpassword', :controller => 'users', :action => 'resetpassword'
+    instance.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
     instance.resources :users, :as => "contacts" do |u|
       u.resources :permissions
     end

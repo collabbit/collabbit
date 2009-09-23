@@ -31,6 +31,16 @@ class UsersController < ApplicationController
     @instance = Instance.find(params[:instance_id])
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.viewable? and @instance.viewable?
+    
+    respond_to do |f|
+      #f.html { render :action => :show}
+      f.vcf do
+        send_data @user.to_vcard.to_s,
+          :type => 'vcf',
+          :filename => "#{@user.full_name.gsub(' ', '-')}.vcf",
+          :disposition => 'inline'
+      end
+    end
   end
   
   def edit
@@ -106,6 +116,19 @@ class UsersController < ApplicationController
     return with_rejection unless @user.destroyable?
     @user.destroy
     redirect_to users_path
+  end
+  
+  def vcards
+    @instance = Instance.find(params[:instance_id])
+    @users = @instance.users.find(params[:users])
+    respond_to do |f|
+      f.vcf do
+        send_data (@users.map {|u| u.to_vcard.to_s}).join,
+          :type => 'vcf',
+          :filename => "#{@instance.short_name}-contacts.vcf",
+          :disposition => 'inline'
+      end
+    end
   end
   
   private

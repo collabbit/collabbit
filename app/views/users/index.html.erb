@@ -40,6 +40,7 @@
 		<% end %>
 		</ul>
 	</div>
+		<%= link_to 'All vCards', instance_vcards_path(@instance, 'contacts', :users =>@users) %>
 		<!-- List of users with their associated information (e-mail, groups, phone, etc) -->
 		<ul id="contacts">
 		<% 	last = ''
@@ -50,7 +51,7 @@
 					<li class="separator" id="<%=last%>"><%=last%></li>
 				<% end %>
 			<li>
-				<div class="name"><%= u.last_first %></div>
+				<div class="name"><%= u.last_first %> <%=link_to 'VCF', formatted_instance_user_path(@instance, u, :format => :vcf) -%></div>
 				<div class="person-info">
 					<% if u.cell_phone %>
 						<span class="phone">

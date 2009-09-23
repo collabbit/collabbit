@@ -7,7 +7,7 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 %>
 
-<% content_for :title, title ('Updates', @incident.name, 'Incidents', @instance.short_name)%>
+<% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
 
 <% content_for :body do %>
 	<%= pretty_button_if(@incident.destroyable?, :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
