@@ -35,6 +35,7 @@ class GroupsController < ApplicationController
   # Saves a group object to the database with the parameters provided in 
   # the :group hash, which is populated by the form on the 'new' page
   def create
+    flash = {}
     return with_rejection unless Group.creatable?
     
     @instance = Instance.find(params[:instance_id])
@@ -43,8 +44,9 @@ class GroupsController < ApplicationController
         
     if @group.save
       flash[:notice] = GROUP_CREATED
-      redirect_to instance_group_types_group_path(@instance, @group_type, @group)
+      redirect_to instance_group_type_group_path(@instance, @group_type, @group)
     else
+      flash[:error] = GROUP_CREATE_ERROR
       render :action => 'new'
     end
   end

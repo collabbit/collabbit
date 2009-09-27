@@ -36,3 +36,11 @@ INSTANCE_UPDATE_ERROR       = 'Instance failed to update. Please try again or co
 DEFAULT_ROLE_NAME           = 'Normal User'
 
 TAG_DESTROYED               = 'The tag was safely deleted.'
+
+PATH_FORMATS = {  Admin.name      => [:admin],
+                  GroupType.name  => [:group_type, :instance],
+                  Group.name      => [:group, :group_type, :instance],
+                  Incident.name   => [:incident, :instance],
+                  Tag.name        => [:tag, :instance],
+                  Update.name     => [:update, :incident, :instance],
+                  User.name       => [:user, :instance] }.freeze

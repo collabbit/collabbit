@@ -1,13 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
-  PATH_FORMATS = {  Admin.name      => [:admin],
-                    GroupType.name  => [:group_type, :instance],
-                    Group.name      => [:group, :group_type, :instance],
-                    Incident.name   => [:incident, :instance],
-                    Tag.name        => [:tag, :instance],
-                    Update.name     => [:update, :incident, :instance],
-                    User.name       => [:user, :instance] }.freeze
   
   def active(cond)
     ' class="active" ' if cond
