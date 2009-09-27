@@ -33,12 +33,11 @@ class UsersController < ApplicationController
     return with_rejection unless @user.viewable? and @instance.viewable?
     
     respond_to do |f|
-      #f.html { render :action => :show}
+      f.html { render :action => :show }
       f.vcf do
         send_data @user.to_vcard.to_s,
           :type => 'vcf',
-          :filename => "#{@user.full_name.gsub(' ', '-')}.vcf",
-          :disposition => 'inline'
+          :filename => "#{@user.full_name.gsub(' ', '-')}.vcf"
       end
     end
   end

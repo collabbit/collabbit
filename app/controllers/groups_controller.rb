@@ -63,6 +63,7 @@ class GroupsController < ApplicationController
       flash[:notice] = GROUP_UPDATED
       redirect_to instance_group_type_group_path(@instance, @group.group_type, @group)
     else
+      flash[:error] = GROUP_UPDATE_ERROR
       render :action => 'new'
     end
   end

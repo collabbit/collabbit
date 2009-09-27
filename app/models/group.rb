@@ -8,10 +8,10 @@ class Group < ActiveRecord::Base
     extend ActiveSupport::Memoizable
     
   belongs_to :group_type
-  has_many :memberships, :dependent => :destroy
+  has_many :memberships, :dependent => :destroy, :uniq => true
   has_many :users, :through => :memberships
   has_many :chairs, :class_name => 'User',
-    :through => :memberships, :source => :user, :conditions => 'is_chair = 1', :after_add => :chairize
+    :through => :memberships, :source => :user, :conditions => 'is_chair = 1', :before_add => :clear_user
   has_many :classifications, :dependent => :destroy
   has_many :updates, :through => :classifications
   has_many :group_taggings
@@ -32,15 +32,8 @@ class Group < ActiveRecord::Base
   end
   
   protected
-    def chairize(user)
-      m = memberships.find_all_by_user_id(user.id)
-      if m.size > 1
-        for x in 1..(m.size-1)
-          m[x].destroy
-        end
-      end
-      m[0].is_chair = true
-      m[0].save
+    def clear_user(user)
+      memberships.find_all_by_user_id(user.id).each {|m| m.destroy}
     end
     
 end

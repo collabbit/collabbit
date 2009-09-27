@@ -11,6 +11,10 @@ class Incident < ActiveRecord::Base
   validates_presence_of :description
   validates_length_of   :name, :within => 2..32
   
+  def closed?
+    closed_at != nil
+  end
+  
   def viewable?
     User.current.instance.viewable? || super
   end

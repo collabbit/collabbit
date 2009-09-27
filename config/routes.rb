@@ -35,6 +35,8 @@ ActionController::Routing::Routes.draw do |map|
     instance.resources :group_types do |gt|
       gt.resources :groups
     end
+    
+    instance.resources :memberships
   end
   
   map.root :controller => 'home'

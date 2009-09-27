@@ -25,7 +25,7 @@
 					Chairs: 
 					<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 				<% end %>
-				</span>
+				&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => User.current), :method => :post -%>
 			</li>
 		<% end %>
 		</ul>

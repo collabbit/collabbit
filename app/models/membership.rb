@@ -8,8 +8,10 @@ class Membership < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   
-  validates_associated :group
-  validates_associated :user
+  #validates_associated :group
+  #validates_associated :user
+  
+  validates_uniqueness_of :user_id, :scope => :group_id
 
   def viewable?
     self == User.current || super

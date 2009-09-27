@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :updates
   has_many :groups, :through => :memberships
   has_many :user_feeds, :class_name => "Feed", :dependent => :destroy
-  has_many :memberships, :dependent => :destroy
+  has_many :memberships, :dependent => :destroy, :uniq => true
 
   validates_presence_of     :first_name
   validates_presence_of     :last_name
