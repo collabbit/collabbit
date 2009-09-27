@@ -16,9 +16,6 @@
 	<% form_for [@instance, @group_type] do |f| -%>
 		<%= f.label :name %>
 		<%= f.text_field :name %>
-
-		<%= collection_select(:group_type, :instance_id, Instance.all, :id, :long_name) %> 
-
 		<p><%= f.submit 'Create' %></p>
 	<% end %>
 <% end %>
