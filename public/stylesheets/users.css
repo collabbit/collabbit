@@ -107,16 +107,28 @@
 			color: #999;
 		}
 		
-.edit-user-button{
+
+.button-link{
 	float: right;
-	background: #009;
 	border-top: none;
-	margin-right: 10px;
+	margin-right: 10px;	
+}
+
+.edit-user-button{
+	background: #006;
 }
 	.edit-user-button:hover{
-		background: #006;
+		background: #009;
 	}
 	
+.delete-user-button{
+	background: #600;
+}
+	.delete-user-button:hover{
+		background: #900;
+	}
+
+
 /* SHOW */
 #contact-info-list{
 	list-style-type: none;

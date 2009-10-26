@@ -35,9 +35,10 @@ class UsersController < ApplicationController
     respond_to do |f|
       f.html { render :action => :show }
       f.vcf do
-        send_data @user.to_vcard.to_s,
-          :type => 'vcf',
+        send_data @user.to_vcard.to_s, {
+	  :type => 'vcf',
           :filename => "#{@user.full_name.gsub(' ', '-')}.vcf"
+	}
       end
     end
   end
@@ -122,10 +123,11 @@ class UsersController < ApplicationController
     @users = @instance.users.find(params[:users])
     respond_to do |f|
       f.vcf do
-        send_data (@users.map {|u| u.to_vcard.to_s}).join,
+        send_data( (@users.map {|u| u.to_vcard.to_s}).join, {
           :type => 'vcf',
           :filename => "#{@instance.short_name}-contacts.vcf",
           :disposition => 'inline'
+	})
       end
     end
   end
