@@ -1,6 +1,8 @@
 <div id="wrap">
 	<%= flashes %>
-	<h1 id="login-title">Please log in to the <%=@instance.short_name%> collabbit</h1>
+	<% if flashes == '' %>
+		<h1 id="login-title">Please log in to the <%=@instance.short_name%> collabbit</h1>
+	<% end %>
 		
 	<% form_tag instance_session_path do -%>
 		<p><%= label_tag 'email' %><br />

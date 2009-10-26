@@ -57,7 +57,7 @@ module Auth
     # Redirects to the login path unless the user is logged in
     def require_login
       path = instance_login_path(Instance.find(params[:instance_id]||params[:id]))
-      notice = "Please sign in to proceed."
+      notice = "You must be logged in to view this page."
       notice_exit(path, notice) unless logged_in?
     end  
   
