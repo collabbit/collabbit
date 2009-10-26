@@ -39,9 +39,9 @@ module ApplicationHelper
     pretty_button("delete_#{to.class.name.underscore.dasherize.downcase}".to_sym,
                   easy_path_to(to),
                   "Delete #{to.class.name.titleize}",
-                  :confirm => "Are you sure you want to delete the #{to.class.name.titleize.downcase}",
+                  :confirm => "Are you sure you want to delete the #{to.class.name.titleize.downcase}?",
                   :method => :delete,
-                  *opts) if !check_perms || to.class.destroyable?
+                  *opts) if !check_perms || to.destroyable?
                   
   end
   

@@ -115,7 +115,7 @@ class UsersController < ApplicationController
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.destroyable?
     @user.destroy
-    redirect_to users_path
+    redirect_to instance_users_path(@instance)
   end
   
   def vcards

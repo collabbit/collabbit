@@ -10,7 +10,7 @@
 <% content_for :title, title (@user.full_name, 'Contacts', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button_if(@user.destroyable?, :delete_user, instance_users_url(@instance), 'Delete User', :method => :delete, :confirm => "Really delete user #{@user.full_name}?") %>
+	<%= pretty_delete_button(@user, :check => true) %>
 	<%= pretty_button_if(@user.updatable?, :edit_user, edit_instance_user_path(@instance, @user), 'Edit User') %>
 	<%= flashes %>
 	<div id="wrap">
