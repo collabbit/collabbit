@@ -22,7 +22,15 @@
 			<span id="incident-description"><%= @incident.description%></span>
 		</h1>
 		<div id="view-options">
-			Filters, search, concise vs detailed, etc.
+	    <% form_tag instance_incident_updates_path(@instance, @incident), :method => :get do %>
+	        <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %>
+	        <%= text_field_tag :search, '' %>
+	        <%= select(:filters, 'relevant_groups][id', @instance.groups.map{|g| [g.name, g.id]},
+					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
+			<%= select(:filters, 'tags][id', @instance.tags.map{|g| [g.name, g.id]},
+    				:include_blank => 'All Tags', :selected => (@tag_filter && @tag_filter.id)) %>
+			<%= submit_tag "Go", :name => nil %>
+	    <% end %>
 		</div>
 		<% unless @incident.updates.empty? %>
 			<ul id="updates-list">

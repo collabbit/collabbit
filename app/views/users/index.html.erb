@@ -40,7 +40,9 @@
 		<% end %>
 		</ul>
 	</div>
-		<%= link_to 'All vCards', instance_vcards_path(@instance, 'contacts', :users =>@users) %>
+		<%= link_to 'All vCards', instance_vcards_path(@instance, 'contacts', :users =>(@users.map {|u|u.id}).join(',')) %>
+		<%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these people' %>
+		
 		<!-- List of users with their associated information (e-mail, groups, phone, etc) -->
 		<ul id="contacts">
 		<% 	last = ''

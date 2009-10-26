@@ -35,7 +35,23 @@ class UpdatesController < ApplicationController
   def index
     @instance = Instance.find(params[:instance_id])
     @incident = @instance.incidents.find(params[:incident_id])
-    @updates = @incident.updates.paginate :all, :page => params[:page], :per_page => 20, :order => 'id DESC'
+    @updates = @incident.updates.paginate :all,
+                                          :page     => params[:page],
+                                          :per_page => 50,
+                                          :order    => 'id DESC',
+                                          :conditions => search,
+                                          :filters  => filters
+    
+    @group_filter = params[:filters] && 
+                    !params[:filters][:relevant_groups].blank? &&
+                    !params[:filters][:relevant_groups][:id].blank? &&
+                    @instance.groups.find(params[:filters][:relevant_groups][:id])
+    @tag_filter = params[:filters] &&  !params[:filters][:tags].blank? &&
+                    !params[:filters][:tags][:id].blank? && 
+                    @instance.groups.find(params[:filters][:tags][:id])
+    @detail_level = params[:detail_level]                                      
+    @search = params[:search] if params[:search] and params[:search].length > 0
+    
     return with_rejection unless Update.listable? and @instance.viewable?
   end
   
@@ -117,5 +133,22 @@ class UpdatesController < ApplicationController
     @update.destroy
     redirect_to instance_incident_updates_path(@instance,@incident)
   end
+  
+  private
+    # Returns an array of conditions for filtering contacts based on GET params
+    def search
+      return unless params[:search] and !params[:search].blank?
+      values = {}
+      fields = [:title, :text]
+      query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
+      fields.each do |field|
+        values[field] = "%#{params[:search]}%" 
+      end      
+      [query, values]
+    end
+    
+    def filters
+      params[:filters]
+    end
   
 end

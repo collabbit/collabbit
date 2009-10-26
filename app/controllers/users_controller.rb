@@ -16,10 +16,8 @@ class UsersController < ApplicationController
                                       :page         => params[:page],
                                       :per_page     => 100,
                                       :conditions   => search,
-                                      :filters      => filters
-      
-    @users.sort! {|a,b| a.last_name <=> b.last_name}
-    
+                                      :filters      => filters,
+                                      :order        => 'last_name DESC'
     @group_filter = params[:filters] && 
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
@@ -120,14 +118,12 @@ class UsersController < ApplicationController
   
   def vcards
     @instance = Instance.find(params[:instance_id])
-    @users = @instance.users.find(params[:users])
+    @users = @instance.users.find(params[:users].split(','))
     respond_to do |f|
       f.vcf do
         send_data( (@users.map {|u| u.to_vcard.to_s}).join, {
           :type => 'vcf',
-          :filename => "#{@instance.short_name}-contacts.vcf",
-          :disposition => 'inline'
-	})
+          :filename => "#{@instance.short_name}-contacts.vcf"})
       end
     end
   end
