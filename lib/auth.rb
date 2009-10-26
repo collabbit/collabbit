@@ -76,6 +76,10 @@ module Auth
     # Logs in as a user. Just sets the session, not any cookies.
     def login_as(user)
       session[:user_id] = user ? user.id : nil
+      if user.is_a? User
+        user.last_login = DateTime.now
+        user.save
+      end
       User.current = user
     end
     
@@ -101,7 +105,11 @@ module Auth
 
     # Logs out without destroying the session so the CSRF protection isn't wrecked.
     def logout_keeping_session!
-      User.current.forget_me if User.current.is_a? User
+      if User.current.is_a? User
+        User.current.last_logout = DateTime.now
+        User.current.save
+        User.current.forget_me
+      end
       login_as false
       kill_remember_cookie!     # Kill client-side auth cookie
       session[:user_id] = nil   # keeps the session but kill our variable
