@@ -33,7 +33,17 @@
 					<p class="update-text">
 						<%=h u.text %>
 					</p>
-				<% unless u.relevant_groups.empty? %>
+				<% unless u.attachments.empty? %>
+					<div class="attachments">
+						<strong>Attached Files:</strong>
+						<ul>
+						<% u.attachments.each do |f| %>
+							<li><%=link_to f.attach.original_filename, f.attach.url%></li>
+						<% end %>
+						</ul>
+					</div>				
+				<% end
+				   unless u.relevant_groups.empty? %>
 					<div class="relevant-groups">
 						<em>Relevant Groups:</em>
 						<ul>

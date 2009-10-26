@@ -65,13 +65,16 @@
 			font-size: 13px;
 			color: #777;
 		}
-			.relevant-groups ul, .tags ul{
+		.attachments {
+			font-size: 13px;
+		}
+			.relevant-groups ul, .tags ul, .attachments ul {
 				list-style-type: none;
 				display: inline;
 				padding: 0;
 				margin:0;
 			}
-				.relevant-groups ul li, .tags ul li{
+				.relevant-groups ul li, .tags ul li, .attachments li {
 					display: inline;
 					padding: 0;
 					margin: 0 2px;
