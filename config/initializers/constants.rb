@@ -1,4 +1,4 @@
-SIGNUP_NOTICE               = 'Thanks for signing up! You should receive an email with your activation code, upon which you must click.'
+SIGNUP_NOTICE               = "Success! There's one more step. You need to check your email for the confirmation link we sent you. Click on that link to continue into Collabbit."
 ACCOUNT_SETUP_ERROR         = 'There was an error setting up your account. Please try again or contact support.'
 SIGNUP_COMPLETE             = 'Signup complete! Please sign in to continue.'
 MISSING_ACTIVATION_CODE     = 'The activation code was missing. Please follow the URL from your email.'
