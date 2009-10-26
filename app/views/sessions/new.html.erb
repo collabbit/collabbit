@@ -5,16 +5,18 @@
 	<% end %>
 		
 	<% form_tag instance_session_path do -%>
-		<p><%= label_tag 'email' %><br />
+		<p id="email-section"><%= label_tag 'email' %>
 		<%= text_field_tag 'email', @login %></p>
 		
-		<p><%= label_tag 'password' %><br/>
+		<p id="pw-section"><%= label_tag 'password' %>
 		<%= password_field_tag 'password', nil %></p>
 		
-		<p><%= check_box_tag 'remember_me', 1, @remember_me %>
-		<%= label_tag 'remember_me', 'Remember me for two weeks' %></p>
+		<p id="remember-section">
+			<%= check_box_tag 'remember_me', 1, @remember_me %>
+			<%= label_tag 'remember-me', 'Remember me for two weeks' %>
+		</p>
 
-		<p><%= submit_tag 'Log in' %></p>
+		<p id="login-section"><%= submit_tag 'Log in' %></p>
 	<% end -%>
 	
 	<ul id="account-links">
