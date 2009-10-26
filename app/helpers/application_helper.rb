@@ -8,7 +8,7 @@ module ApplicationHelper
   def flashes
     f = ''
     for k in [:error, :warning, :notice, :message]
-      f += content_tag(:div, content_tag(:span, flash[k]), :id => k) if flash[k]
+      f += content_tag(:div, content_tag(:div, flash[k]), :id => k) if flash[k]
     end
     (f.length > 0 && content_tag(:div, f, :id => 'flashes')) || ''
   end

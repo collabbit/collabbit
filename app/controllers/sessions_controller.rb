@@ -23,7 +23,11 @@ class SessionsController < ApplicationController
       flash[:error] = INACTIVE_ACCOUNT
       render :action => :new
     elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
-      flash[:notice] = 'You have sucessfully logged in, ' + @user.full_name + '.'
+      if @user.last_logout
+        flash[:notice] = "Hi #{@user.first_name}. Welcome back!"
+      else
+        flash[:notice] = "Hi #{@user.first_name}. Welcome to #{@instance.short_name}'s Collabbit. Need a brief tour? (Doesn't exist yet, so sorry, #{@user.first_name}.)"
+      end
       login_as @user
       handle_remember_cookie!(true) if params[:remember]
 

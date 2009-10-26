@@ -7,7 +7,7 @@
 
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, :only => [:new, :create]
+  skip_before_filter :require_login, :only => [:new, :create, :forgotpassword]
 
   def index
     @instance = Instance.find(params[:instance_id])
