@@ -1,10 +1,8 @@
 development:
-  adapter: mysql
-  encoding: utf8
-  database: collabbit_dev
-  username: collabbit
-  password: Sahana123
-  host: localhost
+    adapter: sqlite3
+    database: db/development.sqlite3
+    pool: 5
+    timeout: 5000
 
 test:
   adapter: mysql
