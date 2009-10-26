@@ -102,17 +102,17 @@ h1{
 	padding: 15px 0 0 0;	
 }
 
-#flashes div span{
-	padding: 3px 5px;
+#flashes div div{
+	padding: 5px 7px;
 	font-weight: bold;
-	width: 50%;
+	max-width: 300px;
 	color: #fff;
 }
-	#error span{
+	#error div{
 		background: #800;
 	}
 	
-	#notice span{
+	#notice div{
 		background: #080;
 	}
 	
