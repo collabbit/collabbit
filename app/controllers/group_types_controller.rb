@@ -72,7 +72,7 @@ class GroupTypesController < ApplicationController
     @group_type = @instance.group_types.find(params[:id])
     return with_rejection unless @group_type.destroyable?
     @group_type.destroy
-    redirect_to incidents_path
+    redirect_to :action => :index
   end
 
 end
