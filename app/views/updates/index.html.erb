@@ -12,7 +12,11 @@
 <% content_for :body do %>
 	<%= pretty_button_if(@incident.destroyable?, :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
 	<%= pretty_button_if(@incident.updatable?, :edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
-	<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), 'Close Incident') %>
+	<% if @incident.closed_at %>
+		<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), 'Open Incident') %>
+	<% else %>
+		<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), 'Close Incident') %>
+	<% end %>
 	<%= pretty_button_if((Update.creatable? and @instance.viewable?), :add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
 	
 <%= flashes %>

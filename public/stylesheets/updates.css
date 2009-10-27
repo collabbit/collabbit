@@ -28,7 +28,12 @@
 	.delete-incident-button:hover{
 		background: #900;
 	}
-	
+.close-incident-button {
+	background: #660;
+}
+	.close-incident-button:hover {
+		background: #990;
+	}
 .add-update-button{
 	background: #060;
 }
