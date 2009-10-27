@@ -72,4 +72,20 @@ class IncidentsController < ApplicationController
     redirect_to instance_incidents_path(@instance)
   end
 
+  def close
+    @instance = Instance.find(params[:instance_id])
+    logger.info(("\n\n\n\n\nCLOSE PARAMS #{params}\n\n\n\n\n"))
+    @incident = @instance.incidents.find(params[:incident_id])
+    return with_rejection unless @incident.updatable?
+    if @incident.closed_at
+      flash[:notice] = 'Incident reopened'
+      @incident.closed_at = nil
+      @incident.save
+    else
+      flash[:notice] = 'Incident closed'
+      @incident.closed_at = DateTime.now
+      @incident.save
+    end
+    redirect_to instance_incident_path(@instance, @incident)
+  end
 end

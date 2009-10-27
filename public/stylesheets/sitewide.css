@@ -7,6 +7,12 @@ body {
 	
 	min-width: 777px;
 }
+#instance a {
+	color: white;
+}
+	#instance a:hover {
+		text-decoration: none;
+	}
 #footer a{
 	color: #666;	
 }

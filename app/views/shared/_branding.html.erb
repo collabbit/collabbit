@@ -1,3 +1,3 @@
 <% if @instance %>
-	<h1><span id="instance"><%=@instance.short_name%></span> &laquo; collabbit</h1>
+	<h1><span id="instance"><%=link_to @instance.short_name, instance_path(@instance)%></span> &laquo; collabbit</h1>
 <% end %>

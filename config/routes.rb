@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :instances, :as => 'for' do |instance|
     instance.resources :incidents do |incident|
+      incident.close 'close',	  :controller => 'incidents', :action => 'close'
       incident.resources :updates do |update|
         update.attachment 'attachments/:id', :controller => 'attachments', :action => 'show'
       end
