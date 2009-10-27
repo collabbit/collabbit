@@ -36,11 +36,12 @@ class UpdatesController < ApplicationController
     @instance = Instance.find(params[:instance_id])
     @incident = @instance.incidents.find(params[:incident_id])
     @updates = @incident.updates.paginate :all,
-                                          :page     => params[:page],
-                                          :per_page => 50,
-                                          :order    => 'id DESC',
-                                          :conditions => search,
-                                          :filters  => filters
+                                          :page           => params[:page],
+                                          :per_page       => 50,
+                                          :order          => 'id DESC',
+                                          :conditions     => search,
+                                          :filters        => filters,
+                                          :filter_style   => :and
     
     @group_filter = params[:filters] && 
                     !params[:filters][:relevant_groups].blank? &&

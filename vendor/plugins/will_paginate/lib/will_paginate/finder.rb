@@ -63,7 +63,7 @@ module WillPaginate
       # and +count+ calls.
       def paginate(*args)
         options = args.pop
-        page, per_page, total_entries, filters = wp_parse_options(options)
+        page, per_page, total_entries, filter_style, filters = wp_parse_options(options)
         finder = (options[:finder] || 'find').to_s
 
         if finder == 'find'
@@ -74,13 +74,12 @@ module WillPaginate
         end
 
         WillPaginate::Collection.create(page, per_page, total_entries) do |pager|
-          count_options = options.except :page, :per_page, :total_entries, :finder
-          find_options = count_options.except(:count, :filters).update(:offset => pager.offset, :limit => pager.per_page) 
+          count_options = options.except :page, :per_page, :total_entries, :filter_style, :finder
+          find_options = count_options.except(:count, :filters, :filter_style).update(:offset => pager.offset, :limit => pager.per_page) 
           
           args << find_options
-          # @options_from_last_find = nil
-          logger.info clear_nil_from(filters).inspect
-          pager.replace(filter(send(finder, *args) { |*a| yield(*a) if block_given? }, clear_nil_from(filters)))
+
+          pager.replace(filter(send(finder, *args) { |*a| yield(*a) if block_given? }, clear_nil_from(filters), filter_style))
           
           # magic counting for user convenience:
           pager.total_entries = wp_count(count_options, args, finder) unless pager.total_entries
@@ -185,11 +184,15 @@ module WillPaginate
         paginate(*args) { |*a| yield(*a) if block_given? }
       end
       
-      def filter(values, filters)
+      def filter(values, filters, filter_style = :or)
         values = values.select do |v|
-          good = filters.blank?
+          good = (filters.blank? && filter_style == :or) || (filter_style == :and)
           filters.each do |f,e|
-            good ||= do_filter(f, e, v)
+            if filter_style == :or
+              good ||= do_filter(f, e, v, filter_style)
+            else
+              good = good && do_filter(f, e, v, filter_style)
+            end
           end
           good
         end
@@ -200,15 +203,16 @@ module WillPaginate
       # do_filter :foo, :bar, x ----> x.foo.each {|f| f == bar} if x.foo is an array. Will be
       #       true if any of them are true
       # do_filter :foo, {:bar => :baz}, x -----> do_filter :bar, :baz, on.foo
-      def do_filter(key, filter, on)
+      # res is like update.relevant_groups
+      def do_filter(key, filter, on, filter_style)
         return true if filter.blank?
         res = on.send key
         if filter.is_a? Hash
-          !filter(res, filter).empty?
+          return !filter(res, filter).empty?
         elsif res.is_a? Array
-          !filter(res, key => filter).empty?
+          return !filter(res, key => filter).empty?
         else
-          res.to_s == filter.to_s
+          return res.to_s == filter.to_s
         end
       end
 
@@ -275,11 +279,12 @@ module WillPaginate
           raise ArgumentError, ':count and :total_entries are mutually exclusive'
         end
 
-        page     = options[:page] || 1
-        per_page = options[:per_page] || self.per_page
-        total    = options[:total_entries]
-        filters  = options[:filters] || []
-        [page, per_page, total, filters]
+        page          = options[:page] || 1
+        per_page      = options[:per_page] || self.per_page
+        total         = options[:total_entries]
+        filter_style  = options[:filter_style] || :or
+        filters       = options[:filters] || []
+        [page, per_page, total, filter_style, filters]
       end
       
       def clear_nil_from(hsh)
