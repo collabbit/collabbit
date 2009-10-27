@@ -17,9 +17,12 @@
 		<h1>
 			<%= @update.title%>
 			<span class="tiny">
-				&laquo; <%=link_to_issuer @update%>
-				on <%= time_mdy @update.created_at%>
+				&laquo; <%= link_to @incident.name, instance_incident_path(@instance,@incident) %>
 			</span>
+			<div class="under">
+				by <%=link_to_issuer @update%>
+				on <%= time_mdy @update.created_at%>
+			</div>
 		</h1>
 		<p><%=h @update.text%></p>
 		
