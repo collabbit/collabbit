@@ -60,6 +60,8 @@
 				</ul>
 			</div>
 		<% end %>
-
+		<% if @update.creatable? && flash[:notice] == UPDATE_CREATED %>
+        <%= link_to 'Add another update', new_instance_incident_update_path(@instance, @incident)%>
+        <% end %>
 	</div>
 <% end %>
