@@ -16,6 +16,9 @@ class Instance < ActiveRecord::Base
   validates_format_of :short_name, :with => /\A[a-z]+\z/
   validates_length_of :short_name, :within => 2..16
   validates_uniqueness_of :short_name
+  validates_exclusion_of  :short_name,
+                          :in => %w( support blog www billing help api internal mail ),
+                          :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
 
   # Allows us to use the short_name in the URL instead of the ID
   def to_param

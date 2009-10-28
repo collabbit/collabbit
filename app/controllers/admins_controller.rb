@@ -60,7 +60,6 @@ class AdminsController < ApplicationController
 
   # Removes an admin object specified by its :id from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
     @admin = @instance.admins.find(params[:id])
     return with_rejection unless @admin.destroyable?
     @admin.destroy

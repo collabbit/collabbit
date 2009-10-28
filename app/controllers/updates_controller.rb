@@ -7,7 +7,7 @@
 
 class UpdatesController < ApplicationController
   def new
-    @instance = Instance.find(params[:instance_id])
+    
     @update = Update.new
     @incident = @instance.incidents.find(params[:incident_id])
     @tags = @instance.tags
@@ -16,14 +16,14 @@ class UpdatesController < ApplicationController
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.viewable? and @instance.viewable?
   end
 
   def edit
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.updatable? and @instance.viewable?
@@ -33,7 +33,7 @@ class UpdatesController < ApplicationController
   # Uses the mislav-will_paginate plugin
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
   def index
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @updates = @incident.updates.paginate :all,
                                           :page           => params[:page],
@@ -59,7 +59,7 @@ class UpdatesController < ApplicationController
   # Saves an update object to the database with the parameters provided in 
   # the :update hash, which is populated by the form on the 'new' page
   def create
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
     return with_rejection unless Update.creatable? and @instance.viewable?
@@ -105,7 +105,7 @@ class UpdatesController < ApplicationController
   # The data to be saved is provided in the :update hash, 
   # which is populated by the form on the 'edit' page.
   def update
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.updatable?
@@ -127,7 +127,7 @@ class UpdatesController < ApplicationController
   
   # Removes an update object from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.destroyable?

@@ -8,25 +8,24 @@
 class GroupTypesController < ApplicationController
     
   def new
-    @instance = Instance.find(params[:instance_id])
     @group_type = GroupType.new
     return with_rejection unless GroupType.creatable?
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])    
+        
     @group_type = @instance.group_types.find(params[:id])
     redirect_to instance_group_type_groups_path(@instance, @group_type)
   end
 
   def edit
-    @instance = Instance.find(params[:instance_id])
+    
     @group_type = @instance.group_types.find(params[:id])
     return with_rejection unless @group_type.updatable?
   end
 
   def index
-    @instance = Instance.find(params[:instance_id])
+    
     @group_types = @instance.group_types
     return with_rejection unless GroupType.listable?
   end
@@ -34,7 +33,7 @@ class GroupTypesController < ApplicationController
   # Saves a group_type object to the database with the parameters provided in 
   # the :group_type hash, which is populated by the form on the 'new' page
   def create
-    @instance = Instance.find(params[:instance_id])
+    
     @group_type = GroupType.new(params[:group_type])
     
     return with_rejection unless GroupType.creatable?
@@ -53,7 +52,7 @@ class GroupTypesController < ApplicationController
   # The data to be saved is provided in the :group_type hash, 
   # which is populated by the form on the 'edit' page
   def update
-    @instance = Instance.find(params[:instance_id])
+    
     @group_type = @instance.group_types.find(params[:id])
     
     return with_rejection unless @group_type.updatable?
@@ -68,7 +67,7 @@ class GroupTypesController < ApplicationController
   
   # Removes a group_types object specified by its :id from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
+    
     @group_type = @instance.group_types.find(params[:id])
     return with_rejection unless @group_type.destroyable?
     @group_type.destroy

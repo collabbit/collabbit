@@ -9,8 +9,15 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   before_filter :login, :require_login
+  before_filter :set_current_account # thank you 37signals
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'd9a4fa2487b71adf1f4fb8d68c2fcc59'
+  
+  private
+    def set_current_account
+      @instance = Instance.find_by_short_name(request.subdomains.first)
+      @instance ||= Instance.find_by_short_name(params[:instance_id]) || Instance.find_by_short_name(params[:id])
+    end
 end

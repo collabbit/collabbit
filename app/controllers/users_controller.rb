@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create, :forgotpassword]
 
   def index
-    @instance = Instance.find(params[:instance_id])
+    
     return with_rejection unless User.listable? and @instance.viewable?
     @users = @instance.users.paginate :all,
                                       :page         => params[:page],
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])
+    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.viewable? and @instance.viewable?
     
@@ -42,20 +42,20 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @instance = Instance.find(params[:instance_id])
+    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.updatable? and @instance.viewable?
   end
 
   def new
-    @instance = Instance.find(params[:instance_id])
+    
     @user = User.new
   end
  
   # Saves a user object to the database with the parameters provided in 
   # the :user hash, which is populated by the form on the 'new' page
   def create
-    @instance = Instance.find(params[:instance_id])
+    
     
     @user = User.new(params[:user])
     @user.instance = @instance
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
   # The data to be saved is provided in the :user hash, 
   # which is populated by the form on the 'edit' page.
   def update
-    @instance = Instance.find(params[:instance_id])
+    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.updatable?
 
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
   # Activates an existing user, identified by the :activation_code provided  
   # If the activation code is wrong or missing, the user is not activated
   def activate
-    @instance = Instance.find(params[:instance_id])
+    
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
 
   # Removes a user object from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
+    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.destroyable?
     @user.destroy
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
   end
   
   def vcards
-    @instance = Instance.find(params[:instance_id])
+    
     @users = @instance.users.find(params[:users].split(','))
     respond_to do |f|
       f.vcf do

@@ -7,26 +7,26 @@
 
 class IncidentsController < ApplicationController
   def new
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = Incident.new
     return with_rejection unless @incident.creatable?
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:id])
     redirect_to instance_incident_updates_path(@instance, @incident)
     return with_rejection unless @incident.viewable?
   end
 
   def edit
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @incident.updatable?
   end
 
   def index
-    @instance = Instance.find(params[:instance_id])
+    
     @incidents = @instance.incidents
     return with_rejection unless Incident.listable?
   end
@@ -34,7 +34,7 @@ class IncidentsController < ApplicationController
   # Saves an incident object to the database with the parameters provided in 
   # the :incident hash, which is populated by the form on the 'new' page
   def create
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = Incident.new(params[:incident])
     return with_rejection unless Incident.creatable?
     
@@ -52,7 +52,7 @@ class IncidentsController < ApplicationController
   # The data to be saved is provided in the :incident hash, 
   # which is populated by the form on the 'edit' page
   def update
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @incident.updatable?
     if @incident.update_attributes(params[:incident])
@@ -65,7 +65,7 @@ class IncidentsController < ApplicationController
   
   # Removes an incident object specified by its :id from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
+    
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @incident.destroyable?
     @incident.destroy
