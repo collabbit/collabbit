@@ -7,7 +7,6 @@
 
 class UpdatesController < ApplicationController
   def new
-    
     @update = Update.new
     @incident = @instance.incidents.find(params[:incident_id])
     @tags = @instance.tags
@@ -16,14 +15,12 @@ class UpdatesController < ApplicationController
   end
 
   def show
-    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.viewable? and @instance.viewable?
   end
 
   def edit
-    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.updatable? and @instance.viewable?
@@ -32,8 +29,7 @@ class UpdatesController < ApplicationController
   # Used for displaying the list of updates in a particular incident
   # Uses the mislav-will_paginate plugin
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
-  def index
-    
+  def index 
     @incident = @instance.incidents.find(params[:incident_id])
     @updates = @incident.updates.paginate :all,
                                           :page           => params[:page],
@@ -59,7 +55,6 @@ class UpdatesController < ApplicationController
   # Saves an update object to the database with the parameters provided in 
   # the :update hash, which is populated by the form on the 'new' page
   def create
-    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
     return with_rejection unless Update.creatable? and @instance.viewable?
@@ -93,7 +88,7 @@ class UpdatesController < ApplicationController
     
     if @update.save
       flash[:notice] = UPDATE_CREATED
-      redirect_to instance_incident_update_path(@instance, @incident, @update)
+      redirect_to instance_incident_path(@instance, @incident)
     else
       @tags = @instance.tags
       @groups = @instance.groups
@@ -105,7 +100,6 @@ class UpdatesController < ApplicationController
   # The data to be saved is provided in the :update hash, 
   # which is populated by the form on the 'edit' page.
   def update
-    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.updatable?
@@ -126,8 +120,7 @@ class UpdatesController < ApplicationController
   end
   
   # Removes an update object from the database
-  def destroy
-    
+  def destroy  
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.destroyable?
