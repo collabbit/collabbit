@@ -24,7 +24,7 @@
 				on <%= time_mdy @update.created_at%>
 			</div>
 		</h1>
-		<p><%=h @update.text%></p>
+		<p><%=simple_format(h(@update.text)) %></p>
 		
 		<!-- Files-->
 		<% unless @update.files.empty? %>
