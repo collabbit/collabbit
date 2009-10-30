@@ -23,8 +23,18 @@
 			<%= yield :body or yield %>
 		</div>
 		<div id="footer">
-			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', '/terms' %> &middot; <%= link_to 'Privacy', '/privacy' %>
+			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', '/terms' %> &middot; <%= link_to 'Privacy', '/privacy' %> &middot; <%= link_to 'Support', '#', :id => 'help' %>
 		</div>
+		<script type="text/javascript" charset="utf-8">
+          Tender = {
+            hideToggle: true,
+            widgetToggles: [document.getElementById('help')]
+          }
+        </script>
+        <script type="text/javascript" defer="defer">
+        var baseSslHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cscript src='" + baseSslHost + "collabbit.tenderapp.com/tender_widget.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
 		<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
