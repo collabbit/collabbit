@@ -136,8 +136,20 @@ class UsersController < ApplicationController
       fields = [:first_name, :last_name, :email, :cell_phone, :desk_phone]
       query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
       fields.each do |field|
-        values[field] = "%#{params[:search]}%" 
-      end      
+        values[field] = "#{params[:search]}%" 
+      end
+      
+      #check for last, first
+      if params[:search] =~ /\A([a-zA-Z]+), ([a-zA-Z]+)\z/
+        query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
+        values[:slast_name] = $1
+        values[:sfirst_name] = $2
+      elsif params[:search] =~ /\A([a-zA-Z]+) ([a-zA-Z]+)\z/
+        query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
+        values[:slast_name] = $2
+        values[:sfirst_name] = $1
+      end
+      
       [query, values]
     end
   
