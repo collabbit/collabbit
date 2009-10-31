@@ -11,9 +11,6 @@ ActiveRecord::Base.class_eval do
   
   # Returns true if user is allowed to perform the action
   def self.check_permissions(action)
-    logger.info 'X'*100
-    logger.info "Rejected! From: #{action} in #{self.to_s}"
-    logger.info 'X'*100
     return true if Admin.current
     return false unless User.current # <-- if not logged in, can't have permissions
     perms = User.current.permissions.map.select {|p| p.model == self.to_s}

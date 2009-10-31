@@ -8,10 +8,10 @@ class UserObserver < ActiveRecord::Observer
   
   # Sends an activation email after a user's account is registered
   def after_create(user)
-    #UserMailer.deliver_signup_notification(user)
+    UserMailer.deliver_signup_notification(user)
   end
 
   def after_save(user)
-    #UserMailer.deliver_activation(user) if user.recently_activated?
+    UserMailer.deliver_activation(user) if user.recently_activated?
   end
 end
