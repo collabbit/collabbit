@@ -34,7 +34,7 @@ ROLE_UPDATE_ERROR           = 'There was an error updating the role. Please try 
 INSTANCE_UPDATED            = 'Instance successfully updated.'
 INSTANCE_UPDATE_ERROR       = 'Instance failed to update. Please try again or <a href="mailto:support@collabbit.org">contact support</a>.'
 DEFAULT_ROLE_NAME           = 'Normal User'
-
+PASSWORD_RESET              = 'Your password has been reset. Check your email to retrieve the new one.'
 TAG_DESTROYED               = 'The tag was safely deleted.'
 
 PATH_FORMATS = {  Admin.name      => [:admin],

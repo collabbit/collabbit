@@ -22,6 +22,13 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = "http://collabbit.org/for/#{user.instance.short_name}"
   end
   
+  def password_reset(user, password)
+    setup_email(user)
+    @subject += "password reset notice"
+    @body[:url] = "http://collabbit.org/for/#{user.instance.short_name}"
+    @body[:pass] = password
+  end
+  
   def test
     @recipients = "efoxepstein@wesleyan.edu"
     @from = "notifications@collabbit.org"

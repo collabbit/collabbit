@@ -7,7 +7,8 @@
 
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, :only => [:new, :create, :forgotpassword, :activate]
+  skip_before_filter :require_login, :only => [:new, :create, :forgot_password,
+                                                    :reset_password, :activate]
 
   def index
     return with_rejection unless User.listable? and @instance.viewable?
@@ -120,6 +121,19 @@ class UsersController < ApplicationController
           :filename => "#{@instance.short_name}-contacts.vcf"})
       end
     end
+  end
+  
+  def forgot_password
+    
+  end
+  def reset_password
+    @user = @instance.users.find_by_email(params[:user][:email])
+    pass = @user.generate_activation_code[0,12]
+    @user.password = pass
+    @user.save
+    UserMailer.deliver_password_reset(@user, pass)
+    flash[:notice] = PASSWORD_RESET
+    redirect_to new_instance_session_path(@instance)
   end
   
   private

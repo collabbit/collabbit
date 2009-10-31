@@ -21,8 +21,8 @@ ActionController::Routing::Routes.draw do |map|
     instance.register 'register', :controller => 'users',     :action => 'create'
     instance.signup 'signup',     :controller => 'users',     :action => 'new'
     instance.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
-    instance.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgotpassword'
-    instance.resetpassword 'resetpassword', :controller => 'users', :action => 'resetpassword'
+    instance.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgot_password'
+    instance.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'
     instance.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
     instance.resources :users, :as => "contacts" do |u|
       u.resources :permissions
