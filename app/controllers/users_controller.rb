@@ -17,7 +17,7 @@ class UsersController < ApplicationController
                                       :per_page     => 100,
                                       :conditions   => search,
                                       :filters      => filters,
-                                      :order        => 'last_name DESC'
+                                      :order        => 'last_name ASC'
     @group_filter = params[:filters] && 
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
