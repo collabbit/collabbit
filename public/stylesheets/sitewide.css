@@ -231,3 +231,16 @@ h1{
 	.errorExplanation ul{
 		margin: 5px;
 	}
+
+
+
+#beta-banner{
+	margin: 0;
+	padding: 3px 14px;
+	background: #f90;
+	color: #000;
+	text-align: center;
+}
+	#beta-banner a{
+		color: #000;
+	}

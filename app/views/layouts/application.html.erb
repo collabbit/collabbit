@@ -9,6 +9,7 @@
 		<%= yield :javascripts %>
 	</head>
 	<body>
+	    <div id="beta-banner">Collabbit is beta software. <%=link_to 'Please report problems and get help here.', '#', :id => 'top-support' %></div>
 		<div id="header">
 			<div id="header-wrapper">
 				<div id="branding">
@@ -23,12 +24,12 @@
 			<%= yield :body or yield %>
 		</div>
 		<div id="footer">
-			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', '/terms' %> &middot; <%= link_to 'Privacy', '/privacy' %> &middot; <%= link_to 'Support', '#', :id => 'help' %>
+			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', '/terms' %> &middot; <%= link_to 'Privacy', '/privacy' %> &middot; <%= link_to 'Support', '#', :id => 'bottom-support' %>
 		</div>
 		<script type="text/javascript" charset="utf-8">
           Tender = {
             hideToggle: true,
-            widgetToggles: [document.getElementById('help')]
+            widgetToggles: [document.getElementById('bottom-support'), document.getElementById('top-support')]
           }
         </script>
         <script type="text/javascript" defer="defer">
