@@ -7,7 +7,7 @@
 
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, :only => [:new, :create, :forgotpassword]
+  skip_before_filter :require_login, :only => [:new, :create, :forgotpassword, :activate]
 
   def index
     
@@ -94,7 +94,6 @@ class UsersController < ApplicationController
   # Activates an existing user, identified by the :activation_code provided  
   # If the activation code is wrong or missing, the user is not activated
   def activate
-    
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
