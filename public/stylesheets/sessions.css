@@ -26,12 +26,12 @@
 		}
 		label{
 			font-size: 14px;
-			padding: 4px 0 1px;
+			padding: 6px 0 1px;
 		}
 		#email,#password {
 			width: 200px;
 			border: 1px solid #bbb;
-			padding: 3px 1px;
+			padding: 4px 3px 3px 3px;
 			float: left;
 			font-size: 14px;
 			font-family: 'Helvetica', Arial;
