@@ -6,36 +6,31 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
 class IncidentsController < ApplicationController
-  def new
-    
+  def new    
     @incident = Incident.new
     return with_rejection unless @incident.creatable?
   end
 
-  def show
-    
+  def show    
     @incident = @instance.incidents.find(params[:id])
     redirect_to instance_incident_updates_path(@instance, @incident)
     return with_rejection unless @incident.viewable?
   end
 
-  def edit
-    
+  def edit    
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @incident.updatable?
   end
 
   def index
-    
     @incidents = @instance.incidents
     return with_rejection unless Incident.listable?
   end
   
   # Saves an incident object to the database with the parameters provided in 
   # the :incident hash, which is populated by the form on the 'new' page
-  def create
-    
-    @incident = Incident.new(params[:incident])
+  def create    
+    @incident = @instance.incidents.build(params[:incident])
     return with_rejection unless Incident.creatable?
     
     @incident.instance = @instance

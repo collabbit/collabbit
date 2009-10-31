@@ -14,14 +14,19 @@
 <%= flashes %>
 <%=pretty_button_if Incident.creatable?, :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
 	<div id="wrap">
-		<h1>Latest Incidents <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>		
-		<ul id="incidents-list" class="listy">
-		<% (@incidents.sort {|a,b| a.created_at <=> b.created_at}).each do |i| %>
-			<li><%= link_to i.name, instance_incident_url(@instance, i), :class=>:title %> 
-				&ndash; <%=h i.description%>
-				<span class="tiny">(<%=mdy i.created_at%>)</span>
-			</li>
+		<h1>Latest Incidents <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
+		<% if @incidents.empty?%>		
+		    <h3 class="centered">There are no incidents yet.
+		        Want to <%= link_to 'create one', new_instance_incident_path(@instance) %>?
+		<% else %>
+    		<ul id="incidents-list" class="listy">
+    		<% @incidents.each do |i| %>
+    			<li><%= link_to i.name, instance_incident_url(@instance, i), :class=>:title %> 
+    				&ndash; <%=h i.description%>
+    				<span class="tiny">(<%=mdy i.created_at%>)</span>
+    			</li>
+    		<% end %>
+    		</ul>
 		<% end %>
-		</ul>
 	</div>
 <% end %>

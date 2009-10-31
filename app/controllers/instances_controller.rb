@@ -12,7 +12,6 @@ class InstancesController < ApplicationController
   end
   
   def show
-    @instance = Instance.find(params[:id])
     @incidents = @instance.incidents.find(:all,:order => 'id DESC')
     return with_rejection unless @instance.viewable?
   end
@@ -23,7 +22,6 @@ class InstancesController < ApplicationController
   # It passes the permissions to the view in a hash, called perms_hash, in which the
   # pemissions are organized by their model. 
   def edit
-    @instance = Instance.find(params[:id])
     @roles = @instance.roles
     @permissions = Permission.all
     @perms_hash = {}
@@ -40,7 +38,6 @@ class InstancesController < ApplicationController
   # It also saves the updated permissions to the database based 
   # on the :permissions hash
   def update
-    @instance = Instance.find(params[:id])
     return with_rejection unless @instance.updatable?
     @instance.roles.each do|r|
       r.privileges.clear
@@ -65,7 +62,6 @@ class InstancesController < ApplicationController
 
   # Removes an instance object specified by its :id from the database
   def destroy
-    @instance = Instance.find_by_short_name(params[:id])
     return with_rejection unless @instance.destroyable?
     @instance.destroy
     redirect_to instances_path
