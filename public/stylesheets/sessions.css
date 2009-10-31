@@ -26,12 +26,14 @@
 		}
 		label{
 			font-size: 14px;
+			padding: 3px 0;
 		}
 		#email,#password {
 			width: 200px;
 			border: 1px solid #bbb;
-			padding: .25em .1em;
+			padding: 3px 1px;
 			float: left;
+			font-size: 14px;
 		}
 		#email-section label,#pw-section label {
 			float: left;
