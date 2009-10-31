@@ -122,3 +122,12 @@
 		color: #000;
 		display: inline;
 	}
+
+
+/* filters */
+#view-options {
+
+}
+  #view-options select {
+    max-width: 250px;
+  }
