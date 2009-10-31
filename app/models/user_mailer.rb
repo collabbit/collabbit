@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
   
   def test
     @recipients = "efoxepstein@wesleyan.edu"
-    @from = "noreply@localhost"
+    @from = "notifications@collabbit.org"
     @subject = "Test"
     @sent_on = Time.now
   end
