@@ -40,10 +40,7 @@ class User < ActiveRecord::Base
   
   # Reencrypt passwords
   def before_update
-    logger.info 'before_update callback'
-    logger.info self.inspect
     self.crypted_password = generate_crypted_password(@password) if @password
-    logger.info self.inspect
   end
   
   # Provides a user's full name for convenience
@@ -127,10 +124,11 @@ class User < ActiveRecord::Base
   end
   
   def active?
-    state == 'active'
+    self.state == 'active'
   end
   def activate!
-    state = 'active'
+    self.state = 'active'
+    self.save(false)
     UserMailer.deliver_activation(self)
   end
   
