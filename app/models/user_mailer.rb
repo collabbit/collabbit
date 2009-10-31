@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
   def activation(user)
     setup_email(user)
     @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://collabbit.for/for/#{user.instance.short_name}"
+    @body[:url]  = "http://collabbit.org/for/#{user.instance.short_name}"
   end
   
   def test

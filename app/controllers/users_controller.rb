@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create, :forgotpassword, :activate]
 
   def index
-    
     return with_rejection unless User.listable? and @instance.viewable?
     @users = @instance.users.paginate :all,
                                       :page         => params[:page],
@@ -25,8 +24,7 @@ class UsersController < ApplicationController
     @search = params[:search] if params[:search] and params[:search].length > 0 
   end
 
-  def show
-    
+  def show 
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.viewable? and @instance.viewable?
     
@@ -42,7 +40,6 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.updatable? and @instance.viewable?
   end
@@ -55,8 +52,6 @@ class UsersController < ApplicationController
   # Saves a user object to the database with the parameters provided in 
   # the :user hash, which is populated by the form on the 'new' page
   def create
-    
-    
     @user = User.new(params[:user])
     @user.instance = @instance
     @user.state = User::STATES[:pending]
@@ -103,7 +98,7 @@ class UsersController < ApplicationController
     else 
       flash[:error]  = INVALID_ACTIVATION_CODE
     end
-    redirect_to new_instance_session_path(@user)
+    redirect_to new_instance_session_path(@instance)
   end
 
   # Removes a user object from the database

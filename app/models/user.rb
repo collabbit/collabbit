@@ -126,6 +126,14 @@ class User < ActiveRecord::Base
     
   end
   
+  def active?
+    state == 'active'
+  end
+  def activate!
+    state = 'active'
+    UserMailer.deliver_activation(self)
+  end
+  
   ### Tokens ###
   
   # Generates a 40-character psuedo-random hex string
