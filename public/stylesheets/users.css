@@ -1,6 +1,6 @@
 .chair{
 	font-size: .7em;
-	color: #999	
+	color: #999
 }
 
 #index{
@@ -67,12 +67,12 @@
 		#contacts a{
 			color: #000;
 		}
-		
+
 		#contacts .name{
 			border-bottom: 1px solid #ccc;
 			font-weight: bold;
-		}	
-		
+		}
+
 		#contacts .email a{
 			color: #00a;
 			text-decoration: none;
@@ -86,19 +86,21 @@
 			color: #aaa;
 			font-size: 13px;
 		}
-		
+
 #filters{
-	float:right;
-	margin: 0;
-	padding: 8px 4px 4px 4px;
+	margin: 0 0 10px;
+	padding: 0 0 10px;
+	border-bottom: 1px solid #ddd;
 	color: #333;
-	border: solid #ccc;
-	border-width: 0 0 1px 1px;
 }
 	#filters h3{
 		display:inline;
 		font-size: 16px;
+		padding-right: 10px;
 	}
+		#filters select {
+			width: 300px;
+		}
 	#search{
 		border: 1px solid #ccc;
 		padding: 2px;
@@ -106,27 +108,22 @@
 		.blank{
 			color: #999;
 		}
-		
 
-.button-link{
-	float: right;
-	border-top: none;
-	margin-right: 10px;	
-}
 
-.edit-user-button{
-	background: #006;
-}
-	.edit-user-button:hover{
-		background: #009;
+/* replace with more general CSS in sitewide.css */
+/*	.edit-user-button{
+		background: #006;
 	}
-	
-.delete-user-button{
-	background: #600;
-}
-	.delete-user-button:hover{
-		background: #900;
+		.edit-user-button:hover{
+			background: #009;
+		}
+
+	.delete-user-button{
+		background: #600;
 	}
+		.delete-user-button:hover{
+			background: #900;
+		}*/
 
 
 /* SHOW */

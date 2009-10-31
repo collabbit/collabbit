@@ -6,42 +6,37 @@
 
 #incident-description{
 	color: #777;
-	font-size: 16px;	
+	font-size: 16px;
 }
 
-.button-link{
-	float: right;
-	border-top: none;
-	margin-right: 10px;	
-}
+/* replace with more general CSS in sitewide.css */
+	/*.edit-incident-button{
+		background: #006;
+	}
+		.edit-incident-button:hover{
+			background: #009;
+		}
 
-.edit-incident-button{
-	background: #006;
-}
-	.edit-incident-button:hover{
-		background: #009;
+	.delete-incident-button{
+		background: #600;
 	}
-	
-.delete-incident-button{
-	background: #600;
-}
-	.delete-incident-button:hover{
-		background: #900;
+		.delete-incident-button:hover{
+			background: #900;
+		}
+	.close-incident-button {
+		background: #660;
 	}
-.close-incident-button {
-	background: #660;
-}
-	.close-incident-button:hover {
-		background: #990;
+		.close-incident-button:hover {
+			background: #990;
+		}
+	.add-update-button{
+		background: #060;
 	}
-.add-update-button{
-	background: #060;
-}
-	.add-update-button:hover{
-		background: #090;
-	}
-	
-	
+		.add-update-button:hover{
+			background: #090;
+		}*/
+
+
 #updates-list{
 	list-style-type: none;
 	margin: 20px 0;
@@ -55,7 +50,7 @@
 		#updates-list li a.update-title{
 			color: #009;
 			font-weight: bold;
-			
+
 		}
 			.update-title:hover{
 				text-decoration: none;
@@ -71,7 +66,7 @@
 			width: 600px;
 			margin: 9px 0;
 		}
-		
+
 		.relevant-groups, .tags{
 			font-size: 13px;
 			color: #777;
@@ -93,25 +88,25 @@
 					.relevant-groups ul li a, .tags ul li a{
 						color: #777;
 					}
-
-.edit-update-button{
-	float: right;
-	background: #006;
-	border-top: none;
-	margin-right: 10px;
-}
-	.edit-update-button:hover{
-		background: #009;
+/* replace with more general CSS in sitewide.css */
+/*	.edit-update-button{
+		float: right;
+		background: #006;
+		border-top: none;
+		margin-right: 10px;
 	}
-.delete-update-button{
-	float: right;
-	background: #600;
-	border-top: none;
-	margin-right: 10px;
-}
-	.delete-update-button:hover{
-		background: #900;
+		.edit-update-button:hover{
+			background: #009;
+		}
+	.delete-update-button{
+		float: right;
+		background: #600;
+		border-top: none;
+		margin-right: 10px;
 	}
+		.delete-update-button:hover{
+			background: #900;
+		} */
 /* #new */
 
 /* #show */
@@ -126,9 +121,27 @@
 
 /* filters */
 #view-options {
-
+	margin: 0 0 10px;
+	padding: 0 0 10px;
+	border-bottom: 1px solid #ddd;
+	color: #333;
 }
-  #view-options select {
-    max-width: 250px;os
-  }
+	#view-options h3 {
+		display: inline;
+		font-size: 16px;
+		padding-right: 10px;
+	}
+	#view-options form {
+		display: inline;
+	}
+	#view-options select {
+		max-width: 250px;
+	}
+	#search {
+		border: 1px solid #ccc;
+		padding: 2px;
+	}
+		.blank{
+			color: #999;
+		}
 

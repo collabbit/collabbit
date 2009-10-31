@@ -1,4 +1,5 @@
-.new-incident-button{
+/* replace with more general CSS in sitewide.css */
+	/*.new-incident-button{
 	float: right;
 	background: #060;
 	border-top: none;
@@ -6,5 +7,5 @@
 }
 	.new-incident-button:hover{
 		background: #090;
-	}
+	}*/
 

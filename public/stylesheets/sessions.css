@@ -15,10 +15,11 @@
 		background: #fff;
 	}
 		#wrap #flashes {
-			padding: 0 0 15px;
+			padding: 20px 0 15px;
 		}
-		h1 {
+		#wrap h1 {
 			text-align: center;
+			background: transparent;
 		}
 		#login-title{
 			font-size: 16px;

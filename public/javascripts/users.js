@@ -1,7 +1,9 @@
 $(function(){
 	var init = 'Search Keywords';
-	
-	$('#search').val(init);
+
+	if ($('#search').val() == '') {
+		$('#search').val(init);
+	}
 	
 	$('#search').focus(function(){
 		if($(this).val() == init)

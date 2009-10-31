@@ -1,6 +1,6 @@
 .subtitle{
 	font-size: .7em;
-	color: #999	
+	color: #999
 }
 
 #groups-list{
@@ -16,32 +16,34 @@
 			color: #000;
 		}
 
-.new-group-button{
-	float: right;
-	background: #060;
-	border-top: none;
-	margin-right: 10px;
-}
-	.new-group-button:hover{
-		background: #090;
+/* replace with more general CSS in sitewide.css */
+	/*
+	.new-group-button{
+		float: right;
+		background: #060;
+		border-top: none;
+		margin-right: 10px;
 	}
+		.new-group-button:hover{
+			background: #090;
+		}
 
-.edit-group-button{
-	float: right;
-	background: #006;
-	border-top: none;
-	margin-right: 10px;
-}
-	.edit-group-button:hover{
-		background: #009;
+	.edit-group-button{
+		float: right;
+		background: #006;
+		border-top: none;
+		margin-right: 10px;
 	}
+		.edit-group-button:hover{
+			background: #009;
+		}
 
-.edit-group-type-button{
-	float: right;
-	background: #006;
-	border-top: none;
-	margin-right: 10px;
-}
-	.edit-group-type-button:hover{
-		background: #009;
+	.edit-group-type-button{
+		float: right;
+		background: #006;
+		border-top: none;
+		margin-right: 10px;
 	}
+		.edit-group-type-button:hover{
+			background: #009;
+		}*/

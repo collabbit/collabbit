@@ -4,7 +4,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background: #eee;
-	
+
 	min-width: 777px;
 }
 #instance a {
@@ -14,13 +14,13 @@ body {
 		text-decoration: none;
 	}
 #footer a{
-	color: #666;	
+	color: #666;
 }
 	#footer a:hover{
 		color: #000;
 	}
 h1{
-	font-size: 22px;	
+	font-size: 22px;
 }
 
 #header{
@@ -32,13 +32,13 @@ h1{
 }
 #submenu{
 	padding: 2px 0;
-	background: #222;	
+	background: #222;
 }
 #header-wrapper{
 	position: relative;
 	top: 0;
 	left: 0;
-	padding-top: 40px;	
+	padding-top: 40px;
 }
 	#branding h1{
 		font-size: 16px;
@@ -94,38 +94,60 @@ h1{
 	margin: 25px 40px;
 
 }
+	.button-link {
+		padding: 5px 10px;
+		margin: 5px 5px 0 0;
+		float: right;
+		border-top: none;
+		border: 1px solid #777;
+		color: #fff;
+		font-size: 16px;
+		text-decoration: none;
+		font-weight: bold;
+		background: #88888b;
+	}
+		.button-link:hover {
+			background: #55555b;
+		}
+	#wrap {
+	}
+		#wrap h1 {
+			font-size: 18px;
+			padding: 10px;
+			margin-left: -10px;
+			margin-right: -10px;
+			background: #dddddb;
+		}
 
 #footer{
 	color: #666;
-	font-weight: strong;
 	font-size: 13px;
 	margin: 10px 0;
 	text-align: center;
 }
 
 #flashes{
-	clear: both;
-	padding: 15px 0 0 0;	
+	margin-top: -25px;
+	float: left;
 }
 
 #flashes div div{
-	padding: 5px 7px;
+	padding: 2px 7px;
+	margin-top: 1px;
 	font-weight: bold;
-	max-width: 600px;
-	color: #fff;
 }
 	#error div{
-		background: #800;
+		color: #800;
 	}
-	
+
 	#notice div{
-		background: #080;
+		color: #080;
 	}
-	
+
 #wrap{
-	padding: 0 10px 20px 10px;	
+	padding: 0 10px 20px 10px;
 }
-	
+
 .tiny{
 	font-size: 14px;
 	color: #999;
@@ -143,15 +165,6 @@ h1{
 		color: #666;
 	}
 
-
-
-.button-link{
-	border: 1px solid #ccc;
-	padding: 5px;
-	color: #fff;
-	font-size: 14px;	
-}
-
 .flat-list{
 	list-style-type: none;
 	margin: 0;
@@ -162,7 +175,7 @@ h1{
 		margin: 0;
 		padding: 0;
 	}
-	
+
 .preferred{
 	font-size: 13px;
 	color: #fff;
@@ -193,7 +206,7 @@ h1{
 				color: #000;
 				font-size: 16px;
 			}
-			
+
 /* ERROR MESSAGSE */
 .fieldWithErrors{
 	display: inline;

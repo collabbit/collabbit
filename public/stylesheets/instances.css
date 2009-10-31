@@ -1,6 +1,6 @@
 .subtitle{
 	font-size: .7em;
-	color: #999	
+	color: #999
 }
 
 #latest-users, #latest-incidents{
@@ -19,7 +19,7 @@
 		padding: 0;
 		color: #444;
 	}
-	
+
 	#latest-users ul, #latest-incidents ul, #latest-updates ul{
 		margin: 0;
 		padding:0 0 0 3px;
@@ -35,10 +35,11 @@
 #latest-updates{
 	border-top: 1px solid #ccc;
 	padding: 10px 0 0 0;
-	clear:both;	
+	clear:both;
 }
 
-.edit-instance-button{
+/* replace with more general CSS in sitewide.css */
+	/*.edit-instance-button{
 	float: right;
 	background: #006;
 	border-top: none;
@@ -46,4 +47,4 @@
 }
 	.edit-instance-button:hover{
 		background: #009;
-	}
+	}*/

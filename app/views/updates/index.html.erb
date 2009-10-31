@@ -8,7 +8,7 @@
 %>
 
 <% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
-
+<% content_for :javascripts, javascript_include_tag('jquery','updates')%>
 <% content_for :body do %>
 	<%= pretty_button_if(@incident.destroyable?, :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
 	<%= pretty_button_if(@incident.updatable?, :edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
@@ -32,9 +32,10 @@
 		</h2>
 		<% end %>
 		<div id="view-options">
+			<h3>Filters</h3>
 	    <% form_tag instance_incident_updates_path(@instance, @incident), :method => :get do %>
 	        <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %>
-	        <%= text_field_tag :search, '' %>
+	        <%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 	        <%= select(:filters, 'relevant_groups][id', @instance.groups.map{|g| [g.name, g.id]},
 					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
 			<%= select(:filters, 'tags][id', @instance.tags.map{|g| [g.name, g.id]},

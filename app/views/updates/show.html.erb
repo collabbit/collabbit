@@ -19,10 +19,10 @@
 			<span class="tiny">
 				&laquo; <%= link_to @incident.name, instance_incident_path(@instance,@incident) %>
 			</span>
-			<div class="under">
-				by <%=link_to_issuer @update%>
-				on <%= time_mdy @update.created_at%>
-			</div>
+			<span class="under">
+				(by <%=link_to_issuer @update%>
+				on <%= time_mdy @update.created_at%>)
+			</span>
 		</h1>
 		<p><%=simple_format(h(@update.text)) %></p>
 		

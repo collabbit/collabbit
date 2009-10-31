@@ -82,7 +82,6 @@ class IncidentsController < ApplicationController
       @incident.closed_at = nil
       @incident.save
     else
-      flash[:notice] = 'Incident closed'
       @incident.closed_at = DateTime.now
       @incident.save
     end

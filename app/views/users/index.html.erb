@@ -13,15 +13,6 @@
 <% content_for :body do %>
 
 <%= flashes %>
-	<div id="filters">
-		<% form_tag instance_users_path(@instance), :method => :get, :id => 'filter-bar' do %>
-			<h3>Filters</h3>
-			<%= select(:filters, 'groups][id', @instance.groups.map{|g| [g.name, g.id]},
-					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
-			<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 12, :class=>'blank' %>
-			<%= submit_tag "Go", :name => nil %>
-		<% end %>
-	</div>	
 	<!-- A through Z clickable letters for easy navigation through the contacts -->
 	<div id="wrap">
 		<% if @search or @group_filter %>
@@ -31,8 +22,17 @@
 				<%="#{h @group_filter.name} " if @group_filter%>
 				<span class="tiny">&laquo; Contacts</span></h1>
 		<% else %>
-			<h1>Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
+			<h1>All Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<% end %>
+		<div id="filters">
+			<% form_tag instance_users_path(@instance), :method => :get, :id => 'filter-bar' do %>
+				<h3>Filters</h3>
+				<%= select(:filters, 'groups][id', @instance.groups.map{|g| [g.name, g.id]},
+					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
+				<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'')%>
+				<%= submit_tag "Go", :name => nil %>
+			<% end %>
+		</div>	
 		<ul id="index">
 			<li><em>Jump to last name:</em></li>
 		<% ('A'..'Z').each do |l| %>
