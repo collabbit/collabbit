@@ -6,8 +6,11 @@
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<title><%= yield :title or title %></title>
 		<%= stylesheet_link_tag 'sitewide' %>
-		<!--[if lte IE 7]>
-		<%= stylesheet_link_tag 'sitewide_ie' %>
+		<!--[if IE 7]>
+		<%= stylesheet_link_tag 'sitewide_ie7' %>
+		<![endif]-->
+		<!--[if IE 6]>
+		<%= stylesheet_link_tag 'sitewide_ie6' %>
 		<![endif]-->
 		<%= stylesheet_link_tag controller_name %>
 		<%= yield :styles %>
