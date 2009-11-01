@@ -35,9 +35,20 @@
 			</p>
 			<p>
 				<%= f.label :relevant_groups %><br/>
-				<% @groups.each do |g| %>
+				<em>Your Groups:</em>
+				<% User.current.groups.each do |g| %>
 					<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
 				<% end %>
+				<br />
+				<a id="showallgroups" href="#">Show/Hide Other Groups</a>
+				<br />
+				<em class="allgroups hide">All Groups</em>
+				<span class="allgroups hide">
+				<% ug = User.current.groups
+				   (@groups.select {|g| g if !ug.include? g}).each do |g| %>
+					<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
+				<% end %>
+				</span>
 			</p>
 			<p>
 				<%= f.label :tags %><br/>

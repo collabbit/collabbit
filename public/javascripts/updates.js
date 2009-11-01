@@ -1,5 +1,5 @@
 $(function(){
-
+	
 	// for filters
 	var init = 'Search Keywords';
 
@@ -19,6 +19,11 @@ $(function(){
 		if($('#search').val() == init)
 			$('#search').val('')
 		return true;
+	});
+
+	$('#showallgroups').live("click",function(){
+		$('.allgroups').toggleClass('hide');
+		return false;
 	});
 
 
