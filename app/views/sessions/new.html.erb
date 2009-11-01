@@ -1,26 +1,9 @@
-<div id="wrap">
-	<%= flashes %>
-	<% if flashes == '' %>
-		<h1 id="login-title">Please log in to the <%=@instance.short_name%> collabbit</h1>
-	<% end %>
-		
-	<% form_tag instance_session_path do -%>
-		<p id="email-section"><%= label_tag 'email' %>
-		<%= text_field_tag 'email', @login %></p>
-		
-		<p id="pw-section"><%= label_tag 'password' %>
-		<%= password_field_tag 'password', nil %></p>
-		
-		<p id="remember-section">
-			<%= check_box_tag 'remember_me', 1, @remember_me %>
-			<%= label_tag 'remember_me', 'Remember me for two weeks' %>
-		</p>
+<%
+welcome = "Please log in to the #{@instance.short_name} collabbit"
+path = instance_session_path
+%>
 
-		<p id="login-section"><%= submit_tag 'Log in' %></p>
-	<% end -%>
-	
-	<ul id="account-links">
-		<li><%=link_to 'Create an account', instance_signup_path(@instance) %></li>
-		<li><%=link_to 'Forgot your password?', instance_forgotpassword_path(@instance) %></li>
-	</ul>
-</div>
+<%= render :partial => 'new', :locals => {  :welcome => welcome,
+                                            :path => path,
+                                            :show_remember_me => true,
+                                            :show_account_links => true} %>

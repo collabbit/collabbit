@@ -20,6 +20,10 @@ class Instance < ActiveRecord::Base
                           :in => %w( support blog www billing help api internal mail ),
                           :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
 
+
+  @@current = nil
+  mattr_accessor :current
+
   # Allows us to use the short_name in the URL instead of the ID
   def to_param
     short_name
@@ -33,7 +37,7 @@ class Instance < ActiveRecord::Base
   end
   
   def viewable?
-    User.current.instance == self || super
+    super || User.current.instance == self
   end
   
   # Overwrites find so that <tt>Instance.find(x.to_param)</tt> works

@@ -12,7 +12,7 @@ ActiveRecord::Base.class_eval do
   # Returns true if user is allowed to perform the action
   def self.check_permissions(action)
     return true if Admin.current
-    return false unless User.current # <-- if not logged in, can't have permissions
+    return false unless User.current || Instance.current.users.include?(User.current)
     perms = User.current.permissions.map.select {|p| p.model == self.to_s}
     (perms.map {|p| p.action.to_sym}).include?(action.to_sym)
   end

@@ -59,12 +59,22 @@ module Auth
       path = instance_login_path(Instance.find(params[:instance_id]||params[:id]))
       notice = "You must be logged in to view this page."
       notice_exit(path, notice) unless logged_in?
+    end
+    
+    def require_admin_login
+      notice = "You must be logged in to view this page."
+      notice_exit(login_path, notice) unless logged_in?(:admin)
     end  
   
     # Returns true if the user is logged in. Will try to log in from session and cookie.
-    def logged_in?
-      login
-      !!User.current
+    def logged_in?(as = :user)
+      if as == :user
+        login
+        !!User.current 
+      elsif as == :admin
+        login_from_session
+        !!Admin.current
+      end
     end
 
     # Inclusion hook to make #current_user and #logged_in?
@@ -74,13 +84,17 @@ module Auth
     end
     
     # Logs in as a user. Just sets the session, not any cookies.
-    def login_as(user)
-      session[:user_id] = user ? user.id : nil
+    def login_as(user, type = :user)
+      session["#{type}_id".to_sym] = user ? user.id : nil
       if user.is_a? User
         user.last_login = DateTime.now
         user.save
       end
-      User.current = user
+      if type == :user || user.is_a?(User)
+        User.current = user
+      elsif type == :admin || user.is_a?(Admin)
+        Admin.current = user
+      end
     end
     
     # Tries to log in from session or cookie
@@ -91,6 +105,7 @@ module Auth
     # Tries to log in from session
     def login_from_session
       login_as User.find(session[:user_id]) if session[:user_id]
+      login_as Admin.find(session[:admin_id]), :admin if session[:admin_id]
     end
 
     # Tries to log in from cookie
@@ -113,6 +128,7 @@ module Auth
       login_as false
       kill_remember_cookie!     # Kill client-side auth cookie
       session[:user_id] = nil   # keeps the session but kill our variable
+      session[:admin_id] = nil
     end
 
     # Does a complete log out including destroying the session.

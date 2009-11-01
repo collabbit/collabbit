@@ -112,6 +112,11 @@ class UpdatesController < ApplicationController
     end
     
     @update.attachment_ids = @update.attachment_ids & (params[:keep_file] || [])
+    unless params[:attachments].blank? #and Attachment.creatable?
+      params[:attachments].each do |attach|
+        @update.attachments.build(:attach => attach)
+      end
+    end
 
     if @update.update_attributes(params[:update])
       flash[:notice] = UPDATE_UPDATED

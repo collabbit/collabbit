@@ -9,27 +9,19 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
 class AdminsController < ApplicationController
-  def new
-    @admin = Admin.new
-    return with_rejection unless Admin.creatable?
-  end
 
-  def show
-    @admin = Admin.find(params[:id])
-    return with_rejection unless @admin.viewable?
-  end
+  skip_before_filter :require_login
+  before_filter :require_admin_login
+  layout 'home'
 
   def index
-    return with_rejection unless Admin.listable?
     @admins = Admin.all
   end
 
   # Saves an admin object to the database with the parameters provided in 
   # the :admin hash, which is populated by the form on the 'new' page
   def create
-    return with_rejection unless Admin.creatable?
     @admin = Admin.new(params[:admin])
-
     if @admin.save
       flash[:notice] = 'Admin has been added successfully.'
       redirect_to @admin
@@ -37,18 +29,12 @@ class AdminsController < ApplicationController
       render :action => 'new'
     end
   end
-  
-  def edit
-    @admin = Admin.find(params[:id])
-    return with_rejection unless @admin.viewable? and @admin.updatable?
-  end
-  
+
   # Updates an existing admin object in the database specified by its :id
   # The data to be saved is provided in the :admin hash, 
   # which is populated by the form on the 'edit' page
   def update
     @admin = Admin.find(params[:id])
-    return with_rejection unless @admin.viewable? and @admin.updatable?
 
     if @admin.update_attributes(params[:admin])
       flash[:notice] = 'Admin has been updated successfully.'
@@ -60,10 +46,8 @@ class AdminsController < ApplicationController
 
   # Removes an admin object specified by its :id from the database
   def destroy
-    @admin = @instance.admins.find(params[:id])
-    return with_rejection unless @admin.destroyable?
+    @admin = Admin.find(params[:id])
     @admin.destroy
-    redirect_to incidents_path
-  end
-  
+    redirect_to admins_path
+  end  
 end

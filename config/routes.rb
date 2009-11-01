@@ -1,12 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.login 'login',        :controller => 'sessions',  :action => 'new'
-  map.logout 'logout',      :controller => 'sessions',  :action => 'destroy'
+  map.resources :admins, :only => [:index, :create, :update, :destroy]
+  map.login 'login',        :controller => 'admin_sessions',  :action => 'new'
+  map.resource :admin_session
+  map.logout 'logout',      :controller => 'admin_sessions',  :action => 'destroy'
   map.signup 'signup',      :controller => 'admins',    :action => 'new'
   map.register 'register',  :controller => 'admins',    :action => 'create'
-  map.resources :admins do |admin|
-    admin.resource :session
-  end
   
   map.resources :instances, :as => 'for' do |instance|
     instance.resources :incidents do |incident|

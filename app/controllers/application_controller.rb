@@ -19,5 +19,6 @@ class ApplicationController < ActionController::Base
     def set_current_account
       @instance = Instance.find_by_short_name(request.subdomains.first)
       @instance ||= Instance.find_by_short_name(params[:instance_id]) || Instance.find_by_short_name(params[:id])
+      Instance.current = @instance
     end
 end

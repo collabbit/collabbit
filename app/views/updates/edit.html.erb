@@ -9,6 +9,9 @@
 
 <% content_for :title, title ('Edit update', @update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
 
+<% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates') -%>
+
+
 <% content_for :body do %>
 <%= flashes %>
 <div id="wrap">

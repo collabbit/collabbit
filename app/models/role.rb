@@ -20,4 +20,37 @@ class Role < ActiveRecord::Base
     find_by_name DEFAULT_ROLE_NAME
   end
   
+  def self.default_setup
+    roles = ['Normal User', 'Manager', 'Administrator', 'Super Administrator']
+    roles.map! {|r| Role.new(:name => r)}
+    [:update, :group, :group_type, :incident, :tag].each do |m|
+      [:create, :show, :list].each do |a|
+        roles[0].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+      end
+      [:create, :update, :destroy, :show, :list].each do |a|
+        roles[1].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+        roles[2].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+      end
+      [:create, :update, :destroy, :show, :list].each do |a|
+        roles[3].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+      end
+    end
+    [:create, :update, :destroy, :show, :list].each do |a|
+      roles[2].permissions << Permission.create({:model => 'User', :action => a.to_s})
+      roles[3].permissions << Permission.create({:model => 'User', :action => a.to_s})
+    end
+    [:show, :list].each do |a|
+      roles[0].permissions << Permission.create({:model => 'User', :action => a.to_s})
+      roles[1].permissions << Permission.create({:model => 'User', :action => a.to_s})
+    end
+    for role in roles
+      role.permissions << Permission.create({:model => 'Instance', :action => 'show'})
+    end
+    roles[3].permissions << Permission.create({:model => 'Instance', :action => 'update'})
+    [:create, :update, :destroy].each do |a|
+      roles[3].permissions << Permission.create({:model => 'User', :action => a.to_s})
+    end
+    roles
+  end
+  
 end

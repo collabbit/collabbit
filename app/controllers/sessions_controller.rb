@@ -10,14 +10,12 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login
 
   def new
-    @instance = Instance.find(params[:instance_id])
     redirect_to @instance if logged_in?
   end
   
   # Logs in a user specified by :email if the user is active and the password
   # is correct. 
   def create
-    @instance = Instance.find(params[:instance_id])
     @user = @instance.users.find_by_email(params[:email])
     if @user and @user.state != User::STATES[:active]
       flash[:error] = INACTIVE_ACCOUNT
