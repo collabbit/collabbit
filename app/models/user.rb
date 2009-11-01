@@ -111,13 +111,15 @@ class User < ActiveRecord::Base
         name.given = first_name
         name.family = last_name
       end
-      if primary_phone
+      unless primary_phone.blank?
         maker.add_tel(primary_phone) do |t|
           t.location = primary_phone_name
           t.preferred = true
         end
       end
-      maker.add_tel(nonprimary_phone) {|t| t.location = nonprimary_phone_name} if nonprimary_phone
+      unless nonprimary_phone.blank?
+        maker.add_tel(nonprimary_phone) {|t| t.location = nonprimary_phone_name}
+      end
       maker.add_email(email) if email
     end
     
