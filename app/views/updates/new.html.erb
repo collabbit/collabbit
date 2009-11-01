@@ -14,7 +14,7 @@
 <% content_for :body do %>
 	<%= flashes %>
 	<div id="wrap">
-		<h1>Create an update:</h1>
+		<h1>Add an update <span class="tiny">&laquo; <%=@incident.name%></span></h1>
 	
 		<%= error_messages_for :update %>
 		<% form_for [@instance, @incident, @update], :html => {:multipart => true} do |f| -%>
@@ -28,7 +28,7 @@
 			</p>
 			<p>
 				<%= f.label :issuer %><br/>
-					<%= f.radio_button(:issuer , 'myself') + f.label(:issuer_myself, 'Myself')%>
+					<%= f.radio_button(:issuer , 'myself', :checked => true) + f.label(:issuer_myself, 'Myself')%>
 				<% User.current.groups.each do |g| %>
 					<%= f.radio_button(:issuer, g.id) + f.label("issuer_#{g.id}".to_sym, g.name) %>
 				<% end %>

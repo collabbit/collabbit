@@ -6,7 +6,7 @@
 			<%= menu_item('Group Types',instance_group_types_path(@instance),controller_name == 'group_types') if GroupType.listable? -%>
 			<%= menu_item('Roles', 		instance_roles_path(@instance),	controller_name == 'roles') if Role.listable?-%>
 			<%= menu_item('Tags', 		instance_tags_path(@instance),	controller_name == 'tags') if Tag.listable?-%>
-			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') -%>
+			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') if User.listable? -%>
 		<% end %>
 		<li id="account-status">
 			Hello, <%=link_to User.current.first_name, edit_instance_user_path(@instance, User.current)-%> 
