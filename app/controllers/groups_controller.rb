@@ -74,7 +74,7 @@ class GroupsController < ApplicationController
     gt = @group.group_type
     return with_rejection unless @group.destroyable?
     @group.destroy
-    redirect_to instance_group_types_path(@instance, gt)
+    redirect_to [@instance, gt]
   end
 
 end
