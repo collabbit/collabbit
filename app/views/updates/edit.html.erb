@@ -11,39 +11,52 @@
 
 <% content_for :body do %>
 <%= flashes %>
-
-	<h1>Edit update: <%=@update.title%></h1>
+<div id="wrap">
+	<h1>Edit update <span class="tiny">&laquo; <%=@incident.name%></span></h1>
 
 	<%= error_messages_for :update %>
-	<% form_for [@instance, @incident, @update] do |f| -%>
-		<%= f.label :title %>
-		<%= f.text_field :title %>
+	<% form_for [@instance, @incident, @update], :html => {:multipart => true} do |f| -%>
 		<p>
-		<%= f.label :text %>
-		<%= f.text_area :text %>
+			<%= f.label :title %><br/>
+			<%= f.text_field :title %>
 		</p>
-		<% unless User.current.groups.empty? %>
-			<p>Issuer: 
-			<%= f.radio_button(:issuer , 'myself', :checked => @update.issuer == 'myself') + f.label(:issuer_myself, 'Myself')%>
+		<p>
+			<%= f.label :text %><br/>
+			<%= f.text_area :text, :size => '80x14' %>
+		</p>
+		<p>
+			<%= f.label :issuer %><br/>
+				<%= f.radio_button(:issuer , 'myself', :checked => (@update.issuing_type == :user)) + f.label(:issuer_myself, 'Myself')%>
 			<% User.current.groups.each do |g| %>
-				<%= f.radio_button(:issuer, g.id,:checked => @update.issuer == g) + f.label("issuer_#{g.id}".to_sym, g.name) %>
+				<%= f.radio_button(:issuer, g.id, :checked => (g == @update.issuer)) + f.label("issuer_#{g.id}".to_sym, g.name) %>
 			<% end %>
-			</p>
-		<% else %> 
-			<%= hidden_field_tag('update[issuer]' , 'myself')%>
-		<% end %>
-		<h2>Relevant Groups:</h2>
-		<% @instance.groups.each do |g| %>
-			<%= check_box_tag("relevant_groups[#{g.id}]", 1, @update.relevant_groups.include?(g) ) + label_tag("relevant_groups[#{g.id}]", g.name) %>
-		<% end %>
-		<h3>Tags:</h3>
-		<% @instance.tags.each do |t| %>
-			<%= check_box_tag("tags[#{t.id}]", 1, @update.tags.include?(t)) + label_tag("tags[#{t.id}]", t.name) %>
-		<% end %>
-		<p>
-		<%= f.label :additional_tags %>
-		<%= f.text_field :additional_tags %>
 		</p>
-		<p><%= f.submit 'Save' %></p>
+		<p>
+			<%= f.label :relevant_groups %><br/>
+			<% User.current.groups.each do |g| %>
+				<%= check_box_tag("relevant_groups[#{g.id}]", :checked => (@update.relevant_groups.include?(g))) + label_tag("relevant_groups[#{g.id}]", g.name) %>
+			<% end %>
+		</p>
+		<p>
+			<%= f.label :tags %><br/>
+			<% Tag.all.each do |t| %>
+				<%= check_box_tag("tags[#{t.id}]", :checked => (@update.tags.include?(t))) + label_tag("tags[#{t.id}]", t.name) %>
+			<% end %>
+		</p>
+		<p>
+			<%= f.label :additional_tags, "Additional Tags (comma-separated like: apple, pie, bread pudding)" %><br/>
+			<%= f.text_field :additional_tags %>
+		</p>
+		<p>
+			<%= f.label :attach_files%><br/>
+			<%= file_field_tag 'attachments[]', :id => 'multi' %>
+			<ul>
+			<% @update.attachments.each do |a| %>
+			    <li><%= check_box_tag("keep_file[#{a.id}]", :checked => true) + label_tag("keep_file_#{a.id}", a.attach_file_name)%></li>
+			<% end%>
+			</ul>
+		</p>
+		<p><%= f.submit 'Update' %></p>
 	<% end %>
+</div>
 <% end %>

@@ -110,6 +110,8 @@ class UpdatesController < ApplicationController
         @update.tags << Tag.find(key) if val
       end
     end
+    
+    @update.attachment_ids = @update.attachment_ids & (params[:keep_file] || [])
 
     if @update.update_attributes(params[:update])
       flash[:notice] = UPDATE_UPDATED
