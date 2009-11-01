@@ -10,15 +10,19 @@
 <% content_for :title, title(@group.name, 'Groups', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button_if(@group.updatable?, :edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
-	<h1>Page for <%=@group.name%> Group [<%= link_to @group.group_type.name, instance_group_type_url(@instance, @group.group_type)%>]</h1>
+		<%= pretty_button_if(@group.updatable?, :edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+		<%= pretty_button_if (!@group.users.include? User.current), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => User.current), 'Join Group', :method => :post %>
+		<%= pretty_button_if (@group.users.include? User.current), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => User.current, :leave => 'true'), 'Leave Group', :method => :post %>
 	<%= flashes %>
-	<% unless @group.users.empty? %>
-		<h2>Group users:</h2>
-		<ul>
-			<% @group.users.each do |u| %>
-				<li><%= link_to u.full_name, instance_user_url(@instance, u) %></li>
-			<% end %>
-		</ul>
-	<% end %>
+	<div id="wrap">
+		<h1>Page for <%=@group.name%> Group [<%= link_to @group.group_type.name, instance_group_type_url(@instance, @group.group_type)%>]</h1>
+		<% unless @group.users.empty? %>
+			<h2>Group users:</h2>
+			<ul>
+				<% @group.users.each do |u| %>
+					<li><%= link_to u.full_name, instance_user_url(@instance, u) %></li>
+				<% end %>
+			</ul>
+		<% end %>
+	</div>
 <% end %>
