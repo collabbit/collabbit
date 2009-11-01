@@ -8,9 +8,9 @@
 			<%= menu_item('Tags', 		instance_tags_path(@instance),	controller_name == 'tags') if Tag.listable?-%>
 			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') if User.listable? -%>
 		<% end %>
-		<li id="account-status">
+		<li id="account-status"><span>
 			Hello, <%=link_to User.current.first_name, edit_instance_user_path(@instance, User.current)-%> 
-				(<%=link_to('Log Out', instance_logout_path(@instance)) -%>)
+				(<%=link_to('Log Out', instance_logout_path(@instance)) -%>)</span>
 		</li>
 	<% else%>
 		<%= menu_item('Log In', instance_login_path(@instance), controller_name == 'sessions') %>
