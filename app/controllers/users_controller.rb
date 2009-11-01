@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     @user.salt = Digest::SHA1.hexdigest(Time.now.to_s + @instance.short_name + rand.to_s)
     @user.crypted_password = @user.generate_crypted_password(@user.password)
     @user.activation_code = @user.generate_activation_code
-    @user.role = Role.default
+    @user.role = @instance.roles.first
 
     if @user.save
       # Note: activation email isn't sent yet
