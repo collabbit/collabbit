@@ -1,0 +1,11 @@
+<% content_for :menu %>
+
+<%
+welcome = "Please log in"
+path = admin_session_path
+%>
+
+<%= render :partial => 'sessions/new', :locals => {:welcome => welcome,
+                                                    :path => path,
+                                                    :show_remember_me => false,
+                                                    :show_account_links => false} %>
