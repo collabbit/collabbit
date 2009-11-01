@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :last_name
   validates_presence_of     :email
   validates_length_of       :email, :within => 6..100
-  validates_uniqueness_of   :email
+  validates_uniqueness_of   :email, :scope => :instance_id
 
   attr_accessor :password_confirmation, :password
 #  validates_presence_of     :password, :on => :create
