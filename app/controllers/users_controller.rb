@@ -46,7 +46,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    
     @user = User.new
   end
  
@@ -90,6 +89,7 @@ class UsersController < ApplicationController
   # Activates an existing user, identified by the :activation_code provided  
   # If the activation code is wrong or missing, the user is not activated
   def activate
+    logout_keeping_session!
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
@@ -103,8 +103,7 @@ class UsersController < ApplicationController
   end
 
   # Removes a user object from the database
-  def destroy
-    
+  def destroy    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.destroyable?
     @user.destroy
@@ -112,7 +111,6 @@ class UsersController < ApplicationController
   end
   
   def vcards
-    
     @users = @instance.users.find(params[:users].split(','))
     respond_to do |f|
       f.vcf do

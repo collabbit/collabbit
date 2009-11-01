@@ -70,11 +70,11 @@ class GroupsController < ApplicationController
   
   # Removes a group object specified by its :id from the database
   def destroy
-    @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
+    gt = @group.group_type
     return with_rejection unless @group.destroyable?
     @group.destroy
-    redirect_to incidents_path
+    redirect_to instance_group_types_path(@instance, gt)
   end
 
 end

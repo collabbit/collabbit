@@ -11,6 +11,7 @@
 
 <% content_for :body do %>
 		<%= pretty_button_if(@group.updatable?, :edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+		<%= pretty_delete_button(@group, :check => true)%>
 		<%= pretty_button_if (!@group.users.include? User.current), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => User.current), 'Join Group', :method => :post %>
 		<%= pretty_button_if (@group.users.include? User.current), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => User.current, :leave => 'true'), 'Leave Group', :method => :post %>
 	<%= flashes %>
