@@ -11,46 +11,44 @@
 
 <% content_for :body do %>
 <%= flashes %>
-
+<div id="wrap">
 	<h1>Sign up as a new user</h1>
 	<% @user.password = @user.password_confirmation = nil %>
 	
 	<%= error_messages_for :user %>
 	<% form_for [@instance, @user] do |f| -%>
-		<p><%= label_tag 'first_name' %>
+		<p><%= f.label 'first_name' %><br/>
 		<%= f.text_field :first_name %></p>
 		
-		<p><%= label_tag 'last_name' %>
+		<p><%= f.label 'last_name' %><br/>
 		<%= f.text_field :last_name %></p>
 	
-		<p><%= label_tag 'email' %><br/>
+		<p><%= f.label 'email' %><br/>
 		<%= f.text_field :email %></p>
 		
-		<p><%= label_tag 'desk_phone' %><br/>
-		<%= f.text_field :desk_phone %></p>
+		<p><%= f.label 'desk_phone' %><br/>
+		<%= f.text_field :desk_phone %> <%= f.label 'desk_phone_ext', 'ext' %> <%= f.text_field :desk_phone_ext, :size => 4 %></p>
 		
-		<p><%= label_tag 'Extension' %><br/>
-		<%= f.text_field :desk_phone_ext %></p>
-		
-		<p><%= label_tag 'cell_phone' %><br/>
+		<p><%= f.label 'cell_phone' %><br/>
 		<%= f.text_field :cell_phone %></p>
 		
 		<p>Preferred:</p>
 		<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
 		<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
 		
-		<p><%= label_tag 'carrier' %>
+		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></p>
 
-		<p><%= f.check_box(:wants_alerts)%>
-		<%= label_tag 'wants_alerts' %></p>
+		<!-- p><%= f.check_box(:wants_alerts)%>
+		<%= f.label 'wants_alerts', 'Enable text-message alerting' %></p -->
 	
-		<p><%= label_tag 'password' %><br/>
+		<p><%= f.label 'password' %><br/>
 		<%= f.password_field :password %></p>
 	
-		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+		<p><%= f.label 'password_confirmation', 'Confirm Password' %><br/>
 		<%= f.password_field :password_confirmation %></p>
 	
 		<p><%= submit_tag 'Sign up' %></p>
 	<% end %>
+</div>
 <% end %>
