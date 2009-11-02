@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
   
   private
     def set_current_account
-      @instance = Instance.find_by_short_name(request.subdomains.first)
+      @instance = nil#Instance.find_by_short_name(request.subdomains.first)
       @instance ||= Instance.find_by_short_name(params[:instance_id])
       @instance ||= Instance.find_by_short_name(params[:id])
       Instance.current = @instance
       
-      if @instance && logged_in? && User.current && User.current.instance != @instance
+      if logged_in? && @instance && User.current && User.current.instance != @instance
         logout_keeping_session!
       end
       
