@@ -34,11 +34,26 @@
 		<div id="view-options">
 			<h3>Filters</h3>
 	    <% form_tag instance_incident_updates_path(@instance, @incident), :method => :get do %>
-	        <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %>
+	        <!-- <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %> -->
+	        
+	        <%
+	            groups = []
+	            @updates.each {|u|
+	                u.relevant_groups.each {|g|
+	                    groups << g unless groups.include?(g)
+	                }
+	                unless u.issuing_group == nil || groups.include?(u.issuing_group)
+	                    groups << u.issuing_group 
+	                end
+	            }
+	            tags = []
+	            @updates.each {|u| u.tags.each {|t| tags << t unless tags.include?(t) }}
+	        %>
+	        
 	        <%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
-	        <%= select(:filters, 'relevant_groups][id', @instance.groups.map{|g| [g.name, g.id]},
+	        <%= select(:filters, 'relevant_groups][id', groups.map{|g| [g.name, g.id]},
 					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
-			<%= select(:filters, 'tags][id', @instance.tags.map{|g| [g.name, g.id]},
+			<%= select(:filters, 'tags][id', tags.map{|g| [g.name, g.id]},
     				:include_blank => 'All Tags', :selected => (@tag_filter && @tag_filter.id)) %>
 			<%= submit_tag "Go", :name => nil %>
 	    <% end %>
