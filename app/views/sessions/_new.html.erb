@@ -5,6 +5,7 @@
 	<% end %>
 		
 	<% form_tag path do -%>
+	    <%= hidden_field_tag 'return_to', @return_to %>
 		<p id="email-section"><%= label_tag 'email' %>
 		<%= text_field_tag 'email', @login %></p>
 		

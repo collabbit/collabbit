@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login
 
   def new
+    @return_to = params[:return_to] || @instance
     redirect_to @instance if logged_in?
   end
   
@@ -29,7 +30,7 @@ class SessionsController < ApplicationController
       login_as @user
       handle_remember_cookie!(true) if params[:remember]
 
-      redirect_to @instance
+      redirect_to params[:return_to] || @instance
     else
       flash[:error] = INVALID_EMAIL_OR_PASSWORD
       render :action => :new
