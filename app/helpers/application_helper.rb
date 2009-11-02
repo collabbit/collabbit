@@ -56,7 +56,15 @@ module ApplicationHelper
   
   def phone(p)
     p = p.split(' x ')
-    number_to_phone(p[0], :extension => (p[1] unless p[1].blank?), :area_code => true)
+    p.map! {|q| q.gsub(/[^0-9]/, '').to_i }
+    
+    opts = {}
+    opts[:area_code] = true if p[0] && p[0].to_s.size > 7
+    opts[:extension] = p[1] unless p[1].blank?
+    
+    logger.info { opts.inspect }
+
+    number_to_phone(p[0], opts)
   end
   
   def link_to_issuer(i)
