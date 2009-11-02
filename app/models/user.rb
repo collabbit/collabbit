@@ -121,6 +121,9 @@ class User < ActiveRecord::Base
         maker.add_tel(nonprimary_phone) {|t| t.location = nonprimary_phone_name}
       end
       maker.add_email(email) if email
+      if self.groups.size > 0
+        maker.org = self.groups.map {|g| g.name }
+      end
     end
     
   end
