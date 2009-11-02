@@ -5,7 +5,7 @@
 
 class HomeController < ApplicationController
   
-  skip_before_filter :login, :set_current_account
+  skip_before_filter :require_login, :set_current_account
 
   def index
   end
