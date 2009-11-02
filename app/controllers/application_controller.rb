@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
       @instance ||= Instance.find_by_short_name(params[:id])
       Instance.current = @instance
       
+      logger.info { "in set_current_account" }
+      logger.info { "User.current: #{User.current.inspect}" }
+      logger.info { "Instance: #{@instance.inspect}" }
+      logger.info { "Session: #{session.inspect}" }
+      
       if logged_in? && @instance && User.current && User.current.instance != @instance
         logout_keeping_session!
       end
