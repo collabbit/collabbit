@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   require 'digest/sha1'
   helper :all # include all helpers, all the time
   
-  before_filter :login, :require_login
-  before_filter :set_current_account # thank you 37signals
+  before_filter :require_login
+  before_filter :set_current_account
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -18,7 +18,14 @@ class ApplicationController < ActionController::Base
   private
     def set_current_account
       @instance = Instance.find_by_short_name(request.subdomains.first)
-      @instance ||= Instance.find_by_short_name(params[:instance_id]) || Instance.find_by_short_name(params[:id])
+      @instance ||= Instance.find_by_short_name(params[:instance_id])
+      @instance ||= Instance.find_by_short_name(params[:id])
       Instance.current = @instance
+      
+      if @instance && logged_in? && User.current && User.current.instance != @instance
+        logout_keeping_session!
+      end
+      
+      notice_exit('/', 'Sorry, that account does not exist.') unless @instance
     end
 end

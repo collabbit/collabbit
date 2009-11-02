@@ -37,7 +37,7 @@ class Instance < ActiveRecord::Base
   end
   
   def viewable?
-    User.current.instance == self || super
+    (User.current && User.current.instance == self) || super
   end
   
   # Overwrites find so that <tt>Instance.find(x.to_param)</tt> works
