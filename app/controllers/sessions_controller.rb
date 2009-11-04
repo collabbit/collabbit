@@ -29,8 +29,12 @@ class SessionsController < ApplicationController
       end
       login_as @user
       handle_remember_cookie!(true) if params[:remember]
-
-      redirect_to params[:return_to] || instance_path(@instance)
+      
+      if params[:return_to] == nil || params[:return_to].size == 0
+        redirect_to instance_path(@instance)
+      else
+        redirect_to params[:return_to]
+      end
     else
       flash[:error] = INVALID_EMAIL_OR_PASSWORD
       render :action => :new
