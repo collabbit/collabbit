@@ -72,6 +72,16 @@
 			border-bottom: 1px solid #ccc;
 			font-weight: bold;
 		}
+			#contacts .name .vcard a{
+				float: right;
+				font-size: 12px;
+				padding: 2px;
+				color: #666;
+			}
+				#contacts .name .vcard a:hover{
+					background: #000;
+					color: #fff;
+				}
 
 		#contacts .email a{
 			color: #00a;

@@ -55,7 +55,7 @@
 					<li class="separator" id="<%=last%>"><%=last%></li>
 				<% end %>
 			<li>
-				<div class="name"><%= link_to u.last_first, instance_user_url(@instance, u) %> <%=link_to 'VCF', formatted_instance_user_path(@instance, u, :format => :vcf) -%></div>
+				<div class="name"><%= link_to u.last_first, instance_user_url(@instance, u) %> <span class="vcard"><%=link_to 'vCard', instance_user_path(@instance, u, :format => :vcf) -%></span></div>
 				<div class="person-info">
 					<% if u.cell_phone %>
 						<span class="phone">
