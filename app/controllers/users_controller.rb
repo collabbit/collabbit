@@ -9,6 +9,9 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, :only => [:new, :create, :forgot_password,
                                                     :reset_password, :activate]
+  before_filter :logout_keeping_session!, :only => [:new, :create,
+                                                    :forgot_password, :reset_password,
+                                                    :activate]
 
   def index
     return with_rejection unless User.listable? and @instance.viewable?
@@ -74,7 +77,6 @@ class UsersController < ApplicationController
   # The data to be saved is provided in the :user hash, 
   # which is populated by the form on the 'edit' page.
   def update
-    
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.updatable?
 
@@ -89,7 +91,6 @@ class UsersController < ApplicationController
   # Activates an existing user, identified by the :activation_code provided  
   # If the activation code is wrong or missing, the user is not activated
   def activate
-    logout_keeping_session!
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
       user.activate!

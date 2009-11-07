@@ -1,3 +1,5 @@
+UserObserver.disable!
+
 # Default Users
 john = User.create_or_update(
   :id => 1, :first_name => 'John', :last_name => 'Smith',
@@ -25,3 +27,5 @@ joey.salt = Digest::SHA1.hexdigest '1'
 joey.crypted_password = joey.generate_crypted_password('sahana123')
 joey.role = Role.find 3
 joey.save
+
+UserObserver.enable!

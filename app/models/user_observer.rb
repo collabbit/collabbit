@@ -6,8 +6,19 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class UserObserver < ActiveRecord::Observer
   
+  @@enabled = true
+  mattr_accessor :enabled
+  
   # Sends an activation email after a user's account is registered
   def after_create(user)
-    UserMailer.deliver_signup_notification(user)
+    UserMailer.deliver_signup_notification(user) if @@enabled
   end
+  
+  def self.enable!
+    @@enabled = true
+  end
+  def self.disable!
+    @@enabled = false
+  end
+  
 end
