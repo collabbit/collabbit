@@ -66,6 +66,7 @@
 					}
 		#contacts a{
 			color: #000;
+			font-size: 14px;
 		}
 
 		#contacts .name{
@@ -93,8 +94,8 @@
 		.phone, .email{display: block}
 		.groups{display:inline}
 		.contact-label{
-			color: #aaa;
-			font-size: 13px;
+			color: #999;
+			font-size: 12px;
 		}
 
 #filters{
