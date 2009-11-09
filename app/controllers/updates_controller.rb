@@ -36,6 +36,7 @@ class UpdatesController < ApplicationController
                                           :per_page       => 50,
                                           :order          => 'id DESC',
                                           :conditions     => search,
+                                          :include        => [:relevant_groups, :issuing_group, :tags],
                                           :filters        => filters,
                                           :filter_style   => :and
     

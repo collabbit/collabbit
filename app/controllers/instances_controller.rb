@@ -12,7 +12,7 @@ class InstancesController < ApplicationController
   end
   
   def show
-    @incidents = @instance.incidents.find(:all,:order => 'id DESC')
+    @incidents = @instance.incidents.find(:all,:include => [:updates], :order => 'id DESC')
     return with_rejection unless @instance.viewable?
   end
 

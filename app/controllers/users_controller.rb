@@ -19,6 +19,7 @@ class UsersController < ApplicationController
                                       :page         => params[:page],
                                       :per_page     => 100,
                                       :conditions   => search,
+                                      :include      => [:groups],
                                       :filters      => filters,
                                       :order        => 'last_name ASC'
     @group_filter = params[:filters] && 

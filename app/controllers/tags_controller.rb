@@ -14,7 +14,7 @@ class TagsController < ApplicationController
 
   def show
     @instance = Instance.find(params[:instance_id])
-    @tag = @instance.tags.find(params[:id])
+    @tag = @instance.tags.find(params[:id], :include => [:groups, :updates])
     return with_rejection unless @tag.viewable? and @instance.viewable?
   end
   
