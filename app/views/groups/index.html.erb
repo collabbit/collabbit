@@ -15,7 +15,7 @@
 	<%=pretty_button_if Group.creatable?, :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
 	<%= flashes %>
 	<div id="wrap">
-		<h1><%=@group_type.name.pluralize%> <span class="subtitle">&laquo; Group Type</span></h1>
+		<h1><%= @group_type.name.pluralize %> <span class='subtitle'>&laquo; <%= @group_type.class.name.titleize %> </span></h1>
 		<ul id="groups-list" class="listy">
 		<% @group_type.groups.each do |g| %>
 			<li>

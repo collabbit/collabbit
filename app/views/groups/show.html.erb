@@ -16,7 +16,7 @@
 		<%= pretty_button_if (@group.users.include? User.current), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => User.current, :leave => 'true'), 'Leave Group', :method => :post %>
 	<%= flashes %>
 	<div id="wrap">
-		<h1>Page for <%=@group.name%> Group [<%= link_to @group.group_type.name, instance_group_type_url(@instance, @group.group_type)%>]</h1>
+	<h1><%= @group.name %> <span class='subtitle'>&laquo; <%= @group.class.name.titleize %> </span></h1>
 		<% unless @group.users.empty? %>
 			<h2>Group users:</h2>
 			<ul>
