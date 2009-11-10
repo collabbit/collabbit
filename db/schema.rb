@@ -59,7 +59,8 @@ ActiveRecord::Schema.define(:version => 20091110211452) do
     t.integer  "incident_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "alert"
+    t.boolean  "text_alert"
+    t.boolean  "email_alert"
   end
 
   create_table "group_taggings", :force => true do |t|

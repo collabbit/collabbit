@@ -6,6 +6,8 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class UserMailer < ActionMailer::Base
   
+  helper :application
+  
   # Prepares an activation link to a newly-registered user
   def signup_notification(user)
     setup_email(user)
@@ -34,7 +36,9 @@ class UserMailer < ActionMailer::Base
     @body = {:user => user, :feed => feed, :update => update, :action => action}
   end
   def email_alert(user, feed, update, action)
-    
+    setup_email(user)
+    @subject = "Collabbit: #{user.instance.long_name}"
+    @body = {:user => user, :feed => feed, :update => update, :action => action}    
   end
   
   protected

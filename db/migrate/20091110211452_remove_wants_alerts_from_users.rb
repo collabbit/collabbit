@@ -1,4 +1,4 @@
-class RemoveWantsAlertsFromusers < ActiveRecord::Migration
+class RemoveWantsAlertsFromUsers < ActiveRecord::Migration
   def self.up
     remove_column :users, :wants_alerts
   end

@@ -14,8 +14,11 @@ class Feed < ActiveRecord::Base
   
   validates_presence_of :name
   
-  def alert?
-    alert
+  def text_alert?
+    text_alert
+  end
+  def email_alert?
+    email_alert
   end
 
   def filter_updates

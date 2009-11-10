@@ -28,15 +28,14 @@ class UpdateObserver < ActiveRecord::Observer
     def find_and_send_alerts(update, action)
       alerts = {}
       update.incident.feeds.each do |f|
-        if f.alert? && f.matches?(update)
+        if f.matches?(update)
           alerts[f.owner] = f
         end
       end
       
-      puts 'Alerts'
       alerts.each_pair do |user, feed|
-        UserMailer.deliver_text_alert(user, feed, update, action)
-        puts "#{user.full_name} ==> #{update.title}"
+        UserMailer.deliver_text_alert(user, feed, update, action) if feed.text_alert?
+        UserMailer.deliver_email_alert(user, feed, update, action) if feed.email_alert?
       end
       
     end    
