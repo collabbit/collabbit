@@ -32,7 +32,9 @@ class Feed < ActiveRecord::Base
         when 'keyword'
           update.text.index(c.requirement) || update.title.index(c.requirement)
         when 'group'
-          update.relevant_groups.include?(c.requirement)
+          update.relevant_groups.include?(c.requirement) || update.issuing_group == c.requirement
+        when 'user_group'
+          (not (update.relevant_groups & owner.groups).empty?)
         when 'user'
           update.user_id == c.requirement
       end
