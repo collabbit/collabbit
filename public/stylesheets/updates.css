@@ -9,34 +9,6 @@
 	font-size: 16px;
 }
 
-/* replace with more general CSS in sitewide.css */
-	/*.edit-incident-button{
-		background: #006;
-	}
-		.edit-incident-button:hover{
-			background: #009;
-		}
-
-	.delete-incident-button{
-		background: #600;
-	}
-		.delete-incident-button:hover{
-			background: #900;
-		}
-	.close-incident-button {
-		background: #660;
-	}
-		.close-incident-button:hover {
-			background: #990;
-		}
-	.add-update-button{
-		background: #060;
-	}
-		.add-update-button:hover{
-			background: #090;
-		}*/
-
-
 #updates-list{
 	list-style-type: none;
 	margin: 20px 0;
@@ -144,4 +116,16 @@
 		.blank{
 			color: #999;
 		}
+
+/* new update page */
+#update_title {
+	width: 600px;
+	border: 1px solid #aaa;
+}
+
+#update_text {
+	width: 600px;
+	border: 1px solid #aaa;
+}
+
 
