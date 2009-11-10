@@ -38,9 +38,6 @@
 		
 		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></p>
-
-		<!-- p><%= f.check_box(:wants_alerts)%>
-		<%= f.label 'wants_alerts', 'Enable text-message alerting' %></p -->
 	
 		<p><%= f.label 'password' %><br/>
 		<%= f.password_field :password %></p>

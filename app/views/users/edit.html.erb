@@ -36,9 +36,6 @@
 		
 		<p><%= label_tag 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
-
-		<p><%= f.check_box(:wants_alerts)%>
-		<%= label_tag 'wants_alerts' %></p>
 	
 		<p><%= label_tag 'password' %><br/>
 		<%= f.password_field :password %></p>

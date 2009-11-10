@@ -55,7 +55,7 @@
 					<li class="separator" id="<%=last%>"><%=last%></li>
 				<% end %>
 			<li>
-				<div class="name"><%= link_to u.last_first, instance_user_url(@instance, u) %> <span class="vcard"><%=link_to 'vCard', instance_user_path(@instance, u, :format => :vcf) -%></span></div>
+				<div class="name"><%= link_to u.last_first, instance_user_url(@instance, u) %> <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
 				<div class="person-info">
 					<% if u.cell_phone %>
 						<span class="phone">
@@ -79,8 +79,15 @@
 						<div class="groups-container">
 							<span class="contact-label">groups:</span>
 							<ul class="groups">
-							<% u.groups.each do |g| %>
+							<% if u.groups.length > 4 %>
+								<% u.groups[0,4].each do |g| %>
 								<li><%= link_to g.name, instance_group_type_group_path(@instance,g.group_type,g) %></li>
+								<% end %>
+								<li class="more"><%= link_to "["+(u.groups.length-4).to_s+"&nbsp;more]", instance_user_url(@instance, u)%></li>
+							<% else %>
+								<% u.groups.each do |g| %>
+								<li><%= link_to g.name, instance_group_type_group_path(@instance,g.group_type,g) %></li>
+								<% end %>
 							<% end %>
 							</ul>
 						</div>

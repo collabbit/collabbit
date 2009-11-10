@@ -22,8 +22,8 @@
 	padding: 0;
 }
 	#contacts > li{
-		width: 290px;
-		height: 110px;
+		width: 340px;
+		height: 132px;
 		float:left;
 		margin: 8px;
 		padding: 0 5px;
@@ -32,7 +32,7 @@
 		border-left: 1px solid #ccc;
 		border-top: 1px solid #ccc;
 	}
-		#contacts > li:hover{
+		#contacts > li:hover {
 			border-color: #000;
 		}
 			#contacts > li.separator{
@@ -67,6 +67,9 @@
 		#contacts a{
 			color: #000;
 			font-size: 14px;
+		}
+		#contacts .more a {
+			text-decoration: none;
 		}
 
 		#contacts .name{
