@@ -2,7 +2,7 @@ class CreateCarriers < ActiveRecord::Migration
   def self.up
     create_table :carriers do |t|
       t.string :name
-      t.string :format
+      t.string :extension
 
       t.timestamps
     end

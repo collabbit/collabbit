@@ -21,7 +21,7 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 
 Rails::Initializer.run do |config|
   
-  config.active_record.observers = :user_observer
+  config.active_record.observers = :user_observer, :update_observer
   config.active_record.colorize_logging = false
   
   config.gem 'vpim'

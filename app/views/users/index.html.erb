@@ -14,7 +14,7 @@
 
 <%= flashes %>
     <%= link_to 'Download these contacts', instance_vcards_path(@instance, 'contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
-    <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link' %>
+    <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 	<div id="wrap">
 		<% if @search or @group_filter %>
 			<h1>
@@ -72,7 +72,7 @@
 					<% if u.email %>
 						<span class="email">
 							<span class="contact-label">email:</span>
-							<%=mail_to u.email %>
+							<%=mail_to u.email, u.email, :target => '_blank' %>
 						</span>
 					<% end %>
 					<% if u.groups and u.groups.length > 0 %>

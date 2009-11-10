@@ -13,22 +13,30 @@ class Feed < ActiveRecord::Base
   has_many :criterions, :dependent => :destroy
   
   validates_presence_of :name
-  validates_presence_of :description
+  
+  def alert?
+    alert
+  end
 
   def filter_updates
-    updates.select do |u|
-      good = true
-      criterions.each do |c|
-        good = good && case c.type
-          when 'start_date' then Time.parse(c.requirement) < u.created_at  
-          when 'end_date' then Time.parse(c.requirement) > u.created_at
-          when 'keyword' then u.text.contains?(c.requirement)
-          # when 'group_type' then u.group_type == c.requirement
-          # when 'group' then u.group == c.requirement
-          when 'user' then u.user_id == c.requirement
-        end
+    updates.select(&matches)
+  end
+  
+  def matches?(update)
+    criterions.each do |c|
+      return false unless case c.kind
+        when 'start_date'
+          Time.parse(c.requirement) <= update.created_at  
+        when 'end_date'
+          Time.parse(c.requirement) >= update.created_at
+        when 'keyword'
+          update.text.index(c.requirement) || update.title.index(c.requirement)
+        when 'group'
+          update.relevant_groups.include?(c.requirement)
+        when 'user'
+          update.user_id == c.requirement
       end
-      good
     end
+    return true
   end
 end

@@ -7,7 +7,7 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 %>
 
-<% content_for :title, title (@user.full_name, 'Contacts', @instance.short_name)%>
+<% content_for :title, title(@user.full_name, 'Contacts', @instance.short_name)%>
 
 <% content_for :body do %>
 	<%= pretty_delete_button(@user, :check => true) %>
@@ -18,7 +18,7 @@
 		<ul id="contact-info-list">
 			<% if @user.email %>
 			<li class="email">
-				<span class="tiny">email:</span> <%=mail_to @user.email%>
+				<span class="tiny">email:</span> <%=mail_to @user.email, @user.email, :target => '_blank'%>
 			</li>
 			<% end
 			if @user.cell_phone %>

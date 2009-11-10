@@ -7,6 +7,7 @@
 class Instance < ActiveRecord::Base
   has_many :incidents, :dependent => :destroy
   has_many :users, :dependent => :destroy
+  has_many :feeds, :through => :user
   has_many :group_types, :dependent => :destroy
   has_many :groups, :through => :group_types
   has_many :roles

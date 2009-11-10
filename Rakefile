@@ -8,3 +8,8 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+namespace :db do
+  desc "Drop, create, migrate, populate the database"
+  task :redo => ['environment', 'db:drop', 'db:create', 'db:migrate_and_populate']
+end

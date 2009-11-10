@@ -7,6 +7,7 @@
 class Incident < ActiveRecord::Base
   belongs_to :instance
   has_many :updates, :dependent => :destroy
+  has_many :feeds, :dependent => :destroy
   
   validates_presence_of :description
   validates_length_of   :name, :within => 2..32

@@ -10,9 +10,7 @@ class UserMailer < ActionMailer::Base
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
-  
     @body[:url]  = "http://collabbit.org/for/#{user.instance.short_name}/activate/#{user.activation_code}"
-    
   end
   
   # Prepares an account activation confirmation to a user 
@@ -29,18 +27,21 @@ class UserMailer < ActionMailer::Base
     @body[:pass] = password
   end
   
-  def test
-    @recipients = "efoxepstein@wesleyan.edu"
-    @from = "notifications@collabbit.org"
-    @subject = "Test"
-    @sent_on = Time.now
+  def text_alert(user, feed, update, action)
+    setup_email(user)
+    @recipients = user.text_email
+    @subject = ''
+    @body = {:user => user, :feed => feed, :update => update, :action => action}
+  end
+  def email_alert(user, feed, update, action)
+    
   end
   
   protected
     # Sets up some email variables
     def setup_email(user)
-      @recipients  = "#{user.email}"
-      @from        = "noreply@elilies.com"
+      @recipients  = user.email
+      @from        = "Collabbit#{user.instance.short_name}@collabbit.org"
       @subject     = "Collabbit: "
       @sent_on     = Time.now
       @body[:user] = user

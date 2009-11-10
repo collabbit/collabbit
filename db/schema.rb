@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091026165223) do
+ActiveRecord::Schema.define(:version => 20091110191652) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20091026165223) do
   end
 
   create_table "criterions", :force => true do |t|
-    t.string   "type"
+    t.string   "kind"
     t.string   "requirement"
     t.integer  "feed_id"
     t.datetime "created_at"
@@ -55,10 +55,11 @@ ActiveRecord::Schema.define(:version => 20091026165223) do
   create_table "feeds", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.integer  "incident_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "alert"
   end
 
   create_table "group_taggings", :force => true do |t|
@@ -169,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20091026165223) do
     t.integer  "carrier_id"
     t.datetime "last_login"
     t.datetime "last_logout"
+    t.datetime "last_alerted"
   end
 
 end

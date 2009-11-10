@@ -128,10 +128,12 @@ class UsersController < ApplicationController
   end
   def reset_password
     @user = @instance.users.find_by_email(params[:user][:email])
-    pass = @user.generate_activation_code[0,12]
-    @user.password = pass
-    @user.save
-    UserMailer.deliver_password_reset(@user, pass)
+    unless @user == nil
+      pass = @user.generate_activation_code[0,12]
+      @user.password = pass
+      @user.save
+      UserMailer.deliver_password_reset(@user, pass)
+    end
     flash[:notice] = PASSWORD_RESET
     redirect_to new_instance_session_path(@instance)
   end

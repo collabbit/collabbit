@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   belongs_to :carrier
   has_many :updates
   has_many :groups, :through => :memberships
-  has_many :user_feeds, :class_name => "Feed", :dependent => :destroy
+  has_many :feeds, :foreign_key => 'owner_id', :dependent => :destroy
   has_many :memberships, :dependent => :destroy, :uniq => true
 
   validates_presence_of     :first_name
@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
   
   # Combines the user's cell phone and their carrier into one string
   def text_email
-    cell_phone+carrier.format
+    cell_phone+carrier.extension
   end
   
   def to_vcard

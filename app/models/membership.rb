@@ -12,6 +12,10 @@ class Membership < ActiveRecord::Base
   #validates_associated :user
   
   validates_uniqueness_of :user_id, :scope => :group_id
+  
+  def chair?
+    is_chair
+  end
 
   def viewable?
     self == User.current || super
