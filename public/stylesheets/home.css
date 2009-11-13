@@ -5,3 +5,12 @@ body {
 		color: #333;
 		line-height: 1.5em;
 	}
+	
+.return_to{
+	color: #666;
+	padding: 4px;
+}
+	.return_to:hover{
+		color: #fff;
+		background: #666;
+	}

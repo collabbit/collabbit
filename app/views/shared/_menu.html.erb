@@ -14,6 +14,6 @@
 		</li>
 	<% else%>
 		<%= menu_item('Log In', instance_login_path(@instance), controller_name == 'sessions') %>
-		<%= menu_item('Register', instance_signup_path(@instance), controller_name == 'users') %>
+		<%= menu_item('Sign Up', instance_signup_path(@instance), controller_name == 'users') %>
 	<% end %>
 </ul>

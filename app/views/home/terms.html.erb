@@ -1,3 +1,7 @@
+<% if @return_to %>
+    <%=link_to "&laquo; Go back to #{@return_to.split('/').last}", @return_to, :class => 'return_to'%>
+<% end %>
+
 <h2>Terms of Usage</h2>
 
 <p>The following terms and conditions govern all use of the collabbit.org website and all content, services and products available at or through the website. The Website is owned and operated by Humanitarian FOSS Project: Collabbit. ("Collabbit"). The Website is offered subject to your acceptance without modification of all of the terms and conditions contained herein and all other operating rules, policies (including, without limitation, Collabbit’s Privacy Policy) and procedures that may be published from time to time on this Site by Collabbit (collectively, the "Agreement").</p>

@@ -11,6 +11,7 @@ class HomeController < ApplicationController
   end
   
   def show
+    @return_to = params[:return_to] if params[:return_to]
     render :action => params[:page]
   end
   
