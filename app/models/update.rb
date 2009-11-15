@@ -19,6 +19,7 @@ class Update < ActiveRecord::Base
   validates_presence_of :title
   validates_length_of   :title, :within => 3..256
   validates_presence_of :text
+  validates_length_of   :text, :within => 1..1000000
   
   attr_accessor :additional_tags
   after_save :handle_tags

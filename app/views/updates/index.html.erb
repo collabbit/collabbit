@@ -12,11 +12,7 @@
 <% content_for :body do %>
 	<%= pretty_button_if(@incident.destroyable?, :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
 	<%= pretty_button_if(@incident.updatable?, :edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
-	<% if @incident.closed_at %>
-		<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), 'Reopen Incident') %>
-	<% else %>
-		<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), 'Close Incident') %>
-	<% end %>
+	<%= pretty_button_if(@incident.updatable?, :close_incident, instance_incident_close_path(@instance,@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
 	<%= pretty_button_if((Update.creatable? and @instance.viewable?), :add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
 	
 <%= flashes %>
@@ -36,18 +32,17 @@
 	    <% form_tag instance_incident_updates_path(@instance, @incident), :method => :get do %>
 	        <!-- <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %> -->
 	        
-	        <%
+	        <% # This should be made to be more efficient:
 	            groups = []
 	            @updates.each {|u|
-	                u.relevant_groups.each {|g|
-	                    groups << g unless groups.include?(g)
-	                }
-	                unless u.issuing_group == nil || groups.include?(u.issuing_group)
+	                groups += u.relevant_groups.reject{|g| groups.include?(g) }
+
+	                unless u.issuing_type == :user || groups.include?(u.issuing_group)
 	                    groups << u.issuing_group 
 	                end
 	            }
 	            tags = []
-	            @updates.each {|u| u.tags.each {|t| tags << t unless tags.include?(t) }}
+	            @updates.each {|u| tags += u.tags.reject{|t| tags.include?(t) }}
 	        %>
 	        
 	        <%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
@@ -65,7 +60,7 @@
 					<%= link_to u.title, instance_incident_update_url(@instance, @incident, u), :class => 'update-title' %>
 					<span class="update-meta">by <%= issuer_link(u)%> on <%= time_mdy u.created_at%></span>
 					<p class="update-text">
-						<%=h u.text %>
+						<%=simple_format(h(u.text)).split('</p>')[0][0..256] %><%='...' if u.text.length > 256%>
 					</p>
 				<% unless u.attachments.empty? %>
 					<div class="attachments">
