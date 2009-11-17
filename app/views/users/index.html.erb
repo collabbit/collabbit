@@ -27,7 +27,7 @@
 		<% end %>
 		<div id="filters">
 			<% form_tag instance_users_path(@instance), :method => :get, :id => 'filter-bar' do  
-			    groups = @instance.groups.reject {|g| g.memberships.size == 0 }
+			    groups = @instance.groups.reject {|g| g.memberships.length == 0 }
 			    %>
 				<h3>Filters</h3>
 				<%= select(:filters, 'groups][id', groups.map{|g| [g.name, g.id]},
