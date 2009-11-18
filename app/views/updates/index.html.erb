@@ -46,10 +46,13 @@
 	        %>
 	        
 	        <%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
-	        <%= select(:filters, 'relevant_groups][id', groups.map{|g| [g.name, g.id]},
-					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
-			<%= select(:filters, 'tags][id', tags.map{|g| [g.name, g.id]},
-    				:include_blank => 'All Tags', :selected => (@tag_filter && @tag_filter.id)) %>
+	        
+	        <select name="filters[relevant_groups][id]">
+	            <%= options_for_select([['All Groups', nil]] + groups.map{|g|[g.name, g.id]}, (@group_filter && @group_filter.id)) %>
+	        </select>
+	        <select name="filters[tags][id]">
+	            <%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, (@tag_filter && @tag_filter.id)) %>
+	        </select>    				
 			<%= submit_tag "Go", :name => nil %>
 	    <% end %>
 		</div>

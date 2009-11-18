@@ -32,6 +32,7 @@
 				<h3>Filters</h3>
 				<%= select(:filters, 'groups][id', groups.map{|g| [g.name, g.id]},
 					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
+				<%= select(:filters, 'state', {'Active'=>'active', 'Pending'=>'pending_approval'}, :selected => @pending_filter) if @pending_filter%>
 				<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'')%>
 				<%= submit_tag "Go", :name => nil %>
 			<% end %>
@@ -51,13 +52,15 @@
 		<ul id="contacts">
 		<% 	last = ''
 			@users.each do |u|
-				if u.last_name[0,1] != last
-					last = u.last_name[0,1]
+				if u.last_name[0,1].upcase != last
+					last = u.last_name[0,1].upcase
 				%>
 					<li class="separator" id="<%=last%>"><%=last%></li>
 				<% end %>
 			<li>
-				<div class="name"><%= link_to u.last_first, instance_user_url(@instance, u) %> <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
+				<div class="name">
+				    <%= link_to u.last_first, instance_user_url(@instance, u) %>
+				    <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
 				<div class="person-info">
 					<% if u.cell_phone %>
 						<span class="phone">
