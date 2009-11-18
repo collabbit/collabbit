@@ -21,11 +21,15 @@ class UsersController < ApplicationController
                                       :conditions   => search,
                                       :include      => [:groups],
                                       :filters      => filters,
-                                      :order        => 'last_name ASC'
+                                      :order        => 'last_name ASC',
+                                      :filter_style => :and
     @group_filter = params[:filters] && 
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
+    if User.updatable?
+      @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
+    end
     @search = params[:search] if params[:search] and params[:search].length > 0 
   end
 
@@ -37,9 +41,9 @@ class UsersController < ApplicationController
       f.html { render :action => :show }
       f.vcf do
         send_data @user.to_vcard.to_s, {
-	  :type => 'vcf',
+          :type => 'vcf',
           :filename => "#{@user.full_name.gsub(' ', '-')}.vcf"
-	}
+        }
       end
     end
   end
@@ -94,8 +98,13 @@ class UsersController < ApplicationController
   def activate
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
-      user.activate!
-      flash[:notice] = SIGNUP_COMPLETE
+      if user.instance.whitelisted_domains.include?(user)
+        user.activate!
+        flash[:notice] = SIGNUP_COMPLETE
+      else
+        user.enqueue_for_approval!
+        flash[:notice] = ADMIN_APPROVAL_REQUIRED
+      end
     elsif params[:activation_code].blank?
       flash[:error] = MISSING_ACTIVATION_CODE
     else 
@@ -141,7 +150,7 @@ class UsersController < ApplicationController
   private
     # Returns an array of conditions for filtering contacts based on GET params
     def search
-      return unless params[:search] and !params[:search].blank?
+      return unless params[:search] && !params[:search].blank?
       values = {}
       fields = [:first_name, :last_name, :email, :cell_phone, :desk_phone]
       query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
@@ -150,11 +159,11 @@ class UsersController < ApplicationController
       end
       
       #check for last, first
-      if params[:search] =~ /\A([a-zA-Z]+), ([a-zA-Z]+)\z/
+      if params[:search] =~ /\A([a-zA-Z\-]+), ([a-zA-Z\-]+)\z/
         query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
         values[:slast_name] = $1
         values[:sfirst_name] = $2
-      elsif params[:search] =~ /\A([a-zA-Z]+) ([a-zA-Z]+)\z/
+      elsif params[:search] =~ /\A([a-zA-Z\-]+) ([a-zA-Z\-]+)\z/
         query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
         values[:slast_name] = $2
         values[:sfirst_name] = $1
@@ -164,6 +173,9 @@ class UsersController < ApplicationController
     end
   
     def filters
-      params[:filters]
+      if params[:filters] && params[:filters][:state] && !User.updatable?
+        params[:filters].delete(:state)
+      end      
+      {'state' => 'active'}.merge(params[:filters] || {})
     end
 end

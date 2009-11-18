@@ -34,7 +34,7 @@ class UpdatesController < ApplicationController
     @updates = @incident.updates.paginate :all,
                                           :page           => params[:page],
                                           :per_page       => 50,
-                                          :order          => 'id DESC',
+                                          :order          => 'updated_at DESC',
                                           :conditions     => search,
                                           :include        => [:relevant_groups, :issuing_group, :tags],
                                           :filters        => filters,
