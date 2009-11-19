@@ -136,6 +136,10 @@ class User < ActiveRecord::Base
     self.save(false)
     UserMailer.deliver_activation(self)
   end
+  def enqueue_for_approval
+    self.state = 'pending_approval'
+    self.save(false)
+  end
   
   ### Tokens ###
   
@@ -178,6 +182,9 @@ class User < ActiveRecord::Base
   end
   def updatable?
     self == User.current || super
+  end
+  def self.updatable?
+    super
   end
   def destroyable?
     self == User.current || super

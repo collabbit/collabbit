@@ -44,6 +44,9 @@ ActiveRecord::Base.class_eval do
   def updatable?
     check_permissions(:update) and viewable?
   end
+  def self.updatable?
+    check_permissions(:update)
+  end
 end
 
 Array.class_eval do

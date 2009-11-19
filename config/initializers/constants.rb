@@ -36,6 +36,7 @@ INSTANCE_UPDATE_ERROR       = 'Uh-oh! Instance failed to update. Please try agai
 DEFAULT_ROLE_NAME           = 'Normal User'
 PASSWORD_RESET              = 'We reset your password and sent it to your email. Check your email (including the spam folder) to retrieve your new password.'
 TAG_DESTROYED               = 'The tag was safely deleted.'
+ADMIN_APPROVAL_REQUIRED     = 'Great, you confirmed your account. An admin needs to confirm it now. We will email you when it is ready.'
 
 PATH_FORMATS = {  Admin.name      => [:admin],
                   GroupType.name  => [:group_type, :instance],

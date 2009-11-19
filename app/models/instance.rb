@@ -12,6 +12,7 @@ class Instance < ActiveRecord::Base
   has_many :groups, :through => :group_types
   has_many :roles
   has_many :tags, :dependent => :destroy
+  has_many :whitelisted_domains
   
   validates_length_of :long_name,  :within => 4..255
   validates_format_of :short_name, :with => /\A[a-z]+\z/

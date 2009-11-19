@@ -139,7 +139,7 @@ class UpdatesController < ApplicationController
   private
     # Returns an array of conditions for filtering contacts based on GET params
     def search
-      return unless params[:search] and !params[:search].blank?
+      return unless params[:search] && !params[:search].blank?
       values = {}
       fields = [:title, :text]
       query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
