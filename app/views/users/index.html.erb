@@ -62,16 +62,16 @@
 				    <%= link_to u.last_first, instance_user_url(@instance, u) %>
 				    <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
 				<div class="person-info">
-					<% if u.cell_phone %>
+					<% if u.cell_phone? %>
 						<span class="phone">
 							<span class="contact-label">cell phone:</span>
-							<%=phone u.cell_phone %> <%= preferred if u.preferred_is_cell and u.desk_phone%>
+							<%=phone u.cell_phone %> <%= preferred if u.preferred_is_cell? and u.desk_phone? %>
 						</span>
 					<% end %>
-					<% if u.desk_phone %>
+					<% if u.desk_phone? %>
 						<span class="phone">
 							<span class="contact-label">desk phone:</span>
-							<%=phone u.desk_phone_with_ext %> <%= preferred if !u.preferred_is_cell and u.cell_phone%>
+							<%=phone u.desk_phone_with_ext %> <%= preferred if !u.preferred_is_cell and u.cell_phone? %>
 						</span>
 					<% end %>
 					<% if u.email %>

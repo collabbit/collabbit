@@ -80,6 +80,16 @@ class User < ActiveRecord::Base
     end
   end
   
+  def cell_phone?
+    !cell_phone.blank?
+  end
+  def desk_phone?
+    !desk_phone.blank?
+  end
+  def preferred_is_cell?
+    preferred_is_cell
+  end
+  
   # Gets the user's permissions
   def permissions
     (role && role.permissions) || []
