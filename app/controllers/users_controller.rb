@@ -27,9 +27,9 @@ class UsersController < ApplicationController
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
-    if User.updatable?
-      @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
-    end
+    #if User.updatable?
+    #  @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
+    #end
     @search = params[:search] if params[:search] and params[:search].length > 0 
   end
 
