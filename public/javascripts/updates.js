@@ -22,10 +22,19 @@ $(function(){
 	});
 
 	$('#showallgroups').live("click",function(){
-		$('.allgroups').toggleClass('hide');
+		$('.allgroups').removeClass('hide');
+		$('#showallgroups').addClass('selected');
+		$('#showmygroups').removeClass('selected');
 		return false;
 	});
 
+	$('#showmygroups').live("click",function(){
+		$('.allgroups').addClass('hide');
+		$('.allgroups input:checkbox').attr('checked',false)
+		$('#showmygroups').addClass('selected');
+		$('#showallgroups').removeClass('selected');
+		return false;
+	});
 
 	// for file uploading
 	$('#multi').MultiFile({
