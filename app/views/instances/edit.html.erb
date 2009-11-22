@@ -18,6 +18,9 @@
 		<% form_for @instance do |f| -%>
 			<p><%= f.label :long_name, 'Name' %><br/>
 			<%= f.text_field :long_name %></p>
+			
+			<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
+			<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
 		
 			<table border="1">
 				<thead>

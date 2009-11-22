@@ -23,8 +23,15 @@ class Update < ActiveRecord::Base
   
   attr_accessor :additional_tags
   after_save :handle_tags
-  
+   
   attr_protected :incident, :incident_id
+  
+  # def created_at
+  #   @created_at
+  # end
+  # def updated_at
+  #   @updated_at
+  # end
   
   def viewable?
     user == User.current || super

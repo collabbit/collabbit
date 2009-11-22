@@ -8,7 +8,7 @@ class UpdateObserver < ActiveRecord::Observer
   
   @@enabled = true
   mattr_accessor :enabled
-  
+    
   def after_create(update)
     find_and_send_alerts(update, 'created')
   end

@@ -6,13 +6,17 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Instance < ActiveRecord::Base
   has_many :incidents, :dependent => :destroy
+  has_many :updates, :through => :incidents
   has_many :users, :dependent => :destroy
   has_many :feeds, :through => :user
   has_many :group_types, :dependent => :destroy
   has_many :groups, :through => :group_types
-  has_many :roles
+  has_many :roles, :dependent => :destroy
   has_many :tags, :dependent => :destroy
-  has_many :whitelisted_domains
+  has_many :whitelisted_domains, :dependent => :destroy
+  
+  attr_writer :whitelisted_domain_names
+  after_save :handle_whitelisted_domains
   
   validates_length_of :long_name,  :within => 4..255
   validates_format_of :short_name, :with => /\A[a-z]+\z/
@@ -32,10 +36,14 @@ class Instance < ActiveRecord::Base
   end
   
   # All of the updates in an instance
-  def updates
-    ups = []
-    incidents.each {|i| ups += i.updates}
-    ups
+  # def updates
+  #   ups = []
+  #   incidents.each {|i| ups += i.updates}
+  #   ups
+  # end
+  
+  def whitelisted_domain_names
+    whitelisted_domains.map {|w| w.name } + (@whitelisted_domain_names || [])
   end
   
   def viewable?
@@ -50,4 +58,12 @@ class Instance < ActiveRecord::Base
       super(*args)
     end
   end
+
+  private
+    def handle_whitelisted_domains
+      self.whitelisted_domains.clear
+      @whitelisted_domain_names.each do |w|
+          self.whitelisted_domains.create(:name => w)
+      end
+    end
 end

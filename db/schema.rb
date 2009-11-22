@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091115194300) do
+ActiveRecord::Schema.define(:version => 20091117184004) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -174,6 +174,13 @@ ActiveRecord::Schema.define(:version => 20091115194300) do
     t.datetime "last_login"
     t.datetime "last_logout"
     t.datetime "last_alerted"
+  end
+
+  create_table "whitelisted_domains", :force => true do |t|
+    t.integer  "instance_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

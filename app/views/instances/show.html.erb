@@ -42,7 +42,7 @@
 		<div id="latest-updates">
 			<h2>Latest Updates</h2>
 			<ul>
-			<% (@instance.updates.sort {|a,b| b.created_at <=> a.created_at}).slice(0,10).each do|u| -%>
+			<% @instance.updates.find(:all, :order => 'updated_at DESC', :limit => 10).each do|u| -%>
 				<li><%=link_to u.title, instance_incident_update_path(@instance, u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
 			<% end %>	
 			</ul>
