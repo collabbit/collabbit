@@ -33,7 +33,7 @@
 			<div id="latest-users">
 				<h2>Newest Users</h2>
 				<ul>
-				<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10).each do |u| %>
+				<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => {:state => 'active'}).each do |u| %>
 					<li><%= link_to u.full_name, instance_user_url(@instance, u) %> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
 				<% end %>
 				</ul>
