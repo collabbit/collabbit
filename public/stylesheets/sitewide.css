@@ -236,15 +236,4 @@ h1{
 		margin: 5px;
 	}
 
-#beta-banner{
-	margin: 0;
-	padding: 3px 14px;
-	background: #d70;
-	color: #000;
-	text-align: center;
-	border-bottom: 1px solid black;
-}
-	#beta-banner a{
-		color: #000;
-	}
 .centered{text-align: center;}

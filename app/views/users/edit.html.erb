@@ -10,7 +10,7 @@
 <% content_for :title, title ('Edit user', @user.full_name, 'Contacts', @instance.short_name)%>
 
 <% content_for :body do%>
-
+<div id="wrap">
 <%= flashes %>
 
 	<h1>Edit your account: <%= @user.full_name%></h1>
@@ -18,23 +18,23 @@
 	
 	<%= error_messages_for :user %>
 	<% form_for [@instance, @user] do |f| -%>
-		<p><%= label_tag 'email' %><br/>
-		<%= f.text_field :email %></p>
+		<p><%= f.label 'email' %><br/>
+		<%= f.text_field :email, :title => 'Username' %></p>
 		
-		<p><%= label_tag 'desk_phone' %><br/>
+		<p><%= f.label :desk_phone %><br/>
 		<%= f.text_field :desk_phone %></p>
 		
-		<p><%= label_tag 'Extension' %><br/>
+		<p><%= f.label :desk_phone_ext, 'Extension' %><br/>
 		<%= f.text_field :desk_phone_ext %></p>
 		
-		<p><%= label_tag 'cell_phone' %><br/>
+		<p><%= f.label 'cell_phone' %><br/>
 		<%= f.text_field :cell_phone %></p>
 		
 		<p>Preferred:</p>
-		<%= f.radio_button(:preferred_is_cell, true) + f.label("Cell Phone") %>
-		<%= f.radio_button(:preferred_is_cell, false) + f.label("Desk phone") %>
+		<%= f.radio_button(:preferred_is_cell, true) + f.label(:preferred_is_cell_true, 'Cell') %>
+		<%= f.radio_button(:preferred_is_cell, false) + f.label(:preferred_is_cell_false, 'Desk') %>
 		
-		<p><%= label_tag 'carrier' %>
+		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
 	
 		<p><%= label_tag 'password' %><br/>
@@ -45,4 +45,5 @@
 	
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>
+</div>
 <% end %>
