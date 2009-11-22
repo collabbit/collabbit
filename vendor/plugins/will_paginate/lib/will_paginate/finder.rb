@@ -204,15 +204,17 @@ module WillPaginate
       #       true if any of them are true
       # do_filter :foo, {:bar => :baz}, x -----> do_filter :bar, :baz, on.foo
       # res is like update.relevant_groups
-      def do_filter(key, filter, on, filter_style)
-        return true if filter.blank?
+      def do_filter(key, fltr, on, filter_style)
+        return true if fltr.blank?
         res = on.send key
-        if filter.is_a? Hash
-          return !filter(res, filter).empty?
+        if fltr.is_a? Hash
+          return !filter(res, fltr).empty?
+        elsif fltr.is_a? Array
+          return (fltr.map{|f|f.to_s}).include?(res.to_s)
         elsif res.is_a? Array
-          return !filter(res, key => filter).empty?
+          return !filter(res, key => fltr).empty?
         else
-          return res.to_s == filter.to_s
+          return res.to_s == fltr.to_s
         end
       end
 

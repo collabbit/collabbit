@@ -31,24 +31,40 @@ class UpdatesController < ApplicationController
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
   def index 
     @incident = @instance.incidents.find(params[:incident_id])
-    @updates = @incident.updates.paginate :all,
-                                          :page           => params[:page],
-                                          :per_page       => 50,
-                                          :order          => 'updated_at DESC',
-                                          :conditions     => search,
-                                          :include        => [:relevant_groups, :issuing_group, :tags],
-                                          :filters        => filters,
-                                          :filter_style   => :and
     
-    @group_filter = params[:filters] && 
-                    !params[:filters][:relevant_groups].blank? &&
-                    !params[:filters][:relevant_groups][:id].blank? &&
-                    @instance.groups.find(params[:filters][:relevant_groups][:id])
-    @tag_filter = params[:filters] &&  !params[:filters][:tags].blank? &&
-                    !params[:filters][:tags][:id].blank? && 
-                    @instance.groups.find(params[:filters][:tags][:id])
+    fs = {}
+    if params[:filters]
+      if params[:filters][:relevant_groups]
+        gf = params[:filters][:relevant_groups][:id]
+        if gf == 'mine'
+          @group_filter = 'mine' 
+          fs[:relevant_groups] = {:id => User.current.group_ids.join(",")}
+        elsif gf.blank?
+          @group_filter = nil
+        else
+          @group_filter = @instance.groups.find(gf)
+          fs[:relevant_groups] = {:id => gf}
+        end
+      end
+      if params[:filters][:tags]
+        @tag_filter = params[:filters][:tags][:id]
+        fs[:tags] = {:id => @tag_filter} unless @tag_filter.blank?
+      end
+    end
+
     @detail_level = params[:detail_level]                                      
     @search = params[:search] if params[:search] and params[:search].length > 0
+    
+    conditions = {
+      :page           => params[:page],
+      :per_page       => 50,
+      :order          => 'updated_at DESC',
+      :conditions     => search,
+      :include        => [:relevant_groups, :issuing_group, :tags],
+      :filters        => filters(fs),
+      :filter_style   => :or
+    }
+    @updates = @incident.updates.paginate(:all, conditions)
     
     return with_rejection unless Update.listable? and @instance.viewable?
   end
@@ -149,8 +165,19 @@ class UpdatesController < ApplicationController
       [query, values]
     end
     
-    def filters
-      params[:filters]
+    def filters(fs)
+      proper_arrayize(fs)
+    end
+    
+    def proper_arrayize(x)
+      x.each_key {|y|
+        if x[y].is_a? Hash
+          x[y] = proper_arrayize(x[y])
+        elsif x[y][','] != nil
+          x[y] = x[y].split(',')
+        end
+      }
+      x
     end
   
 end

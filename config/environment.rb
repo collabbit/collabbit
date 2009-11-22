@@ -17,8 +17,6 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :std => "%m/%d/%Y"
 )
 
-
-
 Rails::Initializer.run do |config|
   
   config.active_record.observers = :user_observer, :update_observer
