@@ -18,8 +18,11 @@ class SessionsController < ApplicationController
   # is correct. 
   def create
     @user = @instance.users.find_by_email(params[:email])
-    if @user and @user.state != User::STATES[:active]
-      flash[:error] = INACTIVE_ACCOUNT
+    if @user and @user.state != 'active'
+      flash[:error] = case @user.state
+        when 'pending' then INACTIVE_ACCOUNT
+        when 'pending_approval' then PENDING_APPROVAL
+      end
       render :action => :new
     elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
       if @user.last_logout

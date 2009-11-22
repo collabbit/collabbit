@@ -70,7 +70,6 @@ class UsersController < ApplicationController
     @user.role = @instance.roles.first
 
     if @user.save
-      # Note: activation email isn't sent yet
       flash[:notice] = SIGNUP_NOTICE
       redirect_to instance_login_path(@instance)
     else
@@ -98,7 +97,7 @@ class UsersController < ApplicationController
   def activate
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
-      if user.instance.whitelisted_domains.include?(user)
+      if user.instance.whitelisted_domains.find_by_name(user.email.split('@').last)
         user.activate!
         flash[:notice] = SIGNUP_COMPLETE
       else

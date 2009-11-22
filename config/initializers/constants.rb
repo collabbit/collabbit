@@ -5,6 +5,7 @@ MISSING_ACTIVATION_CODE     = 'The activation code was missing. Please follow th
 INVALID_ACTIVATION_CODE     = 'There\'s something wrong with your activation code. Try signing in. If that doesn\'t work, <a href="mailto:support@collabbit.org">contact the support team</a>'
 INVALID_EMAIL_OR_PASSWORD   = 'Sorry, you entered an invalid email or password. Please try again.'
 INACTIVE_ACCOUNT            = 'Your account is inactive. Please <a href="mailto:support@collabbit.org">contact the support team</a> to reactivate'
+PENDING_APPROVAL            = 'Your account is pending administrator approval.'
 UPDATE_CREATED              = 'You successfully added an update'
 UPDATE_CREATE_ERROR         = 'Woops! We couldn\'t add that update. Please try again or <a href="mailto:support@collabbit.org">contact the support team</a>.'
 GROUP_CREATED               = 'You successfully added a group'

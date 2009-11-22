@@ -146,7 +146,7 @@ class User < ActiveRecord::Base
     self.save(false)
     UserMailer.deliver_activation(self)
   end
-  def enqueue_for_approval
+  def enqueue_for_approval!
     self.state = 'pending_approval'
     self.save(false)
   end

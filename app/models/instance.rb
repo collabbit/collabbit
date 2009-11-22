@@ -35,15 +35,10 @@ class Instance < ActiveRecord::Base
     short_name
   end
   
-  # All of the updates in an instance
-  # def updates
-  #   ups = []
-  #   incidents.each {|i| ups += i.updates}
-  #   ups
-  # end
-  
   def whitelisted_domain_names
-    whitelisted_domains.map {|w| w.name } + (@whitelisted_domain_names || [])
+    existing = whitelisted_domains.map {|w| w.name }
+    extra = @whitelisted_domain_names || []
+    ((existing + extra).map {|w| w.strip}).join("\n")
   end
   
   def viewable?
@@ -63,7 +58,7 @@ class Instance < ActiveRecord::Base
     def handle_whitelisted_domains
       self.whitelisted_domains.clear
       @whitelisted_domain_names.each do |w|
-          self.whitelisted_domains.create(:name => w)
+          self.whitelisted_domains.create(:name => w.strip)
       end
     end
 end
