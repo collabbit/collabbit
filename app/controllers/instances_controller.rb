@@ -39,19 +39,21 @@ class InstancesController < ApplicationController
   # on the :permissions hash
   def update
     return with_rejection unless @instance.updatable?
-    @instance.roles.each do|r|
-      r.privileges.clear
-      r.save
-    end
-    params[:permissions].each_pair do |role_id, rest|
-      role = @instance.roles.find(role_id)
-      rest.each_pair do |model_name, actions|
-        actions.each do |action_name|
-          permission = Permission.find(:first, :conditions => {:model => model_name, :action => action_name})
-          p = Privilege.create(:role => role, :permission => permission)
+    if params[:permissions].is_a? Hash
+      @instance.roles.each do|r|
+        r.privileges.clear
+        r.save
+      end
+      params[:permissions].each_pair do |role_id, rest|
+        role = @instance.roles.find(role_id)
+        rest.each_pair do |model_name, actions|
+          actions.each do |action_name|
+            permission = Permission.find(:first, :conditions => {:model => model_name, :action => action_name})
+            p = Privilege.create(:role => role, :permission => permission)
+          end
         end
       end
-    end if params[:permissions].is_a? Hash
+    end
     if @instance.update_attributes(params[:instance])
       flash[:notice] = INSTANCE_UPDATED
       redirect_to @instance
