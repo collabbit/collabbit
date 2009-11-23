@@ -51,7 +51,7 @@ class InstancesController < ApplicationController
           p = Privilege.create(:role => role, :permission => permission)
         end
       end
-    end
+    end if params[:permissions].is_a? Hash
     if @instance.update_attributes(params[:instance])
       flash[:notice] = INSTANCE_UPDATED
       redirect_to @instance
