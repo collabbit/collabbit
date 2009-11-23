@@ -4,7 +4,7 @@ class AddMembershipsCount < ActiveRecord::Migration
 
     Group.reset_column_information
     Group.all.each do |g|
-      Group.update_counters g.id, :memberships_count => g.memberships.count
+      Group.update_counters g.id, :memberships_count => g.memberships.size
     end
   end
 
