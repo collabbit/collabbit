@@ -25,30 +25,30 @@ class Role < ActiveRecord::Base
     roles.map! {|r| Role.new(:name => r)}
     [:update, :group, :group_type, :incident, :tag].each do |m|
       [:create, :show, :list].each do |a|
-        roles[0].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+        roles[0].permissions << Permission.find(:first, :conditions => {:model => m.to_s.camelize, :action => a.to_s})
       end
       [:create, :update, :destroy, :show, :list].each do |a|
-        roles[1].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
-        roles[2].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+        roles[1].permissions << Permission.find(:first, :conditions =>{:model => m.to_s.camelize, :action => a.to_s})
+        roles[2].permissions << Permission.find(:first, :conditions =>{:model => m.to_s.camelize, :action => a.to_s})
       end
       [:create, :update, :destroy, :show, :list].each do |a|
-        roles[3].permissions << Permission.create({:model => m.to_s.camelize, :action => a.to_s})
+        roles[3].permissions << Permission.find(:first, :conditions =>{:model => m.to_s.camelize, :action => a.to_s})
       end
     end
     [:create, :update, :destroy, :show, :list].each do |a|
-      roles[2].permissions << Permission.create({:model => 'User', :action => a.to_s})
-      roles[3].permissions << Permission.create({:model => 'User', :action => a.to_s})
+      roles[2].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
+      roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
     end
     [:show, :list].each do |a|
-      roles[0].permissions << Permission.create({:model => 'User', :action => a.to_s})
-      roles[1].permissions << Permission.create({:model => 'User', :action => a.to_s})
+      roles[0].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
+      roles[1].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
     end
     for role in roles
-      role.permissions << Permission.create({:model => 'Instance', :action => 'show'})
+      role.permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'show'})
     end
-    roles[3].permissions << Permission.create({:model => 'Instance', :action => 'update'})
+    roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'update'})
     [:create, :update, :destroy].each do |a|
-      roles[3].permissions << Permission.create({:model => 'User', :action => a.to_s})
+      roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
     end
     roles
   end

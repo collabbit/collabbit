@@ -1,0 +1,47 @@
+<%= error_messages_for :update %>
+<% form_for [@instance, @incident, @update], :html => {:multipart => true, :id => 'update-form'} do |f| -%>
+	<p>
+		<%= f.label :title, "Title", :class => "new_primary" %>
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :text, "Text", :class => "new_primary" %>
+		<%= f.text_area :text, :size => '80x14' %>
+	</p>
+	<p id="file_attach">
+		<%= f.label :attach_files, "Attach Files"%>
+		<%= file_field_tag 'attachments[]', :id => 'multi' %>
+	</p>
+	<div id="newupdate_meta">
+		<p>
+			<%= f.label :issuer, "Issuer", :class => "toplevel" %>
+			<%= collection_select(:update, :issuer, [Group.new(:id=>nil, :name=>'Myself')] + User.current.groups.find(:all, :order => 'name'), :id, :name, {:index => nil}) %>
+		</p>
+		<p>
+			<%= f.label :relevant_groups, "Relevant Groups", :class => "toplevel" %>
+			<span class="sublabel"><a href="#" id="showmygroups" class="selected">your groups</a> <a href="#" id="showallgroups">all groups</a></span>
+			<br/>
+			<% @groups.sort_by {|g| g.name}.each do |g| %>
+				<% if User.current.groups.include? g %>
+				<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
+				<% else %>
+				<span class="allgroups hide">
+					<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
+				</span>
+				<% end %>
+			<% end%>
+
+		</p>
+		<p>
+			<%= f.label :tags, "Tags", :class => "toplevel" %><br/>
+			<% @tags.sort_by {|t| t.name}.each do |t| %>
+				<%= check_box_tag("tags[#{t.id}]") + label_tag("tags[#{t.id}]", t.name) %>
+			<% end%>
+		</p>
+		<p>
+			<%= f.label :additional_tags, "Additional Tags", :class => "toplevel" %><br/>
+			<%= f.text_field :additional_tags %>
+		</p>
+	</div>
+	<p id="submit_box"><%= f.submit button_text %></p>
+<% end %>

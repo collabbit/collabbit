@@ -118,13 +118,13 @@
 		}
 
 /* new update page */
-#new_update {
+#update-form {
 	width: 658px;
 }
 	#errorExplanation {
 		float: left;
 	}
-	#new_update p {
+	#update-form p {
 		width: 658px;
 		clear: both;
 		padding-top: 15px;

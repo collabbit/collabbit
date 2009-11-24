@@ -22,6 +22,8 @@ class UpdatesController < ApplicationController
 
   def edit
     @incident = @instance.incidents.find(params[:incident_id])
+    @tags = @instance.tags
+    @groups = @instance.groups
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @update.updatable? and @instance.viewable?
   end
