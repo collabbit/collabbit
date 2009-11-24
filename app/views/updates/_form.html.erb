@@ -23,10 +23,14 @@
 			<br/>
 			<% @groups.sort_by {|g| g.name}.each do |g| %>
 				<% if User.current.groups.include? g %>
-				<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
+				<%= check_box_tag("relevant_groups[#{g.id}]", '',
+				        @update.relevant_groups.include?(g)) + 
+				    label_tag("relevant_groups[#{g.id}]", g.name) %>
 				<% else %>
 				<span class="allgroups hide">
-					<%= check_box_tag("relevant_groups[#{g.id}]") + label_tag("relevant_groups[#{g.id}]", g.name) %>
+					<%= check_box_tag("relevant_groups[#{g.id}]", '',
+					        @update.relevant_groups.include?(g)) +      
+					    label_tag("relevant_groups[#{g.id}]", g.name) %>
 				</span>
 				<% end %>
 			<% end%>
@@ -35,7 +39,8 @@
 		<p>
 			<%= f.label :tags, "Tags", :class => "toplevel" %><br/>
 			<% @tags.sort_by {|t| t.name}.each do |t| %>
-				<%= check_box_tag("tags[#{t.id}]") + label_tag("tags[#{t.id}]", t.name) %>
+				<%= check_box_tag("tags[#{t.id}]", '', @update.tags.include?(t)) +
+				    label_tag("tags[#{t.id}]", t.name) %>
 			<% end%>
 		</p>
 		<p>
