@@ -57,7 +57,7 @@
 	            <%= options_for_select([['All Groups', nil],['My Groups', 'mine']] + groups.map{|g|[g.name, g.id]}, selected_group) %>
 	        </select>
 	        <select name="filters[tags][id]">
-	            <%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, (@tag_filter && @tag_filter.id)) unless tags.empty? %>
+	            <%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, (@tag_filter && @tag_filter.id)) %>
 	        </select>    				
 			<%= submit_tag "Go", :name => nil %>
 	    <% end %>

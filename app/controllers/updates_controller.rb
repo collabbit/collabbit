@@ -64,7 +64,7 @@ class UpdatesController < ApplicationController
       :conditions     => search,
       :include        => [:relevant_groups, :issuing_group, :tags],
       :filters        => filters(fs),
-      :filter_style   => :or
+      :filter_style   => :and
     }
     @updates = @incident.updates.paginate(:all, conditions)
     
