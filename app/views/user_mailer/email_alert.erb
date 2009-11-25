@@ -5,7 +5,7 @@ Posted by <%=@update.user.full_name%> <%="(#{@update.issuing_group.name})" if @u
 
 <%=h @update.text%>
 
-Other interested groups: <%= (@update.relevant_groups.map{|g|g.name}).join(', ')%>
+Relevant groups: <%= (@update.relevant_groups.map{|g|g.name}).join(', ')%>
 Tags: <%= (@update.tags.map{|t|t.name}).join(', ')%>
 
 Click on this link to see this online: http://collabbit.org<%=instance_incident_update_path(@update.incident.instance, @update.incident, @update)%>
