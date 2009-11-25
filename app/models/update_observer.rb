@@ -22,7 +22,7 @@ class UpdateObserver < ActiveRecord::Observer
           alerts[f.owner] = f
         end
       end
-      
+            
       alerts.each_pair do |user, feed|
         if !user.cell_phone.blank? && !user.carrier.blank? && feed.text_alert?
           UserMailer.deliver_text_alert(user, feed, update, action)
