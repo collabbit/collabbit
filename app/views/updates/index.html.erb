@@ -67,7 +67,8 @@
 			<% @updates.each do |u| %>
 				<li>
 					<%= link_to u.title, instance_incident_update_url(@instance, @incident, u), :class => 'update-title' %>
-					<span class="update-meta">by <%= issuer_link(u)%> on <%= time_mdy u.created_at%></span>
+					<span class="update-meta">by 
+					    <%= issuer_link(u)%><%= ', updated ' if u.updated_at > u.created_at %> on <%= time_mdy u.updated_at %></span>
 					<p class="update-text">
 						<%=simple_format(h(u.text)).split('</p>')[0][0..256] %><%='...' if u.text.length > 256%>
 					</p>
