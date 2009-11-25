@@ -37,7 +37,7 @@ class Feed < ActiveRecord::Base
         when 'group'
           update.relevant_groups.include?(c.requirement) || update.issuing_group == c.requirement
         when 'user_group'
-          update.relevant_groups & owner.groups
+          (update.relevant_groups & owner.groups).size > 0
         when 'user'
           update.user_id == c.requirement
       end
