@@ -83,7 +83,8 @@ class UsersController < ApplicationController
   def update
     @user = @instance.users.find(params[:id])
     return with_rejection unless @user.updatable?
-
+    
+    @user.state = params[:user][:state] if User.check_permissions(:update)
     if @user.update_attributes(params[:user])
       flash[:notice] = USER_UPDATED
       redirect_to instance_user_path(@instance, @user)
