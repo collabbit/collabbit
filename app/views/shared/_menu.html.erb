@@ -3,7 +3,7 @@
 		<% if @instance.viewable?%>
 			<%= menu_item('Overview', 	@instance, controller_name == 'instances') -%>
 			<%= menu_item('Incidents', 	instance_incidents_path(@instance),	['incidents', 'updates'].include?(controller_name)) if Incident.listable? -%>
-			<%= menu_item('Groups',instance_group_types_path(@instance),controller_name == 'group_types') if false && GroupType.listable? -%>
+			<%= menu_item('Groups',instance_group_types_path(@instance),controller_name == 'group_types') if GroupType.listable? -%>
 			<%= menu_item('Roles', 		instance_roles_path(@instance),	controller_name == 'roles') if false && Role.listable?-%>
 			<%= menu_item('Tags', 		instance_tags_path(@instance),	controller_name == 'tags') if false && Tag.listable?-%>
 			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') if User.listable? -%>
