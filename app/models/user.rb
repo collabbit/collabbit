@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   
   # Combines the user's cell phone and their carrier into one string
   def text_email
-    cell_phone+carrier.extension
+    cell_phone.gsub(/[^0-9]/, '')+carrier.extension
   end
   
   def to_vcard
