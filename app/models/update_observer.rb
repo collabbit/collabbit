@@ -5,22 +5,12 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class UpdateObserver < ActiveRecord::Observer
-  
-  @@enabled = true
-  mattr_accessor :enabled
     
   def after_create(update)
     find_and_send_alerts(update, 'created')
   end
   def after_update(update)
     find_and_send_alerts(update, 'updated')
-  end
-  
-  def self.enable!
-    @@enabled = true
-  end
-  def self.disable!
-    @@enabled = false
   end
   
   private
@@ -34,7 +24,9 @@ class UpdateObserver < ActiveRecord::Observer
       end
       
       alerts.each_pair do |user, feed|
-        UserMailer.deliver_text_alert(user, feed, update, action) if feed.text_alert?
+        if !user.cell_phone.blank? && !user.carrier.blank? && feed.text_alert?
+          UserMailer.deliver_text_alert(user, feed, update, action)
+        end
         UserMailer.deliver_email_alert(user, feed, update, action) if feed.email_alert?
       end
       

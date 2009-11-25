@@ -29,10 +29,11 @@
 			}
 		.update-meta{
 			font-size: 14px;
-			color: #777;
+			color: #555;
+			font-weight: bold;
 		}
 		.update-meta a{
-			color: #777;
+			color: #555;
 		}
 		.update-text{
 			width: 600px;

@@ -44,4 +44,11 @@ class Feed < ActiveRecord::Base
     end
     return true
   end
+  
+  def self.make_my_groups_feed(incident)
+    mine = Feed.new(:name => 'My Groups', :description => '', 
+      :incident => incident, :text_alert => true, :email_alert => true)
+    mine.criterions.build(:kind => 'user_group')
+    mine
+  end
 end
