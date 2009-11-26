@@ -28,6 +28,8 @@ class UpdateObserver < ActiveRecord::Observer
           UserMailer.deliver_text_alert(user, feed, update, action)
         end
         UserMailer.deliver_email_alert(user, feed, update, action) if feed.email_alert?
+        user.last_alerted = Time.now
+        user.save
       end
       
     end    
