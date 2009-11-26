@@ -34,6 +34,12 @@ class IncidentsController < ApplicationController
     return with_rejection unless Incident.creatable?
     
     @incident.instance = @instance
+    
+    @instance.users.each do |u|
+      f = Feed.make_my_groups_feed(@incident)
+      f.owner = u
+      f.save
+    end
 
     if @incident.save
       flash[:notice] = INCIDENT_CREATED
