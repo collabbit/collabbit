@@ -57,8 +57,10 @@ class Instance < ActiveRecord::Base
   private
     def handle_whitelisted_domains
       self.whitelisted_domains.clear
-      @whitelisted_domain_names.each do |w|
+      unless @whitelisted_domain_names == nil
+        @whitelisted_domain_names.each do |w|
           self.whitelisted_domains.create(:name => w.strip)
+        end
       end
     end
 end
