@@ -130,6 +130,13 @@ class UpdatesController < ApplicationController
       end
     end
     
+    @update.relevant_groups.clear
+    if params[:relevant_groups]
+      params[:relevant_groups].each_pair do |key,val|
+        @update.relevant_groups << Group.find(key) if val
+      end
+    end
+
     @update.attachment_ids = @update.attachment_ids & (params[:keep_file] || [])
     unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
