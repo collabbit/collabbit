@@ -141,7 +141,7 @@ class UsersController < ApplicationController
     @user = @instance.users.find_by_email(params[:user][:email])
     unless @user == nil
       pass = @user.generate_activation_code[0,12]
-      @user.password = pass
+      @user.password = @user.password_confirmation = pass
       @user.save
       UserMailer.deliver_password_reset(@user, pass)
     end
