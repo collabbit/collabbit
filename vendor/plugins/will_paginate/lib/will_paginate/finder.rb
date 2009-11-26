@@ -63,7 +63,7 @@ module WillPaginate
       # and +count+ calls.
       def paginate(*args)
         options = args.pop
-        page, per_page, total_entries, filter_style, filters = wp_parse_options(options)
+        page, per_page, total_entries = wp_parse_options(options)
         finder = (options[:finder] || 'find').to_s
 
         if finder == 'find'
@@ -74,12 +74,12 @@ module WillPaginate
         end
 
         WillPaginate::Collection.create(page, per_page, total_entries) do |pager|
-          count_options = options.except :page, :per_page, :total_entries, :filters, :filter_style, :finder
-          find_options = count_options.except(:count, :filters, :filter_style).update(:offset => pager.offset, :limit => pager.per_page) 
+          count_options = options.except :page, :per_page, :total_entries, :finder
+          find_options = count_options.except(:count).update(:offset => pager.offset, :limit => pager.per_page) 
           
           args << find_options
 
-          pager.replace(filter(send(finder, *args) { |*a| yield(*a) if block_given? }, clear_nil_from(filters), filter_style))
+          pager.replace(send(finder, *args) { |*a| yield(*a) if block_given? })
           
           # magic counting for user convenience:
           pager.total_entries = wp_count(count_options, args, finder) unless pager.total_entries
@@ -184,40 +184,6 @@ module WillPaginate
         paginate(*args) { |*a| yield(*a) if block_given? }
       end
       
-      def filter(values, filters, filter_style = :or)
-        values = values.select do |v|
-          good = (filters.blank? && filter_style == :or) || (filter_style == :and)
-          filters.each do |f,e|
-            if filter_style == :or
-              good ||= do_filter(f, e, v, filter_style)
-            else
-              good = good && do_filter(f, e, v, filter_style)
-            end
-          end
-          good
-        end
-        values
-      end
-      
-      # do_filter :foo, :bar, x ----> x.foo = bar if x.foo isn't an array
-      # do_filter :foo, :bar, x ----> x.foo.each {|f| f == bar} if x.foo is an array. Will be
-      #       true if any of them are true
-      # do_filter :foo, {:bar => :baz}, x -----> do_filter :bar, :baz, on.foo
-      # res is like update.relevant_groups
-      def do_filter(key, fltr, on, filter_style)
-        return true if fltr.blank?
-        res = on.send key
-        if fltr.is_a? Hash
-          return !filter(res, fltr).empty?
-        elsif fltr.is_a? Array
-          return (fltr.map{|f|f.to_s}).include?(res.to_s)
-        elsif res.is_a? Array
-          return !filter(res, key => fltr).empty?
-        else
-          return res.to_s == fltr.to_s
-        end
-      end
-
       # Does the not-so-trivial job of finding out the total number of entries
       # in the database. It relies on the ActiveRecord +count+ method.
       def wp_count(options, args, finder)
@@ -284,9 +250,7 @@ module WillPaginate
         page          = options[:page] || 1
         per_page      = options[:per_page] || self.per_page
         total         = options[:total_entries]
-        filter_style  = options[:filter_style] || :or
-        filters       = options[:filters] || []
-        [page, per_page, total, filter_style, filters]
+        [page, per_page, total]
       end
       
       def clear_nil_from(hsh)

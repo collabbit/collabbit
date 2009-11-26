@@ -10,6 +10,7 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'perms'
+require 'filters'
 
 APPLICATION_SALT = 'AWH89sa98fhasj1llaksuf8128hjfshaufahf783jkhasjkfhhAUHSUIY@BmZNBXrrcMZKq1'
 
