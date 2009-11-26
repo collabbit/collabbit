@@ -34,7 +34,7 @@
 	        
 	        <% # This should be made to be more efficient:
 	            groups = []
-	            @updates.each {|u|
+	            @incident.updates.each {|u|
 	                groups += u.relevant_groups.reject{|g| groups.include?(g) }
 
 	                unless u.issuing_type == :user || groups.include?(u.issuing_group)
