@@ -7,7 +7,7 @@
 class UpdateObserver < ActiveRecord::Observer
     
   def after_create(update)
-    find_and_send_alerts(update, 'created')
+    find_and_send_alerts(update, 'new')
   end
   def after_update(update)
     find_and_send_alerts(update, 'updated')

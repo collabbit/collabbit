@@ -1,6 +1,6 @@
 Collabbit <%=@user.instance.long_name%>
 
-<%=h @update.incident.name%> - Update <%="'#{@update.title}' #{@action}"%>
+<%=h @update.incident.name%> - <%=@action%> update <%="'#{@update.title}'"%>
 Posted by <%=@update.user.full_name%> <%="(#{@update.issuing_group.name})" if @update.issuing_type == :group%> at <%=time_mdy(@update.updated_at)%>
 
 <%=h @update.text%>
