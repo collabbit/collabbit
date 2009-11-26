@@ -37,8 +37,8 @@
 		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
 	
-		<p><%= label_tag 'password' %><br/>
-		<%= f.password_field :password %></p>
+		<p><%= f.label 'password' %><br/>
+		<%= f.password_field :password, :autocomplete => 'off' %></p>
 	
 		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
 		<%= f.password_field :password_confirmation %></p>

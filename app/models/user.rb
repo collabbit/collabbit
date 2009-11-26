@@ -26,8 +26,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email, :scope => :instance_id
 
   attr_accessor :password_confirmation, :password
-#  validates_presence_of     :password, :on => :create
-#  validates_length_of       :password, :within => 8..64, :on => :create
   
   # Makes sure that no security holes are exposed during mass assignment.
   attr_accessible :first_name,    :last_name,       :email,
