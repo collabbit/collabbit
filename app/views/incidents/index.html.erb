@@ -12,7 +12,7 @@
 
 <% content_for :body do%>
 <%= flashes %>
-<%=pretty_button_if Incident.creatable?, :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
+<%=pretty_button_if Incident.creatable_by?(@current_user), :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
 	<div id="wrap">
 		<h1>Latest Incidents <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<% if @incidents.empty?%>		

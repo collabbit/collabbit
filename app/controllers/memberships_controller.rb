@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
     @user = @instance.users.find(params[:user_id])
     @group = @instance.groups.find(params[:group_id])
     
-    return with_rejection unless @user.updatable?
+    return with_rejection unless @user.updatable_by?(@current_user)
     
     if params[:leave]
       @user.groups.delete @group

@@ -8,12 +8,12 @@
 class InstancesController < ApplicationController    
   def index
     @instances = Instance.all
-    return with_rejection unless @instances.listable? && Instance.listable?
+    return with_rejection unless @instances.listable_by?(@current_user) && Instance.listable_by?(@current_user)
   end
   
   def show
     @incidents = @instance.incidents.find(:all,:include => [:updates], :order => 'id DESC')
-    return with_rejection unless @instance.viewable?
+    return with_rejection unless @instance.viewable_by?(@current_user)
   end
 
   # Method for displaying the information needed on the 'Edit instance' page,
@@ -29,7 +29,7 @@ class InstancesController < ApplicationController
       @perms_hash[p.model] = [] unless @perms_hash[p.model].is_a?(Array)
       @perms_hash[p.model] << p.action
     end
-    return with_rejection unless @instance.updatable?
+    return with_rejection unless @instance.updatable_by?(@current_user)
   end
 
   # Updates an existing instance object in the database specified by its :id
@@ -38,7 +38,7 @@ class InstancesController < ApplicationController
   # It also saves the updated permissions to the database based 
   # on the :permissions hash
   def update
-    return with_rejection unless @instance.updatable?
+    return with_rejection unless @instance.updatable_by?(@current_user)
     if params[:permissions].is_a? Hash
       @instance.roles.each do|r|
         r.privileges.clear
@@ -64,21 +64,21 @@ class InstancesController < ApplicationController
 
   # Removes an instance object specified by its :id from the database
   def destroy
-    return with_rejection unless @instance.destroyable?
+    return with_rejection unless @instance.destroyable_by?(@current_user)
     @instance.destroy
     redirect_to instances_path
   end
 
   def new
     @instance = Instance.new
-    return with_rejection unless @instance.creatable?
+    return with_rejection unless @instance.creatable_by?(@current_user)
   end
 
   # Saves an instance object to the database with the parameters provided in 
   # the :instance hash, which is populated by the form on the 'new' page
   def create
     @instance = Instance.create(params[:instance])
-    return with_rejection unless @instance.creatable?
+    return with_rejection unless @instance.creatable_by?(@current_user)
     if @instance.valid?
       flash[:notice] = INSTANCE_CREATED
       redirect_to @instance

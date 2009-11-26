@@ -15,14 +15,14 @@
 	<div id="newupdate_meta">
 		<p>
 			<%= f.label :issuer, "Issuer", :class => "toplevel" %>
-			<%= collection_select(:update, :issuer, [Group.new(:id=>nil, :name=>'Myself')] + User.current.groups.find(:all, :order => 'name'), :id, :name, {:index => nil}) %>
+			<%= collection_select(:update, :issuer, [Group.new(:id=>nil, :name=>'Myself')] + @current_user.groups.find(:all, :order => 'name'), :id, :name, {:index => nil}) %>
 		</p>
 		<p>
 			<%= f.label :relevant_groups, "Relevant Groups", :class => "toplevel" %>
 			<span class="sublabel"><a href="#" id="showmygroups" class="selected">your groups</a> <a href="#" id="showallgroups">all groups</a></span>
 			<br/>
 			<% @groups.sort_by {|g| g.name}.each do |g| %>
-				<% if User.current.groups.include? g %>
+				<% if @current_user.groups.include? g %>
 				<%= check_box_tag("relevant_groups[#{g.id}]", '',
 				        @update.relevant_groups.include?(g)) + 
 				    label_tag("relevant_groups[#{g.id}]", g.name) %>

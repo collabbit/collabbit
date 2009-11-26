@@ -10,19 +10,19 @@ class RolesController < ApplicationController
   def show
     @instance = Instance.find(params[:instance_id])
     @role = @instance.roles.find(params[:id])
-    return with_rejection unless @role.viewable? and @instance.viewable?
+    return with_rejection unless @role.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def edit
     @instance = Instance.find(params[:instance_id])
     @role = @instance.roles.find(params[:id])
-    return with_rejection unless @role.updatable? and @role.viewable? and @instance.viewable?
+    return with_rejection unless @role.updatable_by?(@current_user) and @role.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def index
     @instance = Instance.find(params[:instance_id])
     @roles = @instance.roles
-    return with_rejection unless Role.listable? and @instance.viewable?
+    return with_rejection unless Role.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
   
   # Updates an existing role in the database based on the parameters
@@ -30,7 +30,7 @@ class RolesController < ApplicationController
   def update
     @instance = Instance.find(params[:instance_id])
     @role = @instance.roles.find(params[:id])
-    return with_rejection unless @role.updatable? and @instance.viewable?
+    return with_rejection unless @role.updatable_by?(@current_user) and @instance.viewable_by?(@current_user)
     if @role.update_attributes(params[:role])
       flash[:notice] = ROLE_UPDATED
       redirect_to instance_role_path(@instance, @role)

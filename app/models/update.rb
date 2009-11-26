@@ -33,14 +33,14 @@ class Update < ActiveRecord::Base
   #   @updated_at
   # end
   
-  def viewable?
-    user == User.current || super
+  def viewable_by?(u)
+    user == u || super
   end
-  def updatable?
-    user == User.current || super
+  def updatable_by?(u)
+    user == u || super
   end
-  def destroyable?
-    user == User.current || super
+  def destroyable_by?(u)
+    user == u || super
   end
   
   # Returns the issuing type as a symbol

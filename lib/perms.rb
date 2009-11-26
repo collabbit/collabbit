@@ -10,51 +10,51 @@ require 'active_record'
 ActiveRecord::Base.class_eval do
   
   # Returns true if user is allowed to perform the action
-  def self.check_permissions(action)
+  def self.check_permissions_for(user, action)
     return true if Admin.current
-    return false unless User.current || Instance.current.users.include?(User.current)
-    perms = User.current.permissions.map.select {|p| p.model == self.to_s}
+    return false unless user || Instance.current.users.include?(user)
+    perms = user.permissions.map.select {|p| p.model == self.to_s}
     (perms.map {|p| p.action.to_sym}).include?(action.to_sym)
   end
   
-  def check_permissions(action)
-    self.class.send :check_permissions, action
+  def check_permissions_for(user, action)
+    self.class.send :check_permissions_for, user, action
   end
   
-  def self.creatable?
-    check_permissions(:create)
+  def self.creatable_by?(user)
+    check_permissions_for(user, :create)
   end
   
-  def creatable?
-    check_permissions(:create)
+  def creatable_by?(user)
+    check_permissions_for(user, :create)
   end
   
-  def self.listable?
-    check_permissions(:list)
+  def self.listable_by?(user)
+    check_permissions_for(user, :list)
   end
   
-  def viewable?
-    check_permissions(:show)
+  def viewable_by?(user)
+    check_permissions_for(user, :show)
   end
   
-  def destroyable?
-    check_permissions(:destroy) and viewable?
+  def destroyable_by?(user)
+    check_permissions_for(user, :destroy) and viewable_by?(user)
   end
   
-  def updatable?
-    check_permissions(:update) and viewable?
+  def updatable_by?(user)
+    check_permissions_for(user, :update) and viewable_by?(user)
   end
-  def self.updatable?
-    check_permissions(:update)
+  def self.updatable_by?(user)
+    check_permissions_for(user, :update)
   end
 end
 
 Array.class_eval do
   # Typechecking *would* be nice here
-  def listable?
-    return false unless at(0).class.instance_methods.include? 'viewable?'
+  def listable_by?(user)
+    return false unless at(0).class.instance_methods.include? 'viewable_by?'
     good = true
-    each {|x| good = good && x.viewable? }
+    each {|x| good = good && x.viewable_by?(user) }
     good
   end
 end

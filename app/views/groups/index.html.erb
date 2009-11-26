@@ -11,8 +11,8 @@
 <% content_for :title, title('Groups', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%=pretty_button_if(@group_type.updatable?, :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type') %>
-	<%=pretty_button_if Group.creatable?, :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
+	<%=pretty_button_if(@group_type.updatable_by?(@current_user), :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type') %>
+	<%=pretty_button_if Group.creatable_by?(@current_user), :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
 	<%= flashes %>
 	<div id="wrap">
 		<h1><%= @group_type.name.pluralize %> <span class='subtitle'>&laquo; <%= @group_type.class.name.titleize %> </span></h1>
@@ -25,8 +25,8 @@
 					Chairs: 
 					<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 				<% end %>
-				<% unless g.users.include? User.current %>
-				&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => User.current), :method => :post -%>
+				<% unless g.users.include? @current_user %>
+				&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => @current_user), :method => :post -%>
 				<% end %>
 			</li>
 		<% end %>

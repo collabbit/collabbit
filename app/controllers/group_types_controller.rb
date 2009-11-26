@@ -9,7 +9,7 @@ class GroupTypesController < ApplicationController
     
   def new
     @group_type = GroupType.new
-    return with_rejection unless GroupType.creatable?
+    return with_rejection unless GroupType.creatable_by?(@current_user)
   end
 
   def show
@@ -21,13 +21,13 @@ class GroupTypesController < ApplicationController
   def edit
     
     @group_type = @instance.group_types.find(params[:id])
-    return with_rejection unless @group_type.updatable?
+    return with_rejection unless @group_type.updatable_by?(@current_user)
   end
 
   def index
     
     @group_types = @instance.group_types
-    return with_rejection unless GroupType.listable?
+    return with_rejection unless GroupType.listable_by?(@current_user)
   end
   
   # Saves a group_type object to the database with the parameters provided in 
@@ -36,7 +36,7 @@ class GroupTypesController < ApplicationController
     
     @group_type = GroupType.new(params[:group_type])
     
-    return with_rejection unless GroupType.creatable?
+    return with_rejection unless GroupType.creatable_by?(@current_user)
     
     @group_type.instance = @instance
 
@@ -55,7 +55,7 @@ class GroupTypesController < ApplicationController
     
     @group_type = @instance.group_types.find(params[:id])
     
-    return with_rejection unless @group_type.updatable?
+    return with_rejection unless @group_type.updatable_by?(@current_user)
     
     if @group_type.update_attributes(params[:group_type])
       flash[:notice] = GROUP_TYPE_UPDATED
@@ -69,7 +69,7 @@ class GroupTypesController < ApplicationController
   def destroy
     
     @group_type = @instance.group_types.find(params[:id])
-    return with_rejection unless @group_type.destroyable?
+    return with_rejection unless @group_type.destroyable_by?(@current_user)
     @group_type.destroy
     redirect_to :action => :index
   end

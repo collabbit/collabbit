@@ -7,18 +7,18 @@
 class Criterion < ActiveRecord::Base
   belongs_to :feed
   
-  def creatable?
-    owner_check || super
+  def creatable_by?(user)
+    owner_check(user) || super
   end
-  def deletable?
-    owner_check || super
+  def deletable_by?(user)
+    owner_check(user) || super
   end
-  def updatable?
-    owner_check || super
+  def updatable_by?(user)
+    owner_check(user) || super
   end
   
   private
-    def owner_check
-      feed.owner == User.current
+    def owner_check(user)
+      feed.owner == user
     end
 end

@@ -9,19 +9,19 @@ class TagsController < ApplicationController
   def index
     @instance = Instance.find(params[:instance_id])
     @tags = @instance.tags.paginate(:all, :page => params[:page], :per_page => 20).sort{|a,b|a.name<=>b.name}
-    return with_rejection unless Tag.listable? and @instance.viewable?
+    return with_rejection unless Tag.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def show
     @instance = Instance.find(params[:instance_id])
     @tag = @instance.tags.find(params[:id], :include => [:groups, :updates])
-    return with_rejection unless @tag.viewable? and @instance.viewable?
+    return with_rejection unless @tag.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
   
   def destroy
     @instance = Instance.find(params[:instance_id])
     @tag = @instance.tags.find(params[:id])
-    return with_rejection unless @tag.destroyable? 
+    return with_rejection unless @tag.destroyable_by?(@current_user) 
     @tag.destroy
     flash[:notice] = TAG_DESTROYED
     redirect_to instance_tags_path(@instance)

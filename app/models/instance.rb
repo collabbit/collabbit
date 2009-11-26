@@ -41,8 +41,8 @@ class Instance < ActiveRecord::Base
     ((existing + extra).map {|w| w.strip}).join("\n")
   end
   
-  def viewable?
-    (User.current && User.current.instance == self) || super
+  def viewable_by?(user)
+    (user && user.instance == self) || super
   end
   
   # Overwrites find so that <tt>Instance.find(x.to_param)</tt> works

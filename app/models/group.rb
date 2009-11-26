@@ -22,12 +22,12 @@ class Group < ActiveRecord::Base
 
   # Checks if a specified user has permission to update a group; 
   # If he is the chair, he will have permission.
-  def updatable?
-    chairs.include?(User.current) || super
+  def updatable_by?(user)
+    chairs.include?(user) || super
   end
   
-  def viewable?
-    User.current.groups.include?(self) || super
+  def viewable_by?(user)
+    user.groups.include?(self) || super
   end
   
   protected

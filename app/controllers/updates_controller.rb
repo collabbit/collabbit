@@ -11,13 +11,13 @@ class UpdatesController < ApplicationController
     @incident = @instance.incidents.find(params[:incident_id])
     @tags = @instance.tags
     @groups = @instance.groups
-    return with_rejection unless Update.creatable? and @instance.viewable?
+    return with_rejection unless Update.creatable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def show
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.viewable? and @instance.viewable?
+    return with_rejection unless @update.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def edit
@@ -25,7 +25,7 @@ class UpdatesController < ApplicationController
     @tags = @instance.tags
     @groups = @instance.groups
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.updatable? and @instance.viewable?
+    return with_rejection unless @update.updatable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   # Used for displaying the list of updates in a particular incident
@@ -40,7 +40,7 @@ class UpdatesController < ApplicationController
         gf = params[:filters][:relevant_groups][:id]
         if gf == 'mine'
           @group_filter = 'mine' 
-          fs[:relevant_groups] = {:id => User.current.group_ids.join(",")}
+          fs[:relevant_groups] = {:id => @current_user.group_ids.join(",")}
         elsif gf.blank?
           @group_filter = nil
         else
@@ -60,7 +60,7 @@ class UpdatesController < ApplicationController
     conditions = {
       :page           => params[:page],
       :per_page       => 50,
-      :order          => 'updated_at DESC',
+      :order          => 'created_at DESC',
       :conditions     => search,
       :include        => [:relevant_groups, :issuing_group, :tags],
       :filters        => filters(fs),
@@ -68,7 +68,7 @@ class UpdatesController < ApplicationController
     }
     @updates = @incident.updates.paginate(:all, conditions)
     
-    return with_rejection unless Update.listable? and @instance.viewable?
+    return with_rejection unless Update.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
   
   # Saves an update object to the database with the parameters provided in 
@@ -76,10 +76,10 @@ class UpdatesController < ApplicationController
   def create
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
-    return with_rejection unless Update.creatable? and @instance.viewable?
+    return with_rejection unless Update.creatable_by?(@current_user) and @instance.viewable_by?(@current_user)
     
     @update.incident = @incident
-    @update.user = User.current
+    @update.user = @current_user
 
     unless params[:update][:issuer].blank? or params[:update][:issuer] == 'myself'
       @update.issuing_group = @instance.groups.find(params[:update][:issuer])
@@ -99,7 +99,7 @@ class UpdatesController < ApplicationController
     end
     
     # Uploaded files
-    unless params[:attachments].blank? #and Attachment.creatable?
+    unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
         @update.attachments.build(:attach => attach)
       end
@@ -121,7 +121,7 @@ class UpdatesController < ApplicationController
   def update
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.updatable?
+    return with_rejection unless @update.updatable_by?(@current_user)
 
     @update.tags.clear
     if params[:tags]
@@ -131,7 +131,7 @@ class UpdatesController < ApplicationController
     end
     
     @update.attachment_ids = @update.attachment_ids & (params[:keep_file] || [])
-    unless params[:attachments].blank? #and Attachment.creatable?
+    unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
         @update.attachments.build(:attach => attach)
       end
@@ -149,7 +149,7 @@ class UpdatesController < ApplicationController
   def destroy  
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.destroyable?
+    return with_rejection unless @update.destroyable_by?(@current_user)
     @update.destroy
     redirect_to instance_incident_updates_path(@instance,@incident)
   end

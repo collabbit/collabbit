@@ -7,7 +7,7 @@ class Attachment < ActiveRecord::Base
   validates_attachment_size :attach, :less_than => 5.megabytes
   attr_protected :attach_file_name, :attach_content_type, :attach_file_size, :attach_updated_at
 
-  def creatable?
+  def creatable_by?(user)
     true || super
   end
 end

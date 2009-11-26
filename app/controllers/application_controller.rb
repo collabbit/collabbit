@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       @instance ||= Instance.find_by_short_name(params[:id])
       Instance.current = @instance
 
-      if logged_in? && @instance && User.current && User.current.instance != @instance
+      if logged_in? && @instance && @current_user && @current_user.instance != @instance
         logout_keeping_session!
       end
       

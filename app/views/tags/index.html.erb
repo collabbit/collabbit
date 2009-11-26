@@ -17,7 +17,7 @@
 		<% @tags.each do |t| %>
 			<li><%=link_to t.name, instance_tag_path(@instance, t), :class=>'title' %>
 			&mdash; <%=t.updates.size%> updates, <%=t.groups.size%> groups
-			<% if t.destroyable? %> 
+			<% if t.destroyable_by?(@current_user) %> 
 			<span class="delete-tag">[<%=link_to 'X', instance_tag_path(@instance, t), :method => :delete, :confirm => 'Really delete tag?'%>]</span></li>
 			<% end %>
 		<% end %>

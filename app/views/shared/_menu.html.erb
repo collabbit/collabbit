@@ -1,15 +1,15 @@
 <ul id="menu">
-	<% if User.current %>
-		<% if @instance.viewable?%>
+	<% if @current_user %>
+		<% if @instance.viewable_by?(@current_user)%>
 			<%= menu_item('Overview', 	@instance, controller_name == 'instances') -%>
-			<%= menu_item('Incidents', 	instance_incidents_path(@instance),	['incidents', 'updates'].include?(controller_name)) if Incident.listable? -%>
-			<%= menu_item('Groups',instance_group_types_path(@instance),controller_name == 'group_types') if GroupType.listable? -%>
-			<%= menu_item('Roles', 		instance_roles_path(@instance),	controller_name == 'roles') if false && Role.listable?-%>
-			<%= menu_item('Tags', 		instance_tags_path(@instance),	controller_name == 'tags') if false && Tag.listable?-%>
-			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') if User.listable? -%>
+			<%= menu_item('Incidents', 	instance_incidents_path(@instance),	['incidents', 'updates'].include?(controller_name)) if Incident.listable_by?(@current_user) -%>
+			<%= menu_item('Groups',instance_group_types_path(@instance),controller_name == 'group_types') if GroupType.listable_by?(@current_user) -%>
+			<%= menu_item('Roles', 		instance_roles_path(@instance),	controller_name == 'roles') if false && Role.listable_by?(@current_user)-%>
+			<%= menu_item('Tags', 		instance_tags_path(@instance),	controller_name == 'tags') if false && Tag.listable_by?(@current_user)-%>
+			<%= menu_item('Contacts', 	instance_users_path(@instance),	controller_name == 'users') if User.listable_by?(@current_user) -%>
 		<% end %>
 		<li id="account-status"><span>
-			Hello, <%=link_to User.current.first_name, edit_instance_user_path(@instance, User.current)-%> 
+			Hello, <%=link_to @current_user.first_name, edit_instance_user_path(@instance, @current_user)-%> 
 				(<%=link_to('Log Out', instance_logout_path(@instance)) -%>)</span>
 		</li>
 	<% else%>

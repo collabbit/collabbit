@@ -56,7 +56,7 @@ module Auth
     
     # Redirects to the login path unless the user is logged in
     def require_login
-      User.current = nil
+      @current_user = nil
       path = instance_login_path(Instance.find(params[:instance_id]||params[:id]), :return_to => request.request_uri)
       notice = "You must be logged in to view this page."
       notice_exit(path, notice) unless logged_in?
@@ -71,7 +71,7 @@ module Auth
     def logged_in?(as = :user)
       if as == :user
         login
-        !!User.current 
+        !!@current_user 
       elsif as == :admin
         login_from_session
         !!Admin.current
@@ -92,7 +92,7 @@ module Auth
         user.save
       end
       if type == :user || user.is_a?(User)
-        User.current = user
+        @current_user = user
       elsif type == :admin || user.is_a?(Admin)
         Admin.current = user
       end
@@ -115,16 +115,16 @@ module Auth
       if user && user.remember_token?
         login_as user
         handle_remember_cookie! false # freshen cookie token (keeping date)
-        User.current
+        @current_user
       end
     end
 
     # Logs out without destroying the session so the CSRF protection isn't wrecked.
     def logout_keeping_session!
-      if User.current.is_a? User
-        User.current.last_logout = DateTime.now
-        User.current.save
-        User.current.forget_me
+      if @current_user.is_a? User
+        @current_user.last_logout = DateTime.now
+        @current_user.save
+        @current_user.forget_me
       end
       login_as false
       kill_remember_cookie!     # Kill client-side auth cookie
@@ -140,21 +140,21 @@ module Auth
 
     # Returns whether the remember cookie is valid for the logged-in user
     def valid_remember_cookie?
-      return nil unless User.current
-      (User.current.remember_token?) && 
-        (cookies[:auth_token] == User.current.remember_token)
+      return nil unless @current_user
+      (@current_user.remember_token?) && 
+        (cookies[:auth_token] == @current_user.remember_token)
     end
     
     # Refresh the cookie auth token if it exists, create it otherwise
     def handle_remember_cookie!(new_cookie_flag)
-      return unless User.current
+      return unless @current_user
       
       if valid_remember_cookie?
-        User.current.refresh_token # keep same expiration date
+        @current_user.refresh_token # keep same expiration date
       elsif new_cookie_flag
-        User.current.remember_me 
+        @current_user.remember_me 
       else
-        User.current.forget_me
+        @current_user.forget_me
       end
       
       send_remember_cookie!
@@ -168,8 +168,8 @@ module Auth
     # Sets remember cookie
     def send_remember_cookie!
       cookies[:auth_token] = {
-        :value   => User.current.remember_token,
-        :expires => User.current.remember_token_expires_at }
+        :value   => @current_user.remember_token,
+        :expires => @current_user.remember_token_expires_at }
     end
 
 end

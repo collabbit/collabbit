@@ -62,7 +62,7 @@
 				    <%= link_to u.last_first, instance_user_url(@instance, u) %>
 				    <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
 				<div class="person-info">
-				    <% if u.state != 'active' && u.updatable? %>
+				    <% if u.state != 'active' && u.updatable_by?(@current_user) %>
 				        <span>
 				            <%= link_to 'Approve', instance_user_url(@instance, u, :user => {:state => :active}), {:method => :put} %>
 				        </span>

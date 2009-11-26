@@ -11,13 +11,13 @@
 <% content_for :title, title('Groups', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%=pretty_button_if GroupType.creatable?, :new_group_type, new_instance_group_type_url(@instance), 'New Group Type' -%>
+	<%=pretty_button_if GroupType.creatable_by?(@current_user), :new_group_type, new_instance_group_type_url(@instance), 'New Group Type' -%>
 	<%= flashes %>
 	<div id="wrap">
 		<h1>Groups <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<h2>My Groups</h2>
 		<ul id="groups-list" class="listy">
-		<% User.current.groups.each do |g| %>
+		<% @current_user.groups.each do |g| %>
 			<li>
 				<%= link_to g.name, instance_group_type_group_url(@instance, g.group_type, g) %>
 				&ndash; <%= g.users.size %> members.
@@ -34,7 +34,7 @@
 			<li class="outer">
 				<%= link_to gt.name.pluralize, instance_group_type_url(@instance, gt), :class=>:title %>
 				&mdash; <%= gt.groups.size%> groups
-				<% if gt.destroyable? %> 
+				<% if gt.destroyable_by?(@current_user) %> 
 				<span class="delete-grouptype">[<%=link_to 'X', instance_group_type_path(@instance, gt), :method => :delete, :confirm => 'Really delete group type?'%>]</span>
 				<% end %>
 				<ul id="groups-list" class="listy">
@@ -46,8 +46,8 @@
 							Chairs: 
 							<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 						<% end %>
-						<% unless g.users.include? User.current %>
-						&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => User.current), :method => :post -%>
+						<% unless g.users.include? @current_user %>
+						&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => @current_user), :method => :post -%>
 						<% end %>
 					</li>
 				<% end %>

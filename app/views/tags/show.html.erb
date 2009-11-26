@@ -10,7 +10,7 @@
 <% content_for :title, title(@tag.name, 'Tags', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button_if(@tag.destroyable?, :delete_tag, instance_tag_path(@instance, @tag), 'Delete Tag', :method => :delete, :confirm => 'Do you really want to delete?') %>
+	<%= pretty_button_if(@tag.destroyable_by?(@current_user), :delete_tag, instance_tag_path(@instance, @tag), 'Delete Tag', :method => :delete, :confirm => 'Do you really want to delete?') %>
 	
 	<%= flashes %>
 	<div id="wrap">

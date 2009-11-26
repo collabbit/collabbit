@@ -10,7 +10,7 @@
 <% content_for :title, title(@instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button_if @instance.updatable?, :edit_instance, {:action => "edit", :id => @instance}, 'Edit Instance Settings' %>
+	<%= pretty_button_if @instance.updatable_by?(@current_user), :edit_instance, {:action => "edit", :id => @instance}, 'Edit Instance Settings' %>
 	<%= flashes -%>
 	<div id="wrap">
 		<h1>Overview <span class="subtitle">&laquo; <%= @instance.long_name %></span></h1>

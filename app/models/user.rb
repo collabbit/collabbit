@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
   
   STATES = {:pending => 'pending', :pending_approval => 'pending_approval', :active => 'active', :deleted => 'deleted'}
 
-  @@current = nil
-  mattr_accessor :current
-      
   belongs_to :role
   belongs_to :instance
   belongs_to :carrier
@@ -40,7 +37,9 @@ class User < ActiveRecord::Base
   
   # Reencrypt passwords
   def before_update
-    self.crypted_password = generate_crypted_password(@password) if @password
+    if !@password.blank? && @password_confirmation == @password
+      self.crypted_password = generate_crypted_password(@password)
+    end
   end
   
   # Provides a user's full name for convenience
@@ -187,16 +186,16 @@ class User < ActiveRecord::Base
   
   ###
   
-  def viewable?
-    self == User.current || super
+  def viewable_by?(user)
+    self == user || super
   end
-  def updatable?
-    self == User.current || super
+  def updatable_by?(user)
+    self == user || super
   end
-  def self.updatable?
+  def self.updatable_by?(user)
     super
   end
-  def destroyable?
-    self == User.current || super
+  def destroyable_by?(user)
+    self == user || super
   end
 end

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
                                                     :activate]
 
   def index
-    return with_rejection unless User.listable? and @instance.viewable?
+    return with_rejection unless User.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
     @users = @instance.users.paginate :all,
                                       :page         => params[:page],
                                       :per_page     => 100,
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
-    if User.updatable?
+    if User.updatable_by?(@current_user)
       @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
     end
     @search = params[:search] if params[:search] and params[:search].length > 0 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def show 
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.viewable? and @instance.viewable?
+    return with_rejection unless @user.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
     
     respond_to do |f|
       f.html { render :action => :show }
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.updatable? and @instance.viewable?
+    return with_rejection unless @user.updatable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def new
@@ -82,9 +82,9 @@ class UsersController < ApplicationController
   # which is populated by the form on the 'edit' page.
   def update
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.updatable?
+    return with_rejection unless @user.updatable_by?(@current_user)
 
-    if User.check_permissions(:update) && params[:user][:state] != nil
+    if User.check_permissions_for(@current_user, :update) && params[:user][:state] != nil
       @user.state = params[:user][:state]
     end
     if @user.update_attributes(params[:user])
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
   # Removes a user object from the database
   def destroy    
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.destroyable?
+    return with_rejection unless @user.destroyable_by?(@current_user)
     @user.destroy
     redirect_to instance_users_path(@instance)
   end
@@ -175,7 +175,7 @@ class UsersController < ApplicationController
     end
   
     def filters
-      if params[:filters] && params[:filters][:state] && !User.updatable?
+      if params[:filters] && params[:filters][:state] && !User.updatable_by?(@current_user)
         params[:filters].delete(:state)
       end      
       {'state' => 'active'}.merge(params[:filters] || {})

@@ -16,8 +16,8 @@ class Incident < ActiveRecord::Base
     closed_at != nil
   end
   
-  def viewable?
-    User.current.instance.viewable? || super
+  def viewable_by?(user)
+    user.instance.viewable_by?(user) || super
   end
 
 end

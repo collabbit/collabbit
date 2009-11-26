@@ -17,14 +17,14 @@ class Membership < ActiveRecord::Base
     is_chair
   end
 
-  def viewable?
-    self == User.current || super
+  def viewable_by?(user)
+    self == user || super
   end
-  def updatable?
-    self == User.current || super
+  def updatable_by?(user)
+    self == user || super
   end
-  def destroyable?
-    self == User.current || super
+  def destroyable_by?(user)
+    self == user || super
   end
   
 end

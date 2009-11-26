@@ -41,7 +41,7 @@ module ApplicationHelper
                   "Delete #{to.class.name.titleize}",
                   :confirm => "Are you sure you want to delete the #{to.class.name.titleize.downcase}?",
                   :method => :delete,
-                  *opts) if !check_perms || to.destroyable?
+                  *opts) if !check_perms || to.destroyable_by?(@current_user)
                   
   end
   
@@ -62,8 +62,6 @@ module ApplicationHelper
     opts[:area_code] = true if p[0] && p[0].to_s.size > 7
     opts[:extension] = p[1] unless p[1].blank?
     
-    logger.info { opts.inspect }
-
     number_to_phone(p[0], opts)
   end
   

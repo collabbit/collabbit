@@ -11,32 +11,32 @@ class GroupsController < ApplicationController
     @instance = Instance.find(params[:instance_id])
     @group = Group.new
     @group_type = @instance.group_types.find(params[:group_type_id])
-    return with_rejection unless Group.creatable?
+    return with_rejection unless Group.creatable_by?(@current_user)
   end
 
   def show
     @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.viewable?
+    return with_rejection unless @group.viewable_by?(@current_user)
   end
 
   def edit
     @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.updatable?
+    return with_rejection unless @group.updatable_by?(@current_user)
   end
 
   def index
     @instance = Instance.find(params[:instance_id])
     @group_type = @instance.group_types.find(params[:group_type_id])
-    return with_rejection unless Group.listable?
+    return with_rejection unless Group.listable_by?(@current_user)
   end
 
   # Saves a group object to the database with the parameters provided in 
   # the :group hash, which is populated by the form on the 'new' page
   def create
     flash = {}
-    return with_rejection unless Group.creatable?
+    return with_rejection unless Group.creatable_by?(@current_user)
     
     @instance = Instance.find(params[:instance_id])
     @group_type = @instance.group_types.find(params[:group_type_id])
@@ -57,7 +57,7 @@ class GroupsController < ApplicationController
   def update
     @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.updatable?
+    return with_rejection unless @group.updatable_by?(@current_user)
 
     if @group.update_attributes(params[:group])
       flash[:notice] = GROUP_UPDATED
@@ -72,7 +72,7 @@ class GroupsController < ApplicationController
   def destroy
     @group = @instance.groups.find(params[:id])
     gt = @group.group_type
-    return with_rejection unless @group.destroyable?
+    return with_rejection unless @group.destroyable_by?(@current_user)
     @group.destroy
     redirect_to [@instance, gt]
   end
