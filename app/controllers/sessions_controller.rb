@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
       render :action => :new
     elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
       if @user.last_logout
-        flash[:notice] = "Hi #{@user.first_name}. Welcome back! This is an extra long message meant to screw with the formatting."
+        flash[:notice] = "Hi #{@user.first_name}. Welcome back!"
       else
         flash[:notice] = "Hi #{@user.first_name}. Welcome to #{@instance.short_name}'s Collabbit."
       end
