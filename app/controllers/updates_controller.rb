@@ -63,8 +63,8 @@ class UpdatesController < ApplicationController
       :order          => 'created_at DESC',
       :conditions     => search,
       :include        => [:relevant_groups, :issuing_group, :tags],
-      :filters        => filters(fs),
-      :filter_style   => :and
+      :finder         => 'find_with_filters',
+      :filters        => filters(fs)
     }
     @updates = @incident.updates.paginate(:all, conditions)
     

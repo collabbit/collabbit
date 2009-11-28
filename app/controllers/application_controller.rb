@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :require_login
   before_filter :set_current_account
+  
+  filter_parameter_logging 'password'
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
