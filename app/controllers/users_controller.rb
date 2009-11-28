@@ -22,7 +22,8 @@ class UsersController < ApplicationController
                                       :include      => [:groups],
                                       :filters      => filters,
                                       :finder       => 'find_with_filters',
-                                      :order        => 'last_name ASC',
+                                      :order        => 'last_name ASC'
+                                      
     @group_filter = params[:filters] && 
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
