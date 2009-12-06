@@ -8,7 +8,7 @@ ActiveRecord::Base.class_eval do
     args.each {|a| fltrs = a[:filters] if a.is_a?(Hash) && a.include?(:filters)}
     fltrs.each_pair do |k,v|
       if column_names.include?(k.to_s)
-        column_cond[k] = v
+        column_conds[k] = v
       else
         join_conds[k] = v
       end
