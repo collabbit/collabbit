@@ -63,9 +63,14 @@ up5.tags << t4
 up5.tags << t1
 up6.tags << t2
 
+UpdateObserver.disable!
+UserObserver.disable!
 up1.save
 up2.save
 up3.save
 up4.save
 up5.save
 up6.save
+
+UpdateObserver.enable!
+UserObserver.enable!

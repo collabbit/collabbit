@@ -16,7 +16,6 @@ joey = User.create_or_update(
 
 john.salt = Digest::SHA1.hexdigest('1')
 john.crypted_password = john.generate_crypted_password('sahana123')
-john.role = Role.find 5
 john.save
 
 jane.salt = Digest::SHA1.hexdigest('2')
@@ -25,7 +24,6 @@ jane.save
 
 joey.salt = Digest::SHA1.hexdigest '1'
 joey.crypted_password = joey.generate_crypted_password('sahana123')
-joey.role = Role.find 3
 joey.save
 
 UserObserver.enable!
