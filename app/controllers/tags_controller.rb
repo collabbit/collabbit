@@ -5,7 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-class TagsController < ApplicationController
+class TagsController < AuthorizedController
   def index
     @instance = Instance.find(params[:instance_id])
     @tags = @instance.tags.paginate(:all, :page => params[:page], :per_page => 20).sort{|a,b|a.name<=>b.name}

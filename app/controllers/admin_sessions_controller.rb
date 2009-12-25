@@ -5,7 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-class AdminSessionsController < ApplicationController
+class AdminSessionsController < AuthorizedController
 
   skip_before_filter :require_login
   layout 'home'

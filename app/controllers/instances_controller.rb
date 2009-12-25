@@ -5,7 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-class InstancesController < ApplicationController    
+class InstancesController < AuthorizedController    
   def index
     @instances = Instance.all
     return with_rejection unless @instances.listable_by?(@current_user) && Instance.listable_by?(@current_user)

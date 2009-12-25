@@ -1,4 +1,4 @@
-class MembershipsController < ApplicationController
+class MembershipsController < AuthorizedController
   def create
     @instance = Instance.find(params[:instance_id])
     @user = @instance.users.find(params[:user_id])

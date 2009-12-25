@@ -1,0 +1,1 @@
+Permission.generate_all

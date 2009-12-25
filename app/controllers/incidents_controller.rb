@@ -5,7 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-class IncidentsController < ApplicationController
+class IncidentsController < AuthorizedController
   def new    
     @incident = Incident.new
     return with_rejection unless @incident.creatable_by?(@current_user)
