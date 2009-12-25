@@ -8,7 +8,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  
+  include Authority
   STATES = {:pending => 'pending', :pending_approval => 'pending_approval', :active => 'active', :deleted => 'deleted'}
 
   belongs_to :role
@@ -32,6 +32,61 @@ class User < ActiveRecord::Base
                   :desk_phone,    :cell_phone,      :preferred_is_cell,
                   :wants_alerts,  :desk_phone_ext,  :password,
                   :password_confirmation, :carrier, :carrier_id
+  
+  def can?(hsh)
+    return false unless hsh.is_a?(Hash) && role != nil
+    hsh.each_pair do |action, obj|
+      if !obj.is_a?(Array) && obj.requires_override?
+        return false unless permission_to?(action, obj) && override_for?(action, obj)
+      else
+        unless permission_to?(action, obj) || override_for?(action, obj)
+          return false
+        end
+      end
+    end
+    return true
+  end
+  
+  def permission_to?(action, obj)
+    if obj.is_a? Array
+      if obj.empty?
+        true
+      else
+        permission_to? action, obj.first
+      end
+    else
+      trans = {:view => :show, :delete => :destroy}
+      action = trans[action] if trans.include? action
+      klass = obj.class == Class ? obj : obj.class
+      role.permissions.exists? :model => klass.to_s, :action => action.to_s
+    end
+  end
+  
+  def override_for?(action, obj)
+    case action
+      when :show
+        obj.viewable_by? self
+      when :list
+        obj.inject(true) {|res, e| res && e.viewable_by?(self) }
+      when :destroy
+        obj.destroyable_by? self
+      when :update
+        obj.updatable_by? self
+      else
+        false
+    end
+  end
+  
+  def viewable_by?(usr)
+    self == usr
+  end
+  def updatable_by?(usr)
+    self == usr && state == 'active'
+  end
+  def destroyable_by?(usr)
+    self == usr
+  end
+  
   
   # Reencrypt passwords
   def before_update
@@ -180,20 +235,5 @@ class User < ActiveRecord::Base
   # Returns true if remember token is valid
   def remember_token?
     !remember_token.blank? && remember_token_expires_at && (Time.now.utc < remember_token_expires_at.utc)
-  end
-  
-  ###
-  
-  def viewable_by?(user)
-    self == user || super
-  end
-  def updatable_by?(user)
-    self == user || super
-  end
-  def self.updatable_by?(user)
-    super
-  end
-  def destroyable_by?(user)
-    self == user || super
   end
 end

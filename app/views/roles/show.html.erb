@@ -1,4 +1,6 @@
 <%
+#<<FIX: why does this file exist?
+
 # View which displays a single role's information.  
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
@@ -12,6 +14,5 @@
 <% content_for :body do %>
 <%= flashes %>
 
-	<h1>Role:</h1>
-	<p>Name: <%= @role.name%></p>
+	<h1><%=@role.name%></h1>
 <% end %>

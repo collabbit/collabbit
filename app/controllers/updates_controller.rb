@@ -7,17 +7,17 @@
 
 class UpdatesController < AuthorizedController
   def new
+    return with_rejection unless @current_user.can? :create => Update
     @update = Update.new
     @incident = @instance.incidents.find(params[:incident_id])
     @tags = @instance.tags
     @groups = @instance.groups
-    return with_rejection unless Update.creatable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
 
   def show
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :show => @update
   end
 
   def edit
@@ -25,14 +25,16 @@ class UpdatesController < AuthorizedController
     @tags = @instance.tags
     @groups = @instance.groups
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.updatable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @update
   end
 
   # Used for displaying the list of updates in a particular incident
   # Uses the mislav-will_paginate plugin
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
-  def index 
-    @incident = @instance.incidents.find(params[:incident_id])
+  def index     
+    @incident = @instance.incidents.find(params[:incident_id], :include => [:updates])
+    
+    return with_rejection unless @current_user.can? :list => @incident.updates
     
     fs = {}
     if params[:filters]
@@ -67,18 +69,15 @@ class UpdatesController < AuthorizedController
       :filters        => filters(fs)
     }
     @updates = @incident.updates.paginate(:all, conditions)
-    
-    return with_rejection unless Update.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
   end
   
   # Saves an update object to the database with the parameters provided in 
   # the :update hash, which is populated by the form on the 'new' page
   def create
+    return with_rejection unless @current_user.can? :create => Update
+    
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
-    return with_rejection unless Update.creatable_by?(@current_user) and @instance.viewable_by?(@current_user)
-    
-    @update.incident = @incident
     @update.user = @current_user
 
     unless params[:update][:issuer].blank? or params[:update][:issuer] == 'myself'
@@ -91,7 +90,7 @@ class UpdatesController < AuthorizedController
       end
     end
     
-    @update.tags.clear
+    @update.tags.clear #<<FIX: why is this done?
     if params[:tags]
       params[:tags].each_pair do |key,val|
         @update.tags << @instance.tags.find(key) if val
@@ -99,7 +98,7 @@ class UpdatesController < AuthorizedController
     end
     
     # Uploaded files
-    unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
+    unless params[:attachments].blank? #<<FIX: and @current_user.can? :create => Attachment ?
       params[:attachments].each do |attach|
         @update.attachments.build(:attach => attach)
       end
@@ -121,7 +120,7 @@ class UpdatesController < AuthorizedController
   def update
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @update
 
     @update.tags.clear
     if params[:tags]
@@ -156,7 +155,7 @@ class UpdatesController < AuthorizedController
   def destroy  
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
-    return with_rejection unless @update.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can? :destroy => @update
     @update.destroy
     redirect_to instance_incident_updates_path(@instance,@incident)
   end

@@ -7,21 +7,18 @@
 
 class TagsController < AuthorizedController
   def index
-    @instance = Instance.find(params[:instance_id])
     @tags = @instance.tags.paginate(:all, :page => params[:page], :per_page => 20).sort{|a,b|a.name<=>b.name}
-    return with_rejection unless Tag.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :list => @tags
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])
     @tag = @instance.tags.find(params[:id], :include => [:groups, :updates])
-    return with_rejection unless @tag.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :show => @tag
   end
   
   def destroy
-    @instance = Instance.find(params[:instance_id])
     @tag = @instance.tags.find(params[:id])
-    return with_rejection unless @tag.destroyable_by?(@current_user) 
+    return with_rejection unless @current_user.can? :destroy => @tag 
     @tag.destroy
     flash[:notice] = TAG_DESTROYED
     redirect_to instance_tags_path(@instance)

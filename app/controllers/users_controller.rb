@@ -14,7 +14,7 @@ class UsersController < AuthorizedController
                                                     :activate]
 
   def index
-    return with_rejection unless User.listable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:list => @instance.users)
     @users = @instance.users.paginate :all,
                                       :page         => params[:page],
                                       :per_page     => 100,
@@ -28,7 +28,7 @@ class UsersController < AuthorizedController
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
-    if User.updatable_by?(@current_user)
+    if @current_user.can? :update => @users
       @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
     end
     @search = params[:search] if params[:search] and params[:search].length > 0 
@@ -36,7 +36,7 @@ class UsersController < AuthorizedController
 
   def show 
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.viewable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :view => @user
     
     respond_to do |f|
       f.html { render :action => :show }
@@ -51,11 +51,12 @@ class UsersController < AuthorizedController
   
   def edit
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.updatable_by?(@current_user) and @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @user
   end
 
   def new
     @user = User.new
+    logout_keeping_session!
   end
  
   # Saves a user object to the database with the parameters provided in 
@@ -68,7 +69,7 @@ class UsersController < AuthorizedController
     @user.salt = Digest::SHA1.hexdigest(Time.now.to_s + @instance.short_name + rand.to_s)
     @user.crypted_password = @user.generate_crypted_password(@user.password)
     @user.activation_code = @user.generate_activation_code
-    @user.role = @instance.roles.first
+    @user.role = @instance.roles.first #<<FIX: default role
 
     if @user.save
       flash[:notice] = SIGNUP_NOTICE
@@ -83,9 +84,9 @@ class UsersController < AuthorizedController
   # which is populated by the form on the 'edit' page.
   def update
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @user
 
-    if User.check_permissions_for(@current_user, :update) && params[:user][:state] != nil
+    if @current_user.permission_to?(:update, @user) && params[:user][:state] != nil
       @user.state = params[:user][:state]
     end
     if @user.update_attributes(params[:user])
@@ -119,13 +120,14 @@ class UsersController < AuthorizedController
   # Removes a user object from the database
   def destroy    
     @user = @instance.users.find(params[:id])
-    return with_rejection unless @user.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can? :destroy => @user
     @user.destroy
     redirect_to instance_users_path(@instance)
   end
   
   def vcards
     @users = @instance.users.find(params[:users].split(','))
+    return with_rejection unless @current_user.can? :list => @users
     respond_to do |f|
       f.vcf do
         send_data( (@users.map {|u| u.to_vcard.to_s}).join, {
@@ -136,8 +138,8 @@ class UsersController < AuthorizedController
   end
   
   def forgot_password
-    
   end
+  
   def reset_password
     @user = @instance.users.find_by_email(params[:user][:email])
     unless @user == nil

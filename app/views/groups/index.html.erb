@@ -11,11 +11,17 @@
 <% content_for :title, title('Groups', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%=pretty_button_if(@group_type.updatable_by?(@current_user), :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type') %>
-	<%=pretty_button_if Group.creatable_by?(@current_user), :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
+    <% if can? :update => @group_type %>
+	    <%=pretty_button :edit_group_type, edit_instance_group_type_path(@instance, @group_type), 'Edit Group Type' %>
+	<% end %>
+	
+	<% if can? :create => Group %>
+	    <%=pretty_button :new_group, new_instance_group_type_group_url(@instance, @group_type), 'New Group' -%>
+	<% end %>
+	
 	<%= flashes %>
 	<div id="wrap">
-		<h1><%= @group_type.name.pluralize %> <span class='subtitle'>&laquo; <%= @group_type.class.name.titleize %> </span></h1>
+		<h1><%= @group_type.name.pluralize %> <span class='subtitle'>&laquo; Group Type</span></h1>
 		<ul id="groups-list" class="listy">
 		<% @group_type.groups.each do |g| %>
 			<li>

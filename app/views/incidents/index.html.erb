@@ -11,8 +11,10 @@
 <% content_for :title, title('Incidents', @instance.short_name)%>
 
 <% content_for :body do%>
-<%= flashes %>
-<%=pretty_button_if Incident.creatable_by?(@current_user), :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
+    <%= flashes %>
+    <% if can? :create => Incident %>
+        <%=pretty_button :new_incident, new_instance_incident_url(@instance), 'New Incident' -%>
+    <% end %>
 	<div id="wrap">
 		<h1>Latest Incidents <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<% if @incidents.empty?%>		
@@ -21,7 +23,7 @@
 		<% else %>
     		<ul id="incidents-list" class="listy">
     		<% @incidents.each do |i| %>
-    			<li><%= link_to i.name, instance_incident_url(@instance, i), :class=>:title %> 
+    			<li><%= link_to i.name, instance_incident_url(@instance, i), :class => :title %> 
     				&ndash; <%=h i.description%>
     				<span class="tiny">(<%=mdy i.created_at%>)</span>
     			</li>

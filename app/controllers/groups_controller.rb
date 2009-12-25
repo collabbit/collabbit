@@ -8,26 +8,22 @@
 class GroupsController < AuthorizedController
     
   def new
-    @instance = Instance.find(params[:instance_id])
     @group = Group.new
     @group_type = @instance.group_types.find(params[:group_type_id])
-    return with_rejection unless Group.creatable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:create => Group)
   end
 
   def show
-    @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:view => @group)
   end
 
   def edit
-    @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:update => @group)
   end
 
   def index
-    @instance = Instance.find(params[:instance_id])
     @group_type = @instance.group_types.find(params[:group_type_id])
     return with_rejection unless Group.listable_by?(@current_user)
   end
@@ -36,9 +32,8 @@ class GroupsController < AuthorizedController
   # the :group hash, which is populated by the form on the 'new' page
   def create
     flash = {}
-    return with_rejection unless Group.creatable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:create => Group)
     
-    @instance = Instance.find(params[:instance_id])
     @group_type = @instance.group_types.find(params[:group_type_id])
     @group = @group_type.groups.build(params[:group])
         
@@ -55,9 +50,8 @@ class GroupsController < AuthorizedController
   # The data to be saved is provided in the :group hash, 
   # which is populated by the form on the 'edit' page.
   def update
-    @instance = Instance.find(params[:instance_id])
     @group = @instance.groups.find(params[:id])
-    return with_rejection unless @group.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:update => @group)
 
     if @group.update_attributes(params[:group])
       flash[:notice] = GROUP_UPDATED
@@ -72,7 +66,7 @@ class GroupsController < AuthorizedController
   def destroy
     @group = @instance.groups.find(params[:id])
     gt = @group.group_type
-    return with_rejection unless @group.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:destroy => @group)
     @group.destroy
     redirect_to [@instance, gt]
   end

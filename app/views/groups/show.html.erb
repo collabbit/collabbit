@@ -10,15 +10,25 @@
 <% content_for :title, title(@group.name, 'Groups', @instance.short_name)%>
 
 <% content_for :body do %>
-		<%= pretty_button_if(@group.updatable_by?(@current_user), :edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+    <% if can? :update => @group %>
+		<%= pretty_button(:edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+	<% end %>
+	
+	<% if can? :destroy => @group %>
 		<%= pretty_delete_button(@group, :check => true)%>
-		<%= pretty_button_if (!@group.users.include? @current_user), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user), 'Join Group', :method => :post %>
-		<%= pretty_button_if (@group.users.include? @current_user), :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user, :leave => 'true'), 'Leave Group', :method => :post %>
+	<% end%>
+	
+	<% if @group.users.include? @current_user %>
+	    <%= pretty_button :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
+	<% else %>
+		<%= pretty_button :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user.id), 'Join Group', :method => :post %>	
+	<% end %>
+		
 	<%= flashes %>
 	<div id="wrap">
-	<h1><%= @group.name %> <span class='subtitle'>&laquo; <%= @group.class.name.titleize %> </span></h1>
+	<h1><%= @group.name %> <span class='subtitle'>&laquo; Group</span></h1>
 		<% unless @group.users.empty? %>
-			<h2>Group users:</h2>
+			<h2>Members</h2>
 			<ul>
 				<% @group.users.each do |u| %>
 					<li><%= link_to u.full_name, instance_user_url(@instance, u) %></li>

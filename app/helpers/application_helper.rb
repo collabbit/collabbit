@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  def can?(hsh)
+    @current_user.can? hsh
+  end
+  
   def active(cond)
     ' class="active" ' if cond
   end
@@ -41,7 +45,7 @@ module ApplicationHelper
                   "Delete #{to.class.name.titleize}",
                   :confirm => "Are you sure you want to delete the #{to.class.name.titleize.downcase}?",
                   :method => :delete,
-                  *opts) if !check_perms || to.destroyable_by?(@current_user)
+                  *opts)
                   
   end
   

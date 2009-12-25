@@ -8,33 +8,32 @@
 class IncidentsController < AuthorizedController
   def new    
     @incident = Incident.new
-    return with_rejection unless @incident.creatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :create => Incident
   end
 
   def show    
     @incident = @instance.incidents.find(params[:id])
+    return with_rejection unless @current_user.can? :view => @incident
+    
     redirect_to instance_incident_updates_path(@instance, @incident)
-    return with_rejection unless @incident.viewable_by?(@current_user)
   end
 
   def edit    
     @incident = @instance.incidents.find(params[:id])
-    return with_rejection unless @incident.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @incident
   end
 
   def index
     @incidents = @instance.incidents
-    return with_rejection unless Incident.listable_by?(@current_user)
+    return with_rejection unless @current_user.can? :list => @incidents
   end
   
   # Saves an incident object to the database with the parameters provided in 
   # the :incident hash, which is populated by the form on the 'new' page
   def create    
     @incident = @instance.incidents.build(params[:incident])
-    return with_rejection unless Incident.creatable_by?(@current_user)
-    
-    @incident.instance = @instance
-    
+    return with_rejection unless @current_user.can? :create => Incident
+        
     @instance.users.each do |u|
       f = Feed.make_my_groups_feed(@incident)
       f.owner = u
@@ -53,9 +52,8 @@ class IncidentsController < AuthorizedController
   # The data to be saved is provided in the :incident hash, 
   # which is populated by the form on the 'edit' page
   def update
-    
     @incident = @instance.incidents.find(params[:id])
-    return with_rejection unless @incident.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @incident
     if @incident.update_attributes(params[:incident])
       flash[:notice] = INCIDENT_UPDATED
       redirect_to instance_incident_path(@instance, @incident)
@@ -66,25 +64,26 @@ class IncidentsController < AuthorizedController
   
   # Removes an incident object specified by its :id from the database
   def destroy
-    
     @incident = @instance.incidents.find(params[:id])
-    return with_rejection unless @incident.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can? :destroy => @incident
     @incident.destroy
     redirect_to instance_incidents_path(@instance)
   end
 
   def close
-    @instance = Instance.find(params[:instance_id])
     @incident = @instance.incidents.find(params[:incident_id])
-    return with_rejection unless @incident.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @incident
+    
     if @incident.closed_at
       flash[:notice] = 'Incident reopened'
       @incident.closed_at = nil
       @incident.save
     else
+      flash[:notice] = 'Incident closed'
       @incident.closed_at = DateTime.now
       @incident.save
     end
+    
     redirect_to instance_incident_path(@instance, @incident)
   end
 end

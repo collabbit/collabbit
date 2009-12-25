@@ -11,7 +11,7 @@
 
 <% content_for :body do %>
 <%= flashes %>
-	<h1>Edit incident: <%=@incident.name%></h1>
+	<h1>Edit <span class="small">&laquo; <%=@incident.name%></span></h1>
 	<%= error_messages_for :incident %>
 	<% form_for [@instance, @incident] do |f| -%>
 		<p><%= label_tag 'name' %><br/>

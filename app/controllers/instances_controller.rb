@@ -8,28 +8,26 @@
 class InstancesController < AuthorizedController    
   def index
     @instances = Instance.all
-    return with_rejection unless @instances.listable_by?(@current_user) && Instance.listable_by?(@current_user)
+    return with_rejection unless @current_user.can? :list => @instances
   end
   
   def show
     @incidents = @instance.incidents.find(:all,:include => [:updates], :order => 'id DESC')
-    return with_rejection unless @instance.viewable_by?(@current_user)
+    return with_rejection unless @current_user.can? :list => @incidents, :view => @instance
   end
 
   # Method for displaying the information needed on the 'Edit instance' page,
   # which lets the user edit the name of the instance and the permissions 
   # associated with each role. 
-  # It passes the permissions to the view in a hash, called perms_hash, in which the
-  # pemissions are organized by their model. 
+  # It passes the permissions to the view in a hash in which the
+  # permissions are organized by their model. 
   def edit
-    @roles = @instance.roles
-    @permissions = Permission.all
-    @perms_hash = {}
-    @permissions.each do |p|
-      @perms_hash[p.model] = [] unless @perms_hash[p.model].is_a?(Array)
-      @perms_hash[p.model] << p.action
+    return with_rejection unless @current_user.can? :update => @instance
+    Permission.all.inject({}) do |res, e|
+      res[e.model] = [] unless res.include? e.model
+      res[e.model] << e.action
+      res
     end
-    return with_rejection unless @instance.updatable_by?(@current_user)
   end
 
   # Updates an existing instance object in the database specified by its :id
@@ -38,10 +36,10 @@ class InstancesController < AuthorizedController
   # It also saves the updated permissions to the database based 
   # on the :permissions hash
   def update
-    return with_rejection unless @instance.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @instance
     if params[:permissions].is_a? Hash
-      @instance.roles.each do|r|
-        r.privileges.clear
+      @instance.roles.each do |r|
+        r.privileges.clear #<<FIX: make this not destroy already right ones
         r.save
       end
       params[:permissions].each_pair do |role_id, rest|
@@ -49,7 +47,7 @@ class InstancesController < AuthorizedController
         rest.each_pair do |model_name, actions|
           actions.each do |action_name|
             permission = Permission.find(:first, :conditions => {:model => model_name, :action => action_name})
-            p = Privilege.create(:role => role, :permission => permission)
+            Privilege.create(:role => role, :permission => permission)
           end
         end
       end
@@ -64,22 +62,22 @@ class InstancesController < AuthorizedController
 
   # Removes an instance object specified by its :id from the database
   def destroy
-    return with_rejection unless @instance.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can? :destroy => @instance
     @instance.destroy
     redirect_to instances_path
   end
 
   def new
+    return with_rejection unless @current_user.can? :create => Instance
     @instance = Instance.new
-    return with_rejection unless @instance.creatable_by?(@current_user)
   end
 
   # Saves an instance object to the database with the parameters provided in 
   # the :instance hash, which is populated by the form on the 'new' page
   def create
-    @instance = Instance.create(params[:instance])
-    return with_rejection unless @instance.creatable_by?(@current_user)
-    if @instance.valid?
+    return with_rejection unless @current_user.can? :create => Instance
+    @instance = Instance.build(params[:instance])
+    if @instance.save
       flash[:notice] = INSTANCE_CREATED
       redirect_to @instance
     else

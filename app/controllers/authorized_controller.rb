@@ -43,9 +43,11 @@ class AuthorizedController < ApplicationController
 
   # Redirects to the login path unless the user is logged in
   def require_login
-    @current_user = nil
-    path = instance_login_path(Instance.find(params[:instance_id]||params[:id]), :return_to => request.request_uri)
-    notice_exit(path, "Please log in to view this page.") unless logged_in?
+    unless logged_in?
+      @current_user = nil
+      path = instance_login_path(Instance.find(params[:instance_id]||params[:id]), :return_to => request.request_uri)
+      notice_exit(path, "Please log in to view this page.")
+    end
   end
 
   def require_admin_login
@@ -71,10 +73,6 @@ class AuthorizedController < ApplicationController
   # Logs in as a user. Just sets the session, not any cookies.
   def login_as(user, type = :user)
     session["#{type}_id".to_sym] = user ? user.id : nil
-    if user.is_a? User
-      user.last_login = DateTime.now
-      user.save
-    end
     if type == :user || user.is_a?(User)
       @current_user = user
     elsif type == :admin || user.is_a?(Admin)
@@ -107,7 +105,6 @@ class AuthorizedController < ApplicationController
   def logout_keeping_session!
     if @current_user.is_a? User
       @current_user.last_logout = DateTime.now
-      @current_user.save
       @current_user.forget_me
     end
     login_as false

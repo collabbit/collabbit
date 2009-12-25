@@ -1,5 +1,5 @@
 <%
-# View which displays the list of updates in an incident'.  
+# View which displays the list of updates in an incident.  
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -10,10 +10,19 @@
 <% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
 <% content_for :javascripts, javascript_include_tag('jquery','updates')%>
 <% content_for :body do %>
-	<%= pretty_button_if(@incident.destroyable_by?(@current_user), :delete_incident, instance_incident_path(@instance, @incident), 'Delete Incident', :method => :delete, :confirm => 'Do you really want to delete?') %>
-	<%= pretty_button_if(@incident.updatable_by?(@current_user), :edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
-	<%= pretty_button_if(@incident.updatable_by?(@current_user), :close_incident, instance_incident_close_path(@instance,@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
-	<%= pretty_button_if((Update.creatable_by?(@current_user) and @instance.viewable_by?(@current_user)), :add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
+
+<% if can? :destroy => @incident %>
+	<%= pretty_delete_button(@incident, :check => true) %>
+<% end %>	
+
+<% if can? :update => @incident %>
+	<%= pretty_button(:edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
+	<%= pretty_button(:close_incident, instance_incident_close_path(@instance,@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
+<% end %>
+
+<% if can? :create => Update %>
+	<%= pretty_button(:add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
+<% end %>
 	
 <%= flashes %>
 
@@ -37,7 +46,7 @@
 	            @incident.updates.each {|u|
 	                groups += u.relevant_groups.reject{|g| groups.include?(g) }
 
-	                unless u.issuing_type == :user || groups.include?(u.issuing_group)
+	                unless u.issuing_type == :user || groups.include?(u.issuing_group) || u.issuing_group == nil
 	                    groups << u.issuing_group 
 	                end
 	            }
@@ -106,7 +115,7 @@
 			<% end %>
 			</ul>
 		<% else %>
-			<h3 class="centered">This incident has no updates. <%=link_to 'Click here to update', new_instance_incident_update_path(@instance, @incident)%>.</h3>
+			<h3 class="centered">This incident has no updates. <%=link_to 'Click here to update', new_instance_incident_update_path(@instance, @incident) if can?(:create => Update)%>.</h3>
 		<% end %>
 		<%= will_paginate @updates %>
 	</div>

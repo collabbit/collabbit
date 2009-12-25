@@ -9,37 +9,30 @@ class GroupTypesController < AuthorizedController
     
   def new
     @group_type = GroupType.new
-    return with_rejection unless GroupType.creatable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:create => GroupType)
   end
 
   def show
-        
     @group_type = @instance.group_types.find(params[:id])
     redirect_to instance_group_type_groups_path(@instance, @group_type)
   end
 
   def edit
-    
     @group_type = @instance.group_types.find(params[:id])
-    return with_rejection unless @group_type.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @group_type
   end
 
   def index
-    
     @group_types = @instance.group_types
-    return with_rejection unless GroupType.listable_by?(@current_user)
+    return with_rejection unless @current_user.can?(:list => @group_types)
   end
   
   # Saves a group_type object to the database with the parameters provided in 
   # the :group_type hash, which is populated by the form on the 'new' page
   def create
+    @group_type = @instance.group_types.build(params[:group_type])
+    return with_rejection unless @current_user.can?(:create => GroupType)
     
-    @group_type = GroupType.new(params[:group_type])
-    
-    return with_rejection unless GroupType.creatable_by?(@current_user)
-    
-    @group_type.instance = @instance
-
     if @group_type.save
       flash[:notice] = GROUP_TYPE_CREATED
       redirect_to instance_group_type_path(@instance, @group_type)
@@ -52,10 +45,8 @@ class GroupTypesController < AuthorizedController
   # The data to be saved is provided in the :group_type hash, 
   # which is populated by the form on the 'edit' page
   def update
-    
     @group_type = @instance.group_types.find(params[:id])
-    
-    return with_rejection unless @group_type.updatable_by?(@current_user)
+    return with_rejection unless @current_user.can? :update => @group_type
     
     if @group_type.update_attributes(params[:group_type])
       flash[:notice] = GROUP_TYPE_UPDATED
@@ -67,9 +58,9 @@ class GroupTypesController < AuthorizedController
   
   # Removes a group_types object specified by its :id from the database
   def destroy
-    
     @group_type = @instance.group_types.find(params[:id])
-    return with_rejection unless @group_type.destroyable_by?(@current_user)
+    return with_rejection unless @current_user.can? :destroy => @group_type
+    
     @group_type.destroy
     redirect_to :action => :index
   end

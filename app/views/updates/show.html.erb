@@ -10,8 +10,8 @@
 <% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button_if(@update.destroyable_by?(@current_user), :delete_update, instance_incident_update_path(@instance, @incident, @update), 'Delete Update', :method => :delete, :confirm => "Really delete update?") %>
-	<%= pretty_button_if(@update.updatable_by?(@current_user), :edit_update, edit_instance_incident_update_path(@instance, @incident, @update), 'Edit Update') %>
+	<%= pretty_button(:delete_update, instance_incident_update_path(@instance, @incident, @update), 'Delete Update', :method => :delete, :confirm => "Really delete update?") if can?(:destroy => @update)%>
+	<%= pretty_button(:edit_update, edit_instance_incident_update_path(@instance, @incident, @update), 'Edit Update') if can?(:update => @update) %>
 	<%= flashes %>
 	<div id="wrap">
 		<h1>
@@ -60,8 +60,5 @@
 				</ul>
 			</div>
 		<% end %>
-		<% if @update.creatable_by?(@current_user) && flash[:notice] == UPDATE_CREATED %>
-        <%= link_to 'Add another update', new_instance_incident_update_path(@instance, @incident)%>
-        <% end %>
 	</div>
 <% end %>

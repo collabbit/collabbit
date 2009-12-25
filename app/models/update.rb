@@ -5,6 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Update < ActiveRecord::Base
+  include Authority
   
   belongs_to :user
   belongs_to :incident
@@ -23,33 +24,13 @@ class Update < ActiveRecord::Base
   
   attr_accessor :additional_tags
   after_save :handle_tags
-   
-  attr_protected :incident, :incident_id
+  attr_protected :incident_id
   
-  # def created_at
-  #   @created_at
-  # end
-  # def updated_at
-  #   @updated_at
-  # end
-  
-  def viewable_by?(u)
-    user == u || super
-  end
-  def updatable_by?(u)
-    user == u || super
-  end
-  def destroyable_by?(u)
-    user == u || super
-  end
+  #owned_by :user
   
   # Returns the issuing type as a symbol
   def issuing_type
-     if issuing_group 
-       :group
-     else
-       :user
-     end
+     issuing_group ? :group : :user
   end
  
   # Returns the issuer
@@ -62,7 +43,7 @@ class Update < ActiveRecord::Base
     if i.is_a? Group
       self.issuing_group = i
     else
-      self.issuing_group = nil
+      self.issuing_group = nil #<<FIX: is this the right behavior?
     end
   end
   

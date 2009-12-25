@@ -5,14 +5,17 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Role < ActiveRecord::Base
+  include Authority
   has_many :users
   belongs_to :instance
 
-  has_many :privileges, :dependent => :destroy
+  has_many :privileges, :dependent => :destroy, :include => :permissions
   has_many :permissions, :through => :privileges
   
   validates_presence_of :name
   validates_length_of   :name, :within => 2..32
+  
+  attr_protected :user_ids, :instance_id
   
   # Returns the default role.
   def self.default
@@ -35,7 +38,7 @@ class Role < ActiveRecord::Base
         roles[3].permissions << Permission.find(:first, :conditions =>{:model => m.to_s.camelize, :action => a.to_s})
       end
     end
-    [:create, :update, :destroy, :show, :list].each do |a|
+    [:update, :destroy, :show, :list].each do |a|
       roles[2].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
       roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
     end
@@ -47,9 +50,6 @@ class Role < ActiveRecord::Base
       role.permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'show'})
     end
     roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'update'})
-    [:create, :update, :destroy].each do |a|
-      roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => a.to_s})
-    end
     roles
   end
   

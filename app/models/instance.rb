@@ -4,7 +4,9 @@
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-class Instance < ActiveRecord::Base
+class Instance < ActiveRecord::Base 
+  include Authority
+   
   has_many :incidents, :dependent => :destroy
   has_many :updates, :through => :incidents
   has_many :users, :dependent => :destroy
@@ -26,10 +28,17 @@ class Instance < ActiveRecord::Base
                           :in => %w( support blog www billing help api internal mail ),
                           :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
 
-
+  requires_override!
+  def viewable_by?(usr)
+    usr.instance == self
+  end
+  def updatable_by?(usr)
+    usr.instance == self
+  end
+  
   @@current = nil
   mattr_accessor :current
-
+  
   # Allows us to use the short_name in the URL instead of the ID
   def to_param
     short_name
@@ -42,7 +51,7 @@ class Instance < ActiveRecord::Base
   end
   
   def viewable_by?(user)
-    (user && user.instance == self) || super
+    user && user.instance == self
   end
   
   # Overwrites find so that <tt>Instance.find(x.to_param)</tt> works

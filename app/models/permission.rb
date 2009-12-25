@@ -5,6 +5,8 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Permission < ActiveRecord::Base
+  include Authority
+  
   has_many :privileges, :dependent => :destroy
   has_many :roles, :through => :privileges
 
@@ -18,11 +20,11 @@ class Permission < ActiveRecord::Base
         :incident => actions,
         :role => actions,
         :user => actions - [:create],
-        :instance => [:update]
+        :instance => [:show, :update]
       }
     map.each_pair do |klass,v|
       v.each do |act|
-        Permission.create(:class => klass.to_s.camelize, :action => act.to_s)
+        Permission.create(:model => klass.to_s.camelize, :action => act.to_s)
       end
     end  
   end

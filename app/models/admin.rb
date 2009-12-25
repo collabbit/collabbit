@@ -8,6 +8,7 @@
 require 'digest/sha1'
 
 class Admin < ActiveRecord::Base
+  include Authority
   attr_accessor :password, :password_confirmation
   @@current = nil
   mattr_accessor :current

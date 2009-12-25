@@ -5,20 +5,8 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Criterion < ActiveRecord::Base
+  include Authority
   belongs_to :feed
   
-  def creatable_by?(user)
-    owner_check(user) || super
-  end
-  def deletable_by?(user)
-    owner_check(user) || super
-  end
-  def updatable_by?(user)
-    owner_check(user) || super
-  end
-  
-  private
-    def owner_check(user)
-      feed.owner == user
-    end
+  inherits_permissions_from :feed
 end

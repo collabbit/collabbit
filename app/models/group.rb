@@ -5,6 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Group < ActiveRecord::Base
+  include Authority
     
   belongs_to :group_type
   has_many :memberships, :dependent => :destroy, :uniq => true
@@ -19,15 +20,17 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
   validates_associated  :group_type
   validates_uniqueness_of :name, :scope => :group_type_id
+  
+  attr_protected :group_type_id
 
   # Checks if a specified user has permission to update a group; 
   # If he is the chair, he will have permission.
   def updatable_by?(user)
-    chairs.include?(user) || super
+    chairs.include?(user)
   end
   
   def viewable_by?(user)
-    user.groups.include?(self) || super
+    user.groups.include?(self)
   end
   
   protected

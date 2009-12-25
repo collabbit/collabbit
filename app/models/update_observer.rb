@@ -6,11 +6,20 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class UpdateObserver < ActiveRecord::Observer
     
+  @@enabled = true
+  mattr_accessor :enabled
+  def self.enable!
+    @@enabled = true
+  end
+  def self.disable!
+    @@enabled = false
+  end  
+    
   def after_create(update)
-    find_and_send_alerts(update, 'new')
+    find_and_send_alerts(update, 'new') if @@enabled
   end
   def after_update(update)
-    find_and_send_alerts(update, 'updated')
+    find_and_send_alerts(update, 'updated') if @@enabled
   end
   
   private

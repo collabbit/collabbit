@@ -22,7 +22,6 @@
 				<div id="branding">
 					<%= yield :branding or render :partial => 'shared/branding' -%>
 				</div>
-				<% # If there's content_for :menu, do that. Then, if there's _menu.html.erb, do that. Finally, do the shared menu. %>
 				<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 			</div>
 			<div id="submenu"><%= yield :submenu or render :partial => 'submenu' rescue nil %></div>

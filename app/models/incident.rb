@@ -5,6 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Incident < ActiveRecord::Base
+  include Authority
   belongs_to :instance
   has_many :updates, :dependent => :destroy
   has_many :feeds, :dependent => :destroy
@@ -12,12 +13,14 @@ class Incident < ActiveRecord::Base
   validates_presence_of :description
   validates_length_of   :name, :within => 2..32
   
+  attr_protected :instance_id
+  
   def closed?
     closed_at != nil
   end
   
   def viewable_by?(user)
-    user.instance.viewable_by?(user) || super
+    instance.viewable_by?(user)
   end
 
 end

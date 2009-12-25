@@ -12,7 +12,7 @@
 <% content_for :body do%>
 	<%= flashes %>
 	<div id="wrap">
-		<h1>Edit instance: <%=@instance.short_name%></h1>
+		<h1>Edit <span class="tiny">&laquo; <%=@instance.short_name%></span></h1>
 		
 		<%= error_messages_for :instance %>
 		<% form_for @instance do |f| -%>

@@ -20,9 +20,6 @@ class AdminSessionsController < AuthorizedController
     @admin = Admin.find_by_email(params[:email])
     if @admin && @admin.crypted_password == @admin.generate_crypted_password(params[:password])
       login_as @admin, :admin
-      logger.info { "aklsfjaskljf" }
-      logger.info { session.inspect }
-      logger.info { Admin.current.inspect }
       redirect_to admins_path
     else
       flash[:error] = INVALID_EMAIL_OR_PASSWORD

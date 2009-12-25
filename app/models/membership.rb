@@ -5,8 +5,11 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Membership < ActiveRecord::Base
+  include Authority
   belongs_to :group
   belongs_to :user
+  
+  owned_by :user
   
   #validates_associated :group
   #validates_associated :user
@@ -15,16 +18,6 @@ class Membership < ActiveRecord::Base
   
   def chair?
     is_chair
-  end
-
-  def viewable_by?(user)
-    self == user || super
-  end
-  def updatable_by?(user)
-    self == user || super
-  end
-  def destroyable_by?(user)
-    self == user || super
   end
   
 end

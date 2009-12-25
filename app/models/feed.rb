@@ -5,6 +5,7 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Feed < ActiveRecord::Base
+  include Authority
   
   belongs_to :owner, :class_name => 'User'
   belongs_to :incident
@@ -13,6 +14,8 @@ class Feed < ActiveRecord::Base
   has_many :criterions, :dependent => :destroy
   
   validates_presence_of :name
+  
+  owned_by :owner
   
   def text_alert?
     text_alert
