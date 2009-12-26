@@ -1,17 +1,16 @@
 require 'erb'
-require 'yaml'
 
-settings = YAML.load_file('deploy.yml')
+settings = YAML.load_file('config/deploy.yml')
 
 set :application, "collabbit"
-set :repository,  settings[:repository]
-set :deploy_to,   settings[:deploy_to]
+set :repository,  settings["repository"]
+set :deploy_to,   settings["deploy_to"]
 
 set :scm,         :git
-set :branch,      settings[:branch]
+set :branch,      settings["branch"]
 
-set :domain,      settings[:domain]
-set :user,        settings[:user]
+set :domain,      settings["domain"]
+set :user,        settings["user"]
 set :use_sudo,    false
 
 set :deploy_via, :remote_cache
