@@ -12,4 +12,14 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'd9a4fa2487b71adf1f4fb8d68c2fcc59'
+  
+  rescue_from Instance::Missing do |instance|
+    flash[:error] = "We're sorry, we couldn't find a Collabbit for \"#{instance}\"."
+    render "shared/404"
+  end
+  
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:error] = "We're sorry, something you just requested was misplaced."
+    redirect_to :back
+  end
 end

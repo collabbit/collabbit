@@ -32,8 +32,8 @@ class SessionsController < AuthorizedController
       end
       login_as @user
       handle_remember_cookie!(true) if params[:remember]
-      user.last_login = DateTime.now
-      user.save
+      @user.last_login = DateTime.now
+      @user.save
       
       if params[:return_to] == nil || params[:return_to].size == 0
         redirect_to instance_path(@instance)

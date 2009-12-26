@@ -17,7 +17,8 @@ class AuthorizedController < ApplicationController
       logout_keeping_session!
     end
 
-    notice_exit('/', 'Sorry, that account does not exist.') unless @instance
+    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance
+    
   end
 
   def with_rejection(opts = {})

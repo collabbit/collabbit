@@ -62,7 +62,9 @@ class Instance < ActiveRecord::Base
       super(*args)
     end
   end
-
+  
+  class Missing < RuntimeError; end
+  
   private
     def handle_whitelisted_domains
       self.whitelisted_domains.clear
