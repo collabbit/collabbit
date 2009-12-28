@@ -1,9 +1,31 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  group: 
-  user: 
-
-two:
-  group: 
-  user: 
+--- 
+memberships_006: 
+  group_id: "3"
+  id: "8"
+  user_id: "2"
+  is_chair: 
+memberships_001: 
+  group_id: "2"
+  id: "3"
+  user_id: "2"
+  is_chair: 
+memberships_002: 
+  group_id: "3"
+  id: "4"
+  user_id: "1"
+  is_chair: 
+memberships_003: 
+  group_id: "1"
+  id: "5"
+  user_id: "1"
+  is_chair: 
+memberships_004: 
+  group_id: "1"
+  id: "6"
+  user_id: "2"
+  is_chair: 
+memberships_005: 
+  group_id: "2"
+  id: "7"
+  user_id: "1"
+  is_chair: 

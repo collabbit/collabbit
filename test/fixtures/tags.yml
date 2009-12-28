@@ -1,7 +1,37 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+--- 
+tags_001: 
+  name: GOVT
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "1"
+tags_002: 
+  name: NGO
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "2"
+tags_003: 
+  name: Important
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "3"
+tags_004: 
+  name: Bronx
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "4"
+tags_005: 
+  name: Queens
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "5"
+tags_006: 
+  name: Good News
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  instance_id: "1"
+  id: "6"

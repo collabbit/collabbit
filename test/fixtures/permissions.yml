@@ -1,9 +1,217 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  role: 
-  permission: 
-
-two:
-  role: 
-  permission: 
+--- 
+permissions_030: 
+  model: Tag
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "30"
+permissions_019: 
+  model: Group
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "19"
+permissions_008: 
+  model: Update
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "8"
+permissions_031: 
+  model: Tag
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "31"
+permissions_020: 
+  model: Group
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "20"
+permissions_009: 
+  model: Update
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "9"
+permissions_032: 
+  model: GroupType
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "32"
+permissions_021: 
+  model: Group
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "21"
+permissions_010: 
+  model: Update
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "10"
+permissions_033: 
+  model: GroupType
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "33"
+permissions_022: 
+  model: Role
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "22"
+permissions_011: 
+  model: Update
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "11"
+permissions_034: 
+  model: GroupType
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "34"
+permissions_023: 
+  model: Role
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "23"
+permissions_012: 
+  model: Incident
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "12"
+permissions_001: 
+  model: Instance
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "1"
+permissions_035: 
+  model: GroupType
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "35"
+permissions_024: 
+  model: Role
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "24"
+permissions_013: 
+  model: Incident
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "13"
+permissions_002: 
+  model: Instance
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "2"
+permissions_036: 
+  model: GroupType
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "36"
+permissions_025: 
+  model: Role
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "25"
+permissions_014: 
+  model: Incident
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "14"
+permissions_003: 
+  model: User
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "3"
+permissions_026: 
+  model: Role
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "26"
+permissions_015: 
+  model: Incident
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "15"
+permissions_004: 
+  model: User
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "4"
+permissions_027: 
+  model: Tag
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "27"
+permissions_016: 
+  model: Incident
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "16"
+permissions_005: 
+  model: User
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: destroy
+  id: "5"
+permissions_028: 
+  model: Tag
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "28"
+permissions_017: 
+  model: Group
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "17"
+permissions_006: 
+  model: User
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: update
+  id: "6"
+permissions_029: 
+  model: Tag
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: list
+  id: "29"
+permissions_018: 
+  model: Group
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: show
+  id: "18"
+permissions_007: 
+  model: Update
+  created_at: 2009-12-25 13:06:17
+  updated_at: 2009-12-25 13:06:17
+  action: create
+  id: "7"

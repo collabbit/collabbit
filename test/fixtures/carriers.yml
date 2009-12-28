@@ -1,9 +1,55 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: MyString
-  format: MyString
-
-two:
-  name: MyString
-  format: MyString
+--- 
+carriers_001: 
+  name: AT&T
+  created_at: 2009-12-25 13:06:18
+  extension: "@txt.att.net"
+  updated_at: 2009-12-25 13:06:18
+  id: "1"
+carriers_002: 
+  name: Boost
+  created_at: 2009-12-25 13:06:18
+  extension: "@myboostmobile.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "2"
+carriers_003: 
+  name: Cricket
+  created_at: 2009-12-25 13:06:18
+  extension: "@sms.mycricket.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "3"
+carriers_004: 
+  name: Nextel
+  created_at: 2009-12-25 13:06:18
+  extension: "@messaging.nextel.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "4"
+carriers_005: 
+  name: T-Mobile
+  created_at: 2009-12-25 13:06:18
+  extension: "@tmomail.net"
+  updated_at: 2009-12-25 13:06:18
+  id: "5"
+carriers_006: 
+  name: Virgin Mobile
+  created_at: 2009-12-25 13:06:18
+  extension: "@vmobl.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "6"
+carriers_007: 
+  name: Verizon
+  created_at: 2009-12-25 13:06:18
+  extension: "@vtext.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "7"
+carriers_008: 
+  name: Sprint
+  created_at: 2009-12-25 13:06:18
+  extension: "@messaging.sprintpcs.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "8"
+carriers_009: 
+  name: Alltel Wireless
+  created_at: 2009-12-25 13:06:18
+  extension: "@message.alltel.com"
+  updated_at: 2009-12-25 13:06:18
+  id: "9"

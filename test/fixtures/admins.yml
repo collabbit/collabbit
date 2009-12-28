@@ -1,9 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  email: MyString
-  crypted_password: 
-
-two:
-  email: MyString
-  crypted_password: 
+--- 
+admins_001: 
+  salt: ffa6706ff2127a749973072756f83c532e43ed02
+  created_at: 2009-12-25 13:06:18
+  crypted_password: 884d5f3285cbf874b761905ab4247ba6f672f181
+  updated_at: 2009-12-25 13:06:18
+  id: "1"
+  email: blabla@bla.bla
+admins_002: 
+  salt: 5bf1fd927dfb8679496a2e6cf00cbe50c1c87145
+  created_at: 2009-12-25 13:06:18
+  crypted_password: 9a0ba82acb9203dd5c6eb2eabd0da9ebcf18eaf7
+  updated_at: 2009-12-25 13:06:18
+  id: "2"
+  email: blahblah@blah.blah

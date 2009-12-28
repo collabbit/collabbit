@@ -1,9 +1,655 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  role: 
-  permission: 
-
-two:
-  role: 
-  permission: 
+--- 
+privileges_106: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "1"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "106"
+privileges_092: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "12"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "92"
+privileges_071: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "29"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "71"
+privileges_007: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "32"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "7"
+privileges_028: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "19"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "28"
+privileges_050: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "8"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "50"
+privileges_049: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "10"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "49"
+privileges_107: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "2"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "107"
+privileges_093: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "16"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "93"
+privileges_072: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "6"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "72"
+privileges_008: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "33"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "8"
+privileges_030: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "36"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "30"
+privileges_029: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "32"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "29"
+privileges_051: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "9"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "51"
+privileges_108: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "6"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "108"
+privileges_094: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "15"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "94"
+privileges_073: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "5"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "73"
+privileges_009: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "34"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "9"
+privileges_031: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "35"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "31"
+privileges_052: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "17"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "52"
+privileges_010: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "12"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "10"
+privileges_109: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "5"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "109"
+privileges_095: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "13"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "95"
+privileges_074: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "3"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "74"
+privileges_053: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "21"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "53"
+privileges_011: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "13"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "11"
+privileges_032: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "33"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "32"
+privileges_096: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "14"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "96"
+privileges_075: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "4"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "75"
+privileges_012: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "14"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "12"
+privileges_033: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "34"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "33"
+privileges_054: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "20"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "54"
+privileges_097: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "27"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "97"
+privileges_076: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "1"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "76"
+privileges_013: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "27"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "13"
+privileges_034: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "12"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "34"
+privileges_055: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "18"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "55"
+privileges_098: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "31"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "98"
+privileges_077: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "7"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "77"
+privileges_014: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "28"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "14"
+privileges_035: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "16"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "35"
+privileges_056: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "19"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "56"
+privileges_099: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "30"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "99"
+privileges_078: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "11"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "78"
+privileges_015: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "29"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "15"
+privileges_036: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "15"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "36"
+privileges_057: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "32"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "57"
+privileges_080: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "8"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "80"
+privileges_079: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "10"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "79"
+privileges_016: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "3"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "16"
+privileges_037: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "13"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "37"
+privileges_058: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "36"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "58"
+privileges_081: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "9"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "81"
+privileges_017: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "4"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "17"
+privileges_038: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "14"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "38"
+privileges_060: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "33"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "60"
+privileges_059: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "35"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "59"
+privileges_082: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "17"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "82"
+privileges_018: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "1"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "18"
+privileges_040: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "31"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "40"
+privileges_039: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "27"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "39"
+privileges_061: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "34"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "61"
+privileges_083: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "21"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "83"
+privileges_020: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "11"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "20"
+privileges_019: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "7"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "19"
+privileges_041: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "30"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "41"
+privileges_062: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "12"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "62"
+privileges_084: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "20"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "84"
+privileges_042: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "28"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "42"
+privileges_063: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "16"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "63"
+privileges_021: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "10"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "21"
+privileges_100: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "28"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "100"
+privileges_085: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "18"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "85"
+privileges_064: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "15"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "64"
+privileges_001: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "7"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "1"
+privileges_022: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "8"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "22"
+privileges_043: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "29"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "43"
+privileges_101: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "29"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "101"
+privileges_086: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "19"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "86"
+privileges_002: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "8"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "2"
+privileges_023: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "9"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "23"
+privileges_044: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "3"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "44"
+privileges_065: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "13"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "65"
+privileges_102: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "6"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "102"
+privileges_087: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "32"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "87"
+privileges_003: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "9"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "3"
+privileges_024: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "17"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "24"
+privileges_045: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "4"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "45"
+privileges_066: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "14"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "66"
+privileges_103: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "5"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "103"
+privileges_088: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "36"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "88"
+privileges_067: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "27"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "67"
+privileges_004: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "17"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "4"
+privileges_025: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "21"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "25"
+privileges_046: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "1"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "46"
+privileges_104: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "3"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "104"
+privileges_090: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "33"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "90"
+privileges_089: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "35"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "89"
+privileges_068: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "31"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "68"
+privileges_005: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "18"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "5"
+privileges_026: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "20"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "26"
+privileges_047: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "7"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "47"
+privileges_105: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "4"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "105"
+privileges_091: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "34"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "4"
+  id: "91"
+privileges_070: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "28"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "70"
+privileges_069: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "30"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "69"
+privileges_006: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "19"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "1"
+  id: "6"
+privileges_027: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "18"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "2"
+  id: "27"
+privileges_048: 
+  created_at: 2009-12-25 13:06:34
+  permission_id: "11"
+  updated_at: 2009-12-25 13:06:34
+  role_id: "3"
+  id: "48"

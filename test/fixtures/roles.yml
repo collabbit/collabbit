@@ -1,4 +1,25 @@
-admin_role:
-  name: admin
-user_role:
-  name: user
+--- 
+roles_001: 
+  name: Normal User
+  created_at: 2009-12-25 13:06:34
+  updated_at: 2009-12-25 13:06:34
+  instance_id: "1"
+  id: "1"
+roles_002: 
+  name: Manager
+  created_at: 2009-12-25 13:06:34
+  updated_at: 2009-12-25 13:06:34
+  instance_id: "1"
+  id: "2"
+roles_003: 
+  name: Administrator
+  created_at: 2009-12-25 13:06:34
+  updated_at: 2009-12-25 13:06:34
+  instance_id: "1"
+  id: "3"
+roles_004: 
+  name: Super Administrator
+  created_at: 2009-12-25 13:06:34
+  updated_at: 2009-12-25 13:06:34
+  instance_id: "1"
+  id: "4"

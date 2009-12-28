@@ -10,12 +10,30 @@ require 'rake/rdoctask'
 require 'tasks/rails'
 require 'find'
 
-namespace :db do
-  desc "Drop, create, migrate, populate the database"
-  task :redo => ['environment', 'db:drop', 'db:create', 'db:migrate_and_populate']
-end
+require 'active_record/fixtures'
 
 namespace :db do
+  
+  desc "Turn development database into fixtures"
+  task :fixturize => :environment do
+    sql  = "SELECT * FROM %s"
+    skip_tables = ["schema_info", "schema_migrations"]
+    ActiveRecord::Base.establish_connection
+    (ActiveRecord::Base.connection.tables - skip_tables).each do |table_name|
+      i = "000"
+      File.open("#{RAILS_ROOT}/test/fixtures/#{table_name}.yml", 'w') do |file|
+        data = ActiveRecord::Base.connection.select_all(sql % table_name)
+        file.write data.inject({}) { |hash, record|
+          hash["#{table_name}_#{i.succ!}"] = record
+          hash
+        }.to_yaml
+      end
+    end
+  end
+  
+  desc "Drop, create, migrate, populate the database"
+  task :redo => ['environment', 'db:drop', 'db:create', 'db:migrate_and_populate']
+
   desc "Backup the database to a file. Options: DIR=base_dir RAILS_ENV=production MAX=20" 
   task :backup => [:environment] do
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")

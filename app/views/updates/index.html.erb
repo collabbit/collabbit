@@ -8,7 +8,7 @@
 %>
 
 <% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
-<% content_for :javascripts, javascript_include_tag('jquery','updates')%>
+<% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates', 'prototype')%>
 <% content_for :body do %>
 
 <% if can? :destroy => @incident %>
@@ -111,6 +111,18 @@
 						</ul>
 					</div>
 				<% end %>
+				  <div class="comments">
+				    <em>Comments</em>
+				    <% u.comments.each do |c| %>
+				      <div class="comment"><span class="comment-body"><%=c.body%></span>
+				        by <span class="comment-author"><%=c.user.full_name%></span>
+				        on <span class="comment-date"><%=mdy c.created_at%></span></div>
+				    <% end %>
+				    <% form_for [@instance, u.incident, u, Comment.new] do |f| %>
+				      <%= f.text_field :body %>
+				      <%= f.submit 'Add Comment' %>
+				    <% end %>
+				  </div>
 				</li>
 			<% end %>
 			</ul>

@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
       incident.close 'close',	  :controller => 'incidents', :action => 'close'
       incident.resources :updates do |update|
         update.attachment 'attachments/:id', :controller => 'attachments', :action => 'show'
+        update.comments 'comments', :controller => 'comments', :action => 'create'
       end
     end
     

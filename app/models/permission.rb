@@ -20,7 +20,8 @@ class Permission < ActiveRecord::Base
         :incident => actions,
         :role => actions,
         :user => actions - [:create],
-        :instance => [:show, :update]
+        :instance => [:show, :update],
+        :comment => actions
       }
     map.each_pair do |klass,v|
       v.each do |act|

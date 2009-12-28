@@ -1,13 +1,7 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-first:
-  id: 1
-  short_name: nycoem
-  long_name: New York City Office of Emergency Management
-  created_at: <%= 10.days.ago.to_s :db %>
-
-second:
-  id: 2
-  short_name: redcrossny
-  long_name: Red Cross of New York
-  created_at: <%= 8.days.ago.to_s :db %>
+--- 
+instances_001: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  long_name: Demo Instance
+  id: "1"
+  short_name: demo

@@ -1,25 +1,76 @@
-adam: 
-  id:                        5
-  first_name:                Adam
-  last_name:                 Sandler
-  email:                     asandler@sandler.com
-  crypted_password:          8c74e51ec42d76a397e2d64275f677c1adc33819 #'blah'
-  salt:                      65009056c92984a5764f66eec5b075348d2871c9
-  activation_code:           123
-  activated_at:              <%= 5.days.ago.to_s :db %>
-  created_at:                <%= 5.days.ago.to_s :db %>
-  instance:                  first
-  state:                     active
-
-james: 
-  id:                        6
-  first_name:                James
-  last_name:                 Gordon
-  email:                     gordonj@jgordon.com
-  crypted_password:          8c74e51ec42d76a397e2d64275f677c1adc33819 #'blah'
-  salt:                      65009056c92984a5764f66eec5b075348d2871c9
-  activation_code:           124
-  activated_at:              <%= 3.days.ago.to_s :db %>
-  created_at:                <%= 4.days.ago.to_s :db %>
-  instance:                  second
-  state:                     active
+--- 
+users_001: 
+  salt: 356a192b7913b04c54574d18c28d46e6395428ab
+  activated_at: 
+  created_at: 2009-12-25 13:06:18
+  desk_phone_ext: ""
+  last_login: 2009-12-26 00:03:20
+  remember_token_expires_at: 
+  crypted_password: 7908c14cd0d5c1a8e10bc2ec44e813b00ce25f79
+  instance_id: "1"
+  deleted_at: 
+  updated_at: 2009-12-26 00:03:20
+  carrier_id: 
+  role_id: "4"
+  activation_code: "111"
+  preferred_is_cell: "1"
+  id: "1"
+  cell_phone: "5857704551"
+  remember_token: 
+  last_name: Smith
+  last_alerted: 
+  last_logout: 
+  state: active
+  desk_phone: "5854423990"
+  email: blah@blah.com
+  first_name: John
+users_002: 
+  salt: da4b9237bacccdf19c0760cab7aec4a8359010b0
+  activated_at: 
+  created_at: 2009-12-25 13:06:18
+  desk_phone_ext: 
+  last_login: 
+  remember_token_expires_at: 
+  crypted_password: 76e2b7a5ac338888095d40a7512d82a5f1fef24c
+  instance_id: "1"
+  deleted_at: 
+  updated_at: 2009-12-25 13:06:56
+  carrier_id: 
+  role_id: "1"
+  activation_code: "121"
+  preferred_is_cell: 
+  id: "2"
+  cell_phone: 
+  remember_token: 
+  last_name: Smith
+  last_alerted: 
+  last_logout: 
+  state: active
+  desk_phone: 
+  email: blah2@blah.com
+  first_name: Jane
+users_003: 
+  salt: 356a192b7913b04c54574d18c28d46e6395428ab
+  activated_at: 
+  created_at: 2009-12-25 13:06:18
+  desk_phone_ext: 
+  last_login: 
+  remember_token_expires_at: 
+  crypted_password: 7908c14cd0d5c1a8e10bc2ec44e813b00ce25f79
+  instance_id: "1"
+  deleted_at: 
+  updated_at: 2009-12-25 13:06:56
+  carrier_id: 
+  role_id: "1"
+  activation_code: "131"
+  preferred_is_cell: 
+  id: "3"
+  cell_phone: 
+  remember_token: 
+  last_name: Arnold
+  last_alerted: 
+  last_logout: 
+  state: active
+  desk_phone: 
+  email: blah3@blah.com
+  first_name: Joey

@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :feeds, :foreign_key => 'owner_id', :dependent => :destroy
   has_many :memberships, :dependent => :destroy, :uniq => true
+  has_many :comments, :dependent => :destroy
 
   validates_presence_of     :first_name
   validates_presence_of     :last_name

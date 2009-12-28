@@ -26,7 +26,7 @@ class Role < ActiveRecord::Base
   def self.default_setup
     roles = ['Normal User', 'Manager', 'Administrator', 'Super Administrator']
     roles.map! {|r| Role.new(:name => r)}
-    [:update, :group, :group_type, :incident, :tag].each do |m|
+    [:update, :group, :group_type, :incident, :tag, :comment].each do |m|
       [:create, :show, :list].each do |a|
         roles[0].permissions << Permission.find(:first, :conditions => {:model => m.to_s.camelize, :action => a.to_s})
       end

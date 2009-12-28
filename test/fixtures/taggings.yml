@@ -1,9 +1,49 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  tag: 
-  update: 
-
-two:
-  tag: 
-  update: 
+--- 
+taggings_003: 
+  tag_id: "3"
+  id: "3"
+  update_id: "1"
+taggings_004: 
+  tag_id: "2"
+  id: "4"
+  update_id: "2"
+taggings_005: 
+  tag_id: "6"
+  id: "5"
+  update_id: "3"
+taggings_006: 
+  tag_id: "5"
+  id: "6"
+  update_id: "3"
+taggings_007: 
+  tag_id: "4"
+  id: "7"
+  update_id: "4"
+taggings_008: 
+  tag_id: "2"
+  id: "8"
+  update_id: "4"
+taggings_009: 
+  tag_id: "3"
+  id: "9"
+  update_id: "4"
+taggings_010: 
+  tag_id: "4"
+  id: "10"
+  update_id: "5"
+taggings_011: 
+  tag_id: "1"
+  id: "11"
+  update_id: "5"
+taggings_012: 
+  tag_id: "2"
+  id: "12"
+  update_id: "6"
+taggings_001: 
+  tag_id: "1"
+  id: "1"
+  update_id: "1"
+taggings_002: 
+  tag_id: "4"
+  id: "2"
+  update_id: "1"

@@ -1,9 +1,73 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  group: 
-  update: 
-
-two:
-  group: 
-  update: 
+--- 
+classifications_002: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "2"
+  id: "2"
+  update_id: "1"
+classifications_003: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "1"
+  id: "3"
+  update_id: "2"
+classifications_004: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "2"
+  id: "4"
+  update_id: "2"
+classifications_005: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "3"
+  id: "5"
+  update_id: "2"
+classifications_006: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "2"
+  id: "6"
+  update_id: "3"
+classifications_007: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "1"
+  id: "7"
+  update_id: "3"
+classifications_008: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "2"
+  id: "8"
+  update_id: "4"
+classifications_010: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "1"
+  id: "10"
+  update_id: "5"
+classifications_009: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "3"
+  id: "9"
+  update_id: "4"
+classifications_011: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "2"
+  id: "11"
+  update_id: "6"
+classifications_012: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "3"
+  id: "12"
+  update_id: "6"
+classifications_001: 
+  created_at: 2009-12-25 13:06:18
+  updated_at: 2009-12-25 13:06:18
+  group_id: "1"
+  id: "1"
+  update_id: "1"

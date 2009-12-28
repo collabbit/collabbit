@@ -16,6 +16,7 @@ class Update < ActiveRecord::Base
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
   has_many :attachments, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   
   validates_presence_of :title
   validates_length_of   :title, :within => 3..256
@@ -26,7 +27,7 @@ class Update < ActiveRecord::Base
   after_save :handle_tags
   attr_protected :incident_id
   
-  #owned_by :user
+  owned_by :user
   
   # Returns the issuing type as a symbol
   def issuing_type
