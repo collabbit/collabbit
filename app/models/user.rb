@@ -72,7 +72,11 @@ class User < ActiveRecord::Base
       when :destroy
         obj.destroyable_by? self
       when :update
-        obj.updatable_by? self
+        if obj.is_a? Array
+          obj.inject(true) {|res, e| res && e.updatable_by?(self)}
+        else
+          obj.updatable_by? self
+        end
       else
         false
     end
