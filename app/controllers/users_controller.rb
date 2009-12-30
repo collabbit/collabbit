@@ -28,7 +28,7 @@ class UsersController < AuthorizedController
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
-    if @current_user.can? :update => @users
+    if @users.inject(true) {|res, e| @current_user.can? :update => e }
       @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
     end
     @search = params[:search] if params[:search] and params[:search].length > 0 
