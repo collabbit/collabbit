@@ -25,7 +25,7 @@ class GroupsController < AuthorizedController
 
   def index
     @group_type = @instance.group_types.find(params[:group_type_id])
-    return with_rejection unless Group.listable_by?(@current_user)
+    return with_rejection unless @current_user.can? :view => @group_type, :list => @group_type.groups
   end
 
   # Saves a group object to the database with the parameters provided in 
