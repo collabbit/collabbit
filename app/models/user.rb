@@ -35,9 +35,12 @@ class User < ActiveRecord::Base
                   :password_confirmation, :carrier, :carrier_id
   
   def can?(hsh)
+    puts 'Requires Override!'
     return false unless hsh.is_a?(Hash) && role != nil
     hsh.each_pair do |action, obj|
-      if !obj.is_a?(Array) && obj.requires_override?
+      puts 'Har'
+      if (!obj.is_a?(Array)) && obj.requires_override?
+        puts 'Here'
         return false unless permission_to?(action, obj) && override_for?(action, obj)
       else
         unless permission_to?(action, obj) || override_for?(action, obj)

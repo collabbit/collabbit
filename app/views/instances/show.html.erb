@@ -10,7 +10,7 @@
 <% content_for :title, title(@instance.short_name)%>
 
 <% content_for :body do %>
-    <% if @current_user.can? :update => @instance%>
+    <% if @current_user.can? :update => @instance %>
 	    <%= pretty_button :edit_instance, {:action => "edit", :id => @instance}, 'Edit Instance Settings' %>
 	<% end %>
 	

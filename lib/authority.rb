@@ -1,7 +1,5 @@
 module Authority
       
-  @@override_required = false    
-      
   def self.included(base)
     base.send :extend, ClassMethods
   end
@@ -11,10 +9,13 @@ module Authority
   def updatable_by?(usr);   false; end;
   
   def requires_override?
-    @@override_required || false
+    self.class.requires_override?
   end
   
   module ClassMethods
+    
+    @override_required = false    
+    
     def owned_by(field)
       define_method(:viewable_by?) {|usr| send(field) == usr }
       define_method(:updatable_by?) {|usr| send(field) == usr }
@@ -34,6 +35,5 @@ module Authority
     def requires_override!
       @override_required = true
     end
-    
   end
 end
