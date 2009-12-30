@@ -35,12 +35,13 @@ class User < ActiveRecord::Base
                   :password_confirmation, :carrier, :carrier_id
   
   def can?(hsh)
-    puts 'Requires Override!'
     return false unless hsh.is_a?(Hash) && role != nil
     hsh.each_pair do |action, obj|
-      puts 'Har'
+      trans = {:view => :show, :delete => :destroy}
+      action = trans[action] if trans.include? action
       if (!obj.is_a?(Array)) && obj.requires_override?
-        puts 'Here'
+        puts "Permission_to: #{permission_to?(action, obj)}"
+        puts "Override_for: #{override_for?(action, obj)}"
         return false unless permission_to?(action, obj) && override_for?(action, obj)
       else
         unless permission_to?(action, obj) || override_for?(action, obj)
@@ -59,8 +60,6 @@ class User < ActiveRecord::Base
         permission_to? action, obj.first
       end
     else
-      trans = {:view => :show, :delete => :destroy}
-      action = trans[action] if trans.include? action
       klass = obj.class == Class ? obj : obj.class
       role.permissions.exists? :model => klass.to_s, :action => action.to_s
     end
