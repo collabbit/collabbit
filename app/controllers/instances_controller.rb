@@ -23,11 +23,12 @@ class InstancesController < AuthorizedController
   # permissions are organized by their model. 
   def edit
     return with_rejection unless @current_user.can? :update => @instance
-    Permission.all.inject({}) do |res, e|
+    @perms_hash = Permission.all.inject({}) do |res, e|
       res[e.model] = [] unless res.include? e.model
       res[e.model] << e.action
       res
     end
+    @roles = Role.all
   end
 
   # Updates an existing instance object in the database specified by its :id
