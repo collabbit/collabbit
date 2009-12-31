@@ -8,12 +8,13 @@ class CommentsController < AuthorizedController
     flash[:error] = 'Unable to save your comment' unless c.save
     redirect_to [@instance, c.update.incident]
   end
-  
+
   def destroy
     @tag = @instance.tags.find(params[:id])
-    return with_rejection unless @current_user.can? :destroy => @tag 
+    return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
-    flash[:notice] = TAG_DESTROYED
+    flash[:notice] = t('notice.tag_destroyed')
     redirect_to instance_tags_path(@instance)
-  end 
+  end
 end
+

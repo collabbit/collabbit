@@ -1,4 +1,4 @@
-# Controller for operations on users in the database.  
+# Controller for operations on users in the database.
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -31,17 +31,17 @@ class UpdatesController < AuthorizedController
   # Used for displaying the list of updates in a particular incident
   # Uses the mislav-will_paginate plugin
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
-  def index     
+  def index
     @incident = @instance.incidents.find(params[:incident_id], :include => [:updates])
-    
+
     return with_rejection unless @current_user.can? :list => @incident.updates
-    
+
     fs = {}
     if params[:filters]
       if params[:filters][:relevant_groups]
         gf = params[:filters][:relevant_groups][:id]
         if gf == 'mine'
-          @group_filter = 'mine' 
+          @group_filter = 'mine'
           fs[:relevant_groups] = {:id => @current_user.group_ids.join(",")}
         elsif gf.blank?
           @group_filter = nil
@@ -56,9 +56,9 @@ class UpdatesController < AuthorizedController
       end
     end
 
-    @detail_level = params[:detail_level]                                      
+    @detail_level = params[:detail_level]
     @search = params[:search] if params[:search] and params[:search].length > 0
-    
+
     conditions = {
       :page           => params[:page],
       :per_page       => 50,
@@ -70,12 +70,12 @@ class UpdatesController < AuthorizedController
     }
     @updates = @incident.updates.paginate(:all, conditions)
   end
-  
-  # Saves an update object to the database with the parameters provided in 
+
+  # Saves an update object to the database with the parameters provided in
   # the :update hash, which is populated by the form on the 'new' page
   def create
     return with_rejection unless @current_user.can? :create => Update
-    
+
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
     @update.user = @current_user
@@ -83,29 +83,29 @@ class UpdatesController < AuthorizedController
     unless params[:update][:issuer].blank? or params[:update][:issuer] == 'myself'
       @update.issuing_group = @instance.groups.find(params[:update][:issuer])
     end
-    
-    if params[:relevant_groups] 
+
+    if params[:relevant_groups]
       params[:relevant_groups].each_pair do |key,val|
         @update.relevant_groups << @instance.groups.find(key) if val
       end
     end
-    
+
     @update.tags.clear #<<FIX: why is this done?
     if params[:tags]
       params[:tags].each_pair do |key,val|
         @update.tags << @instance.tags.find(key) if val
       end
     end
-    
+
     # Uploaded files
     unless params[:attachments].blank? #<<FIX: and @current_user.can? :create => Attachment ?
       params[:attachments].each do |attach|
         @update.attachments.build(:attach => attach)
       end
     end
-    
+
     if @update.save
-      flash[:notice] = UPDATE_CREATED
+      flash[:notice] = t('notice.update_created')
       redirect_to instance_incident_path(@instance, @incident)
     else
       @tags = @instance.tags
@@ -113,9 +113,9 @@ class UpdatesController < AuthorizedController
       render :action => :new
     end
   end
-  
+
   # Updates an existing update object in the database specified by its :id.
-  # The data to be saved is provided in the :update hash, 
+  # The data to be saved is provided in the :update hash,
   # which is populated by the form on the 'edit' page.
   def update
     @incident = @instance.incidents.find(params[:incident_id])
@@ -128,7 +128,7 @@ class UpdatesController < AuthorizedController
         @update.tags << Tag.find(key) if val
       end
     end
-    
+
     @update.relevant_groups.clear
     if params[:relevant_groups]
       params[:relevant_groups].each_pair do |key,val|
@@ -144,22 +144,22 @@ class UpdatesController < AuthorizedController
     end
 
     if @update.update_attributes(params[:update])
-      flash[:notice] = UPDATE_UPDATED
+      flash[:notice] = t('notice.update_updated')
       redirect_to instance_incident_update_path(@instance, @incident, @update)
     else
       render :action => 'new'
     end
   end
-  
+
   # Removes an update object from the database
-  def destroy  
+  def destroy
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @update
     @update.destroy
     redirect_to instance_incident_updates_path(@instance,@incident)
   end
-  
+
   private
     # Returns an array of conditions for filtering contacts based on GET params
     def search
@@ -168,15 +168,15 @@ class UpdatesController < AuthorizedController
       fields = [:title, :text]
       query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
       fields.each do |field|
-        values[field] = "%#{params[:search]}%" 
-      end      
+        values[field] = "%#{params[:search]}%"
+      end
       [query, values]
     end
-    
+
     def filters(fs)
       proper_arrayize(fs)
     end
-    
+
     def proper_arrayize(x)
       x.each_key {|y|
         if x[y].is_a? Hash
@@ -187,5 +187,6 @@ class UpdatesController < AuthorizedController
       }
       x
     end
-  
+
 end
+

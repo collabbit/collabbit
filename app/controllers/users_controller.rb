@@ -1,4 +1,4 @@
-# Controller for operations on users in the database.  
+# Controller for operations on users in the database.
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -23,21 +23,21 @@ class UsersController < AuthorizedController
                                       :filters      => filters,
                                       :finder       => 'find_with_filters',
                                       :order        => 'last_name ASC'
-                                      
-    @group_filter = params[:filters] && 
+
+    @group_filter = params[:filters] &&
                     !params[:filters][:groups].blank? &&
                     !params[:filters][:groups][:id].blank? &&
                     @instance.groups.find(params[:filters][:groups][:id])
     if @users.inject(true) {|res, e| @current_user.can? :update => e }
       @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
     end
-    @search = params[:search] if params[:search] and params[:search].length > 0 
+    @search = params[:search] if params[:search] and params[:search].length > 0
   end
 
-  def show 
+  def show
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :view => @user
-    
+
     respond_to do |f|
       f.html { render :action => :show }
       f.vcf do
@@ -48,7 +48,7 @@ class UsersController < AuthorizedController
       end
     end
   end
-  
+
   def edit
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :update => @user
@@ -58,8 +58,8 @@ class UsersController < AuthorizedController
     @user = User.new
     logout_keeping_session!
   end
- 
-  # Saves a user object to the database with the parameters provided in 
+
+  # Saves a user object to the database with the parameters provided in
   # the :user hash, which is populated by the form on the 'new' page
   def create
     @user = User.new(params[:user])
@@ -72,15 +72,15 @@ class UsersController < AuthorizedController
     @user.role = @instance.roles.first #<<FIX: default role
 
     if @user.save
-      flash[:notice] = SIGNUP_NOTICE
+      flash[:notice] = t('notice.signup')
       redirect_to instance_login_path(@instance)
     else
       render :action => :new
     end
   end
-  
+
   # Updates an existing user object in the database specified by its :id.
-  # The data to be saved is provided in the :user hash, 
+  # The data to be saved is provided in the :user hash,
   # which is populated by the form on the 'edit' page.
   def update
     @user = @instance.users.find(params[:id])
@@ -90,41 +90,41 @@ class UsersController < AuthorizedController
       @user.state = params[:user][:state]
     end
     if @user.update_attributes(params[:user])
-      flash[:notice] = USER_UPDATED
+      flash[:notice] = t('notice.user_updated')
       redirect_to instance_user_path(@instance, @user)
     else
       render :action => 'new'
     end
   end
 
-  # Activates an existing user, identified by the :activation_code provided  
+  # Activates an existing user, identified by the :activation_code provided
   # If the activation code is wrong or missing, the user is not activated
   def activate
     user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     if (!params[:activation_code].blank?) && user && !user.active?
       if user.instance.whitelisted_domains.find_by_name(user.email.split('@').last)
         user.activate!
-        flash[:notice] = SIGNUP_COMPLETE
+        flash[:notice] = t('notice.signup_complete')
       else
         user.enqueue_for_approval!
-        flash[:notice] = ADMIN_APPROVAL_REQUIRED
+        flash[:notice] = t('notice.admin_approval_required')
       end
     elsif params[:activation_code].blank?
-      flash[:error] = MISSING_ACTIVATION_CODE
-    else 
-      flash[:error]  = INVALID_ACTIVATION_CODE
+      flash[:error] = t('error.missing_activation_code')
+    else
+      flash[:error] = t('error.invalid_activation_code')
     end
     redirect_to new_instance_session_path(@instance)
   end
 
   # Removes a user object from the database
-  def destroy    
+  def destroy
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @user
     @user.destroy
     redirect_to instance_users_path(@instance)
   end
-  
+
   def vcards
     @users = @instance.users.find(params[:users].split(','))
     return with_rejection unless @current_user.can? :list => @users
@@ -136,10 +136,10 @@ class UsersController < AuthorizedController
       end
     end
   end
-  
+
   def forgot_password
   end
-  
+
   def reset_password
     @user = @instance.users.find_by_email(params[:user][:email])
     unless @user == nil
@@ -148,10 +148,10 @@ class UsersController < AuthorizedController
       @user.save
       UserMailer.deliver_password_reset(@user, pass)
     end
-    flash[:notice] = PASSWORD_RESET
+    flash[:notice] = t( 'notice.password_reset')
     redirect_to new_instance_session_path(@instance)
   end
-  
+
   private
     # Returns an array of conditions for filtering contacts based on GET params
     def search
@@ -160,9 +160,9 @@ class UsersController < AuthorizedController
       fields = [:first_name, :last_name, :email, :cell_phone, :desk_phone]
       query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
       fields.each do |field|
-        values[field] = "#{params[:search]}%" 
+        values[field] = "#{params[:search]}%"
       end
-      
+
       #check for last, first
       if params[:search] =~ /\A([a-zA-Z\-]+), ([a-zA-Z\-]+)\z/
         query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
@@ -173,14 +173,15 @@ class UsersController < AuthorizedController
         values[:slast_name] = $2
         values[:sfirst_name] = $1
       end
-      
+
       [query, values]
     end
-  
+
     def filters
       if params[:filters] && params[:filters][:state] && !User.updatable_by?(@current_user)
         params[:filters].delete(:state)
-      end      
+      end
       {'state' => 'active'}.merge(params[:filters] || {})
     end
 end
+

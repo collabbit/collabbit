@@ -1,4 +1,4 @@
-# Controller for handling managing roles.   
+# Controller for handling managing roles.
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -21,14 +21,14 @@ class RolesController < AuthorizedController
     @roles = @instance.roles
     return with_rejection unless @current_user.can? :list => @roles
   end
-  
+
   # Updates an existing role in the database based on the parameters
-  # provided in the view, which are stored in the :role hash. 
+  # provided in the view, which are stored in the :role hash.
   def update
     @role = @instance.roles.find(params[:id])
     return with_rejection unless @current_user.can? :update => @role
     if @role.update_attributes(params[:role])
-      flash[:notice] = ROLE_UPDATED
+      flash[:notice] = t('notice.role_updated')
       redirect_to instance_role_path(@instance, @role)
     else
       #<<FIX: need error msg?
@@ -37,3 +37,4 @@ class RolesController < AuthorizedController
   end
 
 end
+

@@ -1,4 +1,4 @@
-# Controller for operations on tags in the database.  
+# Controller for operations on tags in the database.
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -15,12 +15,13 @@ class TagsController < AuthorizedController
     @tag = @instance.tags.find(params[:id], :include => [:groups, :updates])
     return with_rejection unless @current_user.can? :show => @tag
   end
-  
+
   def destroy
     @tag = @instance.tags.find(params[:id])
-    return with_rejection unless @current_user.can? :destroy => @tag 
+    return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
-    flash[:notice] = TAG_DESTROYED
+    flash[:notice] = t('notice.tag_destroyed')
     redirect_to instance_tags_path(@instance)
   end
 end
+

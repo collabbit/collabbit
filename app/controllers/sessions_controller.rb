@@ -1,4 +1,4 @@
-# Controller for handling logging in for users.   
+# Controller for handling logging in for users.
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
 # Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
@@ -13,15 +13,15 @@ class SessionsController < AuthorizedController
     @return_to = params[:return_to] || instance_path(@instance)
     redirect_to @instance if logged_in?
   end
-  
+
   # Logs in a user specified by :email if the user is active and the password
-  # is correct. 
+  # is correct.
   def create
     @user = @instance.users.find_by_email(params[:email])
     if @user and @user.state != 'active'
       flash[:error] = case @user.state
-        when 'pending' then INACTIVE_ACCOUNT
-        when 'pending_approval' then PENDING_APPROVAL
+      when 'pending' then t('error.inactive_account')
+      when 'pending_approval' then t('error.pending_approval')
       end
       render :action => :new
     elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
@@ -34,21 +34,22 @@ class SessionsController < AuthorizedController
       handle_remember_cookie!(true) if params[:remember]
       @user.last_login = DateTime.now
       @user.save
-      
+
       if params[:return_to] == nil || params[:return_to].size == 0
         redirect_to instance_path(@instance)
       else
         redirect_to params[:return_to]
       end
     else
-      flash[:error] = INVALID_EMAIL_OR_PASSWORD
+      flash[:error] = t('error.invalid_email_or_password')
       render :action => :new
     end
   end
-  
+
   def destroy
     logout_keeping_session!
     redirect_to instance_login_path(Instance.find(params[:instance_id]))
   end
 
 end
+
