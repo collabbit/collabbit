@@ -33,8 +33,8 @@ en:
 
     privilege_updated: "You successfully updated that privledge"
 
-    tag_destroyed:"The tag was safely deleted."
-
+    tag_destroyed: "The tag was safely deleted."
+    
     password_reset: "We reset your password and sent it to your email. Check your email (including the spam folder) to retrieve your new password."
 
     admin_approval_required: "Great, you confirmed your account. An admin needs to confirm it now. We will email you when it is ready."
