@@ -13,7 +13,7 @@ require 'find'
 require 'active_record/fixtures'
 
 namespace :db do
-  
+
   desc "Turn development database into fixtures"
   task :fixturize => :environment do
     sql  = "SELECT * FROM %s"
@@ -30,14 +30,14 @@ namespace :db do
       end
     end
   end
-  
-  desc "Drop, create, migrate, populate the database"
-  task :redo => ['environment', 'db:drop', 'db:create', 'db:migrate_and_populate']
 
-  desc "Backup the database to a file. Options: DIR=base_dir RAILS_ENV=production MAX=20" 
+  desc "Drop, create, migrate, populate the database"
+  task :redo => ['environment', 'db:drop', 'db:create', 'db:migrate', 'db:seed']
+
+  desc "Backup the database to a file. Options: DIR=base_dir RAILS_ENV=production MAX=20"
   task :backup => [:environment] do
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    base_path = ENV["DIR"] || "db" 
+    base_path = ENV["DIR"] || "db"
     backup_base = File.join(base_path, 'backup')
     backup_folder = File.join(backup_base, datestamp)
     backup_file = File.join(backup_folder, "#{RAILS_ENV}_dump.sql.gz")
@@ -51,8 +51,16 @@ namespace :db do
     unwanted_backups = all_backups[max_backups..-1] || []
     for unwanted_backup in unwanted_backups
       FileUtils.rm_rf(File.join(backup_base, unwanted_backup))
-      puts "deleted #{unwanted_backup}" 
+      puts "deleted #{unwanted_backup}"
     end
-    puts "Deleted #{unwanted_backups.length} backups, #{all_backups.length - unwanted_backups.length} backups available" 
+    puts "Deleted #{unwanted_backups.length} backups, #{all_backups.length - unwanted_backups.length} backups available"
   end
+
+  desc 'Load the seed data from db/RAILS_ENV/seeds.rb'
+  task :seed => :environment do
+    seed_file = File.join(Rails.root, "db", "seeds_#{RAILS_ENV}.rb")
+    load(seed_file) if File.exist?(seed_file)
+  end
+
 end
+
