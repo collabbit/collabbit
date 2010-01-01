@@ -12,7 +12,7 @@
 <% content_for :body do %>
 	<h1>Edit group type: <%=@group_type.name%></h1>
 	<%= error_messages_for :group_type %>
-	<% form_for [@instance, @group_type] do |f| -%>
+	<% form_for @group_type do |f| -%>
 		<p><%= label_tag 'name' %><br/>
 		<%= f.text_field :name %></p>
 		

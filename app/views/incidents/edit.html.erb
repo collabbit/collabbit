@@ -13,7 +13,7 @@
 <%= flashes %>
 	<h1>Edit <span class="small">&laquo; <%=@incident.name%></span></h1>
 	<%= error_messages_for :incident %>
-	<% form_for [@instance, @incident] do |f| -%>
+	<% form_for @incident do |f| -%>
 		<p><%= label_tag 'name' %><br/>
 		<%= f.text_field :name %></p>
 	

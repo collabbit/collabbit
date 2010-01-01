@@ -15,7 +15,7 @@
 		<h1>Edit <span class="tiny">&laquo; <%=@instance.short_name%></span></h1>
 		
 		<%= error_messages_for :instance %>
-		<% form_for @instance do |f| -%>
+		<% form_for @instance, :url => {:action => :update} do |f| -%>
 			<p><%= f.label :long_name, 'Name' %><br/>
 			<%= f.text_field :long_name %></p>
 			
@@ -27,7 +27,7 @@
 					<tr>
 						<th colspan="2">Permissions</th>
 						<% @roles.each do |r| %>
-							<th><%= link_to r.name, instance_role_url(@instance, r) %></th>
+							<th><%= link_to r.name, r %></th>
 						<% end %>
 					</tr>
 				</thead>

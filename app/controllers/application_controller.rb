@@ -18,8 +18,37 @@ class ApplicationController < ActionController::Base
     render "shared/404"
   end
   
-  rescue_from ActiveRecord::RecordNotFound do
-    flash[:error] = "We're sorry, something you just requested was misplaced."
-    redirect_to :back
+  # rescue_from ActiveRecord::RecordNotFound do
+  #     flash[:error] = "We're sorry, something you just requested was misplaced."
+  #     redirect_to @instance
+  #   end
+  
+  layout :check_if_promo_layout
+  before_filter :set_current_account
+  before_filter :check_account_redirect
+  
+  def set_current_account
+    @instance = Instance.find_by_short_name(subdomain)    
+    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance
   end
+  
+  def check_account_redirect
+    unless promo? || controller_name != 'home'
+      redirect_to login_path
+    end
+  end
+  
+  def check_if_promo_layout
+    promo? ? 'home' : 'application'      
+  end
+  
+  def promo?
+    return true if Instance::FORBIDDEN_SUBDOMAINS.include? subdomain
+    return !Instance.exists?(:short_name => subdomain)
+  end
+  
+  def subdomain
+    request.subdomains.first || ''
+  end
+  
 end

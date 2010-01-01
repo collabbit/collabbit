@@ -19,7 +19,7 @@
 	<% @instances.each do |i| %>
 		<li><%= link_to i.long_name, i %><ul>
 			<% i.incidents.each do |incid| %>
-				<li><%= link_to incid.name, instance_incident_url(i, incid) %></li>
+				<li><%= link_to incid.name, incid %></li>
 			<% end %>
 		</ul></li>
 	<% end %>

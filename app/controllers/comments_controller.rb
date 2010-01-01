@@ -6,7 +6,7 @@ class CommentsController < AuthorizedController
     c = update.comments.build(params[:comment])
     c.user = @current_user
     flash[:error] = 'Unable to save your comment' unless c.save
-    redirect_to [@instance, c.update.incident]
+    redirect_to c.update.incident
   end
 
   def destroy
@@ -14,7 +14,7 @@ class CommentsController < AuthorizedController
     return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
     flash[:notice] = t('notice.tag_destroyed')
-    redirect_to instance_tags_path(@instance)
+    redirect_to tags_path
   end
 end
 

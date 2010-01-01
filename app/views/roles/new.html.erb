@@ -17,7 +17,7 @@
 	<h1>Create a role</h1>
 
 	<%= error_messages_for :role %>
-	<% form_for [@instance, @role] do |f| -%>
+	<% form_for @role do |f| -%>
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 

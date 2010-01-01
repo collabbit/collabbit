@@ -15,7 +15,7 @@
 		<h1>Create a group</h1>
 	
 		<%= error_messages_for :group %>
-		<% form_for [@instance, @group_type, @group] do |f| -%>
+		<% form_for [@group_type, @group] do |f| -%>
 			<%= f.label :name %>
 			<%= f.text_field :name %>
 	

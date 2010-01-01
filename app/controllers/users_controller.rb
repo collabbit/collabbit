@@ -73,7 +73,7 @@ class UsersController < AuthorizedController
 
     if @user.save
       flash[:notice] = t('notice.signup')
-      redirect_to instance_login_path(@instance)
+      redirect_to login_path
     else
       render :action => :new
     end
@@ -91,7 +91,7 @@ class UsersController < AuthorizedController
     end
     if @user.update_attributes(params[:user])
       flash[:notice] = t('notice.user_updated')
-      redirect_to instance_user_path(@instance, @user)
+      redirect_to @user
     else
       render :action => 'new'
     end
@@ -114,7 +114,7 @@ class UsersController < AuthorizedController
     else
       flash[:error] = t('error.invalid_activation_code')
     end
-    redirect_to new_instance_session_path(@instance)
+    redirect_to new_session_path
   end
 
   # Removes a user object from the database
@@ -122,7 +122,7 @@ class UsersController < AuthorizedController
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @user
     @user.destroy
-    redirect_to instance_users_path(@instance)
+    redirect_to users_path
   end
 
   def vcards
@@ -149,7 +149,7 @@ class UsersController < AuthorizedController
       UserMailer.deliver_password_reset(@user, pass)
     end
     flash[:notice] = t( 'notice.password_reset')
-    redirect_to new_instance_session_path(@instance)
+    redirect_to new_session_path
   end
 
   private

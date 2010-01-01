@@ -1,6 +1,6 @@
 <%
 welcome = "Please log in to the #{@instance.short_name} collabbit"
-path = instance_session_path
+path = session_path
 %>
 
 <%= render :partial => 'new', :locals => {  :welcome => welcome,

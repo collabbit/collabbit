@@ -10,14 +10,14 @@
 <% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
 
 <% content_for :body do %>
-	<%= pretty_button(:delete_update, instance_incident_update_path(@instance, @incident, @update), 'Delete Update', :method => :delete, :confirm => "Really delete update?") if can?(:destroy => @update)%>
-	<%= pretty_button(:edit_update, edit_instance_incident_update_path(@instance, @incident, @update), 'Edit Update') if can?(:update => @update) %>
+	<%= pretty_button(:delete_update, incident_update_path(@incident, @update), 'Delete Update', :method => :delete, :confirm => "Really delete update?") if can?(:destroy => @update)%>
+	<%= pretty_button(:edit_update, edit_incident_update_path(@incident, @update), 'Edit Update') if can?(:update => @update) %>
 	<%= flashes %>
 	<div id="wrap">
 		<h1>
 			<%= @update.title%>
 			<span class="tiny">
-				&laquo; <%= link_to @incident.name, instance_incident_path(@instance,@incident) %>
+				&laquo; <%= link_to @incident.name, @incident %>
 			</span>
 			<span class="under">
 				(by <%=link_to_issuer @update%>

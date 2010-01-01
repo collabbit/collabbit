@@ -13,7 +13,7 @@
 <% content_for :body do %>
 
 <%= flashes %>
-    <%= link_to 'Download these contacts', instance_vcards_path(@instance, 'contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
+    <%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
     <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 	<div id="wrap">
 		<% if @search or @group_filter %>
@@ -26,7 +26,7 @@
 			<h1>All Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<% end %>
 		<div id="filters">
-			<% form_tag instance_users_path(@instance), :method => :get, :id => 'filter-bar' do  
+			<% form_tag users_path, :method => :get, :id => 'filter-bar' do  
 			    groups = @instance.groups.reject {|g| g.memberships.length == 0 }
 			    %>
 				<h3>Filters</h3>
@@ -59,12 +59,12 @@
 				<% end %>
 			<li>
 				<div class="name">
-				    <%= link_to u.last_first, instance_user_url(@instance, u) %>
-				    <span class="vcard"><%=link_to 'vCard', instance_user_url(@instance, u, :format => :vcf) -%></span></div>
+				    <%= link_to u.last_first, u %>
+				    <span class="vcard"><%=link_to 'vCard', user_path(u, :format => :vcf) -%></span></div>
 				<div class="person-info">
 				    <% if u.state != 'active' && u.updatable_by?(@current_user) %>
 				        <span>
-				            <%= link_to 'Approve', instance_user_url(@instance, u, :user => {:state => :active}), {:method => :put} %>
+				            <%= link_to 'Approve', user_path(u, :user => {:state => :active}), {:method => :put} %>
 				        </span>
 				    <% end %>
 					<% if u.cell_phone? %>
@@ -91,12 +91,12 @@
 							<ul class="groups">
 							<% if u.groups.length > 4 %>
 								<% u.groups[0,4].each do |g| %>
-								<li><%= link_to g.name, instance_group_type_group_path(@instance,g.group_type,g) %></li>
+								<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
 								<% end %>
-								<li class="more"><%= link_to "["+(u.groups.length-4).to_s+"&nbsp;more]", instance_user_url(@instance, u)%></li>
+								<li class="more"><%= link_to "["+(u.groups.length-4).to_s+"&nbsp;more]", u%></li>
 							<% else %>
 								<% u.groups.each do |g| %>
-								<li><%= link_to g.name, instance_group_type_group_path(@instance,g.group_type,g) %></li>
+								<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
 								<% end %>
 							<% end %>
 							</ul>

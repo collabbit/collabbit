@@ -24,8 +24,8 @@
 	
 	<% if show_account_links %>
 	<ul id="account-links">
-		<li><%=link_to 'Create an account', instance_signup_path(@instance) %></li>
-		<li><%=link_to 'Forgot your password?', instance_forgotpassword_path(@instance) %></li>
+		<li><%=link_to 'Create an account', signup_path %></li>
+		<li><%=link_to 'Forgot your password?', forgotpassword_path %></li>
 	</ul>
 	<% end %>
 </div>

@@ -21,7 +21,7 @@
 				<ul class="listy">
 				<% @tag.groups.each do |g|%>
 					<li>
-						<%=link_to g.name, instance_group_types_group_path(@instance, g.group_type, g), :class => 'title'%>
+						<%=link_to g.name, group_types_group_path(g.group_type, g), :class => 'title'%>
 						(<%=easy_link_to g.group_type.name, g.group_type%>)
 					</li>
 				<% end %>

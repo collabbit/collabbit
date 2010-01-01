@@ -12,7 +12,7 @@
 
 <% content_for :body do %>
     <% if can? :create => GroupType %>
-	    <%= pretty_button :new_group_type, new_instance_group_type_url(@instance), 'New Group Type' -%>
+	    <%= pretty_button :new_group_type, new_group_type_path, 'New Group Type' -%>
 	<% end %>
 	<%= flashes %>
 	<div id="wrap">
@@ -21,7 +21,7 @@
 		<ul id="groups-list" class="listy">
 		<% @current_user.groups.each do |g| %>
 			<li>
-				<%= link_to g.name, instance_group_type_group_url(@instance, g.group_type, g) %>
+				<%= link_to g.name, group_type_group_path(g.group_type, g) %>
 				&ndash; <%= g.users.size %> members.
 				<% unless g.chairs.empty? %>
 					Chairs: 
@@ -34,22 +34,22 @@
 		<ul id="group-type-list" class="listy outer">
 		<% @group_types.each do |gt| %>
 			<li class="outer">
-				<%= link_to gt.name.pluralize, instance_group_type_url(@instance, gt), :class=>:title %>
+				<%= link_to gt.name.pluralize, gt, :class=>:title %>
 				&mdash; <%= gt.groups.size%> groups
 				<% if gt.destroyable_by?(@current_user) %> 
-				<span class="delete-grouptype">[<%=link_to 'X', instance_group_type_path(@instance, gt), :method => :delete, :confirm => 'Really delete group type?'%>]</span>
+				<span class="delete-grouptype">[<%=link_to 'X', gt, :method => :delete, :confirm => 'Really delete group type?'%>]</span>
 				<% end %>
 				<ul id="groups-list" class="listy">
 				<% gt.groups.each do |g| %>
 					<li>
-						<%= link_to g.name, instance_group_type_group_url(@instance, g.group_type, g) %>
+						<%= link_to g.name, group_type_group_url(g.group_type, g) %>
 						&ndash; <%= g.users.size %> members.
 						<% unless g.chairs.empty? %>
 							Chairs: 
 							<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 						<% end %>
 						<% unless g.users.include? @current_user %>
-						&ndash; <%= link_to 'Join', instance_memberships_path(@instance, :group_id => g.id, :user_id => @current_user), :method => :post -%>
+						&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
 						<% end %>
 					</li>
 				<% end %>

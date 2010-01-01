@@ -18,7 +18,7 @@
 	<h1>List of roles for <%=@instance.long_name%></h1>
 	<ul>
 	<% @roles.each do |r| %>
-		<li><%= link_to r.name, instance_role_url(@instance, r) %></li>
+		<li><%= link_to r.name, r %></li>
 	<% end %>
 	</ul>
 <% end %>
