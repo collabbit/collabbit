@@ -10,8 +10,8 @@ class GroupType < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   
   validates_presence_of :name
-  validates_associated  :instance
+  validates_length_of :name, :within => 2..32
   
-  attr_protected :instance_id
+  attr_accessible :name
   
 end

@@ -12,7 +12,7 @@ class Instance < ActiveRecord::Base
   has_many :incidents, :dependent => :destroy
   has_many :updates, :through => :incidents
   has_many :users, :dependent => :destroy
-  has_many :feeds, :through => :user
+  has_many :feeds, :through => :users
   has_many :group_types, :dependent => :destroy
   has_many :groups, :through => :group_types
   has_many :roles, :dependent => :destroy
@@ -29,6 +29,8 @@ class Instance < ActiveRecord::Base
   validates_exclusion_of  :short_name,
                           :in => FORBIDDEN_SUBDOMAINS,
                           :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
+  
+  attr_accessible :whitelisted_domains, :long_name
 
   requires_override!
   def viewable_by?(usr)
