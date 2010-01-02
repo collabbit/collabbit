@@ -15,7 +15,7 @@ class IncidentsController < AuthorizedController
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @current_user.can? :view => @incident
     
-    redirect_to instance_incident_updates_path(@instance, @incident)
+    redirect_to incident_updates_path(@incident)
   end
 
   def edit    
@@ -42,7 +42,7 @@ class IncidentsController < AuthorizedController
 
     if @incident.save
       flash[:notice] = INCIDENT_CREATED
-      redirect_to instance_incident_path(@instance, @incident)
+      redirect_to @incident
     else
       render :action => 'new'
     end
@@ -56,7 +56,7 @@ class IncidentsController < AuthorizedController
     return with_rejection unless @current_user.can? :update => @incident
     if @incident.update_attributes(params[:incident])
       flash[:notice] = INCIDENT_UPDATED
-      redirect_to instance_incident_path(@instance, @incident)
+      redirect_to @incident
     else
       render :action => 'new'
     end
@@ -67,7 +67,7 @@ class IncidentsController < AuthorizedController
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @incident
     @incident.destroy
-    redirect_to instance_incidents_path(@instance)
+    redirect_to incidents_path
   end
 
   def close
@@ -84,6 +84,6 @@ class IncidentsController < AuthorizedController
       @incident.save
     end
     
-    redirect_to instance_incident_path(@instance, @incident)
+    redirect_to @incident
   end
 end

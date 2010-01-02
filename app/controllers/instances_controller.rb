@@ -55,7 +55,7 @@ class InstancesController < AuthorizedController
     end
     if @instance.update_attributes(params[:instance])
       flash[:notice] = t('notice.instance_updated')
-      redirect_to @instance
+      redirect_to overview_path
     else
       render :action => 'edit'
     end
@@ -65,7 +65,7 @@ class InstancesController < AuthorizedController
   def destroy
     return with_rejection unless @current_user.can? :destroy => @instance
     @instance.destroy
-    redirect_to instances_path
+    redirect_to @instance
   end
 
   def new

@@ -24,7 +24,7 @@
 				<% @incidents.each do |i| %>
 					<% if i.created_at > 2.months.ago %>
 						<li>
-							<%= link_to i.name, instance_incident_url(@instance, i) %> 
+							<%= link_to i.name, i %> 
 							<span class="tiny">(<%=mdy i.created_at%>)</span>							
 						</li>
 					<% end %>
@@ -37,7 +37,7 @@
 				<h2>Newest Users</h2>
 				<ul>
 				<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => {:state => 'active'}).each do |u| %>
-					<li><%= link_to u.full_name, instance_user_url(@instance, u) %> <span class="tiny">(<%=mdy u.created_at%>)</span></li> <% #<<FIX: do we want these links? Maybe just a jump within the contacts? %>
+					<li><%= link_to u.full_name, u %> <span class="tiny">(<%=mdy u.created_at%>)</span></li> <% #<<FIX: do we want these links? Maybe just a jump within the contacts? %>
 				<% end %>
 				</ul>
 			</div>
@@ -46,7 +46,7 @@
 			<h2>Latest Updates</h2>
 			<ul>
 			<% @instance.updates.find(:all, :order => 'updated_at DESC', :limit => 10).each do|u| -%>
-				<li><%=link_to u.title, instance_incident_update_path(@instance, u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
+				<li><%=link_to u.title, incident_update_path(u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
 			<% end %>	
 			</ul>
 		</div>

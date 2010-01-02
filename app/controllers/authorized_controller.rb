@@ -5,28 +5,21 @@
 
 class AuthorizedController < ApplicationController
   
-  before_filter :set_current_account  
+  before_filter :check_right_account
   before_filter :require_login
   
-  def set_current_account
-    @instance = nil#Instance.find_by_short_name(request.subdomains.first)
-    @instance ||= Instance.find_by_short_name(params[:instance_id]||params[:id])
-    Instance.current = @instance #<<FIX
-
+  def check_right_account
     if logged_in? && @instance && @current_user && @current_user.instance != @instance
       logout_keeping_session!
     end
-
-    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance
-    
   end
 
   def with_rejection(opts = {})
     opts[:error] ||= "You are not authorized to view that page."
-    if request.env["HTTP_REFERER"]
-      opts[:fail_to] ||= :back
+    if request.env["HTTP_REFERER"].empty?
+      opts[:fail_to] ||= overview_path
     else
-      opts[:fail_to] ||= {:controller => :instances, :action => :show, :id => @instance.to_param}
+      opts[:fail_to] ||= :back
     end
     error_exit(opts[:fail_to], opts[:error])
   end
@@ -46,7 +39,7 @@ class AuthorizedController < ApplicationController
   def require_login
     unless logged_in?
       @current_user = nil
-      path = instance_login_path(Instance.find(params[:instance_id]||params[:id]), :return_to => request.request_uri)
+      path = login_path(:return_to => request.request_uri)
       notice_exit(path, "Please log in to view this page.")
     end
   end

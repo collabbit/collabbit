@@ -13,7 +13,7 @@
 	<h1>Create a group type</h1>
 
 	<%= error_messages_for :group_type %>
-	<% form_for [@instance, @group_type] do |f| -%>
+	<% form_for @group_type do |f| -%>
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 		<p><%= f.submit 'Create' %></p>

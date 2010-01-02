@@ -14,7 +14,7 @@ class GroupTypesController < AuthorizedController
 
   def show
     @group_type = @instance.group_types.find(params[:id])
-    redirect_to instance_group_type_groups_path(@instance, @group_type)
+    redirect_to group_type_groups_path(@group_type)
   end
 
   def edit
@@ -35,7 +35,7 @@ class GroupTypesController < AuthorizedController
 
     if @group_type.save
       flash[:notice] = t('notice.group_type_created')
-      redirect_to instance_group_type_path(@instance, @group_type)
+      redirect_to group_type_path(@group_type)
     else
       render :action => 'new'
     end
@@ -50,7 +50,7 @@ class GroupTypesController < AuthorizedController
 
     if @group_type.update_attributes(params[:group_type])
       flash[:notice] = t('notice.group_type_updated')
-      redirect_to instance_group_type_path(@instance, @group_type)
+      redirect_to group_type_path(@group_type)
     else
       render :action => 'edit'
     end

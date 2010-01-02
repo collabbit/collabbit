@@ -10,8 +10,8 @@ class SessionsController < AuthorizedController
   skip_before_filter :require_login
 
   def new
-    @return_to = params[:return_to] || instance_path(@instance)
-    redirect_to @instance if logged_in?
+    @return_to = params[:return_to] || overview_path
+    redirect_to overview_path if logged_in?
   end
 
   # Logs in a user specified by :email if the user is active and the password
@@ -36,7 +36,7 @@ class SessionsController < AuthorizedController
       @user.save
 
       if params[:return_to] == nil || params[:return_to].size == 0
-        redirect_to instance_path(@instance)
+        redirect_to overview_path
       else
         redirect_to params[:return_to]
       end
@@ -48,7 +48,7 @@ class SessionsController < AuthorizedController
 
   def destroy
     logout_keeping_session!
-    redirect_to instance_login_path(Instance.find(params[:instance_id]))
+    redirect_to login_path
   end
 
 end

@@ -40,8 +40,6 @@ class User < ActiveRecord::Base
       trans = {:view => :show, :delete => :destroy}
       action = trans[action] if trans.include? action
       if (!obj.is_a?(Array)) && obj.requires_override?
-        puts "Permission_to: #{permission_to?(action, obj)}"
-        puts "Override_for: #{override_for?(action, obj)}"
         return false unless permission_to?(action, obj) && override_for?(action, obj)
       else
         unless permission_to?(action, obj) || override_for?(action, obj)

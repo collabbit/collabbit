@@ -29,7 +29,7 @@ class RolesController < AuthorizedController
     return with_rejection unless @current_user.can? :update => @role
     if @role.update_attributes(params[:role])
       flash[:notice] = t('notice.role_updated')
-      redirect_to instance_role_path(@instance, @role)
+      redirect_to @role
     else
       #<<FIX: need error msg?
       render :action => 'new'

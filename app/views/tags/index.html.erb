@@ -15,10 +15,10 @@
 		<h1>Tags <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
 		<ul id="tags" class="listy">
 		<% @tags.each do |t| %>
-			<li><%=link_to t.name, instance_tag_path(@instance, t), :class=>'title' %>
+			<li><%=link_to t.name, t, :class=>'title' %>
 			&mdash; <%=t.updates.size%> updates, <%=t.groups.size%> groups
 			<% if can?(:delete => t) %>
-			<span class="delete-tag">[<%=link_to 'X', instance_tag_path(@instance, t), :method => :delete, :confirm => 'Really delete tag?'%>]</span></li>
+			<span class="delete-tag">[<%=link_to 'X', t, :method => :delete, :confirm => 'Really delete tag?'%>]</span></li>
 			<% end %>
 		<% end %>
 		</ul>

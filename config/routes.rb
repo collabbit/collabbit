@@ -1,46 +1,49 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.resources :admins, :only => [:index, :create, :update, :destroy]
-  map.login 'login',        :controller => 'admin_sessions',  :action => 'new'
-  map.resource :admin_session
-  map.logout 'logout',      :controller => 'admin_sessions',  :action => 'destroy'
-  map.signup 'signup',      :controller => 'admins',    :action => 'new'
-  map.register 'register',  :controller => 'admins',    :action => 'create'
+  # map.resources :admins, :only => [:index, :create, :update, :destroy]
+  # map.login 'login',        :controller => 'admin_sessions',  :action => 'new'
+  # map.resource :admin_session
+  # map.logout 'logout',      :controller => 'admin_sessions',  :action => 'destroy'
+  # map.signup 'signup',      :controller => 'admins',    :action => 'new'
+  # map.register 'register',  :controller => 'admins',    :action => 'create'
   
-  map.resources :instances, :as => 'for' do |instance|
-    instance.resources :incidents do |incident|
-      incident.close 'close',	  :controller => 'incidents', :action => 'close'
-      incident.resources :updates do |update|
-        update.attachment 'attachments/:id', :controller => 'attachments', :action => 'show'
-        update.comments 'comments', :controller => 'comments', :action => 'create'
-      end
+  map.overview 'overview',  :controller => 'instances', :action => 'show'
+  map.edit 'edit',  :controller => 'instances', :action => 'edit'
+  map.update 'update',  :controller => 'instances', :action => 'update'
+
+  
+  map.resources :incidents do |incident|
+    incident.close 'close',	  :controller => 'incidents', :action => 'close'
+    incident.resources :updates do |update|
+      update.attachment 'attachments/:id', :controller => 'attachments', :action => 'show'
+      update.comments 'comments', :controller => 'comments', :action => 'create'
     end
-    
-    instance.logout 'logout',     :controller => 'sessions',  :action => 'destroy'
-    instance.login 'login',       :controller => 'sessions',  :action => 'new'
-    instance.register 'register', :controller => 'users',     :action => 'create'
-    instance.signup 'signup',     :controller => 'users',     :action => 'new'
-    instance.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
-    instance.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgot_password'
-    instance.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'
-    instance.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
-    instance.resources :users, :as => "contacts" do |u|
-      u.resources :permissions
-    end
-    
-    instance.resources :tags
-    
-    instance.resource :session
-    instance.resources :roles
-        
-    instance.resources :group_types do |gt|
-      gt.resources :groups
-    end
-    
-    instance.resources :memberships
   end
   
-  map.root :controller => 'home'
+  map.logout 'logout',     :controller => 'sessions',  :action => 'destroy'
+  map.login 'login',       :controller => 'sessions',  :action => 'new'
+  map.register 'register', :controller => 'users',     :action => 'create'
+  map.signup 'signup',     :controller => 'users',     :action => 'new'
+  map.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
+  map.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgot_password'
+  map.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'
+  map.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
+  map.resources :users, :as => "contacts" do |u|
+    u.resources :permissions
+  end
+  
+  map.resources :tags
+  
+  map.resource :session
+  map.resources :roles
+      
+  map.resources :group_types do |gt|
+    gt.resources :groups
+  end
+  
+  map.resources :memberships
+
+  map.root :controller => 'instances'
   map.home '/:page', :controller => 'home', :action => 'show'
 
   map.connect ':controller/:action/:id'

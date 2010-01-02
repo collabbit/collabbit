@@ -15,7 +15,7 @@
 		<h1>Create an incident</h1>
 	
 		<%= error_messages_for :incident %>
-		<% form_for [@instance, @incident] do |f| -%>
+		<% form_for @incident do |f| -%>
 			<p>
 				<%= f.label :name %><br/>
 				<%= f.text_field :name %>

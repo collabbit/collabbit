@@ -39,7 +39,7 @@ class GroupsController < AuthorizedController
 
     if @group.save
       flash[:notice] = t('notice.group_created')
-      redirect_to instance_group_type_group_path(@instance, @group_type, @group)
+      redirect_to group_type_group_path(@group_type, @group)
     else
       flash[:error] = t('error.group_create_error')
       render :action => 'new'
@@ -55,7 +55,7 @@ class GroupsController < AuthorizedController
 
     if @group.update_attributes(params[:group])
       flash[:notice] = t('notice.group_updated')
-      redirect_to instance_group_type_group_path(@instance, @group.group_type, @group)
+      redirect_to group_type_group_path(@group.group_type, @group)
     else
       flash[:error] = t('error.group_update_error')
       render :action => 'new'

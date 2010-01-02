@@ -11,7 +11,7 @@
 
 <% content_for :body do %>
     <% if can? :update => @group %>
-		<%= pretty_button(:edit_group, edit_instance_group_type_group_path(@instance, @group.group_type, @group), 'Edit Group') %>
+		<%= pretty_button(:edit_group, edit_group_type_group_path(@group.group_type, @group), 'Edit Group') %>
 	<% end %>
 	
 	<% if can? :destroy => @group %>
@@ -19,9 +19,9 @@
 	<% end%>
 	
 	<% if @group.users.include? @current_user %>
-	    <%= pretty_button :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
+	    <%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
 	<% else %>
-		<%= pretty_button :join_group, instance_memberships_path(@instance, :group_id => @group.id, :user_id => @current_user.id), 'Join Group', :method => :post %>	
+		<%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id), 'Join Group', :method => :post %>	
 	<% end %>
 		
 	<%= flashes %>
@@ -31,7 +31,7 @@
 			<h2>Members</h2>
 			<ul>
 				<% @group.users.each do |u| %>
-					<li><%= link_to u.full_name, instance_user_url(@instance, u) %></li>
+					<li><%= link_to u.full_name, u %></li>
 				<% end %>
 			</ul>
 		<% end %>

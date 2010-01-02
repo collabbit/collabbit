@@ -17,7 +17,7 @@
 	<% @user.password = @user.password_confirmation = nil %>
 	
 	<%= error_messages_for :user %>
-	<% form_for [@instance, @user] do |f| -%>
+	<% form_for @user do |f| -%>
 		<p><%= f.label 'email' %><br/>
 		<%= f.text_field :email, :title => 'Username' %></p>
 		

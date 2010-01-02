@@ -13,7 +13,7 @@
 
 <% content_for :body do %>
 	<%= pretty_delete_button(@user, :check => true) if can? :destroy => @user %>
-	<%= pretty_button(:edit_user, edit_instance_user_path(@instance, @user), 'Edit User') if can? :update => @user %>
+	<%= pretty_button(:edit_user, edit_user_path(@user), 'Edit User') if can? :update => @user %>
 	<%= flashes %>
 	<div id="wrap">
 		<h1><%=@user.full_name%> <span class="tiny">&laquo; profile</span></h1>
@@ -45,7 +45,7 @@
 			<div id="contact-groups">Groups:</div>
 			<ul>
 			<% @user.groups.each do |g| %>
-				<li><%= link_to_if can?(:view => g), g.name, instance_group_type_group_url(@instance, g.group_type, g)%>
+				<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
 					<% if g.chairs.include?(@user) %>
 						<span class="chair">[Chair]</span> <% #<<FIX: this ain't right'%>
 					<% end %>

@@ -21,7 +21,7 @@ class TagsController < AuthorizedController
     return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
     flash[:notice] = t('notice.tag_destroyed')
-    redirect_to instance_tags_path(@instance)
+    redirect_to tags_path
   end
 end
 

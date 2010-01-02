@@ -106,7 +106,7 @@ class UpdatesController < AuthorizedController
 
     if @update.save
       flash[:notice] = t('notice.update_created')
-      redirect_to instance_incident_path(@instance, @incident)
+      redirect_to @incident
     else
       @tags = @instance.tags
       @groups = @instance.groups
@@ -145,7 +145,7 @@ class UpdatesController < AuthorizedController
 
     if @update.update_attributes(params[:update])
       flash[:notice] = t('notice.update_updated')
-      redirect_to instance_incident_update_path(@instance, @incident, @update)
+      redirect_to incident_update_path(@incident, @update)
     else
       render :action => 'new'
     end
@@ -157,7 +157,7 @@ class UpdatesController < AuthorizedController
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @update
     @update.destroy
-    redirect_to instance_incident_updates_path(@instance,@incident)
+    redirect_to incident_updates_path(@incident)
   end
 
   private

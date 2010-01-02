@@ -1,5 +1,5 @@
 <%= error_messages_for :update %>
-<% form_for [@instance, @incident, @update], :html => {:multipart => true, :id => 'update-form'} do |f| -%>
+<% form_for [@incident, @update], :html => {:multipart => true, :id => 'update-form'} do |f| -%>
 	<p>
 		<%= f.label :title, "Title", :class => "new_primary" %>
 		<%= f.text_field :title %>

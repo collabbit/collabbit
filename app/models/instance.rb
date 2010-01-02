@@ -6,11 +6,13 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class Instance < ActiveRecord::Base 
   include Authority
+  
+  FORBIDDEN_SUBDOMAINS = %w( support blog www billing help api internal mail email webmail )
    
   has_many :incidents, :dependent => :destroy
   has_many :updates, :through => :incidents
   has_many :users, :dependent => :destroy
-  has_many :feeds, :through => :user
+  has_many :feeds, :through => :users
   has_many :group_types, :dependent => :destroy
   has_many :groups, :through => :group_types
   has_many :roles, :dependent => :destroy
@@ -25,8 +27,10 @@ class Instance < ActiveRecord::Base
   validates_length_of :short_name, :within => 2..16
   validates_uniqueness_of :short_name
   validates_exclusion_of  :short_name,
-                          :in => %w( support blog www billing help api internal mail ),
+                          :in => FORBIDDEN_SUBDOMAINS,
                           :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
+  
+  attr_accessible :whitelisted_domains, :long_name
 
   requires_override!
   def viewable_by?(usr)

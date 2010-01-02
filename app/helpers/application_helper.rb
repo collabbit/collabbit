@@ -72,9 +72,9 @@ module ApplicationHelper
   def link_to_issuer(i)
     i = i.issuer if i.is_a? Update
     if i.is_a? Group
-      link_to i.name, instance_group_type_group_path(i.group_type.instance, i.group_type, i)
+      link_to i.name, group_type_group_path(i.group_type, i)
     else
-      link_to i.full_name, instance_user_path(i.instance, i)
+      link_to i.full_name, user_path(i)
     end
   end
   

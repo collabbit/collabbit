@@ -16,12 +16,12 @@
 <% end %>	
 
 <% if can? :update => @incident %>
-	<%= pretty_button(:edit_incident, edit_instance_incident_path(@instance, @incident), 'Edit Incident') %>
-	<%= pretty_button(:close_incident, instance_incident_close_path(@instance,@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
+	<%= pretty_button(:edit_incident, edit_incident_path(@incident), 'Edit Incident') %>
+	<%= pretty_button(:close_incident, incident_close_path(@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
 <% end %>
 
 <% if can? :create => Update %>
-	<%= pretty_button(:add_update, new_instance_incident_update_path(@instance, @incident), 'Add Update')%>
+	<%= pretty_button(:add_update, new_incident_update_path(@incident), 'Add Update')%>
 <% end %>
 	
 <%= flashes %>
@@ -38,7 +38,7 @@
 		<% end %>
 		<div id="view-options">
 			<h3>Filters</h3>
-	    <% form_tag instance_incident_updates_path(@instance, @incident), :method => :get do %>
+	    <% form_tag incident_updates_path(@incident), :method => :get do %>
 	        <!-- <%= select_tag(:detail_level, options_for_select(['Concise', 'Detailed'], @detail_level)) %> -->
 	        
 	        <% # This should be made to be more efficient:
@@ -75,7 +75,7 @@
 			<ul id="updates-list">
 			<% @updates.each do |u| %>
 				<li>
-					<%= link_to u.title, instance_incident_update_url(@instance, @incident, u), :class => 'update-title' %>
+					<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
 					<span class="update-meta">by 
 					    <%= issuer_link(u)%>, <%= 'updated ' if u.updated_at > u.created_at %> <%= time_mdy u.updated_at %></span>
 					<p class="update-text">
@@ -96,7 +96,7 @@
 						<em>Relevant Groups:</em>
 						<ul>
 						<% u.relevant_groups.each do |g| %>
-							<li><%=link_to g.name, instance_group_type_group_path(@instance, g.group_type, g) %></li>		
+							<li><%=link_to g.name, group_type_group_path(g.group_type, g) %></li>		
 						<% end %>	
 						</ul>
 					</div>
@@ -106,7 +106,7 @@
 						<em>Tags:</em>
 						<ul>
 						<% u.tags.each do |t| %>
-							<li><%=link_to t.name, instance_tag_path(@instance, t) %></li>
+							<li><%=link_to t.name, t %></li>
 						<% end %>
 						</ul>
 					</div>
@@ -118,7 +118,7 @@
 				        by <span class="comment-author"><%=c.user.full_name%></span>
 				        on <span class="comment-date"><%=mdy c.created_at%></span></div>
 				    <% end %>
-				    <% form_for [@instance, u.incident, u, Comment.new] do |f| %>
+				    <% form_for [u.incident, u, Comment.new] do |f| %>
 				      <%= f.text_field :body %>
 				      <%= f.submit 'Add Comment' %>
 				    <% end %>
@@ -127,7 +127,7 @@
 			<% end %>
 			</ul>
 		<% else %>
-			<h3 class="centered">This incident has no updates. <%=link_to 'Click here to update', new_instance_incident_update_path(@instance, @incident) if can?(:create => Update)%>.</h3>
+			<h3 class="centered">This incident has no updates. <%=link_to 'Click here to update', new_incident_update_path(@incident) if can?(:create => Update)%>.</h3>
 		<% end %>
 		<%= will_paginate @updates %>
 	</div>
