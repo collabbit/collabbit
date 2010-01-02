@@ -4,8 +4,9 @@ require File.join(RAILS_ROOT, 'lib', 'create_or_update')
 Permission.generate_all
 
 #Default Instances
-Instance.create_or_update(:id => 1, :short_name => 'demo', :long_name => 'Demo Instance')
-
+i = Instance.create_or_update(:id => 1, :short_name => 'demo', :long_name => 'Demo Instance')
+i.roles = Role.default_setup
+i.save
 
 #Default Incidents
 Incident.create_or_update(:id => 1, :name => 'Evil Earthquake', :instance_id => 1)

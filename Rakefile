@@ -56,11 +56,5 @@ namespace :db do
     puts "Deleted #{unwanted_backups.length} backups, #{all_backups.length - unwanted_backups.length} backups available"
   end
 
-  desc 'Load the seed data from db/RAILS_ENV/seeds.rb'
-  task :seed => :environment do
-    seed_file = File.join(Rails.root, "db", "seeds_#{RAILS_ENV}.rb")
-    load(seed_file) if File.exist?(seed_file)
-  end
-
 end
 
