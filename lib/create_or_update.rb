@@ -1,11 +1,15 @@
+
+# extracted from plugin db-populate
+# by http://github.com/ffmike/db-populate
+
 class ActiveRecord::Base
   # given a hash of attributes including the ID, look up the record by ID.
-  # uses whatever the PK of the model is to do the lookup 
-  # If it does not exist, it is created with the rest of the options. 
-  # If it exists, it is updated with the given options. 
+  # uses whatever the PK of the model is to do the lookup
+  # If it does not exist, it is created with the rest of the options.
+  # If it exists, it is updated with the given options.
   #
   # Raises an exception if the record is invalid to ensure seed data is loaded correctly.
-  # 
+  #
   # Returns the record.
   def self.create_or_update(options = {})
     id = options.delete(primary_key.to_sym)
@@ -13,7 +17,8 @@ class ActiveRecord::Base
     record.id = id
     record.send :attributes=, options, false
     record.save(false)
-    
+
     record
   end
 end
+
