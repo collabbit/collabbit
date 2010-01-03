@@ -15,6 +15,7 @@ class InstanceTest < ActiveSupport::TestCase
   
   should_ensure_length_in_range :long_name, 4..255
   should_ensure_length_in_range :short_name, 2..16
+  should_validate_presence_of :short_name, :long_name
   should_validate_uniqueness_of :short_name
   should_not_allow_mass_assignment_of :short_name, :incidents, :updates, :users, :feeds, :group_types, :roles, :tags
   should_allow_mass_assignment_of :long_name, :whitelisted_domains
