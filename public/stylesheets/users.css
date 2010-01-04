@@ -25,7 +25,7 @@
 		width: 340px;
 		height: 132px;
 		float:left;
-		margin: 8px;
+		margin: 8px 8px 8px 29px;
 		padding: 0 5px;
 		border-right: 1px solid #666;
 		border-bottom: 1px solid #666;
@@ -35,18 +35,19 @@
 		#contacts > li:hover {
 			border-color: #000;
 		}
-			#contacts > li.separator{
-				width: auto;
-				font-weight: bold;
-				border: solid;
-				border-color: #ccc;
-				border-width: 1px 1px 1px 0;
-				color: #666;
-				clear:left;
-				height: auto;
-				background: #eee;
-				margin: 8px 0;
-			}
+  #contacts > li.separator{
+    width: auto;
+    font-weight: bold;
+    border: solid;
+    border-color: #ccc;
+    border-width: 1px 1px 1px 0;
+    color: #666;
+    clear:left;
+    height: auto;
+    background: #eee;
+    width: 11px;
+    margin: 8px -21px 8px 0;
+  }
 
 		#contacts li ul.groups{
 			list-style-type: none;
