@@ -51,7 +51,7 @@
 		<% end %>
 		<ul id="contacts">
 		<% 	last = ''
-			@users.each do |u|
+			(@users.sort_by {|u| [u.last_name,u.first_name,u.id]}).each do |u|
 				if u.last_name[0,1].upcase != last
 					last = u.last_name[0,1].upcase
 				%>
