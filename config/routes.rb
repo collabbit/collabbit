@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :memberships
 
-  map.root :controller => 'instances'
+  map.root overview
   map.home '/:page', :controller => 'home', :action => 'show'
 
   map.connect ':controller/:action/:id'
