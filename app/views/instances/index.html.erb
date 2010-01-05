@@ -17,7 +17,7 @@
 	<h1>List of instances</h1>
 	<ul>
 	<% @instances.each do |i| %>
-		<li><%= link_to i.long_name, i %><ul>
+		<li><%= i.long_name %><ul>
 			<% i.incidents.each do |incid| %>
 				<li><%= link_to incid.name, incid %></li>
 			<% end %>
