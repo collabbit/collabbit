@@ -10,8 +10,25 @@
 	</p>
 	<p id="file_attach">
 		<%= f.label :attach_files, "Attach Files"%>
-		<%= file_field_tag 'attachments[]', :id => 'multi' %>
-	</p>
+    <%= file_field_tag 'attachments[]', :id => 'multi' %>
+  </p>
+
+  <% unless @update.files.empty? %>
+  <div id="file_existing">
+    <label>Current Files</label>
+    <ul>
+      <% @update.attachments.each do |attach|
+        li_id = "attach"+attach.id.to_s
+        cb_id = "attach"+attach.id.to_s+"cb" %>
+        <li id="<%=h li_id %>">
+          <%= check_box_tag("keep_file[#{attach.id}]",checked=true,id=cb_id) %>
+          <%=h attach.attach_file_name %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
 	<div id="newupdate_meta">
 		<p>
 			<%= f.label :issuer, "Issuer", :class => "toplevel" %>
