@@ -10,7 +10,6 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'authority'
-require 'filters'
 
 APPLICATION_SALT = 'AWH89sa98fhasj1llaksuf8128hjfshaufahf783jkhasjkfhhAUHSUIY@BmZNBXrrcMZKq1'
 
@@ -25,6 +24,7 @@ Rails::Initializer.run do |config|
   
   config.gem 'vpim'
   config.gem 'exceptional', :version => '2.0.0'
+  config.gem 'searchlogic'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

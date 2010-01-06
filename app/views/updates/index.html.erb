@@ -55,18 +55,12 @@
 	        %>
 	        
 	        <%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
-	        
-	        <select name="filters[relevant_groups][id]" id="relevant_groups_filter">
-	            <%  selected_group = case @group_filter.class.name
-                        when String.name then 'mine'
-                        when Group.name then @group_filter.id
-                        else nil
-                    end
-	            %>
-	            <%= options_for_select([['All Groups', nil],['My Groups', 'mine']] + groups.map{|g|[g.name, g.id]}, selected_group) %>
+	        	        
+	        <select name="groups_filter" id="relevant_groups_filter">
+	            <%= options_for_select([['All Groups', nil],['My Groups', 'mine']]+groups.map{|g|[g.name, g.id]}, @groups_filter) %>
 	        </select>
-	        <select name="filters[tags][id]" id="tags_filter">
-	            <%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, (@tag_filter && @tag_filter.id)) %>
+	        <select name="tags_filter" id="tags_filter">
+	            <%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, @tags_filter) %>
 	        </select>    				
 			<%= submit_tag "Go", :name => nil %>
 	    <% end %>

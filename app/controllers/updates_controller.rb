@@ -36,39 +36,37 @@ class UpdatesController < AuthorizedController
 
     return with_rejection unless @current_user.can? :list => @incident.updates
 
-    fs = {}
-    if params[:filters]
-      if params[:filters][:relevant_groups]
-        gf = params[:filters][:relevant_groups][:id]
-        if gf == 'mine'
-          @group_filter = 'mine'
-          fs[:relevant_groups] = {:id => @current_user.group_ids.join(",")}
-        elsif gf.blank?
-          @group_filter = nil
-        else
-          @group_filter = @instance.groups.find(gf)
-          fs[:relevant_groups] = {:id => gf}
-        end
-      end
-      if params[:filters][:tags]
-        @tag_filter = params[:filters][:tags][:id]
-        fs[:tags] = {:id => @tag_filter} unless @tag_filter.blank?
+    @detail_level = params[:detail_level]
+    
+    search_clauses = {}
+    
+    unless params[:search].blank?
+      @search = params[:search]
+      search_clauses[:title_or_text_like_any] = @search.split(' ')
+    end
+    
+    unless params[:groups_filter].blank?
+      @groups_filter = params[:groups_filter]
+      @groups_filter = @groups_filter.to_i unless @groups_filter == '' || @groups_filter == 'mine' || @groups_filter == nil
+      # Eventually add in _or_issuing_group_id_
+      search_clauses[:relevant_groups_id_is_any] = case @groups_filter
+        when 'mine' then @current_user.group_ids
+        else [@groups_filter]
       end
     end
 
-    @detail_level = params[:detail_level]
-    @search = params[:search] if params[:search] and params[:search].length > 0
-
-    conditions = {
-      :page           => params[:page],
-      :per_page       => 50,
-      :order          => 'created_at DESC',
-      :conditions     => search,
-      :include        => [:relevant_groups, :issuing_group, :tags],
-      :finder         => 'find_with_filters',
-      :filters        => filters(fs)
+    unless params[:tags_filter].blank?
+      search_clauses[:tags_id_is] = @tags_filter = params[:tags_filter].to_i
+    end
+      
+    pagination_options = {
+      :page => params[:page],
+      :per_page => 50,
+      :order => 'created_at DESC',
+      :include => [:relevant_groups, :issuing_group, :tags]
     }
-    @updates = @incident.updates.paginate(:all, conditions)
+    
+    @updates = @incident.updates.search(search_clauses).paginate(:all, pagination_options)
   end
 
   # Saves an update object to the database with the parameters provided in
@@ -163,34 +161,5 @@ class UpdatesController < AuthorizedController
     @update.destroy
     redirect_to incident_updates_path(@incident)
   end
-
-  private
-    # Returns an array of conditions for filtering contacts based on GET params
-    def search
-      return unless params[:search] && !params[:search].blank?
-      values = {}
-      fields = [:title, :text]
-      query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
-      fields.each do |field|
-        values[field] = "%#{params[:search]}%"
-      end
-      [query, values]
-    end
-
-    def filters(fs)
-      proper_arrayize(fs)
-    end
-
-    def proper_arrayize(x)
-      x.each_key {|y|
-        if x[y].is_a? Hash
-          x[y] = proper_arrayize(x[y])
-        elsif x[y][','] != nil
-          x[y] = x[y].split(',')
-        end
-      }
-      x
-    end
-
 end
 

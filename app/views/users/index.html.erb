@@ -16,11 +16,11 @@
     <%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
     <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 	<div id="wrap">
-		<% if @search or @group_filter %>
+		<% if @search or @groups_filter %>
 			<h1>
 				<%="Results for #{h @search}" if @search %>
-				<%=' in ' if @search and @group_filter %>
-				<%="#{h @group_filter.name} " if @group_filter%>
+				<%=' in ' if @search and @groups_filter %>
+				<%="#{h @instance.groups.find(@groups_filter).name} " if @groups_filter%>
 				<span class="tiny">&laquo; Contacts</span></h1>
 		<% else %>
 			<h1>All Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
@@ -30,9 +30,11 @@
 			    groups = @instance.groups.reject {|g| g.memberships.length == 0 }
 			    %>
 				<h3>Filters</h3>
-				<%= select(:filters, 'groups][id', groups.map{|g| [g.name, g.id]}, #<<FIX: there must be a better way
-					:include_blank => 'All Groups', :selected => (@group_filter && @group_filter.id)) %>
-				<%= select(:filters, 'state', {'Active'=>'active', 'Pending'=>'pending_approval'}, :selected => @pending_filter) if @pending_filter%>
+				<% groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter)
+				   states_options = options_for_select([['Active', 'active'], ['Pending','pending_approval']], @states_filter)
+				%>
+				<%= select_tag(:groups_filter, groups_options) %>
+				<%= select_tag(:states_filter, states_options) if @states_filter%>
 				<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'')%>
 				<%= submit_tag "Go", :name => nil %>
 			<% end %>

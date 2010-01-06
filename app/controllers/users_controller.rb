@@ -15,23 +15,41 @@ class UsersController < AuthorizedController
 
   def index
     return with_rejection unless @current_user.can?(:list => @instance.users)
-    @users = @instance.users.paginate :all,
-                                      :page         => params[:page],
-                                      :per_page     => 100,
-                                      :conditions   => search,
-                                      :include      => [:groups],
-                                      :filters      => filters,
-                                      :finder       => 'find_with_filters',
-                                      :order        => 'last_name ASC'
-
-    @group_filter = params[:filters] &&
-                    !params[:filters][:groups].blank? &&
-                    !params[:filters][:groups][:id].blank? &&
-                    @instance.groups.find(params[:filters][:groups][:id])
-    if @users.inject(true) {|res, e| @current_user.can? :update => e }
-      @pending_filter = (params[:filters] && params[:filters]['state']) || 'active'
+    
+    pagination_options = {
+      :page => params[:page],
+      :per_page => 100,
+      :include => :groups,
+      :order => 'last_name ASC'
+    }
+    
+    search_options = {}
+    
+    unless params[:groups_filter].blank?
+      search_options[:groups_id_is] = @groups_filter = params[:groups_filter]
     end
-    @search = params[:search] if params[:search] and params[:search].length > 0
+    
+    if params[:states_filter].blank? || !@current_user.can?(:update => @instance.users)
+      search_options[:state_is] = 'active'
+      @states_filter = 'active' if @current_user.can?(:update => @instance.users)
+    else
+      search_options[:state_is] = @states_filter = params[:states_filter]
+    end
+    
+    unless params[:search].blank?
+      @search = params[:search]    
+      if params[:search] =~ /\A([a-zA-Z\-]+), ([a-zA-Z\-]+)\z/
+        search_options[:first_name_starts_with] = $2
+        search_options[:last_name_starts_with] = $1
+      elsif params[:search] =~ /\A([a-zA-Z\-]+) ([a-zA-Z\-]+)\z/
+        search_options[:first_name_starts_with] = $1
+        search_options[:last_name_starts_with] = $2
+      else
+        search_options[:first_name_or_last_name_or_cell_phone_or_desk_phone_or_email_like] = @search
+      end
+    end
+    
+    @users = @instance.users.search(search_options).paginate(pagination_options)
   end
 
   def show
@@ -151,37 +169,5 @@ class UsersController < AuthorizedController
     flash[:notice] = t( 'notice.password_reset')
     redirect_to new_session_path
   end
-
-  private
-    # Returns an array of conditions for filtering contacts based on GET params
-    def search
-      return unless params[:search] && !params[:search].blank?
-      values = {}
-      fields = [:first_name, :last_name, :email, :cell_phone, :desk_phone]
-      query = (fields.map{|f| "#{f} LIKE :#{f}"}).join(" OR ")
-      fields.each do |field|
-        values[field] = "#{params[:search]}%"
-      end
-
-      #check for last, first
-      if params[:search] =~ /\A([a-zA-Z\-]+), ([a-zA-Z\-]+)\z/
-        query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
-        values[:slast_name] = $1
-        values[:sfirst_name] = $2
-      elsif params[:search] =~ /\A([a-zA-Z\-]+) ([a-zA-Z\-]+)\z/
-        query += " OR (`last_name` = :slast_name AND `first_name` = :sfirst_name)"
-        values[:slast_name] = $2
-        values[:sfirst_name] = $1
-      end
-
-      [query, values]
-    end
-
-    def filters
-      if params[:filters] && params[:filters][:state] && !User.updatable_by?(@current_user)
-        params[:filters].delete(:state)
-      end
-      {'state' => 'active'}.merge(params[:filters] || {})
-    end
 end
 
