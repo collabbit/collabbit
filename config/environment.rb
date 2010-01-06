@@ -13,10 +13,6 @@ require 'authority'
 
 APPLICATION_SALT = 'AWH89sa98fhasj1llaksuf8128hjfshaufahf783jkhasjkfhhAUHSUIY@BmZNBXrrcMZKq1'
 
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
-  :std => "%m/%d/%Y"
-)
-
 Rails::Initializer.run do |config|
   
   config.active_record.observers = :user_observer, :update_observer
@@ -72,3 +68,5 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
+
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:std => "%m/%d/%Y")
