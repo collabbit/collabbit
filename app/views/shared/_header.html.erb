@@ -1,0 +1,23 @@
+<div id="header">
+	<div id="account-status">
+	<% if @current_user && can?(:view => @instance) %>
+		Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
+		(<%=link_to('Log Out', logout_path) -%>)
+	<% else %>
+		<%= menu_item('Log In', login_path, controller_name == 'sessions') %>
+		<%= menu_item('Sign Up', signup_path, controller_name == 'users') %>
+	<% end %>
+	</div>
+	<%= yield :branding or render :partial => 'shared/branding' -%>
+	<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
+</div>
+
+<!-- div id="header">
+	<div id="header-wrapper">
+		<div id="branding">
+			<%= yield :branding or render :partial => 'shared/branding' -%>
+		</div>
+		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
+	</div>
+	<div id="submenu"><%= yield :submenu or render :partial => 'submenu' rescue nil %></div>
+</div -->

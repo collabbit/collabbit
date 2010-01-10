@@ -20,7 +20,21 @@ module ApplicationHelper
   def menu_item(text, path, a = false)
     "<li #{active(a)}>" + link_to(text, path) + "</li>"
   end
-  
+ 
+  def li_link_to(text,path,li_attrs={})
+    "<li"+li_attrs.collect {|k,v| " #{k}=\"#{v}\""}.join + ">"+link_to(text,path)+"</li>"
+  end
+
+  def incidents_menu(a = false)
+    incidents = Incident.all.sort_by { |i| -i.created_at.to_i }
+    "<li #{active(a)}><ul id=\"incidents-menu\">" +  
+      li_link_to('Incidents &#9660;',incidents_path,{'class' => 'visible'}) +
+      (incidents.length > 0 ? li_link_to(incidents[0].name,incidents[0],{'class' => 'other'}) : "") +
+      (incidents.length > 1 ? li_link_to(incidents[1].name,incidents[1],{'class' => 'other'}) : "") +
+      (incidents.length > 2 ? li_link_to(incidents[2].name,incidents[2],{'class' => 'other'}) : "") +
+    "</ul></li>"
+  end
+
   def title(*args)
     args.flatten.concat(['Collabbit']).join(' &laquo; ')
   end

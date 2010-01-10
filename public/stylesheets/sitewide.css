@@ -4,7 +4,6 @@ body {
 	margin: 0;
 	padding: 0;
 	background: #eee;
-
 	min-width: 777px;
 }
 #instance a {
@@ -13,80 +12,85 @@ body {
 	#instance a:hover {
 		text-decoration: none;
 	}
-#footer a{
+#footer a {
 	color: #666;
 }
-	#footer a:hover{
+	#footer a:hover {
 		color: #000;
 	}
-h1{
-	font-size: 22px;
-}
 
-#header{
+#header {
 	margin: 0;
-	padding: 0;
-	/*height: 60px;*/
+	padding: 10px 40px 0;
+	height: 56px;
 	color: #fff;
 	background: #444;
+	border-bottom: 4px solid #222;
 }
-#submenu{
-	padding: 2px 0;
-	background: #222;
-}
-#header-wrapper{
-	position: relative;
-	top: 0;
-	left: 0;
-	padding-top: 40px;
-}
-	#branding h1{
-		font-size: 16px;
-		padding: 0 10px 0 40px;
-		margin:0;
-		position: absolute;
-		left:0;
-		bottom: 0;
-		color: #ccc;
-		display: inline;
+	#account-status {
+		float: right;
+		font-size: 14px;
 	}
-		#branding h1 span#instance{
-			font-size: 24px;
-			color: #fff;
+		#account-status a {
+			padding: 0 3px;
+			color: white;
 		}
-	#menu{
-		list-style-type: none;
-		margin:0 50px;
-		padding:0;
-		position: absolute;
-		right: 0;
-		bottom: 4px;
-	}
-		#menu li{
-			display: inline;
-			margin:0;
-			padding:0;
-		}
-			#menu li a{
-				color: #fff;
-				padding: 4px 6px;
-				font-size: 15px;
+			#account-status a:hover {
+				text-decoration: none;
 			}
-				#menu li.active a{
-					background: #222;
-					font-weight: bold;
-				}
-				#menu li a:hover{
+	#header-title {
+		float: left;
+		font-size: 16px;
+		color: #aaa;
+		margin-top: -4px;
+		font-weight: bold;
+		clear: both;
+	}
+		#instance-name {
+			font-size: 36px;
+			color: white;
+			font-weight: normal;
+			text-decoration: none;
+		}
+	#menu {
+		float: right;
+		list-style-type: none;
+		margin: 13px 0 0;
+		padding: 0;
+	}
+		#menu li {
+			display: inline;
+		}
+			#menu a {
+				color: white;
+				padding: 4px 8px;
+				text-decoration: none;
+			}
+				#menu a:hover {
 					background: #333;
 				}
-			#menu li#account-status{
-				margin-left: 10px;
-				font-size: 14px;
+			#menu .active a {
+				background: #222;
+				font-weight: bold;
+				padding-top: 6px;
 			}
-				#menu li#account-status a{
-					padding: 3px 0;
-					font-size: 14px;
+			#incidents-menu {
+				display: inline;
+				padding: 0;
+				list-style-type: none;
+				margin: 0;
+				position: relative;
+				background: #444;
+			}
+				#incidents-menu li {
 				}
+					/* don't want these highlighted when active */
+					#incidents-menu li.other a {
+						font-weight: normal;
+						background-color: transparent;
+						display: none;
+					}
+
 #content{
 	background: #fff;
 	border-right: 2px solid #aaa;

@@ -1,27 +1,10 @@
 <ul id="menu">
-	<% if @current_user %>
-		<% if can?(:view => @instance) %>
-			<%= menu_item('Overview', overview_path, controller_name == 'instances') -%>
-			
-			<%= menu_item('Incidents', incidents_path,	['incidents', 'updates'].include?(controller_name)) if can?(:list => @instance.incidents) -%>
-			
-			<%= menu_item('Groups', group_types_path,controller_name == 'group_types') if can?(:list => @instance.group_types, :list => @instance.groups)-%>
-			
-			<%= menu_item('Roles', roles_path, controller_name == 'roles') if false && can?(:list => @instance.roles) -%>
-			
-			<%= menu_item('Tags', tags_path, controller_name == 'tags') if false && can?(:list => @instance.tags) -%>
-			
-			<%= menu_item('Contacts', users_path, controller_name == 'users') if can?(:list => @instance.users) -%>
-			
-		<% end %>
-		<li id="account-status">
-		    <span>
-		        Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
-				(<%=link_to('Log Out', logout_path) -%>)
-			</span>
-		</li>
-	<% else%>
-		<%= menu_item('Log In', login_path, controller_name == 'sessions') %>
-		<%= menu_item('Sign Up', signup_path, controller_name == 'users') %>
-	<% end %>
+<% if @current_user && can?(:view => @instance) %>
+	<%= menu_item('Overview',overview_path,controller_name == 'instances') -%>
+	<%= incidents_menu(['incidents', 'updates'].include?(controller_name)) if can?(:list => @instance.incidents) -%>
+	<%= menu_item('Groups', group_types_path,controller_name == 'group_types') if can?(:list => @instance.group_types, :list => @instance.groups) -%>
+	<%= menu_item('Contacts', users_path, controller_name == 'users') if can?(:list => @instance.users) -%>
+
+<% end %>
 </ul>
+
