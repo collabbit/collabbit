@@ -41,7 +41,7 @@ class IncidentsController < AuthorizedController
     end
 
     if @incident.save
-      flash[:notice] = INCIDENT_CREATED
+      flash[:notice] = "Incident created successfully"
       redirect_to @incident
     else
       render :action => 'new'
@@ -55,7 +55,7 @@ class IncidentsController < AuthorizedController
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @current_user.can? :update => @incident
     if @incident.update_attributes(params[:incident])
-      flash[:notice] = INCIDENT_UPDATED
+      flash[:notice] = "Incident updated successfully"
       redirect_to @incident
     else
       render :action => 'new'
