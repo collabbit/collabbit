@@ -6,6 +6,9 @@ body {
 	background: #eee;
 	min-width: 777px;
 }
+.clear {
+	clear: both;
+}
 #instance a {
 	color: white;
 }
@@ -21,11 +24,10 @@ body {
 
 #header {
 	margin: 0;
-	padding: 10px 40px 0;
-	height: 56px;
+	padding: 10px 40px 2px;
 	color: #fff;
 	background: #444;
-	border-bottom: 4px solid #222;
+	border-bottom: 4px solid #222
 }
 	#account-status {
 		float: right;
@@ -45,9 +47,11 @@ body {
 		margin-top: -4px;
 		font-weight: bold;
 		clear: both;
+		line-height: 16px;
 	}
 		#instance-name {
 			font-size: 36px;
+			line-height: 36px;
 			color: white;
 			font-weight: normal;
 			text-decoration: none;
@@ -63,7 +67,7 @@ body {
 		}
 			#menu a {
 				color: white;
-				padding: 4px 8px;
+				padding: 4px 8px 2px;
 				text-decoration: none;
 			}
 				#menu a:hover {
@@ -74,22 +78,34 @@ body {
 				font-weight: bold;
 				padding-top: 6px;
 			}
+			#incidents-li:hover a.visible {
+				background: #333;
+			}
 			#incidents-menu {
-				display: inline;
+				display: none;
 				padding: 0;
 				list-style-type: none;
 				margin: 0;
-				position: relative;
-				background: #444;
+				position: absolute;
+				background: #333;
+				margin-left: 10px
 			}
 				#incidents-menu li {
+					display: block;
+				}
+				#incidents-menu li.other {
+
 				}
 					/* don't want these highlighted when active */
 					#incidents-menu li.other a {
 						font-weight: normal;
 						background-color: transparent;
-						display: none;
+						display: block;
+						padding: 10px 8px;
 					}
+						#incidents-menu li.other a:hover {
+							background: #222;
+						}
 
 #content{
 	background: #fff;
