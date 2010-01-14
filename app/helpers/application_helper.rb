@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def incidents_menu(a = false)
-    incidents = Incident.all.sort_by { |i| -i.created_at.to_i }
+    incidents = @instance.incidents.sort_by { |i| -i.created_at.to_i }
     "<li id=\"incidents-li\" #{active(a)}>" +  
       link_to('Incidents &#9662;',incidents_path,{'class' => 'visible'}) +
       "<ul id=\"incidents-menu\">" +  

@@ -11,5 +11,4 @@ $(document).ready(function() {
         },
         function() {$('#incidents-menu').hide();
     });
-
 });
