@@ -81,31 +81,40 @@ body {
 			#incidents-li:hover a.visible {
 				background: #333;
 			}
-			#incidents-menu {
-				display: none;
-				padding: 0;
-				list-style-type: none;
-				margin: 0;
-				position: absolute;
-				background: #333;
-				margin-left: 10px
+			#incidents-li.active:hover a.visible {
+				background: #222;
 			}
-				#incidents-menu li {
-					display: block;
+				#incidents-menu {
+					display: none;
+					padding: 0;
+					list-style-type: none;
+					margin: 0;
+					position: absolute;
+					background: #333;
+					margin-left: 10px
 				}
-				#incidents-menu li.other {
-
-				}
-					/* don't want these highlighted when active */
-					#incidents-menu li.other a {
-						font-weight: normal;
-						background-color: transparent;
+					#incidents-menu li {
 						display: block;
-						padding: 10px 8px;
 					}
-						#incidents-menu li.other a:hover {
-							background: #222;
+					#incidents-menu li.other {
+
+					}
+						/* don't want these highlighted when active */
+						#incidents-menu li.other a {
+							font-weight: normal;
+							background-color: transparent;
+							display: block;
+							padding: 10px 8px;
 						}
+							#incidents-menu li.other a:hover {
+								background: #222;
+							}
+				#incidents-li.active #incidents-menu {
+					background: #222;
+				}
+							#incidents-li.active li.other a:hover {
+								background: #333;
+							}
 
 #content{
 	background: #fff;
