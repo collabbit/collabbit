@@ -5,7 +5,7 @@ $(document).ready(function() {
             var pos = $('#incidents-li').offset();
             $("#incidents-menu").css({ 
                 "left": (pos.left-10)+"px",
-                "top":(pos.top+height+2)+"px",
+                "top":(pos.top+height+2)+"px"
             });
             $('#incidents-menu').show();
         },
