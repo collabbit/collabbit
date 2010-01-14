@@ -1,4 +1,4 @@
-$(function(){
+$(document).ready(function() {          
     $('#incidents-li').hover(
         function() {
             var height = $('#incidents-li').height();
