@@ -68,7 +68,7 @@ class GroupsController < AuthorizedController
     gt = @group.group_type
     return with_rejection unless @current_user.can?(:destroy => @group)
     @group.destroy
-    redirect_to [@instance, gt]
+    redirect_to group_types_url
   end
 
 end
