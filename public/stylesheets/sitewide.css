@@ -110,13 +110,13 @@ body {
 							font-weight: bold;
 						}
 							#incidents-menu li.other a:hover {
-								background: #222;
+								background: #666;
 							}
 				#incidents-li.active #incidents-menu {
 					background: #222;
 				}
 							#incidents-li.active li.other a:hover {
-								background: #333;
+								background: #666;
 							}
 
 #content{
