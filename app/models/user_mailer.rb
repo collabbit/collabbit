@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
-    @body[:url]  = "http://collabbit.org/for/#{user.instance.short_name}/activate/#{user.activation_code}"
+    @body[:url]  = "http://#{user.instance.short_name}.collabbit.org/activate/#{user.activation_code}"
   end
   
   # Prepares an account activation confirmation to a user 
