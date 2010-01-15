@@ -26,7 +26,7 @@
 		
 	<%= flashes %>
 	<div id="wrap">
-    <h1><%= @group.name %> <span class='tiny'>&laquo; <%= link_to @group.group_type.name.pluralize, group_type_url(@group.group_type) %> &laquo; <%= link_to 'Groups',group_types_url %></span></h1>
+    <h1><span class="tiny"><%= link_to 'Groups',group_types_url %> &raquo; <%= link_to @group.group_type.name.pluralize, group_type_url(@group.group_type) %> &raquo;</span> <%= @group.name %> </h1>
 		<% unless @group.users.empty? %>
 			<h2>Members</h2>
 			<ul>

@@ -21,7 +21,7 @@
 	
 	<%= flashes %>
 	<div id="wrap">
-		<h1><%= @group_type.name.pluralize %> <span class='tiny'>&laquo; <%= link_to 'Groups',group_types_url %></span></h1>
+		<h1><span class='tiny'><%= link_to 'Groups',group_types_url %> &raquo;</span> <%= @group_type.name.pluralize %> </h1>
 		<ul id="groups-list" class="listy">
 		<% @group_type.groups.each do |g| %>
 			<li>
