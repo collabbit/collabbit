@@ -32,7 +32,7 @@ class UpdatesController < AuthorizedController
   # Uses the mislav-will_paginate plugin
   # Documentation is available at: http://gitrdoc.com/mislav/will_paginate/tree/master/
   def index
-    @incident = @instance.incidents.find(params[:incident_id], :include => [:updates])
+    @incident = @instance.incidents.find(params[:incident_id])
 
     return with_rejection unless @current_user.can? :list => @incident.updates
 
@@ -49,7 +49,7 @@ class UpdatesController < AuthorizedController
       @groups_filter = params[:groups_filter]
       @groups_filter = @groups_filter.to_i unless @groups_filter == '' || @groups_filter == 'mine' || @groups_filter == nil
       # Eventually add in _or_issuing_group_id_
-      search_clauses[:relevant_groups_id_is_any] = case @groups_filter
+      search_clauses[:relevant_groups_id_equals_any] = case @groups_filter
         when 'mine' then @current_user.group_ids
         else [@groups_filter]
       end
@@ -58,7 +58,7 @@ class UpdatesController < AuthorizedController
     unless params[:tags_filter].blank?
       search_clauses[:tags_id_is] = @tags_filter = params[:tags_filter].to_i
     end
-      
+          
     pagination_options = {
       :page => params[:page],
       :per_page => 50,
@@ -66,7 +66,7 @@ class UpdatesController < AuthorizedController
       :include => [:relevant_groups, :issuing_group, :tags]
     }
     
-    @updates = @incident.updates.search(search_clauses).paginate(:all, pagination_options)
+    @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
   end
 
   # Saves an update object to the database with the parameters provided in

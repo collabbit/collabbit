@@ -30,10 +30,10 @@ class UsersController < AuthorizedController
     end
     
     if params[:states_filter].blank? || !@current_user.can?(:update => @instance.users)
-      search_options[:state_is] = 'active'
+      search_options[:state_equals] = 'active'
       @states_filter = 'active' if @current_user.can?(:update => @instance.users)
     else
-      search_options[:state_is] = @states_filter = params[:states_filter]
+      search_options[:state_equals] = @states_filter = params[:states_filter]
     end
     
     unless params[:search].blank?
