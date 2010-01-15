@@ -27,13 +27,16 @@ module ApplicationHelper
 
   def incidents_menu(a = false)
     incidents = @instance.incidents.sort_by { |i| -i.created_at.to_i }
+    links = incidents[0,3].collect do |incident|
+      name = incident.name + (incident == @incident ? '&laquo;' : '')
+      classes = 'other' + (incident == @incident ? ' current_incident' : '')
+      li_link_to(name,incident,{'class'=>classes})
+    end
     "<li id=\"incidents-li\" #{active(a)}>" +  
       link_to('Incidents &#9662;',incidents_path,{'class' => 'visible'}) +
-      "<ul id=\"incidents-menu\">" +  
-      (incidents.length > 0 ? li_link_to(incidents[0].name,incidents[0],{'class' => 'other'}) : "") +
-      (incidents.length > 1 ? li_link_to(incidents[1].name,incidents[1],{'class' => 'other'}) : "") +
-      (incidents.length > 2 ? li_link_to(incidents[2].name,incidents[2],{'class' => 'other'}) : "") +
-    "</ul></li>"
+      "<ul id=\"incidents-menu\">\n" +  
+      links.join("\n") +
+    "\n</ul></li>"
   end
 
   def title(*args)

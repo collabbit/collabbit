@@ -106,6 +106,9 @@ body {
 							display: block;
 							padding: 10px 8px;
 						}
+						#incidents-menu li.current_incident a {
+							font-weight: bold;
+						}
 							#incidents-menu li.other a:hover {
 								background: #222;
 							}
