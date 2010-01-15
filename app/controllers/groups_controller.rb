@@ -36,8 +36,10 @@ class GroupsController < AuthorizedController
 
     @group_type = @instance.group_types.find(params[:group_type_id])
     @group = @group_type.groups.build(params[:group])
+    # there's probably a better way to do this...
+    @group_type.groups_count = @group_type.groups.length
 
-    if @group.save
+    if @group.save && @group_type.save
       flash[:notice] = t('notice.group_created')
       redirect_to group_type_group_path(@group_type, @group)
     else
