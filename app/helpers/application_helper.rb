@@ -28,7 +28,7 @@ module ApplicationHelper
   def incidents_menu(a = false)
     incidents = @instance.incidents.sort_by { |i| -i.created_at.to_i }
     links = incidents[0,3].collect do |incident|
-      name = incident.name + (incident == @incident ? '&laquo;' : '')
+      name = incident.name + (incident == @incident ? ' &laquo;' : '')
       classes = 'other' + (incident == @incident ? ' current_incident' : '')
       li_link_to(name,incident,{'class'=>classes})
     end
