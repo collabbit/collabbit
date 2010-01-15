@@ -27,23 +27,25 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_account
   before_filter :check_account_redirect
   
+  helper_method :promo?, :subdomain
+  
   def set_current_account
     @instance = Instance.find_by_short_name(subdomain)    
-    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance
+    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance || promo?
   end
   
   def check_account_redirect
-    unless promo? || controller_name != 'home'
-      redirect_to login_path
-    end
+    logger.info "Action name: #{action_name}" 
+    redirect_to login_path unless promo? || controller_name != 'home'
+    redirect_to about_path if promo? && params[:page].blank?
   end
   
   def check_if_promo_layout
-    promo? ? 'home' : 'application'      
+    promo? ? 'home' : 'application'
   end
   
   def promo?
-    return true if Instance::FORBIDDEN_SUBDOMAINS.include? subdomain
+    return true if Instance::FORBIDDEN_SUBDOMAINS.include? subdomain || subdomain.blank?
     return !Instance.exists?(:short_name => subdomain)
   end
   

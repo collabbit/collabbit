@@ -44,6 +44,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :memberships
 
   map.root :overview
+  
+  map.about 'about', :controller => 'home', :action => 'show', :page => 'index'
   map.home '/:page', :controller => 'home', :action => 'show'
 
   map.connect ':controller/:action/:id'
