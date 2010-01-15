@@ -6,7 +6,7 @@
 	<% else %>
 		<%= link_to('Log In', login_path) %>
 		<%= link_to('Sign Up', signup_path) %>
-	<% end %>
+	<% end unless promo? %>
 	</div>
 	<%= yield :branding or render :partial => 'shared/branding' -%>
 	<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
