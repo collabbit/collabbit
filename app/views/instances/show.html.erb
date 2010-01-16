@@ -9,46 +9,44 @@
 
 <% content_for :title, title(@instance.short_name)%>
 
-<% content_for :body do %>
+<% content_for :subheader_title, 'Overview' %>
+<% content_for :buttons do %>
     <% if @current_user.can? :update => @instance %>
 	    <%= pretty_button :edit_instance, {:action => "edit", :id => @instance}, 'Edit Instance Settings' %>
 	<% end %>
-	
-	<%= flashes -%>
-	<div id="wrap">
-		<h1>Overview <span class="subtitle">&laquo; <%= @instance.long_name %></span></h1>
-		<% unless @instance.incidents.empty? %>
-			<div id="latest-incidents">
-				<h2>Latest Incidents</h2>
-				<ul>
-				<% @incidents.each do |i| %>
-					<% if i.created_at > 2.months.ago %>
-						<li>
-							<%= link_to i.name, i %> 
-							<span class="tiny">(<%=mdy i.created_at%>)</span>							
-						</li>
-					<% end %>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-		<% unless @instance.users.empty? %>
-			<div id="latest-users">
-				<h2>Newest Users</h2>
-				<ul>
-				<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => {:state => 'active'}).each do |u| %>
-					<li><%= link_to u.full_name, u %> <span class="tiny">(<%=mdy u.created_at%>)</span></li> <% #<<FIX: do we want these links? Maybe just a jump within the contacts? %>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-		<div id="latest-updates">
-			<h2>Latest Updates</h2>
+<% end %>
+<% content_for :body do %>
+	<% unless @instance.incidents.empty? %>
+		<div id="latest-incidents">
+			<h2>Latest Incidents</h2>
 			<ul>
-			<% @instance.updates.find(:all, :order => 'updated_at DESC', :limit => 10).each do|u| -%>
-				<li><%=link_to u.title, incident_update_path(u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
-			<% end %>	
+			<% @incidents.each do |i| %>
+				<% if i.created_at > 2.months.ago %>
+					<li>
+						<%= link_to i.name, i %> 
+						<span class="tiny">(<%=mdy i.created_at%>)</span>							
+					</li>
+				<% end %>
+			<% end %>
 			</ul>
 		</div>
+	<% end %>
+	<% unless @instance.users.empty? %>
+		<div id="latest-users">
+			<h2>Newest Users</h2>
+			<ul>
+			<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => {:state => 'active'}).each do |u| %>
+				<li><%= link_to u.full_name, u %> <span class="tiny">(<%=mdy u.created_at%>)</span></li> <% #<<FIX: do we want these links? Maybe just a jump within the contacts? %>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div id="latest-updates">
+		<h2>Latest Updates</h2>
+		<ul>
+		<% @instance.updates.find(:all, :order => 'updated_at DESC', :limit => 10).each do|u| -%>
+			<li><%=link_to u.title, incident_update_path(u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
+		<% end %>	
+		</ul>
 	</div>
 <% end %>

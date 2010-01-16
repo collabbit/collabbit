@@ -9,16 +9,20 @@
 
 <% content_for :title, title('Edit incident', @incident.name, 'Incidents', @instance.short_name)%>
 
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Incidents',incidents_path],
+				[@incident.name,incident_path(@incident)]) %>
+<% content_for :subheader_title, 'Edit Incident' %>
+
 <% content_for :body do %>
-<%= flashes %>
-	<h1>Edit <span class="small">&laquo; <%=@incident.name%></span></h1>
 	<%= error_messages_for :incident %>
 	<% form_for @incident do |f| -%>
 		<p><%= label_tag 'name' %><br/>
 		<%= f.text_field :name %></p>
 	
 		<p><%= label_tag 'description' %><br/>
-		<%= f.text_field :description %></p>
+		<%= f.text_area :description, :size => '40x5' %></p>
 		
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>

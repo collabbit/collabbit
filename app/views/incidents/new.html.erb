@@ -9,24 +9,24 @@
 
 <% content_for :title, title('Create an incident', 'Incidents', @instance.short_name)%>
 
-<% content_for :body do %>
-	<%= flashes %>
-	<div id="wrap">
-		<h1>Create an incident</h1>
-	
-		<%= error_messages_for :incident %>
-		<% form_for @incident do |f| -%>
-			<p>
-				<%= f.label :name %><br/>
-				<%= f.text_field :name %>
-			</p>
-			<p>
-				<%= f.label :description, 'Quick Overview' %><br/>
-				<%= f.text_area :description, :size => '40x5' %>
-			</p>
-			<p>
-				<%= f.submit 'Create' %>
-			</p>
-		<% end %>
-	</div>
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Incidents',incidents_path]) %>
+<% content_for :subheader_title, 'New Incident' %>
+
+<% content_for :body do %>	
+	<%= error_messages_for :incident %>
+	<% form_for @incident do |f| -%>
+		<p>
+			<%= f.label :name %><br/>
+			<%= f.text_field :name %>
+		</p>
+		<p>
+			<%= f.label :description, 'Quick Overview' %><br/>
+			<%= f.text_area :description, :size => '40x5' %>
+		</p>
+		<p>
+			<%= f.submit 'Create' %>
+		</p>
+	<% end %>
 <% end %>
