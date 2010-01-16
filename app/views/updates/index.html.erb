@@ -43,7 +43,7 @@
 	%>
 		
 	<% form_tag incident_updates_path(@incident), :method => :get do %>
-		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':''), :id => 'filters_keywords' %>
+		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 					
 		<select name="groups_filter" id="filters_groups">
 			<%= options_for_select([['All Groups', nil],['My Groups', 'mine']]+groups.map{|g|[g.name, g.id]}, @groups_filter) %>
