@@ -154,6 +154,7 @@ namespace :attachments do
   desc "Make shared attachments directory"
   task :default do
     run "mkdir -p #{shared_path}/attachments"
+    run "chmod 775 #{shared_path}/attachments"
   end
   
   desc "Link shared attachments directory"
