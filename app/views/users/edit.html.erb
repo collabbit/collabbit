@@ -9,13 +9,11 @@
 
 <% content_for :title, title ('Edit user', @user.full_name, 'Contacts', @instance.short_name)%>
 
-<% content_for :body do%>
-<div id="wrap">
-<%= flashes %>
+<% content_for :subheader_title, "#{@user.full_name}: edit account settings" %>
 
-	<h1>Edit your account: <%= @user.full_name%></h1>
+<% content_for :body do%>
 	<% @user.password = @user.password_confirmation = nil %>
-	
+
 	<%= error_messages_for :user %>
 	<% form_for @user do |f| -%>
 		<p><%= f.label 'email' %><br/>
@@ -36,14 +34,13 @@
 		
 		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
-	
+
 		<p><%= f.label 'password' %><br/>
 		<%= f.password_field :password, :autocomplete => 'off' %></p>
-	
+
 		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
 		<%= f.password_field :password_confirmation %></p>
-	
+
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>
-</div>
 <% end %>

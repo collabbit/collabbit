@@ -1,17 +1,16 @@
+#subheader .pagewidth {
+	width: 350px;
+}
 #content{
 	text-align: center;
+	width: 370px;
 	background: transparent;
-	border:none;
-	margin-top: 50px;
 }
 	#wrap{
 		width: 350px;
 		text-align: left;
 		margin: 0 auto;
 		padding: 10px;
-		
-		border-right: 2px solid #ccc;
-		border-bottom: 2px solid #ccc;
 		background: #fff;
 	}
 		#wrap #flashes {

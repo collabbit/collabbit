@@ -192,7 +192,7 @@ body {
 				#filters input:focus, #filters select:focus {
 					background: white;
 				}
-			#filters #filters_keywords, #search {
+			#filters #search {
 				padding: 4px 3px;
 				width: 35%;
 			}

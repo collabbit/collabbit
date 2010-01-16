@@ -1,9 +1,9 @@
-<%
-welcome = "Please log in to the #{@instance.short_name} collabbit"
-path = session_path
-%>
+<% content_for :title, title('Log In',@instance.short_name) %>
 
-<%= render :partial => 'new', :locals => {  :welcome => welcome,
-                                            :path => path,
+<% content_for :subheader_title, "Log in" %>
+
+<% content_for :body do %>
+<%= render :partial => 'new', :locals => {  :path => session_path,
                                             :show_remember_me => true,
                                             :show_account_links => true} %>
+<% end %>
