@@ -8,106 +8,114 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 %>
 
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Contacts',users_path]) %>
 <% content_for :title, title('Contacts', @instance.short_name)%>
 <% content_for :javascripts, javascript_include_tag('jquery','users')%>
+
+<% content_for :subheader_title do %>
+	<% if @search and @groups_filter %>
+		<%="Results for '#{h @search}' in #{h @instance.groups.find(@groups_filter).name}" %>
+	<% elsif @groups_filter %>
+		<%= "Results in #{h @instance.groups.find(@groups_filter).name}" %>
+	<% elsif @search %>
+		<%= "Results for '#{h @search}'" %>
+	<% else %>
+		All Contacts
+	<% end %>
+<% end %>
+<% content_for :buttons do %>
+	<%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
+    <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
+<% end %>
+<% content_for :filters do %>
+	<%
+		groups = @instance.groups.reject {|g| g.memberships.length == 0 }
+		groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter.to_i )
+		states_options = options_for_select([['Active', 'active'], ['Pending','pending_approval']], @states_filter)
+	%>
+
+	<% form_tag users_path, :method => :get do %>
+		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
+		<%= select_tag(:groups_filter, groups_options, :id => 'filters_groups') %>
+		<%= select_tag(:states_filter, states_options, :id => 'filters_states') if @states_filter %>
+		<%= submit_tag "Filter Contacts", :name => nil, :id => 'filters_submit' %>
+	<% end %>
+<% end %>
+
+
 <% content_for :body do %>
 
-<%= flashes %>
-    <%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
-    <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
-	<div id="wrap">
-		<% if @search or @groups_filter %>
-			<h1>
-				<%="Results for #{h @search}" if @search %>
-				<%=' in ' if @search and @groups_filter %>
-				<%="#{h @instance.groups.find(@groups_filter).name} " if @groups_filter%>
-				<span class="tiny">&laquo; Contacts</span></h1>
-		<% else %>
-			<h1>All Contacts <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
-		<% end %>
-		<div id="filters">
-			<% form_tag users_path, :method => :get, :id => 'filter-bar' do  
-			    groups = @instance.groups.reject {|g| g.memberships.length == 0 }
-			    %>
-				<h3>Filters</h3>
-				<% groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter)
-				   states_options = options_for_select([['Active', 'active'], ['Pending','pending_approval']], @states_filter)
-				%>
-				<%= select_tag(:groups_filter, groups_options) %>
-				<%= select_tag(:states_filter, states_options) if @states_filter%>
-				<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'')%>
-				<%= submit_tag "Go", :name => nil %>
+	<ul id="index">
+		<li><em>Jump to last name:</em></li>
+	<% ('A'..'Z').each do |l| %>
+		<li><a href="#<%=l%>"><%=l%></a></li>	
+	<% end %>
+	</ul>
+</div>		
+	<% if @users.size == 0 %>
+		<h3 class="centered">
+			Sorry, no contacts match your search or filters.
+		</h3>
+	<% end %>
+	<ul id="contacts">
+	<% 	last = ''
+		@users.each do |u|
+			if u.last_name[0,1].upcase != last
+				last = u.last_name[0,1].upcase
+			%>
+				<li class="separator" id="<%=last%>"><%=last%></li>
 			<% end %>
-		</div>	
-		<ul id="index">
-			<li><em>Jump to last name:</em></li>
-		<% ('A'..'Z').each do |l| %>
-			<li><a href="#<%=l%>"><%=l%></a></li>	
-		<% end %>
-		</ul>
-	</div>		
-		<% if @users.size == 0 %>
-		    <h3 class="centered">
-		        Sorry, no contacts match your search or filters.
-		    </h3>
-		<% end %>
-		<ul id="contacts">
-		<% 	last = ''
-			@users.each do |u|
-				if u.last_name[0,1].upcase != last
-					last = u.last_name[0,1].upcase
-				%>
-					<li class="separator" id="<%=last%>"><%=last%></li>
+		<li>
+			<div class="name">
+				<%= link_to u.last_first, u %>
+				<span class="vcard"><%=link_to 'vCard', user_path(u, :format => :vcf) -%></span></div>
+			<div class="person-info">
+				<% if u.state != 'active' && u.updatable_by?(@current_user) %>
+					<span>
+						<%= link_to 'Approve', user_path(u, :user => {:state => :active}), {:method => :put} %>
+					</span>
 				<% end %>
-			<li>
-				<div class="name">
-				    <%= link_to u.last_first, u %>
-				    <span class="vcard"><%=link_to 'vCard', user_path(u, :format => :vcf) -%></span></div>
-				<div class="person-info">
-				    <% if u.state != 'active' && u.updatable_by?(@current_user) %>
-				        <span>
-				            <%= link_to 'Approve', user_path(u, :user => {:state => :active}), {:method => :put} %>
-				        </span>
-				    <% end %>
-					<% if u.cell_phone? %>
-						<span class="phone">
-							<span class="contact-label">cell phone:</span>
-							<%=phone u.cell_phone %> <%= preferred if u.preferred_is_cell? and u.desk_phone? %>
-						</span>
-					<% end %>
-					<% if u.desk_phone? %>
-						<span class="phone">
-							<span class="contact-label">desk phone:</span>
-							<%=phone u.desk_phone_with_ext %> <%= preferred if !u.preferred_is_cell and u.cell_phone? %>
-						</span>
-					<% end %>
-					<% if u.email %>
-						<span class="email">
-							<span class="contact-label">email:</span>
-							<%=mail_to u.email, u.email, :target => '_blank' %>
-						</span>
-					<% end %>
-					<% if u.groups and u.groups.length > 0 %>
-						<div class="groups-container">
-							<span class="contact-label">groups:</span>
-							<ul class="groups">
-							<% if u.groups.length > 4 %>
-								<% u.groups[0,4].each do |g| %>
-								<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
-								<% end %>
-								<li class="more"><%= link_to "["+(u.groups.length-4).to_s+"&nbsp;more]", u%></li>
-							<% else %>
-								<% u.groups.each do |g| %>
-								<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
-								<% end %>
+				<% if u.cell_phone? %>
+					<span class="phone">
+						<span class="contact-label">cell phone:</span>
+						<%=phone u.cell_phone %> <%= preferred if u.preferred_is_cell? and u.desk_phone? %>
+					</span>
+				<% end %>
+				<% if u.desk_phone? %>
+					<span class="phone">
+						<span class="contact-label">desk phone:</span>
+						<%=phone u.desk_phone_with_ext %> <%= preferred if !u.preferred_is_cell and u.cell_phone? %>
+					</span>
+				<% end %>
+				<% if u.email %>
+					<span class="email">
+						<span class="contact-label">email:</span>
+						<%=mail_to u.email, u.email, :target => '_blank' %>
+					</span>
+				<% end %>
+				<% if u.groups and u.groups.length > 0 %>
+					<div class="groups-container">
+						<span class="contact-label">groups:</span>
+						<ul class="groups">
+						<% if u.groups.length > 4 %>
+							<% u.groups[0,4].each do |g| %>
+							<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
 							<% end %>
-							</ul>
-						</div>
-					<% end %>
-				</div>
-			</li>
-		<% end %>
-		</ul>
-		<div style="clear:both"></div>
-		<%= will_paginate @users %>
+							<li class="more"><%= link_to "["+(u.groups.length-4).to_s+"&nbsp;more]", u%></li>
+						<% else %>
+							<% u.groups.each do |g| %>
+							<li><%= link_to g.name, group_type_group_path(g.group_type, g) %></li>
+							<% end %>
+						<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+		</li>
+	<% end %>
+	</ul>
+	<div style="clear:both"></div>
+	<%= will_paginate @users %>
 <% end %>

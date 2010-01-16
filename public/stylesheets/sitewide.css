@@ -170,7 +170,7 @@ body {
 	#subheader_text {
 		clear: both;
 		margin: 0;
-		margin: 5px 0 12px;
+		margin: 5px 0 5px;
 		color: #eee;
 	}
 		#subheader_text a {
@@ -179,37 +179,40 @@ body {
 	#filters {
 		max-width: 944px;
 	}
-		#filters input, #filters select {
-			background: #ddd;
-			border: 2px solid #1A2D53;
-			color: black;
-			margin: 0;
-			margin-right: 1%;
+		#filters form {
+			padding-top: 7px;
 		}
-			#filters input:focus, #filters select:focus {
-				background: white;
+			#filters input, #filters select {
+				background: #ddd;
+				border: 2px solid #1A2D53;
+				color: black;
+				margin: 0;
+				margin-right: 1%;
 			}
-		#filters #filters_keywords {
-			padding: 4px 3px;
-			width: 35%;
-		}
-		#filters select {
-			width: 21%;
-			padding: 3px;
-			margin-left: -3px;
-		}
-		#filters #filters_submit {
-			padding: 3px;
-			width: 18%;
-			background: #444;
-			color: white;
-			font-weight: bold;
-			margin-right: 0;
-			float: right;
-		}
-			#filters_submit:hover {
-				border-color: white;
+				#filters input:focus, #filters select:focus {
+					background: white;
+				}
+			#filters #filters_keywords, #search {
+				padding: 4px 3px;
+				width: 35%;
 			}
+			#filters select {
+				width: 21%;
+				padding: 3px;
+				margin-left: -3px;
+			}
+			#filters #filters_submit {
+				padding: 3px;
+				width: 18%;
+				background: #444;
+				color: white;
+				font-weight: bold;
+				margin-right: 0;
+				float: right;
+			}
+				#filters_submit:hover {
+					border-color: white;
+				}
 
 #content{
 	background: #fff;

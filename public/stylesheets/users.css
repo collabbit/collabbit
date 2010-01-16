@@ -102,44 +102,6 @@
 			font-size: 12px;
 		}
 
-#filters{
-	margin: 0 0 10px;
-	padding: 0 0 10px;
-	border-bottom: 1px solid #ddd;
-	color: #333;
-}
-	#filters h3{
-		display:inline;
-		font-size: 16px;
-		padding-right: 10px;
-	}
-		#filters select {
-			width: 200px;
-		}
-	#search{
-		border: 1px solid #ccc;
-		padding: 2px;
-	}
-		.blank{
-			color: #999;
-		}
-
-/* replace with more general CSS in sitewide.css */
-/*	.edit-user-button{
-		background: #006;
-	}
-		.edit-user-button:hover{
-			background: #009;
-		}
-
-	.delete-user-button{
-		background: #600;
-	}
-		.delete-user-button:hover{
-			background: #900;
-		}*/
-
-
 /* SHOW */
 #contact-info-list{
 	list-style-type: none;

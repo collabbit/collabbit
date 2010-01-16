@@ -13,7 +13,7 @@ $(function(){
 			$(this).val(init).addClass('blank');
 	});
 	
-	$('#filter-bar').submit(function(){
+	$('#filters form').submit(function(){
 		if($('#search').val() == init)
 			$('#search').val('')
 		return true;
