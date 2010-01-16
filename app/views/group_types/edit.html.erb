@@ -9,8 +9,13 @@
 
 <% content_for :title, title('Edit group type', @group_type.name, 'Group Types', @instance.short_name)%>
 
+<% content_for :breadcrumbs,
+	breadcrumbs(['Overview',overview_url],
+				['Group Types',group_types_url],
+				[@group_type.name,group_type_url(@group_type)]) %>
+<% content_for :subheader_title, 'Edit group type' %>
+
 <% content_for :body do %>
-	<h1>Edit group type: <%=@group_type.name%></h1>
 	<%= error_messages_for :group_type %>
 	<% form_for @group_type do |f| -%>
 		<p><%= label_tag 'name' %><br/>

@@ -163,6 +163,7 @@ body {
 			color: white;
 			text-decoration: none;
 			font-weight: bold;
+			margin-left: 3px;
 		}
 			#subheader_main #buttons a:hover {
 				border-color: white;

@@ -9,9 +9,12 @@
 
 <% content_for :title, title('Create a group type', 'Group Types', @instance.short_name)%>
 
-<% content_for :body do %>
-	<h1>Create a group type</h1>
+<% content_for :breadcrumbs,
+	breadcrumbs(['Overview',overview_url],
+				['Group Types',group_types_url]) %>
+<% content_for :subheader_title, 'Create a new group type' %>
 
+<% content_for :body do %>
 	<%= error_messages_for :group_type %>
 	<% form_for @group_type do |f| -%>
 		<%= f.label :name %>

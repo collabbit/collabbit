@@ -10,52 +10,52 @@
 
 <% content_for :title, title('Groups', @instance.short_name)%>
 
-<% content_for :body do %>
+<% content_for :subheader_title, 'Groups' %>
+<% content_for :buttons do %>
     <% if can? :create => GroupType %>
 	    <%= pretty_button :new_group_type, new_group_type_path, 'New Group Type' -%>
 	<% end %>
-	<%= flashes %>
-	<div id="wrap">
-		<h1>Groups <span class="tiny">&laquo; <%=@instance.long_name%></span></h1>
-		<h2>My Groups</h2>
-		<ul id="groups-list" class="listy">
-		<% @current_user.groups.each do |g| %>
-			<li>
-				<%= link_to g.name, group_type_group_path(g.group_type, g) %>
-				&ndash; <%= g.users.size %> members.
-				<% unless g.chairs.empty? %>
-					Chairs: 
-					<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
-				<% end %>
-			</li>
-		<% end %>
-		</ul>
-		<h2 class="second-heading">All Groups</h2>
-		<ul id="group-type-list" class="listy outer">
-		<% @group_types.each do |gt| %>
-			<li class="outer">
-				<%= link_to gt.name.pluralize, gt, :class=>:title %>
-				&mdash; <%= gt.groups.size%> groups
-				<% if gt.destroyable_by?(@current_user) %> 
-				<span class="delete-grouptype">[<%=link_to 'X', gt, :method => :delete, :confirm => 'Really delete group type?'%>]</span>
-				<% end %>
-				<ul id="groups-list" class="listy">
-				<% gt.groups.each do |g| %>
-					<li>
-						<%= link_to g.name, group_type_group_url(g.group_type, g) %>
-						&ndash; <%= g.users.size %> members.
-						<% unless g.chairs.empty? %>
-							Chairs: 
-							<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
-						<% end %>
-						<% unless g.users.include? @current_user %>
-						&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
-						<% end %>
-					</li>
-				<% end %>
-				</ul>
-			</li>
-		<% end %>
-		</ul>
-	</div>
+<% end %>
+
+<% content_for :body do %>
+	<h2>My Groups</h2>
+	<ul id="groups-list" class="listy">
+	<% @current_user.groups.each do |g| %>
+		<li>
+			<%= link_to g.name, group_type_group_path(g.group_type, g) %>
+			&ndash; <%= g.users.size %> members.
+			<% unless g.chairs.empty? %>
+				Chairs: 
+				<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
+			<% end %>
+		</li>
+	<% end %>
+	</ul>
+	<h2 class="second-heading">All Groups</h2>
+	<ul id="group-type-list" class="listy outer">
+	<% @group_types.each do |gt| %>
+		<li class="outer">
+			<%= link_to gt.name.pluralize, gt, :class=>:title %>
+			&mdash; <%= gt.groups.size%> groups
+			<% if gt.destroyable_by?(@current_user) %> 
+			<span class="delete-grouptype">[<%=link_to 'X', gt, :method => :delete, :confirm => 'Really delete group type?'%>]</span>
+			<% end %>
+			<ul id="groups-list" class="listy">
+			<% gt.groups.each do |g| %>
+				<li>
+					<%= link_to g.name, group_type_group_url(g.group_type, g) %>
+					&ndash; <%= g.users.size %> members.
+					<% unless g.chairs.empty? %>
+						Chairs: 
+						<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
+					<% end %>
+					<% unless g.users.include? @current_user %>
+					&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
+					<% end %>
+				</li>
+			<% end %>
+			</ul>
+		</li>
+	<% end %>
+	</ul>
 <% end %>
