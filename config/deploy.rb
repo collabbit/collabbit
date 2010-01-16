@@ -28,6 +28,9 @@ after "deploy:update_code", "db:symlink"
 
 before "deploy:setup", :mail
 after "deploy:update_code", "mail:symlink"
+
+before "deploy:setup", :attachments
+after "deploy:update_code", "attachments:symlink"
   
 namespace :passenger do
 
@@ -144,5 +147,17 @@ namespace :mail do
   desc "Make symlink for database yaml" 
   task :symlink do
     run "ln -nfs #{shared_path}/config/initializers/smtp_settings.rb #{release_path}/config/initializers/smtp_settings.rb" 
+  end
+end
+
+namespace :attachments do
+  desc "Make shared attachments directory"
+  task :default do
+    run "mkdir -p #{shared_path}/attachments"
+  end
+  
+  desc "Link shared attachments directory"
+  task :symlink do
+    run "ln -nfs #{shared_path}/attachments #{release_path}/attachments"
   end
 end

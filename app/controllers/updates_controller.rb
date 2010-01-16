@@ -64,8 +64,7 @@ class UpdatesController < AuthorizedController
       :per_page => 50,
       :order => 'created_at DESC',
       :include => [:relevant_groups, :issuing_group, :tags]
-    }
-    
+    }    
     @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
   end
 
