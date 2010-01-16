@@ -9,51 +9,48 @@
 
 <% content_for :title, title('Edit', @instance.short_name) %>
 
-<% content_for :body do%>
-	<%= flashes %>
-	<div id="wrap">
-		<h1>Edit <span class="tiny">&laquo; <%=@instance.short_name%></span></h1>
+<% content_for :subheader_title, "Edit instance: #{@instance.long_name}" %>
+
+<% content_for :body do%>	
+	<%= error_messages_for :instance %>
+	<% form_for @instance, :url => {:action => :update} do |f| -%>
+		<p><%= f.label :long_name, 'Name' %><br/>
+		<%= f.text_field :long_name %></p>
 		
-		<%= error_messages_for :instance %>
-		<% form_for @instance, :url => {:action => :update} do |f| -%>
-			<p><%= f.label :long_name, 'Name' %><br/>
-			<%= f.text_field :long_name %></p>
-			
-			<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
-			<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
-		
-			<!-- table border="1">
-				<thead>
+		<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
+		<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
+	
+		<!-- table border="1">
+			<thead>
+				<tr>
+					<th colspan="2">Permissions</th>
+					<% @roles.each do |r| %>
+						<th><%= link_to r.name, r %></th>
+					<% end %>
+				</tr>
+			</thead>
+			<tbody>
+				<% @perms_hash.each_pair do |model, actions| %> 
 					<tr>
-						<th colspan="2">Permissions</th>
+						<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
+						<td><%= actions[0] %></td>
 						<% @roles.each do |r| %>
-							<th><%= link_to r.name, r %></th>
+							<td><%= permission_checkbox r, actions[0], model %></td>
 						<% end %>
-					</tr>
-				</thead>
-				<tbody>
-					<% @perms_hash.each_pair do |model, actions| %> 
-						<tr>
-							<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
-							<td><%= actions[0] %></td>
+						</tr>
+						<% actions[1..actions.length].each do |a|%>
+							<tr><td><%= a %></td> 
 							<% @roles.each do |r| %>
-								<td><%= permission_checkbox r, actions[0], model %></td>
+								<td><%= permission_checkbox r, a, model %></td>
 							<% end %>
 							</tr>
-							<% actions[1..actions.length].each do |a|%>
-								<tr><td><%= a %></td> 
-								<% @roles.each do |r| %>
-									<td><%= permission_checkbox r, a, model %></td>
-								<% end %>
-								</tr>
-							<% end %>
-							<% count = 0 %>
-							<% permissions = []%>
-					<% end %> 
-				</tbody>
-			</table -->
-		
-			<p><%= submit_tag 'Save' %></p>
-		<% end -%>
-	</div>
+						<% end %>
+						<% count = 0 %>
+						<% permissions = []%>
+				<% end %> 
+			</tbody>
+		</table -->
+	
+		<p><%= submit_tag 'Save' %></p>
+	<% end -%>
 <% end %>
