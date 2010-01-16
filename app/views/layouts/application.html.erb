@@ -20,8 +20,11 @@
 	</head>
 	<body>
 		<%= render :partial => 'shared/header' -%>
-		<div id="content">
-			<%= yield :body or yield %>
+		<div id="content" class="pagewidth">
+			<div id="wrap">
+				<%= flashes %>
+				<%= yield :body or yield %>
+			</div>
 		</div>
 		<div id="footer">
 			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', home_path(:page => 'terms', :return_to => @return_to) %> &middot; <%= link_to 'Privacy Policy', home_path(:page => 'privacy', :return_to => @return_to) %> &middot; <%= link_to 'Support', '#', :id => 'bottom-support' %>

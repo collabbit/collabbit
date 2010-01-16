@@ -9,6 +9,10 @@ body {
 .clear {
 	clear: both;
 }
+.pagewidth {
+	max-width: 944px;
+	margin: 0 auto;
+}
 #instance a {
 	color: white;
 }
@@ -24,10 +28,10 @@ body {
 
 #header {
 	margin: 0;
-	padding: 10px 40px 2px;
+	padding: 10px 0 2px;
 	color: #fff;
 	background: #444;
-	border-bottom: 4px solid #222
+	border-bottom: 1px solid #666;
 }
 	#account-status {
 		float: right;
@@ -74,9 +78,12 @@ body {
 					background: #333;
 				}
 			#menu .active a {
-				background: #222;
+				background: #2B416E;
+				border: 1px solid #666;
+				border-width: 1px 1px 0 1px;
 				font-weight: bold;
 				padding-top: 6px;
+				border-bottom: 1px solid #2B416E;
 			}
 			#incidents-li:hover a.visible {
 				background: #333;
@@ -91,7 +98,9 @@ body {
 					margin: 0;
 					position: absolute;
 					background: #333;
-					margin-left: 10px
+					margin-left: 10px;
+					border: 1px solid #666;
+					border-width: 0 1px 1px 1px;
 				}
 					#incidents-menu li {
 						display: block;
@@ -101,6 +110,7 @@ body {
 					}
 						/* don't want these highlighted when active */
 						#incidents-menu li.other a {
+							border-width: 0;
 							font-weight: normal;
 							background-color: transparent;
 							display: block;
@@ -119,39 +129,96 @@ body {
 								background: #666;
 							}
 
+#subheader {
+	background: #2B416E;
+	color: white;
+	padding: 6px 0 40px;
+	border-bottom: 1px solid #666;
+}
+	#breadcrumbs {
+		list-style-type: none;
+		padding: 0 0 2px;
+		margin: 0;
+		color: #999;
+	}
+		#breadcrumbs a {
+			color: #eee;
+		}
+	#subheader_main {
+	}
+		#subheader_main h1 {
+			float: left;
+			margin: 0;
+			padding: 0;
+			font-size: 30px;
+			letter-spacing: -1px;
+		}
+		#subheader_main #buttons a {
+			float: right;
+			background: #444;
+			margin-top: 1px;
+			padding: 6px 12px;
+			display: block;
+			border: 2px solid #1A2D53;
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+		}
+			#subheader_main #buttons a:hover {
+				border-color: white;
+			}
+	#subheader_text {
+		clear: both;
+		margin: 0;
+		margin: 5px 0 12px;
+		color: #eee;
+	}
+		#subheader_text a {
+			color: #eee;
+		}
+	#filters {
+		max-width: 944px;
+	}
+		#filters input, #filters select {
+			background: #ddd;
+			border: 2px solid #1A2D53;
+			color: black;
+			margin: 0;
+			margin-right: 1%;
+		}
+			#filters input:focus, #filters select:focus {
+				background: white;
+			}
+		#filters #filters_keywords {
+			padding: 4px 3px;
+			width: 35%;
+		}
+		#filters select {
+			width: 21%;
+			padding: 3px;
+			margin-left: -3px;
+		}
+		#filters #filters_submit {
+			padding: 3px;
+			width: 18%;
+			background: #444;
+			color: white;
+			font-weight: bold;
+			margin-right: 0;
+			float: right;
+		}
+			#filters_submit:hover {
+				border-color: white;
+			}
+
 #content{
 	background: #fff;
-	border-right: 2px solid #aaa;
-	border-bottom: 2px solid #aaa;
-	margin: 25px 40px;
-
+	border: 1px solid #bbb;
+	margin-top: -30px;
 }
-	.button-link {
-		padding: 5px 10px;
-		margin: 5px 5px 0 0;
-		float: right;
-		border-top: none;
-		border: 1px solid #777;
-		color: #fff;
-		font-size: 16px;
-		text-decoration: none;
-		font-weight: bold;
-		background: #88888b;
-	}
-		.button-link:hover {
-			background: #55555b;
-		}
 	#wrap {
+		padding: 20px;
 	}
-		#wrap h1 {
-			font-size: 18px;
-			padding: 10px;
-			margin-left: -10px;
-			margin-right: -10px;
-			background: #dddddb;
-			border: 1px solid #ccc;
-			border-width: 1px 0 0 1px;
-		}
 
 #footer{
 	color: #666;
@@ -159,29 +226,6 @@ body {
 	margin: 10px 0;
 	text-align: center;
 }
-
-#flashes{
-	margin-top: -25px;
-	float: left;
-}
-
-#flashes div div{
-	padding: 2px 7px;
-	margin-top: 1px;
-	font-weight: bold;
-}
-	#error div{
-		color: #800;
-	}
-
-	#notice div{
-		color: #080;
-	}
-
-#wrap{
-	padding: 0 10px 20px 10px;
-}
-
 .tiny{
 	font-size: 14px;
 	color: #999;

@@ -1,18 +1,35 @@
 <div id="header">
-	<div id="account-status">
-	<% if @current_user && can?(:view => @instance) %>
-		Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
-		(<%=link_to('Log Out', logout_path) -%>)
-	<% else %>
-		<%= link_to('Log In', login_path) %>
-		<%= link_to('Sign Up', signup_path) %>
-	<% end unless promo? %>
+	<div class="pagewidth">
+		<div id="account-status">
+		<% if @current_user && can?(:view => @instance) %>
+			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
+			(<%=link_to('Log Out', logout_path) -%>)
+		<% else %>
+			<%= link_to('Log In', login_path) %>
+			<%= link_to('Sign Up', signup_path) %>
+		<% end unless promo? %>
+		</div>
+		<%= yield :branding or render :partial => 'shared/branding' -%>
+		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
+		<div class="clear"></div>
 	</div>
-	<%= yield :branding or render :partial => 'shared/branding' -%>
-	<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
-	<div class="clear"></div>
 </div>
 
+
 <div id="subheader">
-	<%= yield :submenu or render :partial => 'submenu' rescue nil %>
-</div -->
+	<div class="pagewidth">
+		<div id="breadcrumbs">
+			<%= yield :breadcrumbs %>
+		</div>
+		<div id="subheader_main">
+			<h1><%= yield :subheader_title %></h1>
+			<div id="buttons"><%= yield :buttons %></div>
+			<div class="clear"></div>
+		</div>
+		<%= yield :subheader_text %>
+		<div id="filters">
+			<%= yield :filters %>	
+		</div>
+	</div>
+</div>
+

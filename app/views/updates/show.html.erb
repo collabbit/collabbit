@@ -9,56 +9,53 @@
 
 <% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
 
-<% content_for :body do %>
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Incidents',incidents_path],
+				[@incident.name,incident_path(@incident)]) %>
+<% content_for :subheader_title, @update.title %>
+<% content_for :buttons do %>
 	<%= pretty_button(:delete_update, incident_update_path(@incident, @update), 'Delete Update', :method => :delete, :confirm => "Really delete update?") if can?(:destroy => @update)%>
 	<%= pretty_button(:edit_update, edit_incident_update_path(@incident, @update), 'Edit Update') if can?(:update => @update) %>
-	<%= flashes %>
-	<div id="wrap">
-		<h1>
-			<%= @update.title%>
-			<span class="tiny">
-				&laquo; <%= link_to @incident.name, @incident %>
-			</span>
-			<span class="under">
-				(by <%=link_to_issuer @update%>
-				on <%= time_mdy @update.created_at%>)
-			</span>
-		</h1>
-		<p><%=simple_format(h(@update.text)) %></p>
-		
-    <!-- Files-->
-		<% unless @update.files.empty? %>
-			<div class="files">
-				<em>Attached Files:</em>
-				<ul class="flat-list">
-				<% @update.attachments.each do |f| %>
-					<li><%=link_to f.attach.original_filename, f.attach.url%></li>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-		
-		<% unless @update.tags.empty? %>
-			<div class="relevant-groups">
-				<em>Relevant groups:</em>
-				<ul class="flat-list">
-				<% @update.relevant_groups.each do |g| %>
-					<li><%=easy_link_to(g.name, g)%></li>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-				
-		<!-- Tags -->
-		<% unless @update.tags.empty? %>
-			<div class="tags">
-				<em>Tags:</em>
-				<ul class="flat-list">
-				<% @update.tags.each do |t| %>
-					<li><%=easy_link_to(t.name, t)%></li>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-	</div>
+<% end %>
+<% content_for :subheader_text,
+	subheader_text('by '+link_to_issuer(@update)+' on '+time_mdy(@update.created_at)) %>
+
+<% content_for :body do %>
+	<p><%=simple_format(h(@update.text)) %></p>
+	
+<!-- Files-->
+	<% unless @update.files.empty? %>
+		<div class="files">
+			<em>Attached Files:</em>
+			<ul class="flat-list">
+			<% @update.attachments.each do |f| %>
+				<li><%=link_to f.attach.original_filename, f.attach.url%></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<% unless @update.tags.empty? %>
+		<div class="relevant-groups">
+			<em>Relevant groups:</em>
+			<ul class="flat-list">
+			<% @update.relevant_groups.each do |g| %>
+				<li><%=easy_link_to(g.name, g)%></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+			
+	<!-- Tags -->
+	<% unless @update.tags.empty? %>
+		<div class="tags">
+			<em>Tags:</em>
+			<ul class="flat-list">
+			<% @update.tags.each do |t| %>
+				<li><%=easy_link_to(t.name, t)%></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
 <% end %>

@@ -11,12 +11,12 @@
 
 #updates-list{
 	list-style-type: none;
-	margin: 20px 0;
+	margin: 0;
 	padding: 0;
 }
 	#updates-list > li{
 		padding: 0 0 10px 0;
-		margin: 20px 0 0 0;
+		margin: 0 0 20px 0;
 		border-bottom: 1px solid #ddd;
 	}
 		#updates-list li a.update-title{
@@ -61,27 +61,6 @@
 					.relevant-groups ul li a, .tags ul li a{
 						color: #777;
 					}
-/* replace with more general CSS in sitewide.css */
-/*	.edit-update-button{
-		float: right;
-		background: #006;
-		border-top: none;
-		margin-right: 10px;
-	}
-		.edit-update-button:hover{
-			background: #009;
-		}
-	.delete-update-button{
-		float: right;
-		background: #600;
-		border-top: none;
-		margin-right: 10px;
-	}
-		.delete-update-button:hover{
-			background: #900;
-		} */
-/* #new */
-
 /* #show */
 #relevant-groups, #tags{
 	color: #999;
@@ -92,35 +71,11 @@
 	}
 
 
-/* filters */
-#view-options {
-	margin: 0 0 10px;
-	padding: 0 0 10px;
-	border-bottom: 1px solid #ddd;
-	color: #333;
-}
-	#view-options h3 {
-		display: inline;
-		font-size: 16px;
-		padding-right: 10px;
-	}
-	#view-options form {
-		display: inline;
-	}
-	#view-options select {
-		max-width: 250px;
-	}
-	#search {
-		border: 1px solid #ccc;
-		padding: 2px;
-	}
-		.blank {
-			color: #999;
-		}
-
 /* new/edit update page */
 #update-form {
 	width: 658px;
+	margin-top: -25px;
+	margin-left: -10px;
 }
 	#errorExplanation {
 		float: left;
@@ -129,6 +84,7 @@
 		width: 658px;
 		clear: both;
 		padding-top: 15px;
+		margin: 0;
 	}
 	p#submit_box {
 		width: 658px;
@@ -151,7 +107,7 @@
 				background: #555;
 			}
 		#file_attach {
-			margin-left: 62px;
+			padding-left: 62px;
 			width: 596px;
 			padding-bottom: 10px;
 		}

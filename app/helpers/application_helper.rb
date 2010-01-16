@@ -39,6 +39,14 @@ module ApplicationHelper
     "\n</ul></li>"
   end
 
+  def breadcrumbs(*args)
+    args.collect { |n,l| link_to(n,l) }.join(' &#9656; ')
+  end
+
+  def subheader_text(text)
+    '<p id="subheader_text">' + text + '</p>'
+  end
+
   def title(*args)
     args.flatten.concat(['Collabbit']).join(' &laquo; ')
   end

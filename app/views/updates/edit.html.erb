@@ -8,14 +8,15 @@
 %>
 
 <% content_for :title, title ('Edit update', @update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
-
 <% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates') -%>
 
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Incidents',incidents_path],
+				[@incident.name,incident_path(@incident)],
+				[@update.title,incident_update_path(@incident,@update)]) %>
+<% content_for :subheader_title, 'Edit Update' %>
 
 <% content_for :body do %>
-    <%= flashes %>
-    <div id="wrap">
-    	<h1>Edit update <span class="tiny">&laquo; <%=@incident.name%></span></h1>
-    	<%= render :partial => 'form', :locals => {:button_text => 'Save Changes'} %>
-    </div>
+   	<%= render :partial => 'form', :locals => {:button_text => 'Save Changes'} %>
 <% end %>
