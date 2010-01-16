@@ -9,17 +9,17 @@
 
 <% content_for :title, title('Create a group', 'Groups', @instance.short_name)%>
 
-<% content_for :body do %>
-	<%= flashes%>
-	<div id="wrap">
-		<h1>Create a group</h1>
-	
-		<%= error_messages_for :group %>
-		<% form_for [@group_type, @group] do |f| -%>
-			<%= f.label :name %>
-			<%= f.text_field :name %>
-	
-			<p><%= f.submit 'Create' %></p>
-		<% end %>
-	</div>
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Groups',group_types_url]) %>
+<% content_for :subheader_title, 'Create a group' %>
+
+<% content_for :body do %>	
+	<%= error_messages_for :group %>
+	<% form_for [@group_type, @group] do |f| -%>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+		<p><%= f.submit 'Create' %></p>
+	<% end %>
 <% end %>

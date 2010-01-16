@@ -10,7 +10,11 @@
 
 <% content_for :title, title('Groups', @instance.short_name)%>
 
-<% content_for :body do %>
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Groups',group_types_url]) %>
+<% content_for :subheader_title, @group_type.name.pluralize %>
+<% content_for :buttons do %>
     <% if can? :update => @group_type %>
 	    <%=pretty_button :edit_group_type, edit_group_type_path(@group_type), 'Edit Group Type' %>
 	<% end %>
@@ -18,24 +22,22 @@
 	<% if can? :create => Group %>
 	    <%=pretty_button :new_group, new_group_type_group_path(@group_type), 'New Group' -%>
 	<% end %>
-	
-	<%= flashes %>
-	<div id="wrap">
-		<h1><span class='tiny'><%= link_to 'Groups',group_types_url %> &raquo;</span> <%= @group_type.name.pluralize %> </h1>
-		<ul id="groups-list" class="listy">
-		<% @group_type.groups.each do |g| %>
-			<li>
-				<%= link_to g.name, group_type_group_url(g.group_type, g) %>
-				&ndash; <%= g.users.size %> members.
-				<% unless g.chairs.empty? %>
-					Chairs: 
-					<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
-				<% end %>
-				<% unless g.users.include? @current_user %>
-				&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
-				<% end %>
-			</li>
-		<% end %>
-		</ul>
-	</div>
+<% end %>
+
+<% content_for :body do %>
+	<ul id="groups-list" class="listy">
+	<% @group_type.groups.each do |g| %>
+		<li>
+			<%= link_to g.name, group_type_group_url(g.group_type, g) %>
+			&ndash; <%= g.users.size %> members.
+			<% unless g.chairs.empty? %>
+				Chairs: 
+				<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
+			<% end %>
+			<% unless g.users.include? @current_user %>
+			&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
+			<% end %>
+		</li>
+	<% end %>
+	</ul>
 <% end %>

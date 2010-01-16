@@ -9,11 +9,17 @@
 
 <% content_for :title, title('Edit group', @group.name, 'Groups', @instance.short_name)%>
 
+<% content_for :breadcrumbs, 
+	breadcrumbs(['Overview',overview_url],
+				['Groups',group_types_url],
+				[@group.group_type.name.pluralize,group_type_url(@group.group_type)],
+				[@group.name,group_type_group_url(@group.group_type,@group)]) %>
+<% content_for :subheader_title, 'Edit group' %>
+
 <% content_for :body do %>
-	<h1>Edit group: <%=@group.name%></h1>
 	<%= error_messages_for :group %>
-	<% form_for @group.group_type, @group do |f| -%>
-		<p><%= label_tag 'name' %><br/>
+	<% form_for [@group.group_type,@group] do |f| -%>
+		<p><%= label_tag 'Group Name' %><br/>
 		<%= f.text_field :name %></p>
 				
 		<p><%= submit_tag 'Save' %></p>
