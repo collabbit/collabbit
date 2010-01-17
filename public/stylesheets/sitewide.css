@@ -157,18 +157,23 @@ body {
 		}
 		#subheader_main #buttons a {
 			float: right;
-			background: #444;
 			margin-top: 1px;
-			padding: 6px 12px;
+			padding: 4px 10px;
 			display: block;
-			border: 2px solid #1A2D53;
+			border: 1px solid white;
 			color: white;
+			-moz-border-radius: 20px;
+			-webkit-border-radius: 20px;
+			border-radius: 20px;
 			text-decoration: none;
 			font-weight: bold;
 			margin-left: 3px;
 		}
 			#subheader_main #buttons a:hover {
-				border-color: white;
+				background: #222;
+			}
+			#subheader_main #buttons a:active {
+				border-color: black;
 			}
 	#subheader_text {
 		clear: both;
@@ -187,7 +192,7 @@ body {
 		}
 			#filters input, #filters select {
 				background: #ddd;
-				border: 2px solid #1A2D53;
+				border: 1px solid #1A2D53;
 				color: black;
 				margin: 0;
 				margin-right: 1%;
@@ -207,14 +212,18 @@ body {
 			#filters #filters_submit {
 				padding: 3px;
 				width: 18%;
-				background: #444;
 				color: white;
+				background: transparent;
+				border-color: white;
 				font-weight: bold;
 				margin-right: 0;
-				float: right;
+				-moz-border-radius: 20px;
 			}
-				#filters_submit:hover {
-					border-color: white;
+				#filters #filters_submit:hover {
+					background: #222;
+				}
+				#filters #filters_submit:active {
+					border-color: black;
 				}
 
 #content{
