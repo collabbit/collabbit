@@ -41,8 +41,12 @@
 		</div>	
 		<ul id="index">
 			<li><em>Jump to last name:</em></li>
+		<%  letters = []
+		    @users.each {|u| letters << u.last_name[0,1] unless letters.include?(u.last_name[0,1])}
+		%>
+		
 		<% ('A'..'Z').each do |l| %>
-			<li><a href="#<%=l%>"><%=l%></a></li>	
+			<li><a href="#<%=l%>" class="<%="bold" if letters.include?(l)%>"><%=l%></a></li>	
 		<% end %>
 		</ul>
 	</div>		

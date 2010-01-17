@@ -14,7 +14,7 @@
 		padding: 4px;
 	}
 		#index li a{
-			color: #666
+			color: #999
 		}
 #contacts{
 	list-style-type: none;
@@ -145,4 +145,9 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+}
+
+#index li a.bold{
+    font-weight: bold;
+    color: #333;
 }
