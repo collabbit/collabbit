@@ -11,8 +11,7 @@
 <% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates') -%>
 
 <% content_for :breadcrumbs, 
-	breadcrumbs(['Overview',overview_url],
-				['Incidents',incidents_path],
+	breadcrumbs(['Incidents',incidents_path],
 				[@incident.name,incident_path(@incident)]) %>
 <% content_for :subheader_title, 'Add Update' %>
 

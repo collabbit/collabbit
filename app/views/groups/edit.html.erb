@@ -9,9 +9,8 @@
 
 <% content_for :title, title('Edit group', @group.name, 'Groups', @instance.short_name)%>
 
-<% content_for :breadcrumbs, 
-	breadcrumbs(['Overview',overview_url],
-				['Groups',group_types_url],
+<% content_for :breadcrumbs,
+	breadcrumbs(['Groups',group_types_url],
 				[@group.group_type.name.pluralize,group_type_url(@group.group_type)],
 				[@group.name,group_type_group_url(@group.group_type,@group)]) %>
 <% content_for :subheader_title, 'Edit group' %>

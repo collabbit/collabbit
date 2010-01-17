@@ -9,9 +9,8 @@
 
 <% content_for :title, title(@group.name, 'Groups', @instance.short_name)%>
 
-<% content_for :breadcrumbs, 
-	breadcrumbs(['Overview',overview_url],
-				['Groups',group_types_url],
+<% content_for :breadcrumbs,
+	breadcrumbs(['Groups',group_types_url],
 				[@group.group_type.name.pluralize,group_type_url(@group.group_type)]) %>
 <% content_for :subheader_title, @group.name %>
 <% content_for :buttons do %>

@@ -12,8 +12,7 @@
 <% content_for :javascripts, javascript_include_tag('jquery','users')%>
 
 <% content_for :breadcrumbs, 
-	breadcrumbs(['Overview',overview_url],
-				['Contacts',users_path]) %>
+	breadcrumbs(['Contacts',users_path]) %>
 <% content_for :subheader_title do %>
 	<% if @search and @groups_filter %>
 		<%="Results for '#{h @search}' in #{h @instance.groups.find(@groups_filter).name}" %>

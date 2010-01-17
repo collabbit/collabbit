@@ -1,6 +1,6 @@
 <div id="header">
 	<div class="pagewidth">
-		<div id="header-title">collabbit</div>
+		<%= yield :branding or render :partial => 'shared/branding' -%>
 		<div id="account-status">
 		<% if @current_user && can?(:view => @instance) %>
 			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
@@ -10,9 +10,8 @@
 			<%= link_to('Sign Up', signup_path) %>
 		<% end unless promo? %>
 		</div>
-		<!-- %= yield :branding or render :partial => 'shared/branding' -% -->
 		<div id="breadcrumbs">
-			<%= yield :breadcrumbs %>
+			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize,overview_url)%>
 		</div>
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		<div class="clear"></div>

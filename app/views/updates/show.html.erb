@@ -10,8 +10,7 @@
 <% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
 
 <% content_for :breadcrumbs, 
-	breadcrumbs(['Overview',overview_url],
-				['Incidents',incidents_path],
+	breadcrumbs(['Incidents',incidents_path],
 				[@incident.name,incident_path(@incident)]) %>
 <% content_for :subheader_title, @update.title %>
 <% content_for :buttons do %>

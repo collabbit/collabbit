@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def breadcrumbs(*args)
-    args.collect { |n,l| link_to(n,l) }.join(' &#9656; ')
+    ([[@instance.short_name.capitalize,overview_path]]+args).collect { |n,l| link_to(n,l) }.join(' &#9656; ')
   end
 
   def subheader_text(text)

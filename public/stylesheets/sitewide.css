@@ -50,11 +50,8 @@ body {
 		font-weight: bold;
 		clear: both;
 	}
-		#instance-name {
-			font-size: 36px;
-			line-height: 36px;
-			color: white;
-			font-weight: normal;
+		#header-title a {
+			color: #eee;
 			text-decoration: none;
 		}
 	#menu {
@@ -135,13 +132,13 @@ body {
 	border-bottom: 1px solid #666;
 }
 	#breadcrumbs {
-		list-style-type: none;
+		font-size: 14px;
 		padding: 0 0 2px;
 		margin: 0;
 		color: #999;
 		clear: both;
 		float: left;
-		margin: 13px 0 0 ;
+		margin: 11px 0 -2px;
 	}
 		#breadcrumbs a {
 			color: #eee;
@@ -160,7 +157,7 @@ body {
 		}
 		#subheader_main #buttons a {
 			float: right;
-			margin-top: 1px;
+			margin-top: 5px;
 			padding: 4px 10px;
 			display: block;
 			border: 1px solid white;
