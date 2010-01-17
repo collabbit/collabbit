@@ -82,11 +82,13 @@ body {
 				border: 1px solid #666;
 				border-width: 1px 1px 0 1px;
 				font-weight: bold;
-				padding-top: 6px;
+				padding: 6px 7px 2px;
 				border-bottom: 1px solid #2B416E;
 			}
 			#incidents-li:hover a.visible {
 				background: #333;
+				border: 1px solid #666;
+				padding: 4px 7px 2px;
 			}
 			#incidents-li.active:hover a.visible {
 				background: #222;

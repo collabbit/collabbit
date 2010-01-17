@@ -27,7 +27,7 @@
 		<%= pretty_button(:add_update, new_incident_update_path(@incident), 'Add Update')%>
 	<% end %>
 <% end %>
-<% content_for :subheader_text, subheader_text(@incident.description) %>
+<% content_for :subheader_text, subheader_text(@incident.description) if @incident.description %>
 <% content_for :filters do %>
 	<%	# there's probably a better place to be doing the require,
 		# but this code is much more efficient and more compact
