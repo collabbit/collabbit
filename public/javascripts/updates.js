@@ -15,7 +15,7 @@ $(function(){
 			$(this).val(init).addClass('blank');
 	});
 	
-	$('#view-options form').submit(function(){
+	$('#filters form').submit(function(){
 		if($('#search').val() == init)
 			$('#search').val('')
 		return true;
