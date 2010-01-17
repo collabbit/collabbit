@@ -1,6 +1,8 @@
 <div id="header">
 	<div class="pagewidth">
-		<%= yield :branding or render :partial => 'shared/branding' -%>
+		<div id="breadcrumbs">
+			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize,overview_url)%>
+		</div>
 		<div id="account-status">
 		<% if @current_user && can?(:view => @instance) %>
 			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
@@ -10,9 +12,7 @@
 			<%= link_to('Sign Up', signup_path) %>
 		<% end unless promo? %>
 		</div>
-		<div id="breadcrumbs">
-			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize,overview_url)%>
-		</div>
+		<%= yield :branding or render :partial => 'shared/branding' -%>
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		<div class="clear"></div>
 	</div>

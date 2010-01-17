@@ -36,6 +36,7 @@ body {
 	#account-status {
 		float: right;
 		font-size: 14px;
+		margin: -2px 0 2px;
 	}
 		#account-status a {
 			padding: 0 3px;
@@ -46,12 +47,15 @@ body {
 			}
 	#header-title {
 		float: left;
-		color: #ccc;
+		color: #bbb;
 		font-weight: bold;
 		clear: both;
+		margin: 9px 0 -2px -1px;
 	}
 		#header-title a {
 			color: #eee;
+			font-size: 21px;
+			font-weight: normal;
 			text-decoration: none;
 		}
 	#menu {
@@ -133,12 +137,9 @@ body {
 }
 	#breadcrumbs {
 		font-size: 14px;
-		padding: 0 0 2px;
-		margin: 0;
 		color: #999;
-		clear: both;
 		float: left;
-		margin: 11px 0 -2px;
+		margin: -2px 0 2px;
 	}
 		#breadcrumbs a {
 			color: #eee;
