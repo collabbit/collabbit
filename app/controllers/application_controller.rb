@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   end
   
   def check_account_redirect
+    logger.info "Promo? #{"yes" if promo?}" 
     redirect_to login_path unless promo? || controller_name != 'home'
     redirect_to about_path if promo? && params[:page].blank?
   end
@@ -45,7 +46,8 @@ class ApplicationController < ActionController::Base
   
   def promo?
     return true if Instance::FORBIDDEN_SUBDOMAINS.include? subdomain || subdomain.blank?
-    return !Instance.exists?(:short_name => subdomain)
+    return true unless Instance.exists?(:short_name => subdomain)
+    return controller_name == 'home' && !params[:page].blank?
   end
   
   def subdomain
