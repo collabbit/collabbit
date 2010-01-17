@@ -46,12 +46,9 @@ body {
 			}
 	#header-title {
 		float: left;
-		font-size: 16px;
-		color: #aaa;
-		margin-top: -4px;
+		color: #ccc;
 		font-weight: bold;
 		clear: both;
-		line-height: 16px;
 	}
 		#instance-name {
 			font-size: 36px;
@@ -142,10 +139,16 @@ body {
 		padding: 0 0 2px;
 		margin: 0;
 		color: #999;
+		clear: both;
+		float: left;
+		margin: 13px 0 0 ;
 	}
 		#breadcrumbs a {
 			color: #eee;
 		}
+			#breadcrumbs a:hover {
+				text-decoration: none;
+			}
 	#subheader_main {
 	}
 		#subheader_main h1 {

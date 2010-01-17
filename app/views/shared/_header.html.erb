@@ -1,5 +1,6 @@
 <div id="header">
 	<div class="pagewidth">
+		<div id="header-title">collabbit</div>
 		<div id="account-status">
 		<% if @current_user && can?(:view => @instance) %>
 			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
@@ -9,7 +10,10 @@
 			<%= link_to('Sign Up', signup_path) %>
 		<% end unless promo? %>
 		</div>
-		<%= yield :branding or render :partial => 'shared/branding' -%>
+		<!-- %= yield :branding or render :partial => 'shared/branding' -% -->
+		<div id="breadcrumbs">
+			<%= yield :breadcrumbs %>
+		</div>
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		<div class="clear"></div>
 	</div>
@@ -17,9 +21,6 @@
 
 <div id="subheader">
 	<div class="pagewidth">
-		<div id="breadcrumbs">
-			<%= yield :breadcrumbs %>
-		</div>
 		<div id="subheader_main">
 			<h1><%= yield :subheader_title %></h1>
 			<div id="buttons"><%= yield :buttons %></div>
