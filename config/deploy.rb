@@ -128,20 +128,19 @@ namespace :mail do
       Capistrano::CLI.password_prompt 'Email Password: '
     end
     
-    smtp_settings = ERB.new <<-EOF
-    ActionMailer::Base.smtp_settings = {
-      :enable_starttls_auto => true,
-      :address        => 'smtp.gmail.com',
-      :port           => 587,
-      :domain         => 'collabbit.org',
-      :authentication => :plain,
-      :user_name      => '#{email_addr}',
-      :password       => '#{email_pass}'
+    smtp_settings = {
+      :production => {
+        :port     => 587,
+        :domain   => 'collabbit.org',
+        :address  => 'localhost',
+        :username => email_addr,
+        :password => email_pass,
+        :tls      => false
+      }
     }
-    EOF
 
-    run "mkdir -p #{shared_path}/config/initializers" 
-    put smtp_settings.result, "#{shared_path}/config/initializers/smtp_settings.rb"
+    run "mkdir -p #{shared_path}/config/" 
+    put smtp_settings.to_yaml, "#{shared_path}/config/smtp.yml"
   end
 
   desc "Make symlink for database yaml" 
