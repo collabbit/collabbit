@@ -35,7 +35,6 @@ class ApplicationController < ActionController::Base
   end
   
   def check_account_redirect
-    logger.info "Promo? #{"yes" if promo?}" 
     redirect_to login_path unless promo? || controller_name != 'home'
     redirect_to about_path if promo? && params[:page].blank?
   end
