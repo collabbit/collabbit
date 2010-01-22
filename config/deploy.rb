@@ -32,6 +32,9 @@ after "deploy:update_code", "mail:symlink"
 before "deploy:setup", :attachments
 after "deploy:update_code", "attachments:symlink"
   
+before "deploy:setup", :exceptional
+after "deploy:update_code", "exceptional:symlink"  
+  
 namespace :passenger do
 
   desc <<-DESC
@@ -117,6 +120,30 @@ namespace :db do
   end
 end
 
+namespace :exceptional do
+  desc "Create Exceptional"
+  task :default do
+    set :api_key do
+      Capistrano::CLI.ui.ask 'Exceptional API key?'
+    end
+    
+    exceptional_data = {
+      'production' => {
+        'api-key' => api_key,
+        'enabled' => true
+      }
+    }
+    
+    run "mkdir -p #{shared_path}/config" 
+    put exceptional_data.to_yaml, "#{shared_path}/config/exceptional.yml"
+  end
+  
+  task :symlink do
+    run "ln -nfs #{shared_path}/config/exceptional.yml #{release_path}/config/exceptional.yml" 
+  end
+  
+end
+
 namespace :mail do
   desc "Create mailserver yaml in shared path" 
   task :default do
@@ -129,23 +156,26 @@ namespace :mail do
     end
     
     smtp_settings = {
-      :production => {
-        :port     => 587,
-        :domain   => 'collabbit.org',
-        :address  => 'localhost',
-        :username => email_addr,
-        :password => email_pass,
-        :tls      => false
+      'production' => {
+        'port'     => 587,
+        'domain'   => 'collabbit.org',
+        'address'  => 'localhost',
+        'username' => email_addr,
+        'password' => email_pass,
+        'tls'      => false
       }
     }
 
-    run "mkdir -p #{shared_path}/config/" 
+    run "mkdir -p #{shared_path}/config" 
+    run "chmod 775 #{shared_path}/config"
+  
     put smtp_settings.to_yaml, "#{shared_path}/config/smtp.yml"
+    run "chmod 775 #{shared_path}/config/smtp.yml"
   end
 
   desc "Make symlink for database yaml" 
   task :symlink do
-    run "ln -nfs #{shared_path}/config/initializers/smtp_settings.rb #{release_path}/config/initializers/smtp_settings.rb" 
+    run "ln -nfs #{shared_path}/config/smtp.yml #{release_path}/config/smtp.yml" 
   end
 end
 
