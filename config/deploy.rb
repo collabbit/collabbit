@@ -157,12 +157,13 @@ namespace :mail do
     
     smtp_settings = {
       'production' => {
-        'port'     => 587,
+        'port'     => 25,
         'domain'   => 'collabbit.org',
         'address'  => 'localhost',
         'username' => email_addr,
         'password' => email_pass,
-        'tls'      => false
+        'tls'      => false,
+        'authentication' => 'plain'
       }
     }
 
@@ -189,5 +190,12 @@ namespace :attachments do
   desc "Link shared attachments directory"
   task :symlink do
     run "ln -nfs #{shared_path}/attachments #{release_path}/attachments"
+  end
+end
+
+namespace :gems do
+  desc "Update gems"
+  task :default do
+    run "rake gems:install"
   end
 end
