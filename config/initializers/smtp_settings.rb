@@ -1,4 +1,4 @@
-settings = YAML.load_file("config/smtp.yml")[ENV['RAILS_ENV']]
+settings = YAML.load_file("config/smtp.yml")[ENV['RAILS_ENV'] || 'production']
 
 ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => settings['tls'],

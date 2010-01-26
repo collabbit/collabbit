@@ -27,6 +27,19 @@ class UpdatesController < AuthorizedController
     @update = @incident.updates.find(params[:id])
     return with_rejection unless @current_user.can? :update => @update
   end
+  
+  def poll_for_newer
+    incident = @instance.incidents.find(params[:incident_id])
+    diff = incident.updates.last.id - params[:update_id].to_i
+    if diff > 0
+      render :update do |page|  
+        page.replace_html 'new-updates', "<span>There are #{diff} new updates.
+          #{link_to 'Reload the page', incident_updates_path(incident)} to see them.</span>"
+      end
+    else
+      render :text => ''
+    end
+  end
 
   # Used for displaying the list of updates in a particular incident
   # Uses the mislav-will_paginate plugin
