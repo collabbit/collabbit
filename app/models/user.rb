@@ -5,10 +5,8 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-require 'digest/sha1'
-
 class User < ActiveRecord::Base
-  include Authority
+  include Authority, Passworded
   STATES = {:pending => 'pending', :pending_approval => 'pending_approval', :active => 'active', :deleted => 'deleted'}
 
   belongs_to :role
@@ -93,13 +91,6 @@ class User < ActiveRecord::Base
   end
   
   
-  # Reencrypt passwords
-  def before_update
-    if !@password.blank? && @password_confirmation == @password
-      self.crypted_password = generate_crypted_password(@password)
-    end
-  end
-  
   # Provides a user's full name for convenience
   def full_name
     first_name + " " + last_name
@@ -155,11 +146,6 @@ class User < ActiveRecord::Base
   # Returns an array of the groups that the user chairs
   def chaired_groups
     (memberships.select {|m| m.is_chair}).map {|m| m.group}
-  end
-  
-  # Generates the properly encrypted password
-  def generate_crypted_password(plaintext = password)
-    Digest::SHA1.hexdigest(plaintext + salt) if plaintext && salt
   end
   
   # Generates the activation code
