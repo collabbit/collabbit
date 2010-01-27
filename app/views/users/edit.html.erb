@@ -17,6 +17,7 @@
 	<% @user.password = @user.password_confirmation = nil %>
 	
 	<%= error_messages_for :user %>
+	<% @user.password = @user.password_confirmation = '' %>
 	<% form_for @user do |f| -%>
 		<p><%= f.label 'email' %><br/>
 		<%= f.text_field :email, :title => 'Username' %></p>
@@ -41,7 +42,7 @@
 		<%= f.password_field :password, :autocomplete => 'off' %></p>
 	
 		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
-		<%= f.password_field :password_confirmation %></p>
+		<%= f.password_field :password_confirmation, :autocomplete => 'off' %></p>
 	
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>
