@@ -198,6 +198,6 @@ end
 namespace :gems do
   desc "Update gems"
   task :default do
-    run "cd #{release_path} && rake gems:install"
+    run "cd #{release_path} && rake gems:install && rake gems:unpack"
   end
 end
