@@ -6,11 +6,14 @@ keys = {
   :port                 => 'port',
   :domain               => 'domain',
   :user_name            => 'username',
-  :password             => 'password'
+  :password             => 'password',
+  :authentication       => 'authentication'
 }
 
+ActionMailer::Base.smtp_settings = {}
+
 keys.each_pair do |k, v|
-  if settings.include? v && !settings[v].blank?
+  if settings.include?(v) && !settings[v].blank?
     ActionMailer::Base.smtp_settings[k] = settings[v]
   end
 end
