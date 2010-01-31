@@ -148,15 +148,7 @@ end
 
 namespace :mail do
   desc "Create mailserver yaml in shared path" 
-  task :default do
-    
-    set :email_addr do
-      Capistrano::CLI.ui.ask 'Email Address: '
-    end
-    set :email_pass do
-      Capistrano::CLI.password_prompt 'Email Password: '
-    end
-    
+  task :default do    
     smtp_settings = {
       'production' => {
         'port'     => 25,
