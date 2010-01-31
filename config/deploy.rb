@@ -34,6 +34,8 @@ after "deploy:update_code", "attachments:symlink"
   
 before "deploy:setup", :exceptional
 after "deploy:update_code", "exceptional:symlink"  
+
+after "deploy:update_code", :gems
   
 namespace :passenger do
 
