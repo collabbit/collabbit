@@ -1,16 +1,18 @@
 settings = YAML.load_file("config/smtp.yml")[ENV['RAILS_ENV'] || 'production']
 
-ActionMailer::Base.smtp_settings = {
-  :enable_starttls_auto => settings['tls'],
-  :address        => settings['address'],
-  :port           => settings['port'] || 25,
-  :domain         => settings['domain'],
-  :user_name      => settings['username'],
-  :password       => settings['password']
+ActionMailer::Base.smtp_settings = 
+
+keys = {
+  :enable_starttls_auto => 'tls',
+  :address              => 'address',
+  :port                 => 'port',
+  :domain               => 'domain',
+  :user_name            => 'username',
+  :password             => 'password'
 }
 
-if settings.include? 'authentication' && !settings['authentication'].blank?
-  ActionMailer::Base.smtp_settings[:authentication] = settings['authentication'].to_sym
+keys.each_pair do |k, v|
+  if settings.include? v && !settings[v].blank?
+    ActionMailer::Base.smtp_settings[k] = settings[v]
+  end
 end
-
-

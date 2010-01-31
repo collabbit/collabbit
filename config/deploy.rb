@@ -162,8 +162,6 @@ namespace :mail do
         'port'     => 25,
         'domain'   => 'collabbit.org',
         'address'  => 'localhost',
-        'username' => email_addr,
-        'password' => email_pass,
         'tls'      => false,
         'authentication' => false
       }
