@@ -5,7 +5,7 @@ ActionMailer::Base.smtp_settings = {
   :address        => settings['address'],
   :port           => settings['port'] || 25,
   :domain         => settings['domain'],
-  :authentication => (settings['authentication'] && settings['authentication'].to_sym) || :plain,
+  :authentication => settings['authentication'].to_sym if settings['authentication'],
   :user_name      => settings['username'],
   :password       => settings['password']
 }

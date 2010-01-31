@@ -163,7 +163,7 @@ namespace :mail do
         'username' => email_addr,
         'password' => email_pass,
         'tls'      => false,
-        'authentication' => 'plain'
+        'authentication' => false
       }
     }
 
