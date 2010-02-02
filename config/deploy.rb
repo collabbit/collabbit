@@ -1,41 +1,32 @@
 require 'erb'
 
-settings = YAML.load_file('config/deploy.yml')
+def set_settings(params)
+  params.each_pair do |k,v|
+    set k.to_sym, v
+  end
+  if exists? :domain
+    role :app, domain
+    role :web, domain
+    role :db,  domain, :primary => true
+  end
+end
 
-set :application, "collabbit"
-set :repository,  settings["repository"]
-set :deploy_to,   settings["deploy_to"]
+# gem required: sudo gem install capistrano-ext
+set :stages, %w(staging production)
+require 'capistrano/ext/multistage'
 
-set :scm,         :git
-set :branch,      settings["branch"]
-
-set :domain,      settings["domain"]
-set :user,        settings["user"]
+set :application, 'collabbit'
 set :use_sudo,    false
+set :scm,         :git
+set :deploy_via,  :remote_cache
 
-set :deploy_via, :remote_cache
 # set :git_shallow_clone, 1
-
-role :app, domain
-role :web, domain
-role :db,  domain, :primary => true
 
 ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
-before "deploy:setup", :db
-after "deploy:update_code", "db:symlink"
-
-before "deploy:setup", :mail
-after "deploy:update_code", "mail:symlink"
-
-before "deploy:setup", :attachments
-after "deploy:update_code", "attachments:symlink"
-  
-before "deploy:setup", :exceptional
-after "deploy:update_code", "exceptional:symlink"  
-
-after "deploy:update_code", :gems
+after "deploy:update_code", 'db:symlink', 'mail:symlink', 'attachments:symlink', 'exceptional:symlink', :gems
+before "deploy:setup", :db, :mail, :attachments, :exceptional
   
 namespace :passenger do
 
@@ -98,14 +89,21 @@ namespace :db do
   desc "Create database yaml in shared path" 
   task :default do
     set :db_user do
-      Capistrano::CLI.ui.ask 'Email Address: '
+      Capistrano::CLI.ui.ask 'Database Username: '
     end
     set :db_pass do
      Capistrano::CLI.password_prompt 'Database Password: '
     end
     db_config = ERB.new <<-EOF
     production:
-      database: #{application}_prod
+      database: #{production_database}
+      adapter: mysql
+      encoding: utf8
+      username: #{db_user}
+      password: #{db_pass}
+      
+    development:
+      database: #{development_database}
       adapter: mysql
       encoding: utf8
       username: #{db_user}

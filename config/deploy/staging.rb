@@ -1,0 +1,1 @@
+set_settings(YAML.load_file("config/deploy.yml")['staging'])
