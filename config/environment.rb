@@ -19,8 +19,9 @@ Rails::Initializer.run do |config|
   config.active_record.colorize_logging = false
   
   config.gem 'vpim'
-  config.gem 'exceptional', :version => '2.0.0'
+  config.gem 'exceptional'
   config.gem 'searchlogic'
+  config.gem 'fastimage', :lib => 'fastimage'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -48,8 +49,8 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_rails-virtualeoc_session',
-    :secret      => 'bec15a5dd26c83754548420eaf2cc676c1a9f26a1d714a87d933afc219d7915d763cb343eb97892a9c9244db1573aac6da407a4951ea337168e7067c9feb53dc'
+    :session_key => '_rails-collabbit_session',
+    :secret      => 'bec15a5dd26c83754548420eaf2cc6769f26a1d714a87d933afc219d7915d763cb343eb97892a9c9244db1573aac6da407a4951ea337168e7067c9feb53dc'
   }
 
   # Use the database for sessions instead of the cookie-based default,

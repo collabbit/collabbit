@@ -20,4 +20,8 @@ class Tag < ActiveRecord::Base
       model.error.add(attr,"must be unique")
     end
   end
+  
+  validates_length_of :name, :within => 1..64
+  validates_presence_of :name
+  
 end

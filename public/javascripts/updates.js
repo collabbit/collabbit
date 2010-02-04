@@ -1,43 +1,43 @@
-$(function(){
+jQuery(function(){
 	
 	// for filters
 	var init = 'Search Keywords';
 
-	if ($('#search').val() == '') {
-		$('#search').val(init);
+	if (jQuery('#search').val() == '') {
+		jQuery('#search').val(init);
 	}
 	
-	$('#search').focus(function(){
-		if($(this).val() == init)
-			$(this).val('').removeClass('blank');
+	jQuery('#search').focus(function(){
+		if(jQuery(this).val() == init)
+			jQuery(this).val('').removeClass('blank');
 	}).blur(function(){
-		if($(this).val() == '')
-			$(this).val(init).addClass('blank');
+		if(jQuery(this).val() == '')
+			jQuery(this).val(init).addClass('blank');
 	});
 	
-	$('#filters form').submit(function(){
+	jQuery('#filters form').submit(function(){
 		if($('#search').val() == init)
 			$('#search').val('')
 		return true;
 	});
 
-	$('#showallgroups').live("click",function(){
-		$('.allgroups').removeClass('hide');
-		$('#showallgroups').addClass('selected');
-		$('#showmygroups').removeClass('selected');
+	jQuery('#showallgroups').live("click",function(){
+		jQuery('.allgroups').removeClass('hide');
+		jQuery('#showallgroups').addClass('selected');
+		jQuery('#showmygroups').removeClass('selected');
 		return false;
 	});
 
-	$('#showmygroups').live("click",function(){
-		$('.allgroups').addClass('hide');
-		$('.allgroups input:checkbox').attr('checked',false)
-		$('#showmygroups').addClass('selected');
-		$('#showallgroups').removeClass('selected');
+	jQuery('#showmygroups').live("click",function(){
+		jQuery('.allgroups').addClass('hide');
+		jQuery('.allgroups input:checkbox').attr('checked',false);
+		jQuery('#showmygroups').addClass('selected');
+		jQuery('#showallgroups').removeClass('selected');
 		return false;
 	});
 
 	// for file uploading
-	$('#multi').MultiFile({
+	jQuery('#multi').MultiFile({
 		
 	});
 });

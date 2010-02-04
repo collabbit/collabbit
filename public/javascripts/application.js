@@ -1,14 +1,16 @@
-$(document).ready(function() {          
-    $('#incidents-li').hover(
+jQuery.noConflict();
+
+jQuery(document).ready(function() {          
+    jQuery('#incidents-li').hover(
         function() {
-            var height = $('#incidents-li').height();
-            var pos = $('#incidents-li').offset();
-            $("#incidents-menu").css({ 
+            var height = jQuery('#incidents-li').height();
+            var pos = jQuery('#incidents-li').offset();
+            jQuery("#incidents-menu").css({ 
                 "left": (pos.left-10)+"px",
                 "top":(pos.top+height+2)+"px"
             });
-            $('#incidents-menu').show();
+            jQuery('#incidents-menu').show();
         },
-        function() {$('#incidents-menu').hide();
+        function() {jQuery('#incidents-menu').hide();
     });
 });

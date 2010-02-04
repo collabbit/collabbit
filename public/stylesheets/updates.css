@@ -9,6 +9,15 @@
 	font-size: 16px;
 }
 
+#new-updates span{
+    padding: 5px;
+    background: #FFE600;
+}
+    #new-updates span a{
+        color: #000;
+        font-weight: bold;
+    }
+
 #updates-list{
 	list-style-type: none;
 	margin: 0;

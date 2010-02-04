@@ -8,19 +8,14 @@
 require 'digest/sha1'
 
 class Admin < ActiveRecord::Base
-  include Authority
+  include Authority, Passworded
   attr_accessor :password, :password_confirmation
+  attr_accessible :email
+  
   @@current = nil
   mattr_accessor :current
   
-  # Generates the properly encrypted password
-  def generate_crypted_password(plaintext = password)
-    Digest::SHA1.hexdigest(plaintext + salt) if plaintext && salt
-  end
-  
-  # Reencrypt passwords
-  def before_update
-    self.crypted_password = generate_crypted_password(@password) if @password
-  end
-   
+  validates_presence_of :email
+  validates_length_of   :email, :within => 6..100
+  validates_format_of   :email, :with => /\A([\w\.\-\+]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 end

@@ -135,5 +135,13 @@ module ApplicationHelper
   def preferred
     '<span class="tiny">&laquo;</span>'
   end
+  
+  def scale_dimensions(w, h, within)
+    if w > h
+      [within, h*within/w]
+    else
+      [w*within/h, within]
+    end
+  end
       
 end

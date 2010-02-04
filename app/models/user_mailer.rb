@@ -19,13 +19,13 @@ class UserMailer < ActionMailer::Base
   def activation(user)
     setup_email(user)
     @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://collabbit.org/for/#{user.instance.short_name}"
+    @body[:url]  = "http://#{user.instance.short_name}.collabbit.org/"
   end
   
   def password_reset(user, password)
     setup_email(user)
     @subject += "password reset notice"
-    @body[:url] = "http://collabbit.org/for/#{user.instance.short_name}"
+    @body[:url] = "http://#{user.instance.short_name}.collabbit.org/"
     @body[:pass] = password
   end
   
@@ -38,7 +38,7 @@ class UserMailer < ActionMailer::Base
   def email_alert(user, feed, update, action)
     setup_email(user)
     @subject = "Collabbit: #{user.instance.long_name}"
-    @body = {:user => user, :feed => feed, :update => update, :action => action}    
+    @body = {:user => user, :feed => feed, :update => update, :action => action}
   end
   
   protected

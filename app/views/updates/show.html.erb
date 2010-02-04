@@ -24,16 +24,21 @@
 	<p><%=simple_format(h(@update.text)) %></p>
 	
 <!-- Files-->
-	<% unless @update.files.empty? %>
-		<div class="files">
-			<em>Attached Files:</em>
-			<ul class="flat-list">
-			<% @update.attachments.each do |f| %>
-				<li><%=link_to f.attach.original_filename, f.attach.url%></li>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
+		<% unless @update.files.empty? %>
+			<div class="files">
+				<em>Attached Files:</em>
+				<ul class="flat-list">
+				<% @update.attachments.each do |f| %>
+				    <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
+				        <% w, h = FastImage.size(f.attach.path) %>
+				        <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
+				    <% else %>
+					    <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
+					<% end %>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
 	
 	<% unless @update.tags.empty? %>
 		<div class="relevant-groups">

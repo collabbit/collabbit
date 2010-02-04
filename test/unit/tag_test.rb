@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  should_validate_presence_of :name
+  should_ensure_length_in_range :name, 1..64
+  should_belong_to :instance
+  should_have_many :taggings
+  should_have_many :updates, :through => :taggings
 end
