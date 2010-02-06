@@ -10,23 +10,4 @@ class Permission < ActiveRecord::Base
   has_many :privileges, :dependent => :destroy
   has_many :roles, :through => :privileges
 
-  def self.generate_all
-    actions = [:create, :show, :list, :destroy, :update]
-    map = {
-        :update => actions,
-        :group => actions,
-        :group_type => actions,
-        :tag => actions,
-        :incident => actions,
-        :role => actions,
-        :user => actions - [:create],
-        :instance => [:show, :update],
-        :comment => actions
-      }
-    map.each_pair do |klass,v|
-      v.each do |act|
-        Permission.create(:model => klass.to_s.camelize, :action => act.to_s)
-      end
-    end  
-  end
 end

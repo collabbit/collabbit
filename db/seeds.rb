@@ -1,7 +1,25 @@
 require File.join(RAILS_ROOT, 'lib', 'create_or_update')
 
 #Generate Permissions
-Permission.generate_all
+actions = [:create, :show, :list, :destroy, :update]
+map = {
+    :update => actions,
+    :group => actions,
+    :group_type => actions,
+    :tag => actions,
+    :incident => actions,
+    :role => actions,
+    :user => actions - [:create],
+    :instance => [:show, :update],
+    :comment => actions
+  }
+id = 0
+map.each_pair do |klass,v|
+  v.each do |act|
+    Permission.create_or_update(:id => id, :model => klass.to_s.camelize, :action => act.to_s)
+    id+=1
+  end
+end
 
 #Default Instances
 i = Instance.create_or_update(:id => 1, :short_name => 'demo', :long_name => 'Demo Instance')
