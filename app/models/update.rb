@@ -25,7 +25,7 @@ class Update < ActiveRecord::Base
   
   attr_accessor :additional_tags
   after_save :handle_tags
-  attr_protected :incident_id
+  attr_protected :incident_id, :user_id
   
   owned_by :user
   

@@ -22,31 +22,32 @@ model_to_actions.each_pair do |klass,v|
 end
 
 #Default Instances
-i = Instance.create(:short_name => 'demo', :long_name => 'Demo Instance')
+i = Instance.create(:long_name => 'Demo Instance')
+i.short_name = 'demo'
 i.roles = Role.default_setup
 i.save
 
 #Default Incidents
-evil = Incident.create(:name => 'Evil Earthquake', :instance => i)
-flood = Incident.create(:name => 'Faketown Flood', :instance => i)
+evil = i.incidents.create(:name => 'Evil Earthquake')
+flood = i.incidents.create(:name => 'Faketown Flood')
 
 #Default Group Types
-agency = GroupType.create(:name => 'Agency', :instance => i)
-committee = GroupType.create(:name => 'Committee', :instance => i)
+agency = i.group_types.create(:name => 'Agency')
+committee = i.group_types.create(:name => 'Committee')
 
 # Default Users
 
-john = User.create(
+john = i.users.create(
   :first_name => 'John', :last_name => 'Smith',
-  :instance => i, :email => 'blah@blah.com', :activation_code => '111',
+  :email => 'blah@blah.com', :activation_code => '111',
   :state => 'active', :cell_phone => '5857704551', :preferred_is_cell => true)
-jane = User.create(
+jane = i.users.create(
   :first_name => 'Jane', :last_name => 'Smith',
-  :instance => i, :email => 'blah2@blah.com', :activation_code => '121',
+  :email => 'blah2@blah.com', :activation_code => '121',
   :state => 'active')
-joey = User.create(
+joey = i.users.create(
   :first_name => 'Joey', :last_name => 'Arnold',
-  :instance => i, :email => 'blah3@blah.com', :activation_code => '131',
+  :email => 'blah3@blah.com', :activation_code => '131',
   :state => 'active')
 
 john.salt = Digest::SHA1.hexdigest('1')
@@ -65,46 +66,54 @@ joey.crypted_password = joey.generate_crypted_password('sahana123')
 joey.save
 
 # Default Groups
-g1 = Group.create(:name => 'Red Cross',  :group_type => agency)
-g2 = Group.create(:name => 'FBI',        :group_type => agency)
-g3 = Group.create(:name => 'City Hall',  :group_type => committee)
+g1 = agency.groups.create(:name => 'Red Cross')
+g2 = agency.groups.create(:name => 'FBI')
+g3 = committee.groups.create(:name => 'City Hall')
 
 # Default Updates
-up1 = Update.create(:id => 1, :title => 'First Update! YAY',
+up1 = evil.updates.create(:title => 'First Update! YAY',
                         :text => 'We have it all under control... nbd...',
-                        :user_id => 1, :incident => evil, :issuing_group => g1)
+                        :issuing_group => g1)
+up1.user = john
 
-up2 = Update.create(:id => 2, :title => 'Nevermind!',
+
+up2 = evil.updates.create(:id => 2, :title => 'Nevermind!',
                         :text => "I guess we don't really have it under control.. sowwy...",
-                        :user_id => 1, :incident => evil, :issuing_group => g2)
+                        :issuing_group => g2)
+up2.user = john
 
-up3 = Update.create(:id => 3, :title => 'Cost update',
-                        :text => 'The cost of this incident has now exceeded one billion gagillion fafillion... yen',
-                        :user_id => 2, :incident => flood)
 
-up4 = Update.create(:id => 4, :title => 'MOAR Volunteers!',
-                        :text => 'We have a dire need for volunteers on this incident!',
-                        :user_id => 2, :incident => evil)
+up3 = flood.updates.create(:id => 3, :title => 'Cost update',
+                        :text => 'The cost of this incident has now exceeded one billion gagillion fafillion... yen')
+up3.user = jane
 
-up5 = Update.create(:id => 5, :title => 'Animals problem', :text => 'Lots of animals need shelter!',
-                        :user_id => 1, :incident => evil, :group_id => 3)
 
-up6 = Update.create(:id => 6, :title => 'Food needed!',
+up4 = evil.updates.create(:id => 4, :title => 'MOAR Volunteers!',
+                        :text => 'We have a dire need for volunteers on this incident!')
+up4.user = jane
+
+
+up5 = evil.updates.create(:id => 5, :title => 'Animals problem', :text => 'Lots of animals need shelter!', :group_id => 3)
+up5.user = jane
+
+
+up6 = evil.updates.create(:id => 6, :title => 'Food needed!',
                         :text => 'We need more food to distribute! Please help!',
-                        :user_id => 2, :incident => evil, :group_id => 2)
+                        :group_id => 2)
+up6.user = jane  
 
 
 #Default Tags
-t1 = Tag.create(:id => 1, :name => "GOVT",      :instance => i)
-t2 = Tag.create(:id => 2, :name => "NGO",       :instance => i)
-t3 = Tag.create(:id => 3, :name => "Important", :instance => i)
-t4 = Tag.create(:id => 4, :name => "Bronx",     :instance => i)
-t5 = Tag.create(:id => 5, :name => "Queens",    :instance => i)
-t6 = Tag.create(:id => 6, :name => "Good News", :instance => i)
+t1 = i.tags.create(:name => "GOVT")
+t2 = i.tags.create(:name => "NGO")
+t3 = i.tags.create(:name => "Important")
+t4 = i.tags.create(:name => "Bronx")
+t5 = i.tags.create(:name => "Queens")
+t6 = i.tags.create(:name => "Good News")
 
 #Default Admins
-a = Admin.create(:id => 1, :email => 'blabla@bla.bla')
-b = Admin.create(:id => 2, :email => 'blahblah@blah.blah')
+a = Admin.create(:email => 'blabla@bla.bla')
+b = Admin.create(:email => 'blahblah@blah.blah')
 
 a.salt = Digest::SHA1.hexdigest('bla')
 a.crypted_password = a.generate_crypted_password('sahana123')
@@ -115,15 +124,15 @@ b.save
 
 
 #Default Carriers
-Carrier.create(:id => 1, :name => 'AT&T', :extension => '@txt.att.net')
-Carrier.create(:id => 2, :name => 'Boost', :extension => '@myboostmobile.com')
-Carrier.create(:id => 3, :name => 'Cricket', :extension => '@sms.mycricket.com')
-Carrier.create(:id => 4, :name => 'Nextel', :extension => '@messaging.nextel.com')
-Carrier.create(:id => 5, :name => 'T-Mobile', :extension => '@tmomail.net')
-Carrier.create(:id => 6, :name => 'Virgin Mobile', :extension => '@vmobl.com')
-Carrier.create(:id => 7, :name => 'Verizon', :extension => '@vtext.com')
-Carrier.create(:id => 8, :name => 'Sprint', :extension => '@messaging.sprintpcs.com')
-Carrier.create(:id => 9, :name => 'Alltel Wireless', :extension => '@message.alltel.com')
+Carrier.create(:name => 'AT&T', :extension => '@txt.att.net')
+Carrier.create(:name => 'Boost', :extension => '@myboostmobile.com')
+Carrier.create(:name => 'Cricket', :extension => '@sms.mycricket.com')
+Carrier.create(:name => 'Nextel', :extension => '@messaging.nextel.com')
+Carrier.create(:name => 'T-Mobile', :extension => '@tmomail.net')
+Carrier.create(:name => 'Virgin Mobile', :extension => '@vmobl.com')
+Carrier.create(:name => 'Verizon', :extension => '@vtext.com')
+Carrier.create(:name => 'Sprint', :extension => '@messaging.sprintpcs.com')
+Carrier.create(:name => 'Alltel Wireless', :extension => '@message.alltel.com')
 
 
 #Linking Groups Users
