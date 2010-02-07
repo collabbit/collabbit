@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => 'd9a4fa2487b71adf1f4fb8d68c2fcc59'
   
   rescue_from Instance::Missing do |instance|
-    flash[:error] = "We're sorry, we couldn't find a Collabbit for \"#{instance}\"."
-    render "shared/404"
+    flash[:error] = "We're sorry, we couldn't find a Collabbit for <strong>#{instance}</strong>."
+    render "shared/404", :layout => 'home'
   end
   
   # rescue_from ActiveRecord::RecordNotFound do
@@ -31,7 +31,11 @@ class ApplicationController < ActionController::Base
   
   def set_current_account
     @instance = Instance.find_by_short_name(subdomain)    
-    raise Instance::Missing, params[:instance_id]||params[:id] unless @instance || promo?
+    raise Instance::Missing, subdomain if @instance.blank? && !subdomain_forbidden?
+  end
+  
+  def subdomain_forbidden?
+    Instance::FORBIDDEN_SUBDOMAINS.include?(subdomain) || subdomain.blank?
   end
   
   def check_account_redirect
