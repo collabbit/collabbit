@@ -40,29 +40,30 @@ committee = i.group_types.create(:name => 'Committee')
 john = i.users.create(
   :first_name => 'John', :last_name => 'Smith',
   :email => 'blah@blah.com', :activation_code => '111',
-  :state => 'active', :cell_phone => '5857704551', :preferred_is_cell => true)
+  :cell_phone => '5857704551', :preferred_is_cell => true)
 jane = i.users.create(
   :first_name => 'Jane', :last_name => 'Smith',
-  :email => 'blah2@blah.com', :activation_code => '121',
-  :state => 'active')
+  :email => 'blah2@blah.com', :activation_code => '121')
 joey = i.users.create(
   :first_name => 'Joey', :last_name => 'Arnold',
-  :email => 'blah3@blah.com', :activation_code => '131',
-  :state => 'active')
+  :email => 'blah3@blah.com', :activation_code => '131')
 
 john.salt = Digest::SHA1.hexdigest('1')
 john.crypted_password = john.generate_crypted_password('sahana123')
 john.role = i.roles.find_by_name('Super Administrator')
+john.state = 'active'
 john.save
 
 jane.salt = Digest::SHA1.hexdigest('2')
 jane.crypted_password = jane.generate_crypted_password('sahana123')
 jane.role = i.roles.find_by_name('Normal User')
+jane.state = 'active'
 jane.save
 
 joey.salt = Digest::SHA1.hexdigest '1'
 john.role = i.roles.find_by_name('Administrator')
 joey.crypted_password = joey.generate_crypted_password('sahana123')
+joey.state = 'active'
 joey.save
 
 # Default Groups
