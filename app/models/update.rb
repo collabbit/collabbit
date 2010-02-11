@@ -15,7 +15,7 @@ class Update < ActiveRecord::Base
   has_many :relevant_groups, :through => :classifications, :class_name => 'Group', :source => :group
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
-  has_many :attachments, :dependent => :destroy
+  has_many :attached_files, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   
   validates_presence_of :title
@@ -49,8 +49,16 @@ class Update < ActiveRecord::Base
   end
   
   # Gets an array of all attached file paths
-  def files
-    self.attachments.map {|a| a.attach.url }
+  def file_urls
+    self.attached_files.map {|a| a.attach.url }
+  end
+  
+  def attached_files?
+    self.attached_files.empty?
+  end
+  
+  def attachments
+    attached_files
   end
   
   # Setter for additional tags. Tags aren't actually added until handle_tags is called.

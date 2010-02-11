@@ -1,4 +1,4 @@
-class Attachment < ActiveRecord::Base
+class AttachedFile < ActiveRecord::Base
   include Authority
   
   belongs_to :update

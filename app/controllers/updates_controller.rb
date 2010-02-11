@@ -111,7 +111,7 @@ class UpdatesController < AuthorizedController
     # Uploaded files
     unless params[:attachments].blank? #<<FIX: and @current_user.can? :create => Attachment ?
       params[:attachments].each do |attach|
-        @update.attachments.build(:attach => attach)
+        @update.attached_files.build(:attach => attach)
       end
     end
 
@@ -152,7 +152,7 @@ class UpdatesController < AuthorizedController
     @update.attachment_ids = @update.attachment_ids & keep_ids
     unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
-        @update.attachments.build(:attach => attach)
+        @update.attached_files.build(:attach => attach)
       end
     end
 

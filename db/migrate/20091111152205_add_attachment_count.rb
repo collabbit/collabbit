@@ -4,7 +4,7 @@ class AddAttachmentCount < ActiveRecord::Migration
 
     Update.reset_column_information
     Update.find(:all).each do |u|
-      Update.update_counters u.id, :attachments_count => u.attachments.size
+      Update.update_counters u.id, :attachments_count => u.attached_files.size
     end
   end
 
