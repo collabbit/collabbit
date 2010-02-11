@@ -39,7 +39,7 @@
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 		<%= select_tag(:groups_filter, groups_options, :id => 'filters_groups') %>
 		<%= select_tag(:states_filter, states_options, :id => 'filters_states') if @states_filter %>
-		<%= submit_tag "Filter Contacts", :name => nil, :id => 'filters_submit' %>
+		<%= submit_tag "Apply Filters", :name => nil, :id => 'filters_submit' %>
 	<% end %>
 <% end %>
 
