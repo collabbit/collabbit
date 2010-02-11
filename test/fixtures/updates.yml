@@ -3,7 +3,7 @@ updates_004:
   created_at: 2009-12-25 13:06:18
   title: MOAR Volunteers!
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: We have a dire need for volunteers on this incident!
   group_id: "2"
   id: "4"
@@ -13,7 +13,7 @@ updates_005:
   created_at: 2009-12-25 13:06:18
   title: Animals problem
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: Lots of animals need shelter!
   group_id: "3"
   id: "5"
@@ -23,7 +23,7 @@ updates_006:
   created_at: 2009-12-25 13:06:18
   title: Food needed!
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: We need more food to distribute! Please help!
   group_id: "2"
   id: "6"
@@ -33,7 +33,7 @@ updates_001:
   created_at: 2009-12-25 13:06:18
   title: First Update! YAY
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: We have it all under control... nbd...
   group_id: "1"
   id: "1"
@@ -43,7 +43,7 @@ updates_002:
   created_at: 2009-12-25 13:06:18
   title: Nevermind!
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: I guess we don't really have it under control.. sowwy...
   group_id: "1"
   id: "2"
@@ -53,7 +53,7 @@ updates_003:
   created_at: 2009-12-25 13:06:18
   title: Cost update
   updated_at: 2009-12-25 13:06:18
-  attachments_count: "0"
+  attached_files_count: "0"
   text: The cost of this incident has now exceeded one billion gagillion fafillion... yen
   group_id: 
   id: "3"

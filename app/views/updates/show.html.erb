@@ -22,13 +22,12 @@
 
 <% content_for :body do %>
 	<p><%=simple_format(h(@update.text)) %></p>
-	
 <!-- Files-->
-		<% unless @update.files.empty? %>
+		<% unless @update.file_urls.empty? %>
 			<div class="files">
 				<em>Attached Files:</em>
 				<ul class="flat-list">
-				<% @update.attachments.each do |f| %>
+				<% @update.attached_files.each do |f| %>
 				    <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
 				        <% w, h = FastImage.size(f.attach.path) %>
 				        <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>

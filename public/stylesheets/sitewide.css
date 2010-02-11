@@ -31,7 +31,7 @@ body {
 	padding: 10px 0 1px;
 	color: #fff;
 	background: #555;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ccc;
 	margin-right: -5px;
 }
 	#account-status {
@@ -77,13 +77,13 @@ body {
 					background: #333;
 				}
 			#menu .active a {
-				background: #eee;
+				background: #e8e8e1;
 				color: black;
 				font-weight: bold;
-				border: 1px solid black;
+				border: 1px solid #ccc;
 				border-width: 1px 1px 0 1px;
 				padding: 3px 7px 1px;
-				border-bottom: 1px solid #eee;
+				border-bottom: 1px solid #e8e8e1;
 			}
 			#incidents-li:hover a.visible {
 				background: #333;
@@ -132,7 +132,7 @@ body {
 							}
 
 #subheader {
-	background: #eeeeee;
+	background: #e8e8e1;
 	color: black;
 	border-bottom: 1px solid #bcbcbc;
 	padding: 6px 0 60px;
@@ -164,18 +164,21 @@ body {
 			margin-top: 6px;
 			padding: 4px 10px;
 			display: block;
-			border: 1px solid #666;
-			background: #ccc;
+			border: 1px solid #777;
+			background: url("../images/button_gradient.png") #eee repeat-x;
+			background-position: 0 -7px;
 			text-decoration: none;
 			font-weight: bold;
 			margin-left: 3px;
 			font-size: 14px;
+			-moz-border-radius: 2px;
+
 		}
 			#subheader_main #buttons a:hover {
-				background: white;
+				border-color: black;
 			}
 			#subheader_main #buttons a:active {
-				border-color: black;
+				background: white;
 			}
 	#subheader_text {
 		clear: both;
@@ -193,7 +196,7 @@ body {
 			padding-top: 7px;
 		}
 			#filters input, #filters select {
-				background: #fff;
+				background: #eee;
 				border: 1px solid #bbb;
 				color: black;
 				margin: 0;
@@ -202,6 +205,7 @@ body {
 			}
 				#filters input:focus, #filters select:focus {
 					border-color: black;
+					background-color: white;
 				}
 			#filters #search {
 				padding: 4px 3px;

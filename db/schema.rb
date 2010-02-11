@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091228221828) do
+ActiveRecord::Schema.define(:version => 20100211180458) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20091228221828) do
     t.datetime "updated_at"
   end
 
-  create_table "attachments", :force => true do |t|
+  create_table "attached_files", :force => true do |t|
     t.string   "name"
     t.string   "attach_file_name"
     t.string   "attach_content_type"
@@ -149,13 +149,13 @@ ActiveRecord::Schema.define(:version => 20091228221828) do
 
   create_table "updates", :force => true do |t|
     t.string   "title"
-    t.text     "text",              :limit => 255
+    t.text     "text",                 :limit => 255
     t.integer  "user_id"
     t.integer  "incident_id"
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "attachments_count",                :default => 0
+    t.integer  "attached_files_count",                :default => 0
   end
 
   create_table "users", :force => true do |t|
