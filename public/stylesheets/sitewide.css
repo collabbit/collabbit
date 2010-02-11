@@ -28,10 +28,10 @@ body {
 
 #header {
 	margin: 0;
-	padding: 10px 0 2px;
+	padding: 10px 0 1px;
 	color: #fff;
-	background: #4a5457;
-	border-bottom: 1px solid #222;
+	background: #555;
+	border-bottom: 1px solid black;
 	margin-right: -5px;
 }
 	#account-status {
@@ -70,20 +70,20 @@ body {
 		}
 			#menu a {
 				color: white;
-				padding: 4px 8px 2px;
+				padding: 3px 8px 1px;
 				text-decoration: none;
 			}
 				#menu a:hover {
 					background: #333;
 				}
 			#menu .active a {
-				background: #ffffff;
+				background: #eee;
 				color: black;
 				font-weight: bold;
-				border: 1px solid white;
+				border: 1px solid black;
 				border-width: 1px 1px 0 1px;
-				padding: 6px 7px 2px;
-				border-bottom: 1px solid #ffffff;
+				padding: 3px 7px 1px;
+				border-bottom: 1px solid #eee;
 			}
 			#incidents-li:hover a.visible {
 				background: #333;
@@ -132,12 +132,10 @@ body {
 							}
 
 #subheader {
-	background: #fafafa;
+	background: #eeeeee;
 	color: black;
-	padding: 6px 0 70px;
-	border-bottom: 1px solid #222;
-	-moz-box-shadow: 0 0 5px black;
-	margin-right: -5px;
+	border-bottom: 1px solid #bcbcbc;
+	padding: 6px 0 60px;
 }
 	#breadcrumbs {
 		font-size: 14px;
@@ -195,14 +193,15 @@ body {
 			padding-top: 7px;
 		}
 			#filters input, #filters select {
-				background: #ddd;
-				border: 1px solid #1A2D53;
+				background: #fff;
+				border: 1px solid #bbb;
 				color: black;
 				margin: 0;
 				margin-right: 1%;
+				-moz-border-radius: 2px;
 			}
 				#filters input:focus, #filters select:focus {
-					background: white;
+					border-color: black;
 				}
 			#filters #search {
 				padding: 4px 3px;
@@ -217,22 +216,23 @@ body {
 				padding: 3px;
 				width: 18%;
 				color: black;
-				background: #ccc;
-				border: 1px solid #666;
+				background: url("../images/button_gradient.png") #eee repeat-x;
+				background-position: 0 -8px;
+				border: 1px solid #777;
 				font-weight: bold;
 				margin-right: 0;
 			}
 				#filters #filters_submit:hover {
-					background: white;
+					border-color: black;
 				}
 				#filters #filters_submit:active {
-					border-color: black;
+					background: white;
 				}
 
 #content{
 	background: #fff;
 	border: 1px solid #666;
-	margin-top: -60px;
+	margin-top: -50px;
 	-moz-box-shadow: 0px 0px 5px #666;
 }
 	#wrap {
