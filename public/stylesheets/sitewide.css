@@ -1,9 +1,9 @@
 body {
-	font-family: 'Helvetica', arial;
+	font-family: 'Helvetica', Arial,'Helvetica Neue',sans-serif;
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	background: #eee;
+	background: #ddd;
 	min-width: 777px;
 }
 .clear {
@@ -30,8 +30,9 @@ body {
 	margin: 0;
 	padding: 10px 0 2px;
 	color: #fff;
-	background: #444;
-	border-bottom: 1px solid #666;
+	background: #4a5457;
+	border-bottom: 1px solid #222;
+	margin-right: -5px;
 }
 	#account-status {
 		float: right;
@@ -50,11 +51,11 @@ body {
 		color: #bbb;
 		font-weight: bold;
 		clear: both;
-		margin: 9px 0 -2px -1px;
+		margin: 5px 0 -2px -1px;
 	}
 		#header-title a {
 			color: #eee;
-			font-size: 21px;
+			font-size: 24px;
 			font-weight: normal;
 			text-decoration: none;
 		}
@@ -76,12 +77,13 @@ body {
 					background: #333;
 				}
 			#menu .active a {
-				background: #2B416E;
-				border: 1px solid #666;
-				border-width: 1px 1px 0 1px;
+				background: #ffffff;
+				color: black;
 				font-weight: bold;
+				border: 1px solid white;
+				border-width: 1px 1px 0 1px;
 				padding: 6px 7px 2px;
-				border-bottom: 1px solid #2B416E;
+				border-bottom: 1px solid #ffffff;
 			}
 			#incidents-li:hover a.visible {
 				background: #333;
@@ -130,10 +132,12 @@ body {
 							}
 
 #subheader {
-	background: #2B416E;
-	color: white;
-	padding: 6px 0 40px;
-	border-bottom: 1px solid #666;
+	background: #fafafa;
+	color: black;
+	padding: 6px 0 70px;
+	border-bottom: 1px solid #222;
+	-moz-box-shadow: 0 0 5px black;
+	margin-right: -5px;
 }
 	#breadcrumbs {
 		font-size: 14px;
@@ -158,20 +162,19 @@ body {
 		}
 		#subheader_main #buttons a {
 			float: right;
-			margin-top: 5px;
+			color: black;
+			margin-top: 6px;
 			padding: 4px 10px;
 			display: block;
-			border: 1px solid white;
-			color: white;
-			-moz-border-radius: 20px;
-			-webkit-border-radius: 20px;
-			border-radius: 20px;
+			border: 1px solid #666;
+			background: #ccc;
 			text-decoration: none;
 			font-weight: bold;
 			margin-left: 3px;
+			font-size: 14px;
 		}
 			#subheader_main #buttons a:hover {
-				background: #222;
+				background: white;
 			}
 			#subheader_main #buttons a:active {
 				border-color: black;
@@ -213,15 +216,14 @@ body {
 			#filters #filters_submit {
 				padding: 3px;
 				width: 18%;
-				color: white;
-				background: transparent;
-				border-color: white;
+				color: black;
+				background: #ccc;
+				border: 1px solid #666;
 				font-weight: bold;
 				margin-right: 0;
-				-moz-border-radius: 20px;
 			}
 				#filters #filters_submit:hover {
-					background: #222;
+					background: white;
 				}
 				#filters #filters_submit:active {
 					border-color: black;
@@ -229,8 +231,9 @@ body {
 
 #content{
 	background: #fff;
-	border: 1px solid #bbb;
-	margin-top: -30px;
+	border: 1px solid #666;
+	margin-top: -60px;
+	-moz-box-shadow: 0px 0px 5px #666;
 }
 	#wrap {
 		padding: 20px;
