@@ -1,5 +1,9 @@
 require 'erb'
 
+def load_settings(env)
+  set_settings(YAML.load_file("config/settings/deploy.yml")[env.to_s])
+end
+
 def set_settings(params)
   params.each_pair do |k,v|
     set k.to_sym, v

@@ -1,6 +1,6 @@
-settings = YAML.load_file("config/smtp.yml")[ENV['RAILS_ENV'] || 'production']
+settings = YAML.load_file("config/settings/smtp.yml")[ENV['RAILS_ENV'] || 'production']
 
-keys = {
+smtp_setting_keys = {
   :enable_starttls_auto => 'tls',
   :address              => 'address',
   :port                 => 'port',
@@ -12,7 +12,7 @@ keys = {
 
 ActionMailer::Base.smtp_settings = {}
 
-keys.each_pair do |k, v|
+smtp_setting_keys.each_pair do |k, v|
   if settings.include?(v) && !settings[v].blank?
     ActionMailer::Base.smtp_settings[k] = settings[v]
   end

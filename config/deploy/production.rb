@@ -1,1 +1,1 @@
-set_settings(YAML.load_file("config/deploy.yml")['production'])
+load_settings :production

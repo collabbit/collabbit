@@ -149,13 +149,13 @@ ActiveRecord::Schema.define(:version => 20091228221828) do
 
   create_table "updates", :force => true do |t|
     t.string   "title"
-    t.text     "text",              :limit => 255
+    t.text     "text"
     t.integer  "user_id"
     t.integer  "incident_id"
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "attachments_count",                :default => 0
+    t.integer  "attachments_count", :default => 0
   end
 
   create_table "users", :force => true do |t|

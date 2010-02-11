@@ -1,1 +1,1 @@
-set_settings(YAML.load_file("config/deploy.yml")['staging'])
+load_settings :staging

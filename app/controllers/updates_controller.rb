@@ -89,6 +89,7 @@ class UpdatesController < AuthorizedController
     @incident = @instance.incidents.find(params[:incident_id])
     @update = @incident.updates.build(params[:update])
     @update.user = @current_user
+    @update.title.strip!
 
     unless params[:update][:issuer].blank? or params[:update][:issuer] == 'myself'
       @update.issuing_group = @instance.groups.find(params[:update][:issuer])
@@ -100,7 +101,7 @@ class UpdatesController < AuthorizedController
       end
     end
 
-    @update.tags.clear #<<FIX: why is this done?
+    @update.tags.clear #<<FIX: why is this done? actually, it's okay if it doesn't make another query
     if params[:tags]
       params[:tags].each_pair do |key,val|
         @update.tags << @instance.tags.find(key) if val
@@ -148,9 +149,7 @@ class UpdatesController < AuthorizedController
 
     keep_ids = []
     (params[:keep_file] || {}).each_pair {|k,v| keep_ids << k.to_i if v}
-    logger.info("\n\n\n\n\nkids: #{keep_ids}\n\n\n\n\n")
     @update.attachment_ids = @update.attachment_ids & keep_ids
-    logger.info("\n\n\n\n\naids: #{@update.attachment_ids}\n\n\n\n\n")
     unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
         @update.attachments.build(:attach => attach)
