@@ -59,6 +59,10 @@ module ApplicationHelper
   def time_mdy(x)
     mdy(x) + x.strftime(' at %I:%M %p')
   end
+
+  def time_time(x)
+    x.strftime(' %I:%M %p')
+  end
   
   def pretty_delete_button(to, *opts)
     

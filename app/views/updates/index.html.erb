@@ -69,54 +69,66 @@
 	<ul id="updates-list">
 	<% @updates.each do |u| %>
 		<li>
-			<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
-			<span class="update-meta">by 
-				<%= issuer_link(u)%>, <%= 'updated ' if u.updated_at > u.created_at %> <%= time_mdy u.updated_at %></span>
-			<p class="update-text">
-				<%=simple_format(h(u.text)).split('</p>')[0][0..256] %><%='...' if u.text.length > 256%>
-			</p>
-		<% unless u.attached_files.empty? %>
-			<div class="attachments">
-				<strong>Attached Files:</strong>
-				<ul>
-				<% u.attachments.each do |f| %>
-					<li><%=link_to f.attach.original_filename, f.attach.url%></li>
-				<% end %>
-				</ul>
-			</div>				
-		<% end
-		   unless u.relevant_groups.empty? %>
-			<div class="relevant-groups">
-				<em>Relevant Groups:</em>
-				<ul>
-				<% u.relevant_groups.each do |g| %>
-					<li><%=link_to g.name, group_type_group_path(g.group_type, g) %></li>		
-				<% end %>	
-				</ul>
+			<div class="update-meta">
+				<%= issuer_link(u)%>
+				<div class="update-updated"><%= 'edited' if u.updated_at > u.created_at %></div>
+				<div class="update-time"><%= time_time u.updated_at %></div>
+				<%= mdy u.updated_at %>
 			</div>
-		<% end 
-		   unless u.tags.empty? %>
-			<div class="tags">
-				<em>Tags:</em>
-				<ul>
-				<% u.tags.each do |t| %>
-					<li><%=link_to t.name, t %></li>
+			<div class="update-extra">
+				<% unless u.attached_files.empty? %>
+					<div class="attachments">
+						<h5>Attached Files:</h5>
+						<ul>
+						<% u.attachments.each do |f| %>
+							<li><%=link_to f.attach.original_filename, f.attach.url%></li>
+						<% end %>
+						</ul>
+					</div>				
+				<% end
+				   unless u.relevant_groups.empty? %>
+					<div class="relevant-groups">
+						<h5>Groups:</h5>
+						<ul>
+						<% u.relevant_groups.each do |g| %>
+							<li><%=link_to g.name, group_type_group_path(g.group_type, g) %></li>		
+						<% end %>	
+						</ul>
+					</div>
+				<% end 
+				   unless u.tags.empty? %>
+					<div class="tags">
+						<h5>Tags:</h5>
+						<ul>
+						<% u.tags.each do |t| %>
+							<li><%=link_to t.name, t %></li>
+						<% end %>
+						</ul>
+					</div>
 				<% end %>
-				</ul>
 			</div>
-		<% end %>
-		  <div class="comments">
-			<em>Comments</em>
-			<% u.comments.each do |c| %>
-			  <div class="comment"><span class="comment-body"><%=c.body%></span>
-				by <span class="comment-author"><%=c.user.full_name%></span>
-				on <span class="comment-date"><%=mdy c.created_at%></span></div>
-			<% end %>
-			<% form_for [u.incident, u, Comment.new] do |f| %>
-			  <%= f.text_field :body %>
-			  <%= f.submit 'Add Comment' %>
-			<% end %>
-		  </div>
+
+			<div class="update-main">
+				<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
+				<div class="update-text">
+					<%=simple_format(h(u.text)).split('</p>')[0][0..256] %>
+					<%='[...]' if u.text.length > 256%>
+				</div>
+				<div class="comments">
+					<% u.comments.each do |c| %>
+					<div class="comment">
+						<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
+						<span class="comment-body"><%=c.body%></span>
+						<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+					</div>
+					<% end %>
+					<% form_for [u.incident, u, Comment.new] do |f| %>
+						<%= f.text_field :body, :class => "comment-textfield" %>
+						<%= f.submit 'Add Comment', :class => "comment-submit" %>
+						<div class="clear"></div>
+					<% end %>
+				</div>
+			</div>
 		</li>
 	<% end %>
 	</ul>

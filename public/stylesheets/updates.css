@@ -22,54 +22,143 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	font-size: 14px;
 }
 	#updates-list > li{
-		padding: 0 0 10px 0;
+		padding: 0 0 40px 0;
 		margin: 0 0 20px 0;
-		border-bottom: 1px solid #ddd;
+		position: relative;
 	}
-		#updates-list li a.update-title{
-			color: #009;
-			font-weight: bold;
-
+		.update-meta{
+			color: #555;
+			width: 17%;
+			position: absolute;
+			left: 0;
+			text-align: right;
 		}
-			.update-title:hover{
+			.update-meta a {
+				color: #444;
+				font-weight: bold;
+				font-size: 16px;
 				text-decoration: none;
 			}
-		.update-meta{
-			font-size: 14px;
-			color: #555;
-			font-weight: bold;
-		}
-		.update-meta a{
-			color: #555;
-		}
-		.update-text{
-			width: 600px;
-			margin: 9px 0;
-		}
-
-		.relevant-groups, .tags{
-			font-size: 13px;
-			color: #777;
-		}
-		.attachments {
-			font-size: 13px;
-		}
-			.relevant-groups ul, .tags ul, .attachments ul {
-				list-style-type: none;
-				display: inline;
-				padding: 0;
-				margin:0;
+			.update-updated {
+				font-size: 13px;
+				font-variant: small-caps;
+				font-weight: bold;
+				color: #4653B1;
 			}
-				.relevant-groups ul li, .tags ul li, .attachments li {
-					display: inline;
-					padding: 0;
-					margin: 0 2px;
+		.update-main {
+			margin-left: 20%;
+			margin-right: 20%;
+			width: 60%;
+		}
+			#updates-list li a.update-title {
+				color: black;
+				font-weight: bold;
+				font-size: 16px;
+				text-decoration: none;
+			}
+				.update-title:hover, .update-meta a:hover {
+					text-decoration: underline;
 				}
-					.relevant-groups ul li a, .tags ul li a{
-						color: #777;
+			.update-text {
+				margin: 6px 0 9px;
+				color: #111;
+			}
+				.update-text p {
+					margin: 0;
+				}
+			.comments {
+				margin-top: 5px;
+				width: 390px;
+			}
+				.comment, .new_comment {
+					background: #e5e5e5;
+					margin-top: 3px;
+					padding: 3px;
+					border: 1px solid #d5d5d5;
+					border-width: 0 1px 1px 0;
+				}
+					.comment-author a {
+						font-weight: bold;
+						color: black;
+						text-decoration: none;
 					}
+						.comment-author a:hover {
+							text-decoration: underline;
+						}
+					.comment-date {
+						font-variant: small-caps;
+						font-size: 12px;
+						font-weight: bold;
+						color: #333;
+					}
+					.new_comment input {
+						border: 1px solid #bbb;
+						-moz-border-radius: 2px;
+						-webkit-border-radius: 2px;
+						border-radius: 2px;
+					}
+					.comment-textfield {
+						width: 270px;
+						padding: 2px 1px;
+					}
+					.new_comment .comment-submit {
+						background: url("../images/button_gradient.png") #eee repeat-x;
+						background-position: 0 -10px;
+						border-color: #777;
+						float: right;
+						width: 105px;
+						padding: 1px 0;
+					}
+						.comment-textfield:focus {
+							border-color: #222;
+						}
+						.comment-submit:hover {
+							border-color: #222;
+						}
+		.update-extra {
+			width: 17%;
+			position: absolute;
+			right: 0;
+		}
+			.relevant-groups, .tags, .attachments {
+				font-size: 13px;
+				color: #444;
+			}
+			h5 {
+				padding: 0;
+				margin: 0;
+				font-size: 13px;
+				float: left;
+				clear: both;
+			}
+			.attachments {
+				font-size: 13px;
+			}
+				.relevant-groups ul, .tags ul, .attachments ul {
+					list-style-type: none;
+					padding: 0;
+					margin: 0;
+				}
+					.relevant-groups ul li, .tags ul li, .attachments li {
+						display: inline;
+						margin: 0 0 6px 4px;
+						float: left;
+					}
+						.relevant-groups ul li a, .tags ul li a{
+							color: black;
+							text-decoration: none;
+							background: #d4dce6;
+							padding: 1px 3px;
+						}
+						.tags ul li a {
+							background: #d4e6d9;
+						}
+							.relevant-groups ul li a:hover, .tags ul li a:hover {
+								background: #bbb;
+							}
 /* #show */
 #relevant-groups, #tags{
 	color: #999;
