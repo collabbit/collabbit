@@ -32,7 +32,6 @@ body {
 	color: #fff;
 	background: #555;
 	border-bottom: 1px solid #333;
-	margin-right: -5px;
 }
 	#account-status {
 		float: right;
@@ -51,12 +50,10 @@ body {
 		color: #bbb;
 		font-weight: bold;
 		clear: both;
-		margin: 5px 0 -2px -1px;
+		margin: 13px 0 -2px -1px;
 	}
 		#header-title a {
 			color: #eee;
-			font-size: 24px;
-			font-weight: normal;
 			text-decoration: none;
 		}
 	#menu {
@@ -86,12 +83,12 @@ body {
 				border-bottom: 1px solid #506188;
 			}
 			#incidents-li:hover a.visible {
-				background: #333;
-				border: 1px solid #666;
-				padding: 4px 7px 2px;
+				background: #444;
+				border: 1px solid #333;
+				padding: 3px 7px 2px;
 			}
 			#incidents-li.active:hover a.visible {
-				background: #222;
+				background: #3E4B69;
 			}
 				#incidents-menu {
 					display: none;
@@ -99,9 +96,9 @@ body {
 					list-style-type: none;
 					margin: 0;
 					position: absolute;
-					background: #333;
+					background: #444;
 					margin-left: 10px;
-					border: 1px solid #666;
+					border: 1px solid #333;
 					border-width: 0 1px 1px 1px;
 				}
 					#incidents-menu li {
@@ -125,7 +122,7 @@ body {
 								background: #666;
 							}
 				#incidents-li.active #incidents-menu {
-					background: #222;
+					background: #3E4B69;
 				}
 							#incidents-li.active li.other a:hover {
 								background: #666;
@@ -164,7 +161,7 @@ body {
 			margin-top: 6px;
 			padding: 4px 10px;
 			display: block;
-			border: 1px solid #777;
+			border: 1px solid #444;
 			background: url("../images/button_gradient.png") #eee repeat-x;
 			background-position: 0 -7px;
 			text-decoration: none;
@@ -234,9 +231,9 @@ body {
 
 #content{
 	background: #fff;
-	border: 1px solid #666;
+	border: 1px solid #444;
 	margin-top: -50px;
-	-moz-box-shadow: 0px 1px 5px #666;
+	-moz-box-shadow: 0px 1px 4px #333;
 }
 	#wrap {
 		padding: 20px;
