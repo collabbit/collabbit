@@ -149,7 +149,7 @@ class UpdatesController < AuthorizedController
 
     keep_ids = []
     (params[:keep_file] || {}).each_pair {|k,v| keep_ids << k.to_i if v}
-    @update.attachment_ids = @update.attachment_ids & keep_ids
+    @update.attached_file_ids = @update.attached_file_ids & keep_ids
     unless params[:attachments].blank? #and Attachment.creatable_by?(@current_user)
       params[:attachments].each do |attach|
         @update.attached_files.build(:attach => attach)
