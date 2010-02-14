@@ -40,18 +40,23 @@
   <!-- Files-->
     <% unless @update.file_urls.empty? %>
       <div id="files">
-        <h3>Pictures:</h3>
-        <ul>
-        <% @update.attached_files.each do |f| %>
-            <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
-                <% w, h = FastImage.size(f.attach.path) %>
-                <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
-            <% else %>
-              <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
-          <% end %>
+        <% unless @update.attached_images.empty? %>
+          <h3>Pictures:</h3>
+          <ul>
+            <% @update.attached_images.each do |f| %>
+              <% w, h = FastImage.size(f.attach.path) %>
+              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
+            <% end %>
+          </ul>
         <% end %>
-        </ul>
-        <h3>Other Files</h3>
+        <% unless @update.attached_nonimages.empty? %>
+          <h3>Other Files:</h3>
+          <ul>
+            <% @update.attached_nonimages do |f| %>
+              <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     <% end %>
 

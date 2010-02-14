@@ -195,13 +195,22 @@
 								background: #bbb;
 							}
 /* #show */
-#relevant-groups, #tags{
-	color: #999;
+
+#extra {
+
 }
-	#relevant-groups ul, #tags ul{
-		color: #000;
-		display: inline;
+	#extra h3 {
+		
 	}
+	#extra ul {
+
+	}
+		#extra ul li {
+
+		}
+		#files img {
+			
+		}
 
 
 /* new/edit update page */
