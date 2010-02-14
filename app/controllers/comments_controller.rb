@@ -6,7 +6,7 @@ class CommentsController < AuthorizedController
     c = update.comments.build(params[:comment])
     c.user = @current_user
     flash[:error] = 'Unable to save your comment' unless c.save
-    redirect_to c.update.incident
+    redirect_to :back
   end
 
   def destroy

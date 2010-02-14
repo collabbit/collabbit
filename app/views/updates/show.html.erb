@@ -21,24 +21,37 @@
 	subheader_text('by '+link_to_issuer(@update)+' on '+time_mdy(@update.created_at)) %>
 
 <% content_for :body do %>
-	<p><%=simple_format(h(@update.text)) %></p>
+  <p><%=simple_format(h(@update.text)) %></p>
+  <div class="comments">
+    <% @update.comments.each do |c| %>
+    <div class="comment">
+      <span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
+      <span class="comment-body"><%=c.body%></span>
+      <span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+    </div>
+    <% end %>
+    <% form_for [@update.incident, @update, Comment.new] do |f| %>
+      <%= f.text_field :body, :class => "comment-textfield" %>
+      <%= f.submit 'Add Comment', :class => "comment-submit" %>
+      <div class="clear"></div>
+    <% end %>
+  </div>
 <!-- Files-->
-		<% unless @update.file_urls.empty? %>
-			<div class="files">
-				<em>Attached Files:</em>
-				<ul class="flat-list">
-				<% @update.attached_files.each do |f| %>
-				    <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
-				        <% w, h = FastImage.size(f.attach.path) %>
-				        <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
-				    <% else %>
-					    <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
-					<% end %>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-	
+  <% unless @update.file_urls.empty? %>
+    <div class="files">
+      <em>Attached Files:</em>
+      <ul class="flat-list">
+      <% @update.attached_files.each do |f| %>
+          <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
+              <% w, h = FastImage.size(f.attach.path) %>
+              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
+          <% else %>
+            <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 	<% unless @update.tags.empty? %>
 		<div class="relevant-groups">
 			<em>Relevant groups:</em>
