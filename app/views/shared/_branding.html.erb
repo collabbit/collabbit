@@ -1,3 +1,5 @@
-<% if @instance %>
-	<div id="header-title"><%=link_to @instance.long_name, overview_path %> &middot; collabbit</div>
+<% if promo? %>
+    <h1 id="header-title"><%=link_to 'Collabbit', about_path %></h1>
+<% else %>
+    <div id="header-title"><%=link_to @instance.long_name, overview_path %> &middot; collabbit</div>
 <% end %>

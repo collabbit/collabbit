@@ -1,18 +1,24 @@
 <div id="header">
 	<div class="pagewidth">
-		<div id="breadcrumbs">
-			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize,overview_url)%>
-		</div>
-		<div id="account-status">
-		<% if @current_user && can?(:view => @instance) %>
-			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
-			(<%=link_to('Log Out', logout_path) -%>)
-		<% else %>
-			<%= link_to('Log In', login_path) %>
-			<%= link_to('Sign Up', signup_path) %>
-		<% end unless promo? %>
-		</div>
-		<%= yield :branding or render :partial => 'shared/branding' -%>
+	    <% if @content_for_breadcrumbs || @instance %>
+    		<div id="breadcrumbs">
+    			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize, overview_url)%>
+    		</div>
+		<% end %>
+		
+		<% unless promo? %>
+	    	<div id="account-status">
+    		<% if @current_user && can?(:view => @instance) %>
+    			Hello, <%=link_to @current_user.first_name, edit_user_path(@current_user)-%> 
+    			(<%=link_to('Log Out', logout_path) -%>)
+    		<% else %>
+    			<%= link_to('Log In', login_path) %>
+    			<%= link_to('Sign Up', signup_path) %>
+    		<% end %>
+    		</div>
+    	<% end %>
+    	
+		<%= yield :branding or render :partial => 'shared/branding' %>
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		<div class="clear"></div>
 	</div>
@@ -26,9 +32,11 @@
 			<div class="clear"></div>
 		</div>
 		<%= yield :subheader_text %>
-		<div id="filters">
-			<%= yield :filters %>	
-		</div>
+		<% if @content_for_filters %>
+    		<div id="filters">
+    			<%= yield :filters %>	
+    		</div>
+		<% end %>
 	</div>
 </div>
 
