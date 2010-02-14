@@ -36,42 +36,47 @@
       <div class="clear"></div>
     <% end %>
   </div>
-<!-- Files-->
-  <% unless @update.file_urls.empty? %>
-    <div class="files">
-      <em>Attached Files:</em>
-      <ul class="flat-list">
-      <% @update.attached_files.each do |f| %>
-          <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
-              <% w, h = FastImage.size(f.attach.path) %>
-              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
-          <% else %>
-            <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
+  <div id="extra">
+  <!-- Files-->
+    <% unless @update.file_urls.empty? %>
+      <div id="files">
+        <h3>Pictures:</h3>
+        <ul>
+        <% @update.attached_files.each do |f| %>
+            <% if f.attach.original_filename =~ /(jpg)|(png)|(gif)/ %>
+                <% w, h = FastImage.size(f.attach.path) %>
+                <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
+            <% else %>
+              <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
+          <% end %>
         <% end %>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-	<% unless @update.tags.empty? %>
-		<div class="relevant-groups">
-			<em>Relevant groups:</em>
-			<ul class="flat-list">
-			<% @update.relevant_groups.each do |g| %>
-				<li><%=easy_link_to(g.name, g)%></li>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
-			
-	<!-- Tags -->
-	<% unless @update.tags.empty? %>
-		<div class="tags">
-			<em>Tags:</em>
-			<ul class="flat-list">
-			<% @update.tags.each do |t| %>
-				<li><%=easy_link_to(t.name, t)%></li>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
+        </ul>
+        <h3>Other Files</h3>
+      </div>
+    <% end %>
+
+    <!-- Groups -->
+    <% unless @update.tags.empty? %>
+      <div id="relevant-groups">
+        <h3>Relevant Groups:</h3>
+        <ul>
+        <% @update.relevant_groups.each do |g| %>
+          <li><%=easy_link_to(g.name, g)%></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+        
+    <!-- Tags -->
+    <% unless @update.tags.empty? %>
+      <div id="tags">
+        <h3>Tags:</h3>
+        <ul>
+        <% @update.tags.each do |t| %>
+          <li><%=easy_link_to(t.name, t)%></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 <% end %>

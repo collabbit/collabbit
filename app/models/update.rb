@@ -60,6 +60,14 @@ class Update < ActiveRecord::Base
   def attachments
     attached_files
   end
+
+  def attached_images
+    attached_files.select {|f| f.attach.original_filename =~ /(jpg)|(png)|(gif)/}
+  end
+
+  def attached_nonimages
+    attached_files.select {|f| !(f.attach.original_filename =~ /(jpg)|(png)|(gif)/)}
+  end
   
   # Setter for additional tags. Tags aren't actually added until handle_tags is called.
   def additional_tags=(tags)
@@ -86,6 +94,5 @@ class Update < ActiveRecord::Base
           self.tags.create(:name => t, :instance => incident.instance)
         end
       end
-    end
-   
+    end 
 end
