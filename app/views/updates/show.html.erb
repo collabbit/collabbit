@@ -54,7 +54,7 @@
           </ul>
         <% end %>
         <% unless @update.attached_nonimages.empty? %>
-          <h3>Other Files:</h3>
+          <h3>Files:</h3>
           <ul>
             <% @update.attached_nonimages.each do |f| %>
               <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
