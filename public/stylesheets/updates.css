@@ -188,9 +188,6 @@
 							background: #ddd;
 							padding: 1px 3px;
 						}
-						.tags ul li a {
-							background: #d4e6d9;
-						}
 							.relevant-groups ul li a:hover, .tags ul li a:hover {
 								background: #bbb;
 							}

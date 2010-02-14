@@ -1,7 +1,7 @@
 class AttachedFile < ActiveRecord::Base
   include Authority
   
-  belongs_to :update
+  belongs_to :update, :counter_cache => true
   owned_by :update
   
   has_attached_file :attach,
