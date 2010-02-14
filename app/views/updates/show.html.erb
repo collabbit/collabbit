@@ -21,38 +21,42 @@
 	subheader_text('by '+link_to_issuer(@update)+' on '+time_mdy(@update.created_at)) %>
 
 <% content_for :body do %>
-  <p><%=simple_format(h(@update.text)) %></p>
-  <div class="comments">
-    <% @update.comments.each do |c| %>
-    <div class="comment">
-      <span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
-      <span class="comment-body"><%=c.body%></span>
-      <span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+  <div id="update">
+    <h3>Text:</h3>
+    <p><%=simple_format(h(@update.text)) %></p>
+    <div class="comments">
+      <h3>Comments:</h3>
+      <% @update.comments.each do |c| %>
+      <div class="comment">
+        <span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
+        <span class="comment-body"><%=c.body%></span>
+        <span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+      </div>
+      <% end %>
+      <% form_for [@update.incident, @update, Comment.new] do |f| %>
+        <%= f.text_field :body, :class => "comment-textfield" %>
+        <%= f.submit 'Add Comment', :class => "comment-submit" %>
+        <div class="clear"></div>
+      <% end %>
     </div>
-    <% end %>
-    <% form_for [@update.incident, @update, Comment.new] do |f| %>
-      <%= f.text_field :body, :class => "comment-textfield" %>
-      <%= f.submit 'Add Comment', :class => "comment-submit" %>
-      <div class="clear"></div>
-    <% end %>
   </div>
   <div id="extra">
   <!-- Files-->
     <% unless @update.file_urls.empty? %>
       <div id="files">
         <% unless @update.attached_images.empty? %>
-          <h3>Pictures:</h3>
+          <h3>Images:</h3>
           <ul>
             <% @update.attached_images.each do |f| %>
               <% w, h = FastImage.size(f.attach.path) %>
-              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 200).join('x')), f.attach.url)%></li>
+              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 150).join('x')), f.attach.url)%></li>
             <% end %>
           </ul>
         <% end %>
         <% unless @update.attached_nonimages.empty? %>
           <h3>Other Files:</h3>
           <ul>
-            <% @update.attached_nonimages do |f| %>
+            <% @update.attached_nonimages.each do |f| %>
               <li><%=link_to(f.attach.original_filename, f.attach.url)%></li>
             <% end %>
           </ul>
@@ -63,10 +67,10 @@
     <!-- Groups -->
     <% unless @update.tags.empty? %>
       <div id="relevant-groups">
-        <h3>Relevant Groups:</h3>
+        <h3>Groups:</h3>
         <ul>
         <% @update.relevant_groups.each do |g| %>
-          <li><%=easy_link_to(g.name, g)%></li>
+          <li class="tag"><%=easy_link_to(g.name, g)%></li>
         <% end %>
         </ul>
       </div>
@@ -78,10 +82,11 @@
         <h3>Tags:</h3>
         <ul>
         <% @update.tags.each do |t| %>
-          <li><%=easy_link_to(t.name, t)%></li>
+          <li class="tag"><%=easy_link_to(t.name, t)%></li>
         <% end %>
         </ul>
       </div>
     <% end %>
   </div>
+  <div class="clear"></div>
 <% end %>
