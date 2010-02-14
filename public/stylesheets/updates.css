@@ -28,6 +28,7 @@
 		padding: 0 0 40px 0;
 		margin: 0 0 20px 0;
 		position: relative;
+		clear: both;
 	}
 		.update-meta{
 			color: #555;
@@ -69,11 +70,46 @@
 				.update-text p {
 					margin: 0;
 				}
+				.update-more {
+					color: #444;
+				}
+					.update-more:hover {
+						text-decoration: none;
+					}
+			.update-attach {
+				font-size: 13px;
+				color: #444;
+			}
+				.update-attach h5 {
+					margin: 0;
+					padding: 0;
+					font-size: 13px;
+					font-weight: normal;
+					float: left;
+					padding-right: 4px;
+					padding-bottom: 2px;
+				}
+				.update-attach ul {
+					display: inline;
+					margin: 0;
+					padding: 0;
+					float: left;
+				}
+					.update-attach li {
+						display: inline;
+					}
+						.update-attach a {
+							color: #444;
+						}
+							.update-attach a:hover {
+								text-decoration: none;
+							}
 			.comments {
+				clear: both;
 				margin-top: 5px;
 				width: 390px;
 			}
-				.comment, .new_comment {
+				.comment {
 					background: #e5e5e5;
 					margin-top: 3px;
 					padding: 3px;
@@ -94,22 +130,24 @@
 						font-weight: bold;
 						color: #333;
 					}
+				.new_comment {
+					padding-top: 4px;
+				}
 					.new_comment input {
-						border: 1px solid #bbb;
+						border: 1px solid #aaa;
 						-moz-border-radius: 2px;
 						-webkit-border-radius: 2px;
 						border-radius: 2px;
 					}
 					.comment-textfield {
-						width: 270px;
+						width: 274px;
 						padding: 2px 1px;
 					}
 					.new_comment .comment-submit {
-						background: url("../images/button_gradient.png") #eee repeat-x;
-						background-position: 0 -10px;
+						background: #eee;
 						border-color: #777;
 						float: right;
-						width: 105px;
+						width: 110px;
 						padding: 1px 0;
 					}
 						.comment-textfield:focus {
@@ -123,34 +161,31 @@
 			position: absolute;
 			right: 0;
 		}
-			.relevant-groups, .tags, .attachments {
-				font-size: 13px;
+			.relevant-groups, .tags {
+				font-size: 12px;
 				color: #444;
 			}
-			h5 {
+			.update-extra h5 {
 				padding: 0;
 				margin: 0;
-				font-size: 13px;
+				font-size: 12px;
 				float: left;
 				clear: both;
 			}
-			.attachments {
-				font-size: 13px;
-			}
-				.relevant-groups ul, .tags ul, .attachments ul {
+				.relevant-groups ul, .tags ul {
 					list-style-type: none;
 					padding: 0;
 					margin: 0;
 				}
-					.relevant-groups ul li, .tags ul li, .attachments li {
+					.relevant-groups ul li, .tags ul li {
 						display: inline;
-						margin: 0 0 6px 4px;
+						margin: 0 0 3px 2px;
 						float: left;
 					}
 						.relevant-groups ul li a, .tags ul li a{
 							color: black;
 							text-decoration: none;
-							background: #d4dce6;
+							background: #ddd;
 							padding: 1px 3px;
 						}
 						.tags ul li a {

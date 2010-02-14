@@ -76,17 +76,7 @@
 				<%= mdy u.updated_at %>
 			</div>
 			<div class="update-extra">
-				<% unless u.attached_files.empty? %>
-					<div class="attachments">
-						<h5>Attached Files:</h5>
-						<ul>
-						<% u.attachments.each do |f| %>
-							<li><%=link_to f.attach.original_filename, f.attach.url%></li>
-						<% end %>
-						</ul>
-					</div>				
-				<% end
-				   unless u.relevant_groups.empty? %>
+				<% unless u.relevant_groups.empty? %>
 					<div class="relevant-groups">
 						<h5>Groups:</h5>
 						<ul>
@@ -106,14 +96,29 @@
 						</ul>
 					</div>
 				<% end %>
+				<div class="clear"></div>
 			</div>
 
 			<div class="update-main">
 				<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
 				<div class="update-text">
-					<%=simple_format(h(u.text)).split('</p>')[0][0..256] %>
-					<%='[...]' if u.text.length > 256%>
+				<%  if u.text.length > 256 %>
+					<%=truncate_at(simple_format(h(u.text)).split('</p>')[0],256) %>
+					<%=link_to('&raquo;more', incident_update_path(@incident, u),:class => 'update-more') %>
+				<%  else %>
+					<%=simple_format(h u.text) %>
+				<% end %>
 				</div>
+				<% unless u.attached_files.empty? %>
+					<div class="update-attach">
+						<h5>Files:</h5>
+						<ul>
+						<% u.attached_files.each do |f| %>
+							<li><%=link_to f.attach.original_filename, f.attach.url%></li>
+						<% end %>
+						</ul>
+					</div>				
+				<% end %>
 				<div class="comments">
 					<% u.comments.each do |c| %>
 					<div class="comment">
