@@ -8,7 +8,7 @@
 %>
 
 <% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
-<% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates')%>
+<% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates', 'prototype')%>
 
 <% content_for :breadcrumbs, 
 	breadcrumbs(['Incidents',incidents_path]) %>
@@ -84,6 +84,7 @@
 							<li><%=link_to g.name, group_type_group_path(g.group_type, g) %></li>		
 						<% end %>	
 						</ul>
+						<div class="clear"></div>
 					</div>
 				<% end 
 				   unless u.tags.empty? %>
@@ -94,6 +95,7 @@
 							<li><%=link_to t.name, t %></li>
 						<% end %>
 						</ul>
+						<div class="clear"></div>
 					</div>
 				<% end %>
 				<div class="clear"></div>

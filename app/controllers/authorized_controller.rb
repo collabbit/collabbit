@@ -16,7 +16,7 @@ class AuthorizedController < ApplicationController
 
   def with_rejection(opts = {})
     opts[:error] ||= "You are not authorized to view that page."
-    if request.env["HTTP_REFERER"].empty?
+    if request.env["HTTP_REFERER"].blank?
       opts[:fail_to] ||= overview_path
     else
       opts[:fail_to] ||= :back

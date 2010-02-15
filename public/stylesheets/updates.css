@@ -141,14 +141,14 @@
 					}
 					.comment-textfield {
 						width: 274px;
-						padding: 2px 1px;
+						padding: 3px 2px;
 					}
 					.new_comment .comment-submit {
 						background: #eee;
 						border-color: #777;
 						float: right;
-						width: 110px;
-						padding: 1px 0;
+						width: 106px;
+						padding: 3px 0;
 					}
 						.comment-textfield:focus {
 							border-color: #222;
@@ -164,6 +164,7 @@
 			.relevant-groups, .tags {
 				font-size: 12px;
 				color: #444;
+				margin: 3px 0 0 0;
 			}
 			.update-extra h5 {
 				padding: 0;
@@ -179,7 +180,7 @@
 				}
 					.relevant-groups ul li, .tags ul li {
 						display: inline;
-						margin: 0 0 3px 2px;
+						margin: 0 0 4px 2px;
 						float: left;
 					}
 						.relevant-groups ul li a, .tags ul li a{

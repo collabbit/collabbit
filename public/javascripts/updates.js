@@ -1,4 +1,16 @@
 jQuery(function(){
+    
+    var commentInitial = 'Add a comment here'
+    jQuery('.comment-textfield').each(function(){
+        jQuery(this).focus(function(){
+           	if(jQuery(this).val() == commentInitial)
+    			jQuery(this).val('').removeClass('blank'); 
+        }).blur(function(){
+            if(jQuery(this).val() == '')
+        		jQuery(this).val(commentInitial).addClass('blank');
+        });
+        jQuery(this).blur();
+    });
 	
 	// for filters
 	var init = 'Search Keywords';

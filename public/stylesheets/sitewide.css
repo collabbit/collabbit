@@ -315,6 +315,9 @@ body {
 .hide {
 	display: none;
 }
+.blank{
+    color: #999 !important;
+}
 
 /* ERROR MESSAGSE */
 .fieldWithErrors{
