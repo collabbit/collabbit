@@ -27,27 +27,26 @@
 <% end %>
 <% content_for :subheader_text, subheader_text(@incident.description) if @incident.description %>
 <% content_for :filters do %>
-	<%	# there's probably a better place to be doing the require,
-		# but this code is much more efficient and more compact
-		# than what was here before
-		require 'set'
-		groups = Set.new
+	<%	groups = Set.new
 		tags = Set.new
 		@incident.updates.each do |u|
 			groups.merge u.relevant_groups
 			groups.add u.issuing_group unless u.issuing_type == :user || !u.issuing_group
 			tags.merge u.tags
 		end
+		
+		tags = (tags.map {|t| [t.name, t.id]}).sort {|a,b| a[0]<=>b[0]}
+		groups = (groups.map {|g| [g.name, g.id]}).sort {|a,b| a[0]<=>b[0]}
 	%>
 		
 	<% form_tag incident_updates_path(@incident), :method => :get do %>
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 					
 		<select name="groups_filter" id="filters_groups">
-			<%= options_for_select([['All Groups', nil],['My Groups', 'mine']]+groups.map{|g|[g.name, g.id]}, @groups_filter) %>
+			<%= options_for_select([['All Groups', nil],['My Groups', 'mine']]+groups, @groups_filter) %>
 		</select>
 		<select name="tags_filter" id="filters_tags">
-			<%= options_for_select([['All Tags', nil]] + tags.map{|g|[g.name, g.id]}, @tags_filter) %>
+			<%= options_for_select([['All Tags', nil]] + tags, @tags_filter) %>
 		</select>    				
 		<%= submit_tag "Apply Filters", :name => nil, :id => "filters_submit" %>
 	<% end %>
@@ -80,7 +79,7 @@
 					<div class="relevant-groups">
 						<h5>Groups:</h5>
 						<ul>
-						<% u.relevant_groups.each do |g| %>
+						<% u.relevant_groups.find(:all, :order => 'name').each do |g| %>
 							<li><%=link_to g.name, group_type_group_path(g.group_type, g) %></li>		
 						<% end %>	
 						</ul>
@@ -91,7 +90,7 @@
 					<div class="tags">
 						<h5>Tags:</h5>
 						<ul>
-						<% u.tags.each do |t| %>
+						<% u.tags.find(:all, :order => 'name').each do |t| %>
 							<li><%=link_to t.name, t %></li>
 						<% end %>
 						</ul>

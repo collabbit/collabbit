@@ -65,11 +65,11 @@
     <% end %>
 
     <!-- Groups -->
-    <% unless @update.tags.empty? %>
+    <% unless @update.relevant_groups.empty? %>
       <div id="relevant-groups">
         <h3>Groups:</h3>
         <ul>
-        <% @update.relevant_groups.each do |g| %>
+        <% @update.relevant_groups.find(:all, :order => 'name').each do |g| %>
           <li class="tag"><%=easy_link_to(g.name, g)%></li>
         <% end %>
         </ul>
@@ -81,7 +81,7 @@
       <div id="tags">
         <h3>Tags:</h3>
         <ul>
-        <% @update.tags.each do |t| %>
+        <% @update.tags.find(:all, :order => 'name').each do |t| %>
           <li class="tag"><%=easy_link_to(t.name, t)%></li>
         <% end %>
         </ul>

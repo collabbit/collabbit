@@ -23,7 +23,7 @@ class GroupTypesController < AuthorizedController
   end
 
   def index
-    @group_types = @instance.group_types
+    @group_types = @instance.group_types.find(:all, :order => 'name')
     return with_rejection unless @current_user.can?(:list => @group_types)
   end
 

@@ -12,9 +12,9 @@ class Update < ActiveRecord::Base
   belongs_to :issuing_group, :class_name => 'Group', :foreign_key => 'group_id'
   
   has_many :classifications
-  has_many :relevant_groups, :through => :classifications, :class_name => 'Group', :source => :group
+  has_many :relevant_groups, :through => :classifications, :class_name => 'Group', :source => :group, :order => 'name'
   has_many :taggings, :dependent => :destroy
-  has_many :tags, :through => :taggings
+  has_many :tags, :through => :taggings, :order => 'name'
   has_many :attached_files, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   

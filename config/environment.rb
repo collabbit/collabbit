@@ -10,6 +10,7 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'authority'
+require 'set'
 
 settings = YAML.load_file('config/settings/keys.yml')
 
