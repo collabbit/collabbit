@@ -111,15 +111,17 @@
 				width: 390px;
 			}
 				.comment {
-					background: #e5e5e5;
+					background: #efeff0;
 					margin-top: 3px;
 					padding: 3px;
-					border: 1px solid #d5d5d5;
+					border: 1px solid #dfdfdf;
 					border-width: 0 1px 1px 0;
+					color: #444;
+					font-size: 12px;
 				}
 					.comment-author a {
 						font-weight: bold;
-						color: black;
+						color: #444;
 						text-decoration: none;
 					}
 						.comment-author a:hover {
@@ -129,10 +131,12 @@
 						font-variant: small-caps;
 						font-size: 12px;
 						font-weight: bold;
-						color: #333;
+						color: #444;
+						float:right;
+						padding: 2px 0 0 0;
 					}
 				.new_comment {
-					padding-top: 4px;
+					padding: 4px 0;
 				}
 					.new_comment input {
 						border: 1px solid #aaa;
@@ -214,6 +218,9 @@
 	#update p {
 		padding: 0;
 		margin: 0;
+	}
+	#update .comments{
+	    margin: 5px 0 10px 0;
 	}
 #extra {
 	width: 35%;
