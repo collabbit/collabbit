@@ -57,11 +57,11 @@ module ApplicationHelper
   end
   
   def time_mdy(x)
-    mdy(x) + x.strftime(' at %I:%M %p')
+    "#{mdy(x)} at #{time_time}"
   end
 
   def time_time(x)
-    x.strftime(' %I:%M %p')
+    "#{x.hour % 12 + 1}:#{x.min} #{x.hour > 11 ? 'PM' : 'AM'}"
   end
   
   def pretty_delete_button(to, *opts)
