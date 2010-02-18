@@ -141,7 +141,7 @@
 						border-radius: 2px;
 					}
 					.comment-textfield {
-						width: 274px;
+						width: 385px;
 						padding: 3px 2px;
 					}
 					.new_comment .comment-submit {
@@ -153,10 +153,15 @@
 					}
 						.comment-textfield:focus {
 							border-color: #222;
+							outline: 0;
 						}
 						.comment-submit:hover {
 							border-color: #222;
 						}
+						    .comment-submit-wrapper {
+						        float:right;
+						        height: 1px;
+						    }
 		.update-extra {
 			width: 17%;
 			position: absolute;
