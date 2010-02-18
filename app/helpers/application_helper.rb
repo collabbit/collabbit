@@ -57,7 +57,7 @@ module ApplicationHelper
   end
   
   def time_mdy(x)
-    "#{mdy(x)} at #{time_time}"
+    "#{mdy(x)} at #{time_time(x)}"
   end
 
   def time_time(x)
