@@ -24,16 +24,20 @@ class UpdatesController < AuthorizedController
     @incident = @instance.incidents.find(params[:incident_id])
     @tags = @instance.tags
     @groups = @instance.groups
-    @update = @incident.updates.find(params[:id])
+    @update = @incident.updates.find(params[:id])    
     return with_rejection unless @current_user.can? :update => @update
   end
   
   def poll_for_newer
     incident = @instance.incidents.find(params[:incident_id])
-    diff = incident.updates.last.id - params[:update_id].to_i
-    if diff > 0
+    new_updates = incident.updates.find(:all, :select => 'id', :conditions => ['id > ?', params[:update_id].to_i])
+    if new_updates.size > 0
+      user_groups_updates = User.find(params[:user_id]).groups.inject(Set.new){|set, cur| set.merge cur.update_ids}
+      user_diff = (user_groups_updates & new_updates.map(&:id)).size
       render :update do |page|  
-        page.replace_html 'new-updates', "<span>There are #{diff} new updates.
+        page.replace_html 'new-updates', "<span>There #{new_updates.size == 1 ? 'is' : 'are'}
+         #{humanize_number new_updates.size} new update#{'s' if new_updates.size != 1},
+         with #{user_diff} in your groups.
           #{link_to 'Reload the page', incident_updates_path(incident)} to see them.</span>"
       end
     else
@@ -78,7 +82,10 @@ class UpdatesController < AuthorizedController
       :order => 'created_at DESC',
       :include => [:relevant_groups, :issuing_group, :tags]
     }    
+    
     @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
+    @latest_update_id = Update.last.id
+    
   end
 
   # Saves an update object to the database with the parameters provided in

@@ -107,6 +107,7 @@ class UsersController < AuthorizedController
     if @current_user.permission_to?(:update, @user) && params[:user][:state] != nil
       @user.state = params[:user][:state]
     end
+    
     if @user.update_attributes(params[:user])
       flash[:notice] = t('notice.user_updated')
       redirect_to @user

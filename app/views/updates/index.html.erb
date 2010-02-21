@@ -59,7 +59,8 @@
 		Incident Closed
 	</h2>
 	<% end %>
-	<% url = incident_update_poll_for_newer_url(@incident, @updates.inject(0) {|res, e| [res, e.id].max})%>
+	
+	<% url = incident_update_poll_for_newer_url(@incident, @latest_update_id, :user_id => @current_user.id)%>
 	<%= periodically_call_remote :url => url, :frequency => '10' %>
 	<div id="new-updates">
 	</div>

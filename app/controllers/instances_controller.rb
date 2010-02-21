@@ -28,6 +28,15 @@ class InstancesController < AuthorizedController
       res[e.model] << e.action
       res
     end
+    
+    cud = ['create', 'update', 'destroy']
+    @perms_hash = {
+      'Update' => cud,
+      'Comment' => cud,
+      'Group' => cud,
+      'Group Type' => cud,
+      'Incident' => cud      
+    }
     @roles = Role.all
   end
 

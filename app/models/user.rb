@@ -14,7 +14,10 @@ class User < ActiveRecord::Base
   belongs_to :carrier
   has_many :updates
   has_many :groups, :through => :memberships
+  
   has_many :feeds, :foreign_key => 'owner_id', :dependent => :destroy
+  accepts_nested_attributes_for :feeds
+  
   has_many :memberships, :dependent => :destroy, :uniq => true
   has_many :comments, :dependent => :destroy
 
@@ -30,7 +33,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name,    :last_name,       :email,
                   :desk_phone,    :cell_phone,      :preferred_is_cell,
                   :wants_alerts,  :desk_phone_ext,  :password,
-                  :password_confirmation, :carrier, :carrier_id
+                  :password_confirmation, :carrier, :carrier_id, :feeds_attributes
   
   def can?(hsh)
     return false unless hsh.is_a?(Hash) && role != nil

@@ -147,5 +147,13 @@ module ApplicationHelper
       [w*within/h, within]
     end
   end
+  
+  def humanize_number(n, trans_table = {}, context = '')
+    translations = {
+        0 => 'no',
+        1 => (context == 'a') ? 'a' : 'an',
+      }.merge(trans_table)
       
+      translations[n] || n
+  end
 end

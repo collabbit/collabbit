@@ -188,5 +188,13 @@ up4.save
 up5.save
 up6.save
 
+User.all.each do |u|
+  u.instance.incidents.each do |i|
+    f = Feed.make_my_groups_feed(i)
+    f.owner = u
+    f.save
+  end
+end
+
 UpdateObserver.enable!
 UserObserver.enable!

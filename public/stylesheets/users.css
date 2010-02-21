@@ -113,3 +113,26 @@
     font-weight: bold;
     color: #333;
 }
+
+
+/* EDIT */
+#notifications{
+    text-align: left;
+}
+    #notifications th{
+        font-weight: bold;
+        font-size: 14px;
+        font-variant: small-caps;
+    }
+        .incident-title{
+            width: 150px;
+            font-size: 14px;
+        }
+        .feed-email-setting{
+            
+        }
+        .incident-title, .feed-email-setting, .feed-text-setting{
+            border-bottom: 1px solid #ddd;
+            padding: 2px 25px 2px 0;
+            color: #444;
+        }

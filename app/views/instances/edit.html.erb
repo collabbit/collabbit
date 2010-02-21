@@ -35,13 +35,13 @@
 						<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
 						<td><%= actions[0] %></td>
 						<% @roles.each do |r| %>
-							<td><%= permission_checkbox r, actions[0], model %></td>
+							<td><%= permission_checkbox r, actions[0], model.gsub(/ /,'') %></td>
 						<% end %>
 						</tr>
 						<% actions[1..actions.length].each do |a|%>
 							<tr><td><%= a %></td> 
 							<% @roles.each do |r| %>
-								<td><%= permission_checkbox r, a, model %></td>
+								<td><%= permission_checkbox r, a, model.classify.gsub(/ /,'') %></td>
 							<% end %>
 							</tr>
 						<% end %>
