@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     incident.resources :updates do |update|
       update.poll_for_newer 'poll_for_newer', :controller => 'updates', :action => 'poll_for_newer'
       update.attachment 'attachments/:id', :controller => 'attached_files', :action => 'show'
-      update.comments 'comments', :controller => 'comments', :action => 'create'
+      update.resources :comments, :only => [:create, :destroy]
     end
   end
   

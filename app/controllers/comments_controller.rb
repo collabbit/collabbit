@@ -10,11 +10,13 @@ class CommentsController < AuthorizedController
   end
 
   def destroy
-    @tag = @instance.tags.find(params[:id])
-    return with_rejection unless @current_user.can? :destroy => @tag
-    @tag.destroy
-    flash[:notice] = t('notice.tag_destroyed')
-    redirect_to tags_path
+    @incident = @instance.incidents.find(params[:incident_id])
+    @update = @incident.updates.find(params[:update_id])
+    @comment = @update.comments.find(params[:id])
+    return with_rejection unless @current_user.can? :destroy => @comment
+    @comment.destroy
+    flash[:notice] = t('notice.comment_destroyed')
+    redirect_to(params[:redirect_to] || :back)
   end
 end
 

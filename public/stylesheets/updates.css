@@ -135,6 +135,9 @@
 						float:right;
 						padding: 2px 0 0 0;
 					}
+					.comment-destroy {
+					    color: #000;
+					}
 				.new_comment {
 					padding: 4px 0;
 				}
