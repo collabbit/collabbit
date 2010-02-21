@@ -44,8 +44,6 @@
     </table>
 
     <h2>Account Details</h2>
-	<% @user.password = @user.password_confirmation = nil %>
-
 	<% @user.password = @user.password_confirmation = '' %>
 		<p><%= f.label 'email' %><br/>
 		<%= f.text_field :email, :title => 'Username' %></p>
