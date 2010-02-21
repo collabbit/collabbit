@@ -7,6 +7,8 @@
 class Update < ActiveRecord::Base
   include Authority
   
+  acts_as_archive
+  
   belongs_to :user
   belongs_to :incident
   belongs_to :issuing_group, :class_name => 'Group', :foreign_key => 'group_id'

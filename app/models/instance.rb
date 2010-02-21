@@ -9,6 +9,8 @@ class Instance < ActiveRecord::Base
   
   FORBIDDEN_SUBDOMAINS = %w( support blog www billing help api internal mail email webmail )
   
+  acts_as_archive
+  
   has_many :incidents, :dependent => :destroy
   has_many :updates, :through => :incidents
   has_many :users, :dependent => :destroy

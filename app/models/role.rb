@@ -8,6 +8,8 @@ class Role < ActiveRecord::Base
   include Authority
   has_many :users
   belongs_to :instance
+  
+  acts_as_archive
 
   has_many :privileges, :dependent => :destroy, :include => :permissions
   has_many :permissions, :through => :privileges

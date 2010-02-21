@@ -6,6 +6,8 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 class GroupType < ActiveRecord::Base
   include Authority
+  acts_as_archive
+  
   belongs_to :instance
   has_many :groups, :dependent => :destroy
   

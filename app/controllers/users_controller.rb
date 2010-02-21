@@ -88,6 +88,10 @@ class UsersController < AuthorizedController
     @user.crypted_password = @user.generate_crypted_password(@user.password)
     @user.activation_code = @user.generate_activation_code
     @user.role = @instance.roles.first #<<FIX: default role
+    
+    @instance.incidents.each do |i|
+      @user.feeds << Feed.make_my_groupds_feed(i)
+    end
 
     if @user.save
       flash[:notice] = t('notice.signup')

@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   include Authority
+  acts_as_archive
   belongs_to :update
   belongs_to :user
   

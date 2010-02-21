@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem 'exceptional'
   config.gem 'searchlogic'
   config.gem 'fastimage', :lib => 'fastimage'
+  config.gem 'acts_as_archive'
   
   config.action_controller.session = {
     :session_key => settings['action_controller']['session']['session_key'],

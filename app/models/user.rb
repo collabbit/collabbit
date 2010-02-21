@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   include Authority, Passworded
   STATES = {:pending => 'pending', :pending_approval => 'pending_approval', :active => 'active', :deleted => 'deleted'}
 
+  acts_as_archive
+
   belongs_to :role
   belongs_to :instance
   belongs_to :carrier

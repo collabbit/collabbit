@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100211180458) do
+ActiveRecord::Schema.define(:version => 20100221213424) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -17,6 +17,84 @@ ActiveRecord::Schema.define(:version => 20100211180458) do
     t.string   "salt",             :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "archived_group_types", :id => false, :force => true do |t|
+    t.integer  "id",           :default => 0, :null => false
+    t.string   "name"
+    t.integer  "instance_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "groups_count", :default => 0
+    t.datetime "deleted_at"
+  end
+
+  create_table "archived_groups", :id => false, :force => true do |t|
+    t.integer  "id",                :default => 0, :null => false
+    t.string   "name"
+    t.integer  "group_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "memberships_count", :default => 0
+    t.datetime "deleted_at"
+  end
+
+  create_table "archived_instances", :id => false, :force => true do |t|
+    t.integer  "id",                       :default => 0, :null => false
+    t.string   "short_name", :limit => 16
+    t.string   "long_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "archived_roles", :id => false, :force => true do |t|
+    t.integer  "id",                        :default => 0, :null => false
+    t.string   "name",        :limit => 32
+    t.integer  "instance_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "archived_updates", :id => false, :force => true do |t|
+    t.integer  "id",                   :default => 0, :null => false
+    t.string   "title"
+    t.text     "text"
+    t.integer  "user_id"
+    t.integer  "incident_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "attached_files_count", :default => 0
+    t.datetime "deleted_at"
+  end
+
+  create_table "archived_users", :id => false, :force => true do |t|
+    t.integer  "id",                                       :default => 0,         :null => false
+    t.string   "first_name",                :limit => 100, :default => ""
+    t.string   "last_name",                 :limit => 100, :default => ""
+    t.string   "email",                     :limit => 100
+    t.string   "desk_phone"
+    t.string   "desk_phone_ext"
+    t.string   "cell_phone"
+    t.boolean  "preferred_is_cell"
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
+    t.string   "state",                                    :default => "pending"
+    t.datetime "deleted_at"
+    t.integer  "role_id"
+    t.integer  "instance_id"
+    t.integer  "carrier_id"
+    t.datetime "last_login"
+    t.datetime "last_logout"
+    t.datetime "last_alerted"
   end
 
   create_table "attached_files", :force => true do |t|
