@@ -33,10 +33,10 @@ class UpdateObserver < ActiveRecord::Observer
       end
             
       alerts.each_pair do |user, feed|
-        if !user.cell_phone.blank? && !user.carrier.blank? && feed.text_alert?
+        if user.active? && !user.cell_phone.blank? && !user.carrier.blank? && feed.text_alert?
           UserMailer.deliver_text_alert(user, feed, update, action)
         end
-        UserMailer.deliver_email_alert(user, feed, update, action) if feed.email_alert?
+        UserMailer.deliver_email_alert(user, feed, update, action) if feed.email_alert? && user.active?
         user.last_alerted = Time.now
         user.save
       end
