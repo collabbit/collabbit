@@ -122,7 +122,14 @@
 					</div>				
 				<% end %>
 				<div class="comments">
-					<% u.comments.each do |c| %>
+				    <% u.comments.count.tap do |size| %>
+				        <% if size > 5 %>
+				            <div class="comment show-older">
+				                <%= link_to "Show #{pluralize((size-5), 'older comment')}", [@incident, u] %>
+				            </div>
+				        <% end %>
+				    <% end %>
+					<% u.comments.last(5).each do |c| %>
 					<div class="comment">
 						<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
 						<span class="comment-body"><%=c.body%></span>

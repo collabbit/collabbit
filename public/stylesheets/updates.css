@@ -110,6 +110,14 @@
 				margin-top: 5px;
 				width: 390px;
 			}
+			    .show-older{
+			    }
+    			    .show-older a{
+    			        color: #506188;
+    			        font-size: 12px;
+    			        font-weight: bold;
+    			        text-decoration: none;
+    			    }
 				.comment {
 					background: #efeff0;
 					margin-top: 3px;

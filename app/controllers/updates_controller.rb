@@ -64,7 +64,9 @@ class UpdatesController < AuthorizedController
     
     unless params[:groups_filter].blank?
       @groups_filter = params[:groups_filter]
-      @groups_filter = @groups_filter.to_i unless @groups_filter == '' || @groups_filter == 'mine' || @groups_filter == nil
+      unless @groups_filter == '' || @groups_filter == 'mine' || @groups_filter == nil
+        @groups_filter = @groups_filter.to_i
+      end
       # Eventually add in _or_issuing_group_id_
       search_clauses[:relevant_groups_id_equals_any] = case @groups_filter
         when 'mine' then @current_user.group_ids
@@ -84,8 +86,10 @@ class UpdatesController < AuthorizedController
     }    
     
     @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
-    @latest_update_id = Update.last.id
     
+    @comment = Comment.new
+    
+    @latest_update_id = Update.last.id
   end
 
   # Saves an update object to the database with the parameters provided in
