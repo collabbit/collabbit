@@ -142,9 +142,9 @@
 					</div>
 					<% end %>
 					<% form_for [u.incident, u, Comment.new], :id => "#{u.id}-new-comment" do |f| %>
-						<%= f.text_field :body, :class => "comment-textfield" %>
+						<%= f.text_field :body, :class => "comment-textfield blank" %>
 						<div class="comment-submit-wrapper">
-						    <%= f.submit 'Add Comment', :class => "comment-submit" %>
+						    <%= f.submit 'Add Comment', :class => "comment-submit hide" %>
 						</div>
 						<div class="clear"></div>
 					<% end %>

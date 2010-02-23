@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20100221213424) do
     t.datetime "updated_at"
   end
 
+  create_table "archived_comments", :id => false, :force => true do |t|
+    t.integer  "id",         :default => 0, :null => false
+    t.integer  "update_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
   create_table "archived_group_types", :id => false, :force => true do |t|
     t.integer  "id",           :default => 0, :null => false
     t.string   "name"

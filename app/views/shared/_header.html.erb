@@ -1,10 +1,8 @@
 <div id="header">
 	<div class="pagewidth">
-	    <% if @content_for_breadcrumbs || @instance %>
-    		<div id="breadcrumbs">
-    			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize, overview_url)%>
-    		</div>
-		<% end %>
+
+		<%= yield :branding or render :partial => 'shared/branding' %>
+
 		
 		<% unless promo? %>
 	    	<div id="account-status">
@@ -18,7 +16,11 @@
     		</div>
     	<% end %>
     	
-		<%= yield :branding or render :partial => 'shared/branding' %>
+	    <% if @content_for_breadcrumbs || @instance %>
+    		<div id="breadcrumbs">
+    			<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize, overview_url)%>
+    		</div>
+		<% end %>
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		<div class="clear"></div>
 	</div>

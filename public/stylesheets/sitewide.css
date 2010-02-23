@@ -3,7 +3,7 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	background: #ddd;
+	background: #eee;
 	min-width: 777px;
 }
 .clear {
@@ -28,14 +28,14 @@ body {
 
 #header {
 	margin: 0;
-	padding: 10px 0 1px;
+	padding: 12px 0 1px;
 	color: #fff;
-	background: #555;
-	border-bottom: 1px solid #333;
+	background: #444;
+	border-bottom: 2px solid black;
 }
 	#account-status {
 		float: right;
-		font-size: 14px;
+		font-size: 13px;
 		margin: -2px 0 2px;
 	}
 		#account-status a {
@@ -49,13 +49,28 @@ body {
 		float: left;
 		color: #bbb;
 		font-weight: bold;
-		clear: both;
-		margin: 13px 0 -2px -1px;
+		font-size: 13px;
+		margin: -2px 0 2px;
 	}
 		#header-title a {
 			color: #eee;
 			text-decoration: none;
 		}
+			#header-title a:hover {
+				text-decoration: underline;
+			}
+	#breadcrumbs {
+		color: #999;
+		float: left;
+		clear: both;
+		margin: 13px 0 -2px;
+	}
+		#breadcrumbs a {
+			color: #eee;
+		}
+			#breadcrumbs a:hover {
+				text-decoration: none;
+			}
 	#menu {
 		float: right;
 		list-style-type: none;
@@ -74,13 +89,13 @@ body {
 					background: #333;
 				}
 			#menu .active a {
-				background: #506188;
-				color: white;
+				background: #eee;
+				color: black;
 				font-weight: bold;
 				border: 1px solid #333;
-				border-width: 1px 1px 0 1px;
+				border-width: 2px;
 				padding: 3px 7px 1px;
-				border-bottom: 1px solid #506188;
+				border-bottom: 2px solid #eee;
 			}
 			#incidents-li:hover a.visible {
 				background: #444;
@@ -129,23 +144,8 @@ body {
 							}
 
 #subheader {
-	background: #506188;
-	color: white;
-	border-bottom: 1px solid #bcbcbc;
-	padding: 6px 0 60px;
+	padding: 20px 0 60px;
 }
-	#breadcrumbs {
-		font-size: 14px;
-		color: #999;
-		float: left;
-		margin: -2px 0 2px;
-	}
-		#breadcrumbs a {
-			color: #eee;
-		}
-			#breadcrumbs a:hover {
-				text-decoration: none;
-			}
 	#subheader_main {
 	}
 		#subheader_main h1 {
@@ -312,12 +312,6 @@ body {
 				font-size: 16px;
 			}
 
-.hide {
-	display: none;
-}
-.blank{
-    color: #999 !important;
-}
 
 /* ERROR MESSAGSE */
 .fieldWithErrors{
