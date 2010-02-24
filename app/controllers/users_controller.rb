@@ -110,6 +110,7 @@ class UsersController < AuthorizedController
 
     if @current_user.permission_to?(:update, @user) && params[:user][:state] != nil
       @user.state = params[:user][:state]
+      params[:user].delete(:state)
     end
     
     if @user.update_attributes(params[:user])
