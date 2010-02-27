@@ -4,6 +4,7 @@ body {
 	margin: 0;
 	padding: 0;
 	min-width: 777px;
+	background: #eee;
 }
 #content {
 	padding-bottom: 60px !important;
@@ -144,11 +145,12 @@ body {
 							}
 
 #subheader {
-	padding: 15px 15px 10px;
-	background: white;
-	border-top: 1px solid #bbb;
 }
 #subheader .pagewidth {
+	padding: 15px 20px 10px;
+	background: white;
+	border: 1px solid #bbb;
+	border-width: 1px 1px 0;
 }
 	#subheader_main {
 
@@ -248,7 +250,9 @@ body {
 
 #content{
 	background: #fff;
-	padding-bottom: 10px;
+	padding: 0 20px 10px;
+	border: 1px solid #bbb;
+	border-width: 0 1px 1px;
 }
 	#wrap {
 		padding: 20px 0;
@@ -264,17 +268,13 @@ body {
 	}
 
 #footer{
-	position: relative;
-	margin-top: -48px;
 	color: #666;
 	font-size: 13px;
 	text-align: center;
 	background: #eee;
-	height: 17px;
 	padding: 15px 0;
-	border-top: 1px solid #bbb;
 }
-/* START: pushes the footer down */
+/* START: pushes the footer down *
 html,body { height: 100%; }
 #content-wrap { min-height: 100%; position: relative; }
 /* END */
