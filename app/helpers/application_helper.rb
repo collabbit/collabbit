@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def breadcrumbs(*args)
-    ([[@instance.short_name.capitalize,overview_path]]+args).collect { |n,l| link_to(n,l) }.join(' &#9656; ')
+    ([[@instance.long_name,overview_path]]+args).collect { |n,l| link_to(n,l) }.join(' &#9656; ')
   end
 
   def subheader_text(text)
@@ -155,5 +155,14 @@ module ApplicationHelper
       }.merge(trans_table)
       
       translations[n] || n
+  end
+
+  def match_counter(updates)
+    l = updates.length
+    if l == 1:
+      "1 match"
+    else
+      "#{l} matches"
+    end
   end
 end

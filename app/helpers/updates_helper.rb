@@ -20,14 +20,4 @@ module UpdatesHelper
     end
     truncated
   end
-
-  def match_counter(updates)
-    l = updates.length
-    if l == 1:
-      "1 match"
-    else
-      "#{l} matches"
-    end
-  end
-
 end

@@ -9,23 +9,22 @@
 		<!--[if IE 7]>
 		<%= stylesheet_link_tag 'sitewide_ie7' %>
 		<![endif]-->
-		<!--[if IE 6]>
-		<%= stylesheet_link_tag 'sitewide_ie6' %>
-		<![endif]-->
 		<%= stylesheet_link_tag controller_name %>
 		<%= yield :styles %>
 
 		<%= javascript_include_tag('jquery','application')%>
 		<%= yield :javascripts %>
 	</head>
-	<body>
-		<%= render :partial => 'shared/header' -%>
-		<div id="content" class="pagewidth">
-			<div id="wrap">
-				<%= flashes %>
-				<%= yield :body or yield %>
-			</div>
-		</div>
+    <body>
+        <div id="content-wrap">
+            <%= render :partial => 'shared/header' -%>
+            <div id="content" class="pagewidth">
+                <div id="wrap">
+                    <%= flashes %>
+                    <%= yield :body or yield %>
+                </div>
+            </div>
+        </div>
 		<div id="footer">
 			&copy; 2009 HFOSS &middot; <%= link_to 'Terms of Use', home_path(:page => 'terms', :return_to => @return_to) %> &middot; <%= link_to 'Privacy Policy', home_path(:page => 'privacy', :return_to => @return_to) %> &middot; <%= link_to 'Support', '#', :id => 'bottom-support' %>
 		</div>

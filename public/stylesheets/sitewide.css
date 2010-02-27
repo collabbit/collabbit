@@ -5,6 +5,9 @@ body {
 	padding: 0;
 	min-width: 777px;
 }
+#content {
+	padding-bottom: 60px !important;
+}
 .clear {
 	clear: both;
 }
@@ -46,13 +49,12 @@ body {
 			}
 	#header-title {
 		float: left;
-		color: #444;
 		font-weight: bold;
 		font-size: 14px;
 		margin: -2px 0 2px;
 	}
 		#header-title a {
-			color: black;
+			color: #666;
 			text-decoration: none;
 		}
 			#header-title a:hover {
@@ -96,12 +98,12 @@ body {
 				padding: 3px 7px 1px;
 			}
 			#incidents-li:hover a.visible {
-				background: #444;
+				background: #ddd;
 				border: 1px solid #333;
 				padding: 3px 7px 2px;
 			}
 			#incidents-li.active:hover a.visible {
-				background: #3E4B69;
+				background: #ddd;
 			}
 				#incidents-menu {
 					display: none;
@@ -109,7 +111,7 @@ body {
 					list-style-type: none;
 					margin: 0;
 					position: absolute;
-					background: #444;
+					background: #ddd;
 					margin-left: 10px;
 					border: 1px solid #333;
 					border-width: 0 1px 1px 1px;
@@ -135,10 +137,10 @@ body {
 								background: #666;
 							}
 				#incidents-li.active #incidents-menu {
-					background: #3E4B69;
+					background: #ddd;
 				}
 							#incidents-li.active li.other a:hover {
-								background: #506188;
+								background: #bbb;
 							}
 
 #subheader {
@@ -158,13 +160,14 @@ body {
 			font-size: 28px;
 			letter-spacing: -1px;
 			color: #666;
-			font-size: 21px;
 		}
+			#subheader_main .title-small {
+				font-size: 21px;
+			}
 			#subheader_main h1 a {
 				text-decoration: none;
 				color: #275FE4;
 				font-weight: bold;
-				font-size: 28px;
 			}
 				#subheader_main h1 a:hover {
 					text-decoration: underline;
@@ -176,14 +179,14 @@ body {
 			padding: 4px 10px;
 			display: block;
 			border: 1px solid #aaa;
-			background: #eee; /* url("../images/button_gradient.png") #eee repeat-x; */
-			background-position: 0 -7px;
+			background: #eee;
 			text-decoration: none;
 			font-weight: bold;
 			margin-left: 3px;
 			font-size: 14px;
 			-moz-border-radius: 2px;
-
+			-webkit-border-radius: 2px;
+			border-radius: 2px;
 		}
 			#subheader_main #buttons a:hover {
 				border-color: black;
@@ -197,7 +200,7 @@ body {
 		margin: 5px 0 5px;
 	}
 		#subheader_text a {
-			color: white;
+			color: #275FE4;
 		}
 	#filters {
 		max-width: 944px;
@@ -231,10 +234,10 @@ body {
 				width: 18%;
 				color: black;
 				background: #eee;
-				background-position: 0 -8px;
 				border: 1px solid #aaa;
 				font-weight: bold;
-				margin-right: 0;
+				margin-right: -10px;
+				margin-left: 4px;
 			}
 				#filters #filters_submit:hover {
 					border-color: black;
@@ -245,9 +248,10 @@ body {
 
 #content{
 	background: #fff;
+	padding-bottom: 10px;
 }
 	#wrap {
-		padding: 20px;
+		padding: 20px 0;
 		border-top: 1px solid #ddd;
 	}
 
@@ -260,14 +264,22 @@ body {
 	}
 
 #footer{
+	position: relative;
+	margin-top: -48px;
 	color: #666;
 	font-size: 13px;
-	margin: 10px 0 0;
 	text-align: center;
 	background: #eee;
-	padding: 10px 0;
+	height: 17px;
+	padding: 15px 0;
 	border-top: 1px solid #bbb;
 }
+/* START: pushes the footer down */
+html,body { height: 100%; }
+#content-wrap { min-height: 100%; position: relative; }
+/* END */
+
+
 .tiny{
 	font-size: 14px;
 	color: #999;
