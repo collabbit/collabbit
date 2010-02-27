@@ -30,16 +30,16 @@ body {
 	background: #eee;
 }
 #header .pagewidth {
-	padding: 8px 20px 1px;
+	padding: 10px 20px 1px;
 }
 	#account-status {
 		float: right;
-		font-size: 13px;
+		font-size: 14px;
 		margin: -2px 0 2px;
 	}
 		#account-status a {
 			padding: 0 3px;
-			color: black;
+			color: #275FE4;
 		}
 			#account-status a:hover {
 				text-decoration: none;
@@ -48,7 +48,7 @@ body {
 		float: left;
 		color: #444;
 		font-weight: bold;
-		font-size: 13px;
+		font-size: 14px;
 		margin: -2px 0 2px;
 	}
 		#header-title a {
@@ -59,13 +59,13 @@ body {
 				text-decoration: underline;
 			}
 	#breadcrumbs {
-		color: black;
+		color: #888;
 		float: left;
 		clear: both;
 		margin: 13px 0 -2px;
 	}
 		#breadcrumbs a {
-			color: black;
+			color: #275FE4;
 		}
 			#breadcrumbs a:hover {
 				text-decoration: none;
@@ -85,7 +85,7 @@ body {
 				text-decoration: none;
 			}
 				#menu a:hover {
-					background: #333;
+					background: #ddd;
 				}
 			#menu .active a {
 				color: black;

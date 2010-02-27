@@ -41,7 +41,9 @@
 				color: #444;
 				font-weight: bold;
 				font-size: 16px;
+				padding-bottom: 6px;
 				text-decoration: none;
+				display: block;
 			}
 			.update-updated {
 				font-size: 13px;
@@ -55,7 +57,7 @@
 			width: 60%;
 		}
 			#updates-list li a.update-title {
-				color: black;
+				color: #275FE4;
 				font-weight: bold;
 				font-size: 16px;
 				text-decoration: none;
@@ -211,7 +213,7 @@
 						float: left;
 					}
 						.relevant-groups ul li a, .tags ul li a{
-							color: #3E7498;
+							color: #275FE4;
 						}
 							.relevant-groups ul li a:hover, .tags ul li a:hover {
 								text-decoration: none;
