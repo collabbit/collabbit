@@ -1,7 +1,7 @@
 $.noConflict();
 jQuery(document).ready(function($){
     
-    var commentInitial = 'Add a comment here';
+    var commentInitial = 'Add a comment';
     
     function focusComment($frm){
         $txt = $frm.find('.comment-textfield');

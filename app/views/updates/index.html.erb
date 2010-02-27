@@ -12,7 +12,14 @@
 
 <% content_for :breadcrumbs, 
 	breadcrumbs(['Incidents',incidents_path]) %>
-<% content_for :subheader_title, @incident.name %>
+<% content_for :subheader_title do %>
+	<%=link_to @incident.name, @incident %>
+	<% if !@search && !@groups_filter && !@tags_filter %>
+		showing all updates (<%=match_counter(@updates) %>)
+	<% else %>
+		showing filtered updates (<%=match_counter(@updates)%>)
+	<% end %>
+<% end %>
 <% content_for :buttons do %>
 	<% if can? :create => Update %>
 		<%= pretty_button(:add_update, new_incident_update_path(@incident), '+ Add Update')%>
