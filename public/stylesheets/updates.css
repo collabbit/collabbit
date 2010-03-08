@@ -31,25 +31,32 @@
 		clear: both;
 	}
 		.update-meta{
-			color: #555;
+			color: #666;
 			width: 17%;
+			padding-right: 1.5%;
+			border-right: 1px solid #ddd;
+			padding-bottom: 5px;
 			position: absolute;
 			left: 0;
 			text-align: right;
+			font-size: 16px;
 		}
+			.update-time {
+				padding-top: 7px;
+				font-size: 13px;
+			}
+			.update-author {
+				font-variant: small-caps
+			}
 			.update-meta a {
 				color: #444;
-				font-weight: bold;
 				font-size: 16px;
 				padding-bottom: 6px;
 				text-decoration: none;
-				display: block;
 			}
-			.update-updated {
+			.update-edited {
 				font-size: 13px;
-				font-variant: small-caps;
-				font-weight: bold;
-				color: #4653B1;
+				color: #444;
 			}
 		.update-main {
 			margin-left: 20%;
@@ -62,7 +69,7 @@
 				font-size: 16px;
 				text-decoration: none;
 			}
-				.update-title:hover, .update-meta a:hover {
+				#updates-list a.update-title:hover, .update-meta a:hover {
 					text-decoration: underline;
 				}
 			.update-text {

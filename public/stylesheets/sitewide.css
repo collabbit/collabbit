@@ -31,28 +31,26 @@ body {
 
 #header {
 	margin: 0;
-	background: #eee;
+	background: #333;
+	color: white;
 }
 #header .pagewidth {
-	padding: 10px 20px 1px;
+	padding: 10px 0 1px;
 }
 	#account-status {
-		float: right;
 		font-size: 14px;
-		margin: -2px 0 2px;
+		float: right;
 	}
 		#account-status a {
 			padding: 0 3px;
-			color: #275FE4;
+			color: white;
 		}
 			#account-status a:hover {
 				text-decoration: none;
 			}
 	#header-title {
-		float: left;
 		font-weight: bold;
 		font-size: 14px;
-		margin: -2px 0 2px;
 	}
 		#header-title a {
 			color: #666;
@@ -61,29 +59,17 @@ body {
 			#header-title a:hover {
 				text-decoration: underline;
 			}
-	#breadcrumbs {
-		color: #888;
-		float: left;
-		clear: both;
-		margin: 13px 0 -2px;
-	}
-		#breadcrumbs a {
-			color: #275FE4;
-		}
-			#breadcrumbs a:hover {
-				text-decoration: none;
-			}
 	#menu {
-		float: right;
 		list-style-type: none;
-		margin: 13px 0 0;
+		float: left;
 		padding: 0;
+		margin: 0;
 	}
 		#menu li {
 			display: inline;
 		}
 			#menu a {
-				color: black;
+				color: white;
 				padding: 3px 8px 1px;
 				text-decoration: none;
 			}
@@ -93,7 +79,7 @@ body {
 			#menu .active a {
 				color: black;
 				font-weight: bold;
-				border: 1px solid #bbb;
+				border: 1px solid black;
 				border-bottom: 1px solid white;
 				background: white;
 				padding: 3px 7px 1px;
@@ -145,16 +131,32 @@ body {
 							}
 
 #subheader {
+	padding: 0 15px;
+	/* background: white; */
+	border-top: 1px solid black;
+	/*border-bottom: 1px solid #bbb;*/
 }
 #subheader .pagewidth {
-	padding: 15px 20px 10px;
 	background: white;
+	padding: 20px;
+	max-width: 902px;
 	border: 1px solid #bbb;
-	border-width: 1px 1px 0;
+	border-width: 0 1px;
 }
 	#subheader_main {
 
 	}
+		#breadcrumbs {
+			color: #888;
+			font-size: 13px;
+			padding: 0 0 4px;
+		}
+			#breadcrumbs a {
+				color: #275FE4;
+			}
+				#breadcrumbs a:hover {
+					text-decoration: none;
+				}
 		#subheader_main h1 {
 			float: left;
 			margin: 0;
@@ -199,13 +201,17 @@ body {
 	#subheader_text {
 		clear: both;
 		margin: 0;
-		margin: 5px 0 5px;
+		margin: 2px 0 5px;
+		color: #444;
+		font-size: 14px;
 	}
 		#subheader_text a {
 			color: #275FE4;
 		}
 	#filters {
 		max-width: 944px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #eee;
 	}
 		#filters form {
 			padding-top: 7px;
@@ -249,14 +255,15 @@ body {
 				}
 
 #content{
-	background: #fff;
-	padding: 0 20px 10px;
-	border: 1px solid #bbb;
-	border-width: 0 1px 1px;
+	/*margin-top: 10px;*/
+	padding-bottom: 10px;
+	color: white;
 }
 	#wrap {
-		padding: 20px 0;
-		border-top: 1px solid #ddd;
+		padding: 10px 20px 20px;
+		background: white;
+		border: 1px solid #bbb;
+		border-width: 0 1px 1px;
 	}
 
 	#flashes {
@@ -268,13 +275,16 @@ body {
 	}
 
 #footer{
+	position: relative;
+	margin-top: -48px;
 	color: #666;
 	font-size: 13px;
 	text-align: center;
 	background: #eee;
+	height: 17px;
 	padding: 15px 0;
 }
-/* START: pushes the footer down *
+/* START: pushes the footer down */
 html,body { height: 100%; }
 #content-wrap { min-height: 100%; position: relative; }
 /* END */

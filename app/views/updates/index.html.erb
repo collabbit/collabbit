@@ -79,10 +79,9 @@
 	<% @updates.each do |u| %>
 		<li>
 			<div class="update-meta">
-				<%= issuer_link(u)%>
-				<div class="update-updated"><%= 'edited' if u.updated_at > u.created_at %></div>
-				<div class="update-time"><%= time_time u.updated_at %></div>
-				<%= mdy u.updated_at %>
+				<div class="update-author"><%= issuer_link(u)%></div>
+				<div class="update-time">posted <%=time_ago_in_words u.created_at %> ago</div>
+				<div class="update-edited"><%= u.updated_at > u.created_at ? "edited #{time_ago_in_words u.updated_at} ago" : '' %></div>
 			</div>
 			<div class="update-extra">
 				<% unless u.relevant_groups.empty? %>
