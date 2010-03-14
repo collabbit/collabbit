@@ -31,7 +31,7 @@ class SessionsController < AuthorizedController
         flash[:notice] = "Hi #{@user.first_name}. Welcome to #{@instance.short_name}'s Collabbit."
       end
       login_as @user
-      handle_remember_cookie!(true) if params[:remember]
+      handle_remember_cookie!(true) if params[:remember_me]
       @user.last_login = DateTime.now
       @user.save
 
