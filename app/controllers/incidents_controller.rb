@@ -24,7 +24,7 @@ class IncidentsController < AuthorizedController
   end
 
   def index
-    @incidents = @instance.incidents.find(:all, :order => 'create_at DESC')
+    @incidents = @instance.incidents.find(:all, :order => 'created_at DESC')
     return with_rejection unless @current_user.can? :list => @incidents
   end
   
