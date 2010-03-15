@@ -6,6 +6,9 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
 class InstancesController < AuthorizedController
+  
+  before_filter :setup_editable_permissions, :only => [:update, :edit]
+  
   def index
     @instances = Instance.all
     return with_rejection unless @current_user.can? :list => @instances
@@ -23,20 +26,6 @@ class InstancesController < AuthorizedController
   # permissions are organized by their model.
   def edit
     return with_rejection unless @current_user.can? :update => @instance
-    @perms_hash = Permission.all.inject({}) do |res, e|
-      res[e.model] = [] unless res.include? e.model
-      res[e.model] << e.action
-      res
-    end
-    
-    cud = ['create', 'update', 'destroy']
-    @perms_hash = {
-      'Update' => cud,
-      'Comment' => cud,
-      'Group' => cud,
-      'Group Type' => cud,
-      'Incident' => cud      
-    }
     @roles = Role.all
   end
 
@@ -47,26 +36,33 @@ class InstancesController < AuthorizedController
   # on the :permissions hash
   def update
     return with_rejection unless @current_user.can? :update => @instance
+    
     if params[:permissions].is_a? Hash
-      @instance.roles.each do |r|
-        r.privileges.clear #<<FIX: make this not destroy already right ones
-        r.save
-      end
       params[:permissions].each_pair do |role_id, rest|
-        role = @instance.roles.find(role_id)
+        role = @instance.roles.find(role_id, :include => [:permissions, :privileges])
         rest.each_pair do |model_name, actions|
-          actions.each do |action_name|
-            permission = Permission.find(:first, :conditions => {:model => model_name, :action => action_name})
-            Privilege.create(:role => role, :permission => permission)
+          to_delete = @perms_hash[model_name.gsub(/[a-z][A-Z]/) {|m| "#{m[0,1]} #{m[1,2]}"}] - actions.keys
+          to_add = actions.keys - role.permissions.find_all_by_model(model_name).map(&:action)
+          
+          to_delete.each do |act|
+            perm = role.permissions.find(:first, :conditions => {:model => model_name, :action => act})
+            perm.privileges.find_by_role_id(role.id).destroy if perm
           end
+          
+          to_add.each do |act|
+            role.permissions << Permission.find(:first, :conditions => {:model => model_name, :action => act})
+          end
+          
+          role.save
         end
       end
     end
     if @instance.update_attributes(params[:instance])
       flash[:notice] = t('notice.instance_updated')
-      redirect_to overview_path
+      redirect_to edit_path
     else
-      render :action => 'edit'
+      flash[:error] = t('error.instance_update_failed')
+      render edit_path
     end
   end
 
@@ -95,5 +91,15 @@ class InstancesController < AuthorizedController
     end
   end
 
+
+  protected
+    def setup_editable_permissions
+      cud = ['create', 'update', 'destroy']
+      @perms_hash = { 'Update'      => cud,
+                      'Comment'     => cud,
+                      'Group'       => cud,
+                      'Group Type'  => cud,
+                      'Incident'    => cud }
+    end
 end
 

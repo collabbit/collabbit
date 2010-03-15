@@ -7,9 +7,11 @@ ActionController::Routing::Routes.draw do |map|
   # map.signup 'signup',      :controller => 'admins',    :action => 'new'
   # map.register 'register',  :controller => 'admins',    :action => 'create'
   
-  map.overview 'overview',  :controller => 'instances', :action => 'show'
-  map.edit 'edit',  :controller => 'instances', :action => 'edit'
-  map.update 'update',  :controller => 'instances', :action => 'update'
+  map.with_options :controller => 'instances' do |instances|
+    instances.overview  'overview',         :action => 'show'
+    instances.edit      'settings/edit',    :action => 'edit'
+    instances.update    'settings/update',  :action => 'update'
+  end
 
   
   map.resources :incidents do |incident|
@@ -20,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
       update.resources :comments, :only => [:create, :destroy]
     end
   end
-  
+    
   map.logout 'logout',     :controller => 'sessions',  :action => 'destroy'
   map.login 'login',       :controller => 'sessions',  :action => 'new'
   map.register 'register', :controller => 'users',     :action => 'create'

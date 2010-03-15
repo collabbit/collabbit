@@ -8,6 +8,7 @@ class AuthorizedController < ApplicationController
   before_filter :check_right_account
   before_filter :require_login
   
+  protected
   def check_right_account
     if logged_in? && @instance && @current_user && @current_user.instance != @instance
       logout_keeping_session!

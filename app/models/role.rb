@@ -11,8 +11,8 @@ class Role < ActiveRecord::Base
   
   acts_as_archive
 
-  has_many :privileges, :dependent => :destroy, :include => :permissions
   has_many :permissions, :through => :privileges
+  has_many :privileges, :dependent => :destroy
   
   validates_presence_of :name
   validates_length_of   :name, :within => 2..32

@@ -33,7 +33,7 @@ class Instance < ActiveRecord::Base
                           :in => FORBIDDEN_SUBDOMAINS,
                           :message => "The name <strong>{{value}}</strong> is reserved and unavailable."
   
-  attr_accessible :whitelisted_domains, :long_name
+  attr_accessible :whitelisted_domain_names, :long_name
 
   requires_override!
   def viewable_by?(usr)
