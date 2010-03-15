@@ -6,9 +6,6 @@ body {
 	min-width: 777px;
 	background: #eee;
 }
-#content {
-	padding-bottom: 60px !important;
-}
 .clear {
 	clear: both;
 }
@@ -75,6 +72,7 @@ body {
 			}
 				#menu a:hover {
 					background: #ddd;
+					color: black;
 				}
 			#menu .active a {
 				color: black;
@@ -86,11 +84,9 @@ body {
 			}
 			#incidents-li:hover a.visible {
 				background: #ddd;
+				color: black;
 				border: 1px solid #333;
 				padding: 3px 7px 2px;
-			}
-			#incidents-li.active:hover a.visible {
-				background: #ddd;
 			}
 				#incidents-menu {
 					display: none;
@@ -114,19 +110,14 @@ body {
 							border-width: 0;
 							font-weight: normal;
 							background-color: transparent;
+							color: black;
 							display: block;
 							padding: 10px 8px;
 						}
 						#incidents-menu li.current_incident a {
 							font-weight: bold;
 						}
-							#incidents-menu li.other a:hover {
-								background: #666;
-							}
-				#incidents-li.active #incidents-menu {
-					background: #ddd;
-				}
-							#incidents-li.active li.other a:hover {
+							#incidents-li li.other a:hover {
 								background: #bbb;
 							}
 
@@ -257,7 +248,7 @@ body {
 #content{
 	/*margin-top: 10px;*/
 	padding-bottom: 10px;
-	color: white;
+	color: black;
 }
 	#wrap {
 		padding: 10px 20px 20px;
@@ -275,19 +266,13 @@ body {
 	}
 
 #footer{
-	position: relative;
-	margin-top: -48px;
 	color: #666;
 	font-size: 13px;
 	text-align: center;
 	background: #eee;
-	height: 17px;
-	padding: 15px 0;
+	height: 13px;
+	padding: 10px 0;
 }
-/* START: pushes the footer down */
-html,body { height: 100%; }
-#content-wrap { min-height: 100%; position: relative; }
-/* END */
 
 
 .tiny{

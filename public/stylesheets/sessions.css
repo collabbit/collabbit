@@ -1,10 +1,12 @@
 #subheader .pagewidth {
 	width: 350px;
+	margin-top: 10px;
+	border: 1px solid #bbb;
+	padding: 10px;
+	border-width: 1px 1px 0;
 }
 #content{
-	text-align: center;
-	width: 370px;
-	background: transparent;
+
 }
 	#wrap{
 		width: 350px;
@@ -19,8 +21,6 @@
 		}
 		#flashes {
 			text-align: center;
-		}
-      border-width: 0;
 		}
 		#login-title{
 			font-size: 16px;
