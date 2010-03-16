@@ -1,0 +1,19 @@
+<%
+# View which displays a form for creating a user.
+#
+# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
+# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
+# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
+# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
+%>
+
+<% content_for :title, title ('Bulk Import Accounts', @instance.short_name)%>
+
+<% content_for :subheader_title, 'Bulk Import Accounts' %>
+
+<% content_for :body do %>	
+	<% form_tag create_bulk_users_path, :multipart => true do %>
+	    <p><%= label_tag :csv_file, 'CSV File' %><%= file_field_tag :csv_file%>
+		<p><%= submit_tag 'Import Users' %></p>
+	<% end %>
+<% end %>

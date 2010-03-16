@@ -184,3 +184,10 @@ namespace :gems do
     run "cd #{release_path} && rake gems:install && rake gems:unpack"
   end
 end
+
+namespace :db do
+  desc 'Migrate production database'
+  task :migrate do
+    run "cd #{release_path} && rake db:migrate RAILS_ENV=production"
+  end
+end
