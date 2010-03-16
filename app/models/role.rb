@@ -52,6 +52,7 @@ class Role < ActiveRecord::Base
       role.permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'show'})
     end
     roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'Instance', :action => 'update'})
+    roles[3].permissions << Permission.find(:first, :conditions =>{:model => 'User', :action => 'create'})
     roles
   end
   

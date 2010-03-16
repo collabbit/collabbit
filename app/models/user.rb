@@ -232,4 +232,10 @@ class User < ActiveRecord::Base
   def remember_token?
     !remember_token.blank? && remember_token_expires_at && (Time.now.utc < remember_token_expires_at.utc)
   end
+  
+  def save_without_observers
+    UserObserver.disable!
+    save
+    UserObserver.enable!
+  end
 end

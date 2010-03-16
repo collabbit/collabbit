@@ -7,11 +7,7 @@
 
 class UsersController < AuthorizedController
 
-  skip_before_filter :require_login, :only => [:new, :create, :forgot_password,
-                                                    :reset_password, :activate]
-  before_filter :logout_keeping_session!, :only => [:new, :create,
-                                                    :forgot_password, :reset_password,
-                                                    :activate]
+  skip_before_filter :require_login, :only => [:new, :create, :forgot_password, :reset_password, :activate]
 
   def index
     return with_rejection unless @current_user.can?(:list => @instance.users)
@@ -73,31 +69,59 @@ class UsersController < AuthorizedController
   end
 
   def new
+    return with_rejection unless !logged_in? || @current_user.can?(:create => User)
     @user = User.new
-    logout_keeping_session!
+  end
+  
+  def new_bulk
+    return with_rejection unless !logged_in? || @current_user.can?(:create => User)
   end
 
   # Saves a user object to the database with the parameters provided in
   # the :user hash, which is populated by the form on the 'new' page
   def create
-    @user = User.new(params[:user])
-    @user.instance = @instance
-    @user.state = User::STATES[:pending]
-
-    @user.salt = Digest::SHA1.hexdigest(Time.now.to_s + @instance.short_name + rand.to_s)
-    @user.crypted_password = @user.generate_crypted_password(@user.password)
-    @user.activation_code = @user.generate_activation_code
-    @user.role = @instance.roles.first #<<FIX: default role
+    return with_rejection unless !logged_in? || @current_user.can?(:create => User)
     
-    @instance.incidents.each do |i|
-      @user.feeds << Feed.make_my_groupds_feed(i)
-    end
+    @user = create_user(params[:user])
 
     if @user.save
-      flash[:notice] = t('notice.signup')
-      redirect_to login_path
+      if logged_in?
+        flash[:notice] = t('notice.user.created')
+        redirect_to user_path(@user)
+      else
+        flash[:notice] = t('notice.signup')
+        redirect_to login_path
+      end
+    elsif logged_in?
+      flash[:notice] = t('error.user.creation_failed')
+      render new_user_path
     else
-      render :action => :new
+      flash[:notice] = t('error.signup.failed')
+      render signup_path
+    end
+  end
+  
+  def create_bulk
+    return with_rejection unless @current_user.can? :create => User
+    errors = false
+    CSV::Reader.parse(params[:csv_file]).each do |u|
+      begin
+        user = create_user({:first_name => u.shift.strip,
+                            :last_name => u.shift.strip,
+                            :email => u.shift.strip,
+                            :state => 'active' })
+        user.save_without_observers
+      # rescue
+      #   errors = true
+      end
+    end
+    
+    if errors
+      flash[:error] = t('error.bulk_import.failed')
+      render new_bulk_users_path
+    else
+      flash[:notice] = t('notice.bulk_import.success')
+      redirect_to users_path
     end
   end
 
@@ -175,5 +199,28 @@ class UsersController < AuthorizedController
     flash[:notice] = t( 'notice.password_reset')
     redirect_to new_session_path
   end
+  
+  private
+    def create_user(params)
+      user = User.new(params)
+      user.instance = @instance
+      
+      user.state = if params[:state] && logged_in? && @current_user.can?(:update => User)
+        user.state = params[:state]
+      else
+        User::STATES[:pending]
+      end
+
+      user.salt = Digest::SHA1.hexdigest(Time.now.to_s + @instance.short_name + rand.to_s)
+      user.crypted_password = user.generate_crypted_password(user.password)
+      user.activation_code = user.generate_activation_code
+      user.role = @instance.roles.first #<<FIX: default role
+
+      @instance.incidents.each do |i|
+        user.feeds << Feed.make_my_groups_feed(i)
+      end
+      
+      user
+    end
 end
 

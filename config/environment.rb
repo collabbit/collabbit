@@ -11,6 +11,7 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require 'authority'
 require 'set'
+require 'csv'
 
 settings = YAML.load_file('config/settings/keys.yml')
 
