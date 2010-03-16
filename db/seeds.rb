@@ -10,7 +10,7 @@ model_to_actions = {
     :tag        => actions,
     :incident   => actions,
     :role       => actions,
-    :user       => actions - [:create],
+    :user       => actions,
     :instance   => [:show, :update],
     :comment    => actions
   }
