@@ -14,34 +14,27 @@ class SessionsController < AuthorizedController
     redirect_to overview_path if logged_in?
   end
 
-  # Logs in a user specified by :email if the user is active and the password
-  # is correct.
   def create
     @user = @instance.users.find_by_email(params[:email])
-    if @user and @user.state != 'active'
-      flash[:error] = case @user.state
-      when 'pending' then t('error.inactive_account')
-      when 'pending_approval' then t('error.pending_approval')
-      end
+    if @user and !@user.active?
+      flash[:error] = t('error.user.pending')
       render :action => :new
     elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
-      if @user.last_logout
-        flash[:notice] = "Hi #{@user.first_name}. Welcome back!"
+      flash[:notice] = if @user.last_login
+        t('notice.user.login', :name => @user.first_name)
       else
-        flash[:notice] = "Hi #{@user.first_name}. Welcome to #{@instance.short_name}'s Collabbit."
+        t('notice.user.first_login', :name => @user.first_name, :instance => @instance.short_name)
       end
+      
       login_as @user
       handle_remember_cookie!(true) if params[:remember_me]
       @user.last_login = DateTime.now
       @user.save
 
-      if params[:return_to] == nil || params[:return_to].size == 0
-        redirect_to overview_path
-      else
-        redirect_to params[:return_to]
-      end
+      redirect_to params[:return_to].blank? ? overview_path : params[:return_to]
+      
     else
-      flash[:error] = t('error.invalid_email_or_password')
+      flash[:error] = t('error.user.login_invalid')
       render :action => :new
     end
   end

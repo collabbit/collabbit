@@ -12,7 +12,6 @@
 <% content_for :subheader_title, 'Create an account' %>
 
 <% content_for :body do %>
-	<% @user.password = @user.password_confirmation = nil %>
 	
 	<%= error_messages_for :user %>
 	<% form_for @user do |f| -%>
@@ -37,12 +36,6 @@
 		
 		<p><%= f.label 'carrier' %>
 		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></p>
-	
-		<p><%= f.label 'password' %><br/>
-		<%= f.password_field :password %></p>
-	
-		<p><%= f.label 'password_confirmation', 'Confirm Password' %><br/>
-		<%= f.password_field :password_confirmation %></p>
 	
 		<p><%= submit_tag 'Sign up' %></p>
 	<% end %>

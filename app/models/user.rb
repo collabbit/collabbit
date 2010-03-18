@@ -7,7 +7,6 @@
 
 class User < ActiveRecord::Base
   include Authority, Passworded
-  STATES = {:pending => 'pending', :pending_approval => 'pending_approval', :active => 'active', :deleted => 'deleted'}
 
   acts_as_archive
 
@@ -153,11 +152,6 @@ class User < ActiveRecord::Base
     (memberships.select {|m| m.is_chair}).map {|m| m.group}
   end
   
-  # Generates the activation code
-  def generate_activation_code
-    Digest::SHA1.hexdigest(Time.now.to_s + rand.to_s)
-  end
-  
   # Combines the user's cell phone and their carrier into one string
   def text_email
     cell_phone.gsub(/[^0-9]/, '')+carrier.extension
@@ -180,7 +174,7 @@ class User < ActiveRecord::Base
       end
       maker.add_email(email) if email
       if self.groups.size > 0
-        maker.org = self.groups.map {|g| g.name }
+        maker.org = self.groups.map(&:name)
       end
     end
     
@@ -189,27 +183,38 @@ class User < ActiveRecord::Base
   def active?
     self.state == 'active'
   end
+  def approved?
+    self.state == 'approved'
+  end
+  def pending?
+    self.state == 'pending'
+  end
   def activate!
     self.state = 'active'
+    self.activated_at = DateTime.now
     self.save(false)
     UserMailer.deliver_activation(self)
   end
-  def enqueue_for_approval!
-    self.state = 'pending_approval'
+  def approve!
+    self.state = 'approved'
     self.save(false)
   end
+  def can_log_in?
+    active? || approved?
+  end
   
-  ### Tokens ###
+  def generate_activation_code!
+    self.activation_code = make_token
+  end
   
-  # Generates a 40-character psuedo-random hex string
-  def self.make_token
-    Digest::SHA1.hexdigest(Time.now.to_s + rand.to_s)
+  def whitelisted?
+    instance.whitelisted_domains.exists?(:name => self.email.split('@').last.downcase)
   end
   
   # Generates and saves a new remember token
   def refresh_token
     if remember_token?
-      self.remember_token = self.class.make_token
+      self.remember_token = make_token
       save(false)
     end    
   end
@@ -217,7 +222,7 @@ class User < ActiveRecord::Base
   # Generates a new remember token and sets the expiry to 2 weeks in the future
   def remember_me
     self.remember_token_expires_at = 2.weeks.from_now
-    self.remember_token = self.class.make_token
+    self.remember_token = make_token
     save(false)
   end
   

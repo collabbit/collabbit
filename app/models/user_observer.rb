@@ -10,8 +10,10 @@ class UserObserver < ActiveRecord::Observer
   mattr_accessor :enabled
   
   # Sends an activation email after a user's account is registered
-  def after_create(user)
-    UserMailer.deliver_signup_notification(user) if @@enabled
+  def before_update(user)
+    if user.approved? && !User.find(user.id).approved? && @@enabled
+      UserMailer.deliver_approved_notification(user)
+    end
   end
   
   def self.enable!

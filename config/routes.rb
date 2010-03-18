@@ -31,10 +31,12 @@ ActionController::Routing::Routes.draw do |map|
   map.signup 'signup',     :controller => 'users',     :action => 'new'
   map.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgot_password'
-  map.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'
+  map.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'  
   map.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
 
-  map.resources :users, :as => "contacts", :collection => {:new_bulk => :get, :create_bulk => :post}
+  map.resources :users, :as => "contacts",
+    :collection => {:new_bulk => :get, :create_bulk => :post},
+    :member => {:activation_update => :put}
   
   map.resources :tags
   

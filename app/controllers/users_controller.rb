@@ -7,7 +7,9 @@
 
 class UsersController < AuthorizedController
 
-  skip_before_filter :require_login, :only => [:new, :create, :forgot_password, :reset_password, :activate]
+  skip_before_filter :require_login, :only => [:new, :create, :forgot_password,
+                                               :reset_password, :activate, :edit_password,
+                                               :update_password, :activation_update]
 
   def index
     return with_rejection unless @current_user.can?(:list => @instance.users)
@@ -89,14 +91,14 @@ class UsersController < AuthorizedController
         flash[:notice] = t('notice.user.created')
         redirect_to user_path(@user)
       else
-        flash[:notice] = t('notice.signup')
-        redirect_to login_path
+        flash[:notice] = t('notice.user.signup')
+        redirect_to login_path #<<FIX: make a new path
       end
     elsif logged_in?
       flash[:notice] = t('error.user.creation_failed')
       render new_user_path
     else
-      flash[:notice] = t('error.signup.failed')
+      flash[:notice] = t('error.user.signup_failed')
       render signup_path
     end
   end
@@ -148,21 +150,39 @@ class UsersController < AuthorizedController
   # Activates an existing user, identified by the :activation_code provided
   # If the activation code is wrong or missing, the user is not activated
   def activate
-    user = @instance.users.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
-    if (!params[:activation_code].blank?) && user && !user.active?
-      if user.instance.whitelisted_domains.find_by_name(user.email.split('@').last)
-        user.activate!
-        flash[:notice] = t('notice.signup_complete')
-      else
-        user.enqueue_for_approval!
-        flash[:notice] = t('notice.admin_approval_required')
-      end
-    elsif params[:activation_code].blank?
-      flash[:error] = t('error.missing_activation_code')
+    @code = params[:activation_code]
+    @user = @instance.users.find_by_activation_code(@code) unless @code.blank?
+    
+    if @code.blank? || @user == nil || @user.active?
+      flash[:error] = t('error.user.invalid_activation_code')
+      redirect_to new_session_path
+    elsif @user.whitelisted? || @user.approved?
+      flash[:notice] = t('notice.user.need_account_setup')
     else
-      flash[:error] = t('error.invalid_activation_code')
+      flash[:error] = t('error.user.invalid_activation_code')
+      redirect_to new_session_path
     end
-    redirect_to new_session_path
+  end
+  
+  def activation_update
+    logger.info "activation_update!\n\n" 
+    @user = @instance.users.find(params[:id])
+    if @user.activation_code == params[:activation_code]
+      if params[:user][:password].blank?
+        flash[:error] = t('error.user.password_required')
+        redirect_to :back
+      elsif @user.update_attributes(params[:user])
+        @user.activate!
+        flash[:notice] = t('notice.user.initial_updated')
+        redirect_to new_session_path
+      else
+        flash[:error] = t('error.user.invalid_data')
+        redirect_to :back
+      end
+    else
+      flash[:error] = t('error.user.unauthorized_editing')
+      redirect_to new_session_path
+    end
   end
 
   # Removes a user object from the database
@@ -185,8 +205,7 @@ class UsersController < AuthorizedController
     end
   end
 
-  def forgot_password
-  end
+  def forgot_password; end
 
   def reset_password
     @user = @instance.users.find_by_email(params[:user][:email])
@@ -202,18 +221,17 @@ class UsersController < AuthorizedController
   
   private
     def create_user(params)
-      user = User.new(params)
-      user.instance = @instance
+      user = @instance.users.build(params)
       
       user.state = if params[:state] && logged_in? && @current_user.can?(:update => User)
-        user.state = params[:state]
+        params[:state]
       else
-        User::STATES[:pending]
+        'pending'
       end
 
-      user.salt = Digest::SHA1.hexdigest(Time.now.to_s + @instance.short_name + rand.to_s)
-      user.crypted_password = user.generate_crypted_password(user.password)
-      user.activation_code = user.generate_activation_code
+      user.generate_salt!
+      user.generate_crypted_password!
+      user.generate_activation_code!
       user.role = @instance.roles.first #<<FIX: default role
 
       @instance.incidents.each do |i|
