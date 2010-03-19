@@ -64,7 +64,7 @@ def flatten(hsh, prefix = '')
     if v.is_a? String
       memo + ["#{prefix}#{k}.#{v}"]
     else
-      strings + flatten(v, "#{prefix}#{k}.")
+      memo + flatten(v, "#{prefix}#{k}.")
     end
   end
 end
