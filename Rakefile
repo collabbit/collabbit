@@ -61,11 +61,7 @@ end
 
 def flatten(hsh, prefix = '')
   hsh.to_a.inject([]) do |memo, k, v|
-    if v.is_a? String
-      memo + ["#{prefix}#{k}.#{v}"]
-    else
-      memo + flatten(v, "#{prefix}#{k}.")
-    end
+    memo + (v.is_a?(String) ? ["#{prefix}#{k}.#{v}"] : flatten(v, "#{prefix}#{k}."))
   end
 end
 
