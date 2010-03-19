@@ -85,10 +85,11 @@ class UsersController < AuthorizedController
     return with_rejection unless !logged_in? || @current_user.can?(:create => User)
     
     @user = create_user(params[:user])
+    @user.state = 'approved' if logged_in?
 
     if @user.save
       if logged_in?
-        flash[:notice] = t('notice.user.created')
+        flash[:notice] = t('notice.user.created', :name => @user.first_name)
         redirect_to user_path(@user)
       else
         flash[:notice] = t('notice.user.signup')
@@ -96,10 +97,10 @@ class UsersController < AuthorizedController
       end
     elsif logged_in?
       flash[:notice] = t('error.user.creation_failed')
-      render new_user_path
+      render :new
     else
       flash[:notice] = t('error.user.signup_failed')
-      render signup_path
+      render :new
     end
   end
   
@@ -111,10 +112,10 @@ class UsersController < AuthorizedController
         user = create_user({:first_name => u.shift.strip,
                             :last_name => u.shift.strip,
                             :email => u.shift.strip,
-                            :state => 'active' })
-        user.save_without_observers
-      # rescue
-      #   errors = true
+                            :state => 'approved' })
+        user.save
+      rescue
+       errors = true
       end
     end
     
@@ -165,7 +166,6 @@ class UsersController < AuthorizedController
   end
   
   def activation_update
-    logger.info "activation_update!\n\n" 
     @user = @instance.users.find(params[:id])
     if @user.activation_code == params[:activation_code]
       if params[:user][:password].blank?

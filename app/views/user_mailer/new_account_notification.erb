@@ -1,0 +1,9 @@
+Hello <%= @user.first_name %>,
+
+You've been invited to join the <%=h @user.instance.long_name%> Collabbit. You can log in with your email address, <%=h @user.email %>, after you get set up.
+
+Please visit this url to set up your account:
+
+  <%= @url %>
+
+If you have any questions, please contact the account administrator, <%=h @user.full_name%> at <%=h @user.email%>.

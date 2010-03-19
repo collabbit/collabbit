@@ -1,9 +1,10 @@
 en:
-#notice
   notice:
-    signup: "Success! There's one more step. You need to check your email for the confirmation link we sent you. Click on that link to continue into Collabbit."
-
-    signup_complete: "Signup complete! Enter your email and password below to join this Collabbit"
+    user:
+      initial_updated: "Great, you're good to go. Please log in here."
+      signup: "Great, we'll get in touch with you once your account has been approved."
+      created: "You've just created this account, so we emailed the details to {{name}}."
+      need_account_setup: "You are almost there, just fill in these details."
 
     user_updated: "Success! User has been updated."
 
@@ -39,8 +40,6 @@ en:
 
     admin_approval_required: "Great, you confirmed your account. An admin needs to confirm it now. We will email you when it is ready."
 
-
-#error
   error:
     missing_activation_code: "The activation code was missing. Please follow the URL from your email."
 

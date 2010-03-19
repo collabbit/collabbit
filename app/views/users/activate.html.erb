@@ -6,7 +6,6 @@
     <h2>Account Details</h2>
     <p>Please pick a password, then ensure the rest of the information is correct.</p>
 
-
     <% form_for @user, :url => activation_update_user_path(@user) do |f| %>
     <%= error_messages_for :user %>
 	    <% @user.password = @user.password_confirmation = '' %>
