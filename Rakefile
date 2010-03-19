@@ -60,15 +60,13 @@ namespace :db do
 end
 
 def flatten(hsh, prefix = '')
-  strings = []
-  hsh.each_pair do |k,v|
+  hsh.to_a.inject([]) do |memo, k, v|
     if v.is_a? String
-      strings << "#{prefix}#{k}.#{v}"
+      memo + ["#{prefix}#{k}.#{v}"]
     else
-      strings = strings + flatten(v, "#{prefix}#{k}.")
+      strings + flatten(v, "#{prefix}#{k}.")
     end
   end
-  strings
 end
 
 namespace :i18n do
