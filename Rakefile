@@ -11,6 +11,7 @@ require 'tasks/rails'
 require 'find'
 
 require 'active_record/fixtures'
+require 'set'
 
 namespace :db do
 
@@ -58,3 +59,28 @@ namespace :db do
 
 end
 
+def flatten(hsh, prefix = '')
+  strings = []
+  hsh.each_pair do |k,v|
+    if v.is_a? String
+      strings << "#{prefix}#{k}.#{v}"
+    else
+      strings = strings + flatten(v, "#{prefix}#{k}.")
+    end
+  end
+  strings
+end
+
+namespace :i18n do
+  desc 'Find unimplemented strings'
+  task :missing => :environment do
+    strings = Set.new
+    Dir.glob("#{RAILS_ROOT}/app/**/*.{rb,erb}") do |path|
+      File.open(path) do |file|
+        strings.merge(file.read.scan(/\st\((\'|\")([^\)]+)(\'|\")\)/).map{|a|a[1]})
+      end
+    end
+    translations = flatten(YAML.load_file("#{RAILS_ROOT}/config/locales/en.yml")['en'])
+    puts (strings - translations).to_a.join("\n")
+  end
+end
