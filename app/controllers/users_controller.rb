@@ -136,12 +136,13 @@ class UsersController < AuthorizedController
     return with_rejection unless @current_user.can? :update => @user
 
     if @current_user.permission_to?(:update, @user) && params[:user][:state] != nil
+      flash[:notice] = t('notice.user.created', :name => @user.first_name) if @user.state == 'pending'  
       @user.state = params[:user][:state]
       params[:user].delete(:state)
     end
     
     if @user.update_attributes(params[:user])
-      flash[:notice] = t('notice.user_updated')
+      flash[:notice] ||= t('notice.user_updated')
       redirect_to params[:return_to] || @user
     else
       render :action => 'new'

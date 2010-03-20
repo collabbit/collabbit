@@ -3,9 +3,9 @@ en:
     user:
       initial_updated: "Great, you're good to go. Please log in here."
       signup: "Great, we'll get in touch with you once your account has been approved."
-      created: "You've just created this account, so we emailed the details to {{name}}."
+      created: "Yes! {{name}} now has access to this Collabbit."
       need_account_setup: "You are almost there, just fill in these details."
-
+      
     user_updated: "Success! User has been updated."
 
     update_created: "You successfully added an update"
