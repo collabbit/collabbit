@@ -71,8 +71,6 @@ ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
 before 'deploy:restart', :gems
-after 'deploy', 'deploy:notify_campfire'
-after 'deploy:migrations', 'deploy:notify_campfire'
   
 namespace :passenger do
 
@@ -118,26 +116,6 @@ namespace :deploy do
   DESC
   task :stop, :roles => :app do
     passenger.stop
-  end
-  
-  desc 'notifies campfire room of deploy'
-  task :notify_campfire do
-    begin
-      require 'tinder'
-      rails_env = fetch(:rails_env, "production")
-      local_user = ENV['USER'] || ENV['USERNAME']
-      msg = "[#{application}/#{branch}] deployed to #{rails_env} by #{local_user} at #{Time.now}"
-      puts "Notifying Campfire with '#{msg}'"
-      #assuming your campfire url is my-campfire.campfirenow.com
-      campfire = Tinder::Campfire.new('collabbit', :token => fetch('campfire_api'))
-      room = campfire.find_room_by_name('Collabbit')
-      room.speak(msg)
-      campfire.logout
- 
-    rescue
-      #don't kill cap just because we can't notify
-      puts "Notifying Campfire failed: #{$!}"
-    end
   end
 end
 
