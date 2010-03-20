@@ -165,4 +165,8 @@ module ApplicationHelper
       "#{l} matches"
     end
   end
+  
+  def simple_link_format(str)
+    simple_format(auto_link(h(str), :html => { :target => '_blank' }))
+  end
 end
