@@ -23,13 +23,13 @@
 <% content_for :body do %>
   <div id="update">
     <h3>Text:</h3>
-    <p><%=simple_format(h(@update.text)) %></p>
+    <p><%=simple_format(auto_link(h(@update.text))) %></p>
     <div class="comments">
       <h3>Comments:</h3>
       <% @update.comments.each do |c| %>
 		<div class="comment">
 			<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
-			<span class="comment-body"><%=c.body%></span>
+			<span class="comment-body"><%=auto_link(h(c.body))%></span>
 			<% if can? :destroy => c %>
 			    <span class="comment-destroy">
 			        [<%=link_to 'X', [@incident, @update, c], :method => :delete, :confirm => 'Really delete?' %>] <% #<<FIX confirm %>

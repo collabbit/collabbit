@@ -113,10 +113,10 @@
 				<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
 				<div class="update-text">
 				<%  if u.text.length > 256 %>
-					<%=truncate_at(simple_format(h(u.text)).split('</p>')[0],256) %>
+					<%=truncate_at(simple_format(auto_link(h(u.text))).split('</p>')[0],256) %>
 					<%=link_to('&raquo;more', incident_update_path(@incident, u),:class => 'update-more') %>
 				<%  else %>
-					<%=simple_format(h u.text) %>
+					<%=simple_format(auto_link(h(u.text))) %>
 				<% end %>
 				</div>
 				<% unless u.attached_files.empty? %>
@@ -140,7 +140,7 @@
 					<% u.comments.last(5).each do |c| %>
 					<div class="comment">
 						<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
-						<span class="comment-body"><%=c.body%></span>
+						<span class="comment-body"><%=auto_link(h(c.body))%></span>
 						<% if can? :destroy => c %>
 						    <span class="comment-destroy">
 						        [<%=link_to 'X', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %>] <% #<<FIX confirm %>
