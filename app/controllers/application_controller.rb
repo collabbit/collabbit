@@ -57,4 +57,11 @@ class ApplicationController < ActionController::Base
     request.subdomains.first || ''
   end
   
+  def notice=(*args)
+    flash[:notice] = t(*args)
+  end
+  def error=(*args)
+    flash[:error] = t(*args)
+  end
+  
 end
