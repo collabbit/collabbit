@@ -28,7 +28,7 @@
 <% end %>
 <% content_for :filters do %>
 	<%
-		groups = @instance.groups.reject {|g| g.memberships.length == 0 }
+		groups = @instance.groups.find(:all, :order => 'name').reject {|g| g.memberships.length == 0 }
 		groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter.to_i )
 		states_options = options_for_select([['Active', 'active'], ['Pending','pending']], @states_filter)
 	%>
