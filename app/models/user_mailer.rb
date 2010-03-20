@@ -23,6 +23,11 @@ class UserMailer < ActionMailer::Base
     @body[:superadmin] = user.instance.roles.last.users.first
   end
   
+  def pending_account_notification(user)
+    setup_email(user)
+    @subject += 'account pending'
+  end
+  
   # Prepares an account activation confirmation to a user 
   def activation(user)
     setup_email(user)

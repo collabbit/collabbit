@@ -12,6 +12,8 @@ class UserObserver < ActiveRecord::Observer
   def after_create(user)
     if user.approved? && @@enabled
       UserMailer.deliver_new_account_notification(user)
+    elsif user.pending? && @@enabled
+      UserMailer.deliver_pending_account_notification(user)
     end
   end
   
