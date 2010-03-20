@@ -59,7 +59,7 @@ class UpdatesController < AuthorizedController
     
     unless params[:search].blank?
       @search = params[:search]
-      search_clauses[:title_or_text_like_any] = @search.split(' ')
+      search_clauses[:title_like_any_or_text_like_any] = @search.split(' ').map(&:strip)
     end
     
     unless params[:groups_filter].blank?
@@ -77,6 +77,10 @@ class UpdatesController < AuthorizedController
     unless params[:tags_filter].blank?
       search_clauses[:tags_id_is] = @tags_filter = params[:tags_filter].to_i
     end
+    
+    logger.info  "\n\n\n"
+    logger.info search_clauses.inspect
+    logger.info "\n\n\n"
           
     pagination_options = {
       :page => params[:page],
@@ -85,10 +89,10 @@ class UpdatesController < AuthorizedController
       :include => [:relevant_groups, :issuing_group, :tags]
     }    
     
+    @searched = !search_clauses.blank?
     @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
-    
+
     @comment = Comment.new
-    
     @latest_update_id = Update.last.id
   end
 

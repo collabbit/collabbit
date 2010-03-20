@@ -43,7 +43,8 @@ class UsersController < AuthorizedController
         search_options[:first_name_starts_with] = $1
         search_options[:last_name_starts_with] = $2
       else
-        search_options[:first_name_or_last_name_or_cell_phone_or_desk_phone_or_email_like] = @search
+        key = %w( first_name last_name cell_phone desk_phone email ).map {|e|"#{e}_like"}.join('_or_')
+        search_options[key.to_sym] = @search
       end
     end
     

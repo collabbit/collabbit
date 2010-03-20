@@ -74,7 +74,16 @@
 	<div id="new-updates">
 	</div>
 		
-	<% unless @incident.updates.empty? %>
+	<% if @updates.blank? %>
+	    <h3 class="centered">
+	    <% if @searched %>
+	        <%= t('warning.update.no_search_results') %>
+	    <% else %>
+	        <% url = link_to('Add one here', new_incident_update_path(@incident)) + "." if can?(:create => Update) %>
+	        <%= t('warning.update.no_updates', :url => url) %>
+	    <% end %>
+	    </h3>
+	<% else %>
 	<ul id="updates-list">
 	<% @updates.each do |u| %>
 		<li>
@@ -161,8 +170,6 @@
 		</li>
 	<% end %>
 	</ul>
-	<% else %>
-	<h3 class="centered">This incident has no updates. <%=link_to 'Click here to add an update', new_incident_update_path(@incident) if can?(:create => Update)%>.</h3>
 	<% end %>
 	<%= will_paginate @updates %>
 <% end %>

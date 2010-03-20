@@ -57,7 +57,7 @@
 
 	<% if @users.size == 0 %>
 		<h3 class="centered">
-			Sorry, no contacts match your search or filters.
+			<%= t('warning.user.no_search_results') %>
 		</h3>
 	<% end %>
 	<ul id="contacts">

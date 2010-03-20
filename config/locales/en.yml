@@ -40,6 +40,13 @@ en:
 
     admin_approval_required: "Great, you confirmed your account. An admin needs to confirm it now. We will email you when it is ready."
 
+  warning:
+    user:
+      no_search_results: "Sorry, we couldn't find any contacts with that search."
+    update:
+      no_search_results: "Sorry, we couldn't find any updates. Please try again with different words."
+      no_updates: "There aren't any updates yet. {{url}}"
+
   error:
     missing_activation_code: "The activation code was missing. Please follow the URL from your email."
 
