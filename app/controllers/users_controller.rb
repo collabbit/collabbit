@@ -85,7 +85,7 @@ class UsersController < AuthorizedController
     return with_rejection unless !logged_in? || @current_user.can?(:create => User)
     
     @user = create_user(params[:user])
-    @user.state = 'approved' if logged_in?
+    @user.state = 'approved' if logged_in? || @user.whitelisted?
 
     if @user.save
       if logged_in?
@@ -157,7 +157,7 @@ class UsersController < AuthorizedController
     if @code.blank? || @user == nil || @user.active?
       flash[:error] = t('error.user.invalid_activation_code')
       redirect_to new_session_path
-    elsif @user.whitelisted? || @user.approved?
+    elsif @user.approved?
       flash[:notice] = t('notice.user.need_account_setup')
     else
       flash[:error] = t('error.user.invalid_activation_code')
