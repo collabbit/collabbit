@@ -13,7 +13,22 @@ require 'authority'
 require 'set'
 require 'csv'
 
-settings = YAML.load_file('config/settings/keys.yml')
+def flatten_keys(hsh, prefix='')
+  hsh.to_a.inject({}) do |memo, pair|
+    k,v = pair
+    if v.is_a? Hash
+      flatten_keys(v, "#{prefix}#{k}.").each_pair do |a,b|
+        memo[a] = b
+      end
+      memo
+    else
+      memo["#{prefix}#{k}"] = v
+      memo
+    end
+  end
+end
+
+settings = flatten_keys YAML.load_file('config/settings/keys.yml')
 
 Rails::Initializer.run do |config|
   
@@ -25,11 +40,16 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic'
   config.gem 'fastimage', :lib => 'fastimage'
   config.gem 'acts_as_archive'
-  
+    
   config.action_controller.session = {
-    :session_key => settings['action_controller']['session']['session_key'],
-    :secret      => settings['action_controller']['session']['secret']
-  }
+     :session_key => settings['action_controller.session.session_key'],
+     :secret      => settings['action_controller.session.secret']
+   }
+   
+   config.action_mailer.default_url_options = {
+     :host => settings['config.action_mailer.default_url_options.host']
+   }
+  
   
 end
 

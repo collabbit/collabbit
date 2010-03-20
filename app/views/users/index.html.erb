@@ -80,9 +80,7 @@
 				<% end %>
 				<% if u.cell_phone? %>
 					<span class="phone">
-						<span class="contact-label">cell phone: </span>
-						<%=phone u.cell_phone -%> <%= preferred if u.preferred_is_cell? and u.desk_phone? -%>
-					</span>
+						<span class="contact-label">cell phone: </span> <%=phone u.cell_phone -%> <%= preferred if u.preferred_is_cell? and u.desk_phone? -%> </span>
 				<% end %>
 				<% if u.desk_phone? %>
 					<span class="phone">
