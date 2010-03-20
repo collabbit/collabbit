@@ -23,7 +23,7 @@
 	<% @current_user.groups.find(:all, :order => 'name').each do |g| %>
 		<li>
 			<%= link_to g.name, group_type_group_path(g.group_type, g) %>
-			&ndash; <%= g.users.size %> members.
+			&ndash; <%= g.users.size %> members
 			<% unless g.chairs.empty? %>
 				Chairs: 
 				<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
