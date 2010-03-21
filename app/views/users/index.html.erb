@@ -26,6 +26,7 @@
 	<%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
     <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 <% end %>
+
 <% content_for :filters do %>
 	<%
 		groups = @instance.groups.find(:all, :order => 'name').reject {|g| g.memberships.length == 0 }

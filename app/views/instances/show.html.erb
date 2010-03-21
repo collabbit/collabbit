@@ -16,37 +16,46 @@
 	<% end %>
 <% end %>
 <% content_for :body do %>
+	<% pending_users_count = @instance.users.search({:state_equals => :pending}).length %>
+	<% if @current_user.can?(:update => @instance.users) && pending_users_count > 0 %>
+		<div id="pending-users" class="notification">
+			<h2>Pending Users</h2>
+			<%=h "#{pending_users_count} pending user#{pending_users_count == 1 ? '' : 's'}" %>
+		</div>
+	<% end %>
 	<% unless @instance.incidents.empty? %>
-		<div id="latest-incidents">
-			<h2>Latest Incidents</h2>
-			<ul>
-			<% @incidents.each do |i| %>
-				<% if i.created_at > 2.months.ago %>
-					<li>
-						<%= link_to i.name, i %> 
-						<span class="tiny">(<%=mdy i.created_at%>)</span>							
-					</li>
-				<% end %>
-			<% end %>
-			</ul>
+		<div id="incident-updates">
+			<h2>Recent Incidents</h2>
+			<ul id="incidents"><% @incidents.select {|i| i.created_at > 2.months.ago}.sort_by {|i| -i.created_at.to_i}.each do |i| %>
+				<li>
+					<%= link_to i.name, i %> <span class="tiny">(<%=mdy i.created_at%>)</span>
+					<% if i.created_at > @current_user.last_logout %>
+						<span class="new">new</span>
+					<% end %>
+					<% new_updates = i.updates.select {|u| u.created_at > @current_user.last_logout} %>
+					<%= new_my_groups = new_updates.select { |u| (u.relevant_groups & @current_user.groups).length > 0 } %>
+
+					<% if new_updates.length > 0 %>
+						<div>
+							<%= new_updates.length %> new update<%= new_updates.length == 1 ? '':'s' %>.
+							(<%= new_my_groups.length %> in your groups.)
+							<% if new_my_groups.length > 0 %>
+								Most recent updates from your groups:
+								<% show = new_my_groups.sort_by {|u| -u.created_at.to_i}[0,3] %>
+							<% else %>
+								Most recent updates:
+								<% show = new_updates.sort_by {|u| -u.created_at.to_i}[0,3] %>
+							<% end %>
+							<ul><% show.sort_by{|u| u.created_at}[0,3].each do |u| %>
+								<li>
+									<%= link_to u.title, incident_update_url(i,u) %>
+									<span class="tiny">(<%= time_ago_in_words u.created_at %> ago)</span>
+								</li>
+							<% end %></ul>
+						</div>
+					<% end %>
+				</li>
+			<% end %></ul>
 		</div>
 	<% end %>
-	<% unless @instance.users.empty? %>
-		<div id="latest-users">
-			<h2>Newest Users</h2>
-			<ul>
-			<% @instance.users.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => {:state => 'active'}).each do |u| %>
-				<li><%= link_to u.full_name, u %> <span class="tiny">(<%=mdy u.created_at%>)</span></li> <% #<<FIX: do we want these links? Maybe just a jump within the contacts? %>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
-	<div id="latest-updates">
-		<h2>Latest Updates</h2>
-		<ul>
-		<% @instance.updates.find(:all, :order => 'updated_at DESC', :limit => 10).each do|u| -%>
-			<li><%=link_to u.title, incident_update_path(u.incident, u)%> <span class="tiny">(<%=mdy u.created_at%>)</span></li>
-		<% end %>	
-		</ul>
-	</div>
 <% end %>

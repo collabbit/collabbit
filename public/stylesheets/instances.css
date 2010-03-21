@@ -2,6 +2,40 @@
 	font-size: .7em;
 	color: #777;
 }
+h2 {
+	margin:0;
+	padding: 0;
+	color: #444;
+}
+h4 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+#incident-updates {
+	
+}
+	#incident-updates ul#incidents {
+		list-style-type: none;
+		padding: 0 0 0 5px;
+		margin: 0;
+	}
+		.new {
+			color: red;
+			font-variant: small-caps;
+			font-weight: bold;
+			font-size: 13px;
+		}
+		#incidents li div {
+			padding-left: 30px;
+		}
+			#incidents ul {
+				list-style-type: disc;
+				padding: 0;
+			}
+	#incident-updates a {
+		color: #444;
+	}
 
 #latest-users, #latest-incidents{
 	float: left;
@@ -9,17 +43,10 @@
 	margin: 0 0 20px 0;
 }
 
-#latest-incidents{
+#latest-incidents {
 	border-right: solid 1px #ccc;
 	padding-left: 0;
 }
-
-	#latest-users h2, #latest-incidents h2,  #latest-updates h2{
-		margin:0;
-		padding: 0;
-		color: #444;
-	}
-
 	#latest-users ul, #latest-incidents ul, #latest-updates ul{
 		margin: 0;
 		padding:0 0 0 3px;
@@ -37,14 +64,3 @@
 	padding: 10px 0 0 0;
 	clear:both;
 }
-
-/* replace with more general CSS in sitewide.css */
-	/*.edit-instance-button{
-	float: right;
-	background: #006;
-	border-top: none;
-	margin-right: 10px;
-}
-	.edit-instance-button:hover{
-		background: #009;
-	}*/
