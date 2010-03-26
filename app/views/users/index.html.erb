@@ -50,9 +50,14 @@
 	<%  letters = []
 	    @users.each {|u| letters << u.last_name[0,1] unless letters.include?(u.last_name[0,1])}
 	%>
-	
 	<% ('A'..'Z').each do |l| %>
-		<li><a href="#<%=l%>" class="<%="bold" if letters.include?(l)%>"><%=l%></a></li>	
+		<li>
+			<% if letters.include?(l) %>
+				<a href="#<%=l%>"><%=l%></a>
+			<% else %>
+				<span><%=l%></span>
+			<% end %>
+		</li>
 	<% end %>
 	</ul>
 
