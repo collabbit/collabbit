@@ -25,12 +25,6 @@
 			font-size: 18px;
 		}
 
-#index li a.bold{
-    font-weight: bold;
-    color: #333;
-}
-
-
 #contacts{
 	list-style-type: none;
 	margin: 0;
