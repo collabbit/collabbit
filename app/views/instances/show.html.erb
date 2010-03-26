@@ -30,7 +30,10 @@
 				<li>
 					<%= link_to i.name, i %> <span class="tiny">(<%=mdy i.created_at%>)</span>
 					<% if i.created_at > @current_user.last_logout %>
-						<span class="new">new</span>
+						<span class="changed">new</span>
+					<% end %>
+					<% if i.closed_at && i.closed_at > @current_user.last_logout %>
+						<span class="changed">closed</span>
 					<% end %>
 					<% new_updates = i.updates.select {|u| u.created_at > @current_user.last_logout} %>
 					<%= new_my_groups = new_updates.select { |u| (u.relevant_groups & @current_user.groups).length > 0 } %>

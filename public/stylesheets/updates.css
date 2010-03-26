@@ -135,6 +135,7 @@
 					border-width: 0 1px 1px 0;
 					color: #444;
 					font-size: 12px;
+					overflow: auto;
 				}
 					.comment-author a {
 						font-weight: bold;
@@ -144,6 +145,9 @@
 						.comment-author a:hover {
 							text-decoration: underline;
 						}
+					.comment-body p {
+						margin: 0; display: inline;
+					}
 					.comment-date {
 						font-variant: small-caps;
 						font-size: 12px;

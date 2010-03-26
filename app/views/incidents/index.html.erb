@@ -18,17 +18,26 @@
 <% end %>
 
 <% content_for :body do%>
-	<% if @incidents.empty?%>		
-		<h3 class="centered">There are no incidents yet.
-			Want to <%= link_to 'create one', new_incident_path %>?
-	<% else %>
-		<ul id="incidents-list" class="listy">
-		<% @incidents.each do |i| %>
-			<li><%= link_to i.name, i, :class => :title %> 
-				&ndash; <%=h i.description%>
-				<span class="tiny">(<%=mdy i.created_at%>)</span>
-			</li>
-		<% end %>
-		</ul>
-	<% end %>
+    <% if @incidents.empty?%>		
+        <h3 class="centered">There are no incidents yet.
+        Want to <%= link_to 'create one', new_incident_path %>?
+    <% else %>
+        <ul id="incidents-list" class="listy">
+        <% @incidents.each do |i| %>
+            <% unless i.closed_at? %>
+            <li><%= link_to i.name, i, :class => :title %> 
+                &ndash; <%=h i.description %>
+                <span class="tiny">(<%=mdy i.created_at%>)</span>
+            </li>
+            <% else %>
+            <li>
+                <span class="changed">closed</span>
+                <%= link_to i.name, i, :class => "title closed" %>
+                &ndash; <%=h i.description %>
+                <span class="tiny">(<%=mdy i.created_at%> to <%=mdy i.closed_at%>)</span>
+            </li>
+            <% end %>
+        <% end %>
+        </ul>
+    <% end %>
 <% end %>
