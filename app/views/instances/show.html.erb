@@ -32,7 +32,7 @@
 					<% if i.created_at > @current_user.last_logout %>
 						<span class="changed">new</span>
 					<% end %>
-					<% if i.closed_at && i.closed_at > @current_user.last_logout %>
+					<% if i.closed_at %>
 						<span class="changed">closed</span>
 					<% end %>
 					<% new_updates = i.updates.select {|u| u.created_at > @current_user.last_logout} %>
