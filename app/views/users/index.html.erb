@@ -74,11 +74,6 @@
 				<%= link_to u.last_first, u %>
 				<span class="vcard"><%=link_to 'vCard', user_path(u, :format => :vcf) -%></span></div>
 			<div class="person-info">
-				<% if u.state != 'active' && can?(:update => u) %>
-					<span>
-						<%= link_to 'Approve', user_path(u, :user => {:state => :approved}, :return_to => users_path), {:method => :put} %>
-					</span>
-				<% end %>
 				<% if u.cell_phone? %>
 					<span class="phone">
 						<span class="contact-label">cell phone: </span> <%=phone u.cell_phone -%> <%= preferred if u.preferred_is_cell? and u.desk_phone? -%> </span>
@@ -111,6 +106,9 @@
 						<% end %>
 						</ul>
 					</div>
+				<% end %>
+				<% if u.state != 'active' && can?(:update => u) %>
+					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => users_path), {:method => :put, :class => :approve} %>
 				<% end %>
 			</div>
 		</li>

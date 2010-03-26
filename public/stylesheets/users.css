@@ -95,6 +95,13 @@
 		.person-info{
 			clear:both;
 		}
+			#contacts a.approve {
+				color: red;
+				font-weight: bold;
+				display: block;
+				padding: 5px 0;
+				text-align: right;
+			}
 		.phone, .email{display: block}
 		.groups{display:inline}
 		.contact-label{
