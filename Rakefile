@@ -60,8 +60,9 @@ namespace :db do
 end
 
 def flatten(hsh, prefix = '')
-  hsh.to_a.inject([]) do |memo, k, v|
-    memo + (v.is_a?(String) ? ["#{prefix}#{k}.#{v}"] : flatten(v, "#{prefix}#{k}."))
+  hsh.to_a.inject([]) do |memo, e|
+    k, v = e
+    memo + (v.is_a?(String) ? ["#{prefix}#{k}"] : flatten(v, "#{prefix}#{k}."))
   end
 end
 

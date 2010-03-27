@@ -20,6 +20,10 @@ module Passworded
     crypted_password = generate_crypted_password(plaintext)
   end
   
+  def password_matches?(plaintext)
+    crypted_password == generate_crypted_password(plaintext)
+  end
+  
   # Reencrypt passwords
   def before_update
     if !@password.blank? && @password_confirmation == @password

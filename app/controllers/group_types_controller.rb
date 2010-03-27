@@ -34,7 +34,7 @@ class GroupTypesController < AuthorizedController
     return with_rejection unless @current_user.can?(:create => GroupType)
 
     if @group_type.save
-      flash[:notice] = t('notice.group_type_created')
+      flash[:notice] = t('notice.group_type.created')
       redirect_to group_type_path(@group_type)
     else
       render :action => 'new'
@@ -49,7 +49,7 @@ class GroupTypesController < AuthorizedController
     return with_rejection unless @current_user.can? :update => @group_type
 
     if @group_type.update_attributes(params[:group_type])
-      flash[:notice] = t('notice.group_type_updated')
+      flash[:notice] = t('notice.group_type.updated')
       redirect_to group_type_path(@group_type)
     else
       render :action => 'edit'

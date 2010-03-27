@@ -20,7 +20,7 @@ class TagsController < AuthorizedController
     @tag = @instance.tags.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
-    flash[:notice] = t('notice.tag_destroyed')
+    flash[:notice] = t('notice.tag.destroyed')
     redirect_to tags_path
   end
 end

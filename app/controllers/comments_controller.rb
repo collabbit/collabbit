@@ -15,7 +15,7 @@ class CommentsController < AuthorizedController
     @comment = @update.comments.find(params[:id])
     return with_rejection unless @current_user.can? :destroy => @comment
     @comment.destroy
-    flash[:notice] = t('notice.comment_destroyed')
+    flash[:notice] = t('notice.comment.destroyed')
     redirect_to(params[:redirect_to] || :back)
   end
 end

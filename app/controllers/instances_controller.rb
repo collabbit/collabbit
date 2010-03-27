@@ -58,10 +58,10 @@ class InstancesController < AuthorizedController
       end
     end
     if @instance.update_attributes(params[:instance])
-      flash[:notice] = t('notice.instance_updated')
+      flash[:notice] = t('notice.instance.updated')
       redirect_to edit_path
     else
-      flash[:error] = t('error.instance_update_failed')
+      flash[:error] = t('error.instance.update_failed')
       render edit_path
     end
   end
@@ -84,7 +84,7 @@ class InstancesController < AuthorizedController
     return with_rejection unless @current_user.can? :create => Instance
     @instance = Instance.build(params[:instance])
     if @instance.save
-      flash[:notice] = t('notice.instance_created')
+      flash[:notice] = t('notice.instance.created')
       redirect_to @instance
     else
       render :action => 'new'

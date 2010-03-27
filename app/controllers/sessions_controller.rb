@@ -19,7 +19,7 @@ class SessionsController < AuthorizedController
     if @user and !@user.active?
       flash[:error] = t('error.user.pending')
       render :action => :new
-    elsif @user and @user.crypted_password == @user.generate_crypted_password(params[:password])
+    elsif @user and @user.password_matches?(params[:password])
       flash[:notice] = if @user.last_login
         t('notice.user.login', :name => @user.first_name)
       else
@@ -32,7 +32,6 @@ class SessionsController < AuthorizedController
       @user.save
 
       redirect_to params[:return_to].blank? ? overview_path : params[:return_to]
-      
     else
       flash[:error] = t('error.user.login_invalid')
       render :action => :new

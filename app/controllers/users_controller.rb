@@ -97,7 +97,7 @@ class UsersController < AuthorizedController
         redirect_to login_path #<<FIX: make a new path
       end
     elsif logged_in?
-      flash[:notice] = t('error.user.creation_failed')
+      flash[:notice] = t('error.user.signup_failed')
       render :new
     else
       flash[:notice] = t('error.user.signup_failed')
@@ -121,10 +121,10 @@ class UsersController < AuthorizedController
     end
     
     if errors
-      flash[:error] = t('error.user.bulk_import.failed')
+      flash[:error] = t('error.user.bulk_import_failed')
       render new_bulk_users_path
     else
-      flash[:notice] = t('notice.user.bulk_import.success')
+      flash[:notice] = t('notice.user.bulk_import_success')
       redirect_to users_path
     end
   end
@@ -178,7 +178,7 @@ class UsersController < AuthorizedController
         flash[:notice] = t('notice.user.initial_updated')
         redirect_to new_session_path
       else
-        flash[:error] = t('error.user.invalid_data')
+        flash[:error] = t('error.user.update_failed')
         redirect_to :back
       end
     else
