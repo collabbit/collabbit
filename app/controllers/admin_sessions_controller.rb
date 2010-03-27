@@ -22,7 +22,7 @@ class AdminSessionsController < AuthorizedController
       login_as @admin, :admin
       redirect_to admins_path
     else
-      flash[:error] = t('error.invalid_email_or_password')
+      flash[:error] = t('error.user.invalid_email_or_password')
       render :action => :new
     end
   end

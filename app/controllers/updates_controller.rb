@@ -131,7 +131,7 @@ class UpdatesController < AuthorizedController
     end
 
     if @update.save
-      flash[:notice] = t('notice.update_created')
+      flash[:notice] = t('notice.update.created')
       redirect_to @incident
     else
       @tags = @instance.tags
@@ -172,7 +172,7 @@ class UpdatesController < AuthorizedController
     end
 
     if @update.update_attributes(params[:update])
-      flash[:notice] = t('notice.update_updated')
+      flash[:notice] = t('notice.update.updated')
       redirect_to incident_update_path(@incident, @update)
     else
       render :action => 'new'

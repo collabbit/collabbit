@@ -121,10 +121,10 @@ class UsersController < AuthorizedController
     end
     
     if errors
-      flash[:error] = t('error.bulk_import.failed')
+      flash[:error] = t('error.user.bulk_import.failed')
       render new_bulk_users_path
     else
-      flash[:notice] = t('notice.bulk_import.success')
+      flash[:notice] = t('notice.user.bulk_import.success')
       redirect_to users_path
     end
   end
@@ -143,7 +143,7 @@ class UsersController < AuthorizedController
     end
     
     if @user.update_attributes(params[:user])
-      flash[:notice] ||= t('notice.user_updated')
+      flash[:notice] ||= t('notice.user.updated')
       redirect_to params[:return_to] || @user
     else
       render :action => 'new'

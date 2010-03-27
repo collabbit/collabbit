@@ -40,10 +40,10 @@ class GroupsController < AuthorizedController
     @group_type.groups_count = @group_type.groups.length
 
     if @group.save && @group_type.save
-      flash[:notice] = t('notice.group_created')
+      flash[:notice] = t('notice.group.created')
       redirect_to group_type_group_path(@group_type, @group)
     else
-      flash[:error] = t('error.group_create_error')
+      flash[:error] = t('error.group.creation_failed', :email => 'support@collabbit.org')
       render :action => 'new'
     end
   end
@@ -56,10 +56,10 @@ class GroupsController < AuthorizedController
     return with_rejection unless @current_user.can?(:update => @group)
 
     if @group.update_attributes(params[:group])
-      flash[:notice] = t('notice.group_updated')
+      flash[:notice] = t('notice.group.updated')
       redirect_to group_type_group_path(@group.group_type, @group)
     else
-      flash[:error] = t('error.group_update_error')
+      flash[:error] = t('error.group.update_failed')
       render :action => 'new'
     end
   end
