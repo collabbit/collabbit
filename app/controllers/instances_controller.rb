@@ -15,7 +15,10 @@ class InstancesController < AuthorizedController
   end
 
   def show
-    @incidents = @instance.incidents.find(:all,:include => [:updates], :order => 'id DESC')
+    @incidents = @instance.incidents.find(:all,
+                                          :include => [:updates],
+                                          :order => 'created_at DESC',
+                                          :conditions => ['created_at > ?', 2.months.ago.to_i])
     return with_rejection unless @current_user.can? :list => @incidents, :view => @instance
   end
 

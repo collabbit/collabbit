@@ -25,10 +25,10 @@
 	<% end %>
 	<% unless @instance.incidents.empty? %>
 		<div id="incident-updates">
-			<% (@current_user.last_logout || 0).tap do |logout| %>
 			<h2>Recent Incidents</h2>
-			<% @current_user.last_logout.tap do |logout|%>
-			<ul id="incidents"><% @incidents.select {|i| i.created_at > 2.months.ago}.sort_by {|i| -i.created_at.to_i}.each do |i| %>
+			<% (@current_user.last_logout || Time.now).tap do |logout| %>
+			<ul id="incidents">
+			    <% @incidents.each do |i| %>
 				<li>
 					<%= link_to i.name, i %> <span class="tiny">(<%=mdy i.created_at%>)</span>
 					<% if i.created_at > logout %>
@@ -60,8 +60,9 @@
 						</div>
 					<% end %>
 				</li>
-			<% end %></ul>
-		<% end %>
+			    <% end %>
+			</ul>
+		    <% end %>
 		</div>
 	<% end %>
 <% end %>

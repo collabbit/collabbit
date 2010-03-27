@@ -1,6 +1,8 @@
 en:
   notice:
     user:
+      first_login: "Welcome to Collabbit, {{name}}."
+      login: "Welcome, {{name}}."
       initial_updated: "You're good to go. Please log in below."
       signup: "Great, we'll get in touch with you once your account has been approved."
       created: "Yes! {{name}} now has access to this Collabbit."
