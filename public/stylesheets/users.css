@@ -11,11 +11,20 @@
 	#index li{
 		display: inline;
 		margin: 0;
-		padding: 4px;
+		padding-right: 1px;
+		color: #999;
+		font-size: 13px;
 	}
-		#index li a{
-			color: #999
+		#index li em {
+			color: #444;
+			font-size: 16px;
 		}
+		#index li a{
+			color: black;
+			font-weight: bold;
+			font-size: 18px;
+		}
+
 #contacts{
 	list-style-type: none;
 	margin: 0;
@@ -95,6 +104,13 @@
 		.person-info{
 			clear:both;
 		}
+			#contacts a.approve {
+				color: red;
+				font-weight: bold;
+				display: block;
+				padding: 5px 0;
+				text-align: right;
+			}
 		.phone, .email{display: block}
 		.groups{display:inline}
 		.contact-label{
@@ -108,12 +124,6 @@
 	margin: 0;
 	padding: 0;
 }
-
-#index li a.bold{
-    font-weight: bold;
-    color: #333;
-}
-
 
 /* EDIT */
 #notifications{

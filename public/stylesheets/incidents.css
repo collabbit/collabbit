@@ -1,11 +1,7 @@
-/* replace with more general CSS in sitewide.css */
-	/*.new-incident-button{
-	float: right;
-	background: #060;
-	border-top: none;
-	margin-right: 10px;
+li a.title.closed {
+	color: #999;
 }
-	.new-incident-button:hover{
-		background: #090;
-	}*/
-
+.changed {
+	font-variant: small-caps;
+	font-weight: bold;
+}

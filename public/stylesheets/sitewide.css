@@ -45,6 +45,9 @@ body {
 			#account-status a:hover {
 				text-decoration: none;
 			}
+		#account-status .divider {
+			color: #999;
+		}
 	#header-title {
 		font-weight: bold;
 		font-size: 14px;
