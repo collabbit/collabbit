@@ -24,45 +24,49 @@
 		</div>
 	<% end %>
 	<% unless @instance.incidents.empty? %>
-		<div id="incident-updates">
-			<h2>Recent Incidents</h2>
-			<% (@current_user.last_logout || Time.now).tap do |logout| %>
-			<ul id="incidents">
-			    <% @incidents.each do |i| %>
-				<li>
-					<%= link_to i.name, i %> <span class="tiny">(<%=mdy i.created_at%>)</span>
-					<% if i.created_at > logout %>
-						<span class="changed">new</span>
-					<% end %>
-					<% if i.closed_at %>
-						<span class="changed">closed</span>
-					<% end %>
-					<% new_updates = i.updates.select {|u| u.created_at > logout} %>
-					<%= new_my_groups = new_updates.select { |u| (u.relevant_groups & @current_user.groups).length > 0 } %>
+		<% (@current_user.last_logout || Time.now).tap do |logout| %>
+		<ul id="incidents">
+			<% @incidents.each do |i| %>
+			<li class="incident">
+				<% if i.created_at > logout %>
+					<span class="changed">new</span>
+				<% end %>
+				<% unless i.closed_at? %>
+					<h2><%= link_to i.name, i %>
+						<span class="date"><%=mdy i.created_at%></span></h2>
+				<% else %>
+					<span class="closed">closed</span>
+					<h2 class="closed"><%= link_to i.name, i %>
+						<span class="date"><%=mdy i.created_at%> to <%=mdy i.closed_at%></span></h2>
+				<% end %>
 
-					<% if new_updates.length > 0 %>
-						<div>
+				<% new_updates = i.updates.select {|u| u.created_at > logout} %>
+				<% new_my_groups = new_updates.select { |u| (u.relevant_groups & @current_user.groups).length > 0 } %>
+				<% if new_updates.length > 0 %>
+					<div class="new">
+						<div class="summary">
 							<%= new_updates.length %> new update<%= new_updates.length == 1 ? '':'s' %>.
 							(<%= new_my_groups.length %> in your groups.)
 							<% if new_my_groups.length > 0 %>
 								Most recent updates from your groups:
-								<% show = new_my_groups.sort_by {|u| -u.created_at.to_i}[0,3] %>
+								<% show = new_my_groups.sort_by {|u| -u.created_at.to_i} %>
 							<% else %>
 								Most recent updates:
-								<% show = new_updates.sort_by {|u| -u.created_at.to_i}[0,3] %>
+								<% show = new_updates.sort_by {|u| -u.created_at.to_i} %>
 							<% end %>
-							<ul><% show.sort_by{|u| u.created_at}[0,3].each do |u| %>
-								<li>
-									<%= link_to u.title, incident_update_url(i,u) %>
-									<span class="tiny">(<%= time_ago_in_words u.created_at %> ago)</span>
-								</li>
-							<% end %></ul>
 						</div>
-					<% end %>
-				</li>
-			    <% end %>
-			</ul>
-		    <% end %>
-		</div>
+						<ul><% show.sort_by{|u| u.created_at}[0,3].each do |u| %>
+							<li>
+								<%= link_to u.title, incident_update_url(i,u) %>
+								<span class="tiny">(<%= time_ago_in_words u.created_at %> ago)</span>
+							</li>
+						<% end %></ul>
+						<%= link_to '&raquo; all updates', i %>
+					</div>
+				<% end %>
+			</li>
+			<% end %>
+		</ul>
+		<% end %>
 	<% end %>
 <% end %>
