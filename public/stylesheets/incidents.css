@@ -1,5 +1,6 @@
 li a.title.closed {
-	color: #999;
+	color: #555;
+	text-decoration: underline;
 }
 .changed {
 	font-variant: small-caps;

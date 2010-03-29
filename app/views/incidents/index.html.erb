@@ -26,14 +26,14 @@
         <% @incidents.each do |i| %>
             <% unless i.closed_at? %>
             <li><%= link_to i.name, i, :class => :title %> 
-                &ndash; <%=h i.description %>
+                &mdash; <%=h i.description %>
                 <span class="tiny">(<%=mdy i.created_at%>)</span>
             </li>
             <% else %>
             <li>
                 <span class="changed">closed</span>
                 <%= link_to i.name, i, :class => "title closed" %>
-                &ndash; <%=h i.description %>
+                &mdash; <%=h i.description %>
                 <span class="tiny">(<%=mdy i.created_at%> to <%=mdy i.closed_at%>)</span>
             </li>
             <% end %>

@@ -1,66 +1,56 @@
-.subtitle{
-	font-size: .7em;
-	color: #777;
-}
-h2 {
-	margin:0;
-	padding: 0;
-	color: #444;
-}
-h4 {
+#incidents {
+	list-style-type: none;
 	margin: 0;
-	padding: 0;
-	font-weight: normal;
 }
-#incident-updates {
-	
-}
-	#incident-updates ul#incidents {
-		list-style-type: none;
-		padding: 0 0 0 5px;
-		margin: 0;
+	#incidents li.incident {
+		padding: 0 0 15px;
 	}
-		.changed {
+		span.changed {
 			color: red;
-			font-variant: small-caps;
 			font-weight: bold;
-			font-size: 13px;
+			font-size: 16px;
+			font-variant: small-caps;
 		}
-		#incidents li div {
-			padding-left: 30px;
+		span.closed {
+			font-weight: bold;
+			font-size: 16px;
+			font-variant: small-caps;
+			color: #222;
 		}
-			#incidents ul {
-				list-style-type: disc;
-				padding: 0;
-			}
-	#incident-updates a {
-		color: #444;
-	}
-
-#latest-users, #latest-incidents{
-	float: left;
-	padding: 0 30px;
-	margin: 0 0 20px 0;
-}
-
-#latest-incidents {
-	border-right: solid 1px #ccc;
-	padding-left: 0;
-}
-	#latest-users ul, #latest-incidents ul, #latest-updates ul{
-		margin: 0;
-		padding:0 0 0 3px;
-		list-style-type: none;
-	}
-		#latest-users ul li, #latest-incidents ul li, #latest-updates ul li{
-			margin: 0;
+		h2 {
 			padding: 0;
+			margin: 0;
+			display: inline;
 		}
-			#latest-users ul li a, #latest-incidents ul li a, #latest-updates ul li a{
-				color: #333;
+		h2.closed {
+		}
+			h2 a {
+				color: #275FE4;
 			}
-#latest-updates{
-	border-top: 1px solid #ccc;
-	padding: 10px 0 0 0;
-	clear:both;
-}
+				h2 a:hover, h2.closed a:hover {
+					text-decoration: none;
+				}
+			h2.closed a {
+				color: #777;
+				font-weight: normal;
+			}
+			h2 span.date {
+				color: #888;
+				font-size: 14px;
+				font-weight: normal;
+			}
+		.incident .new {
+			margin-left: 30px;
+		}
+			.new .summary {
+				color: #444;
+				font-style: italic;
+			}
+			.new ul {
+				padding: 0;
+				margin: 0;
+				list-style-type: disc;
+			}
+			.new a {
+				color: #375FE4;
+			}

@@ -132,8 +132,8 @@ body {
 }
 #subheader .pagewidth {
 	background: white;
-	padding: 20px;
-	max-width: 902px;
+	padding: 20px 20px 0;
+	max-width: 904px;
 	border: 1px solid #bbb;
 	border-width: 0 1px;
 }
@@ -205,7 +205,6 @@ body {
 	#filters {
 		max-width: 944px;
 		padding-bottom: 20px;
-		border-bottom: 1px solid #eee;
 	}
 		#filters form {
 			padding-top: 7px;
@@ -248,23 +247,23 @@ body {
 					background: white;
 				}
 
-#content{
-	/*margin-top: 10px;*/
-	padding-bottom: 10px;
+#content.pagewidth {
+	background: white;
 	color: black;
+	border: 1px solid #bbb;
+	border-width: 0 1px 1px;
+	padding: 0 20px 20px;
+	width: 904px;
 }
 	#wrap {
-		padding: 10px 20px 20px;
-		background: white;
-		border: 1px solid #bbb;
-		border-width: 0 1px 1px;
+		padding-top: 20px;
+		border-top: 1px solid #eee;
 	}
-
 	#flashes {
 		background: #ddd;
 		color: black;
 		font-size: 16px;
-		padding: 10px;
+		padding: 10px 5px;
 		margin-bottom: 20px;
 	}
 
