@@ -5,15 +5,13 @@
 	padding: 10px;
 	border-width: 1px 1px 0;
 }
-#content{
-
+#content.pagewidth {
+	width: 350px;
+	text-align: left;
+	padding: 10px;
+	background: #fff;
 }
 	#wrap{
-		width: 350px;
-		text-align: left;
-		margin: 0 auto;
-		padding: 10px;
-		background: #fff;
 	}
 		#wrap h1 {
 			text-align: center;
