@@ -130,7 +130,7 @@
 				</div>
 				<% unless u.attached_files.empty? %>
 					<div class="update-attach">
-						<h5><%=image_tag 'attachment_icon.png' %></h5><h5>Files:</h5>
+						<h5>Files:</h5>
 						<ul>
 						<% u.attached_files.each do |f| %>
 							<li><%=link_to f.attach.original_filename, f.attach.url%></li>
