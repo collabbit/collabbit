@@ -28,6 +28,9 @@
 				Chairs: 
 				<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 			<% end %>
+			<% @current_user.memberships.find_by_group_id(g.id).tap do |m| %>
+			&ndash; <%= link_to 'Leave', m, :method => :delete, :confirm => "Are you sure you want to leave this group?"%>
+			<% end %>
 		</li>
 	<% end %>
 	</ul>
@@ -50,7 +53,7 @@
 						<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 					<% end %>
 					<% unless g.users.include? @current_user %>
-					&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user), :method => :post -%>
+					&ndash; <%= link_to 'Join', memberships_path(:group_id => g.id, :user_id => @current_user.id), :method => :post -%>
 					<% end %>
 				</li>
 			<% end %>

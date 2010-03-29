@@ -17,4 +17,14 @@ class MembershipsController < AuthorizedController
       redirect_to group_type_group_path(group.group_type, group)
     end
   end
+  
+  def destroy
+    membership = @current_user.memberships.find_by_id(params[:id])
+    #return with_rejection unless @current_user.can? :destroy => membership
+    
+    membership.destroy
+    flash[:notice] = t('notice.membership.destroyed', :group_name => membership.group.name)
+    
+    redirect_to(params[:redirect_to] || :back)
+  end
 end

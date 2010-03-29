@@ -32,6 +32,8 @@ en:
       destroyed: "Tag deleted."
     comment:
       destroyed: "Comment deleted."
+    membership:
+      destroyed: "You've left the {{group_name}} group"
   warning:
     user:
       no_search_results: "Sorry, we couldn't find any contacts with that search."
