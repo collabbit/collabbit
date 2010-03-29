@@ -282,6 +282,9 @@
 
 
 /* new/edit update page */
+.hide {
+	display: none;
+}
 #update-form {
 	width: 668px;
 	margin-top: -25px;
