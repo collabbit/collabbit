@@ -45,12 +45,13 @@ end
 
 def symlink_task(nspace, path, settings = {})
   settings[:chmod] = 775 unless settings.key? :chmod
-  desc "Create the symlink for #{File.basename(path)}"
   namespace(nspace.to_sym) do
+    desc "Create the symlink for #{File.basename(path)}"
     task(:symlink) do
       from = File.join(fetch(:shared_path), path)
       to = File.join(fetch(:release_path), path)
-      run "mkdir -p #{File.dirname(to)}"
+      run "mkdir -p #{File.extname(from) == '' ? from : File.dirname(from)}"
+      run "mkdir -p #{File.extname(to) == '' ? to : File.dirname(to)}"
       run "chmod #{settings[:chmod]} #{File.dirname(to)}" if settings[:chmod]
       run "ln -nfs #{from} #{to}"
     end
@@ -70,6 +71,7 @@ set :deploy_via,  :remote_cache
 ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
+after 'deploy:update_code', 'backup:backup'
 before 'deploy:restart', :gems
   
 namespace :passenger do
@@ -184,5 +186,13 @@ namespace :gems do
   desc "Update gems"
   task :default do
     run "cd #{release_path} && rake gems:install && rake gems:unpack"
+  end
+end
+
+configuration_for :backup, :path => 'db/backup/'
+namespace :backup do
+  desc 'Back up on deploy'
+  task :backup do
+    run "cd #{release_path} && rake db:backup"
   end
 end
