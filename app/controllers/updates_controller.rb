@@ -78,10 +78,6 @@ class UpdatesController < AuthorizedController
       search_clauses[:tags_id_is] = @tags_filter = params[:tags_filter].to_i
     end
     
-    logger.info  "\n\n\n"
-    logger.info search_clauses.inspect
-    logger.info "\n\n\n"
-          
     pagination_options = {
       :page => params[:page],
       :per_page => 50,
