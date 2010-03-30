@@ -51,7 +51,7 @@ def symlink_task(nspace, path, settings = {})
       from = File.join(fetch(:shared_path), path)
       to = File.join(fetch(:release_path), path)
       run "mkdir -p #{File.extname(from) == '' ? from : File.dirname(from)}"
-      run "mkdir -p #{File.extname(to) == '' ? to : File.dirname(to)}"
+      run "mkdir -p #{File.dirname(to)}" unless File.extname(to) == ''
       run "chmod #{settings[:chmod]} #{File.dirname(to)}" if settings[:chmod]
       run "ln -nfs #{from} #{to}"
     end
@@ -71,8 +71,7 @@ set :deploy_via,  :remote_cache
 ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
-after 'deploy:update_code', 'backup:backup'
-before 'deploy:restart', :gems
+before 'deploy:restart', :gems#, 'backup:backup'
   
 namespace :passenger do
 
@@ -189,10 +188,10 @@ namespace :gems do
   end
 end
 
-configuration_for :backup, :path => 'db/backup/'
+configuration_for :backup, :path => 'db/backup'
 namespace :backup do
   desc 'Back up on deploy'
   task :backup do
-    run "cd #{release_path} && rake db:backup"
+    run "cd #{release_path} && rake db:backup RAILS_ENV=production"
   end
 end
