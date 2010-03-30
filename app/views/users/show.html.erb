@@ -1,6 +1,4 @@
 <%
-#<<FIX: what is this page for?
-
 # View which displays a single user's information.  
 #
 # Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
@@ -21,6 +19,7 @@
 
 <% content_for :body do %>
 	<ul id="contact-info-list">
+	    <li><%=link_to 'Download as vCard', vcards_path(@user) %></li>
 		<% if @user.email %>
 		<li class="email">
 			<span class="tiny">email:</span> <%=mail_to @user.email, @user.email, :target => '_blank'%>
