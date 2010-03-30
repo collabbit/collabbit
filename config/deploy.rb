@@ -71,7 +71,7 @@ set :deploy_via,  :remote_cache
 ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
-before 'deploy:restart', :gems#, 'backup:backup'
+before 'deploy:restart', :gems, 'backup:backup'
   
 namespace :passenger do
 
