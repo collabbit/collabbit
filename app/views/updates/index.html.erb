@@ -152,7 +152,7 @@
 						<span class="comment-body"><%=simple_link_format c.body%></span>
 						<% if can? :destroy => c %>
 						    <span class="comment-destroy">
-						        [<%=link_to 'X', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %>] <% #<<FIX confirm %>
+						        [<%=link_to 'X', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %>]
 						    </span>
 						<% end %>
 						<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
