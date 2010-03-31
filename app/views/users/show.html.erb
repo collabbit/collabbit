@@ -44,16 +44,18 @@
 		<% end %>
 		
 	</ul>
-	<% unless @user.groups.empty? %>
-		<div id="contact-groups">Groups:</div>
-		<ul>
-		<% @user.groups.each do |g| %>
-			<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
-				<% if g.chairs.include?(@user) %>
-					<span class="chair">[Chair]</span> <% #<<FIX: this ain't right'%>
-				<% end %>
-			</li>
+	<span class="tiny">groups:</span>
+	<ul id="contact-groups">
+		<% unless @user.groups.empty? %>
+			<% @user.groups.each do |g| %>
+				<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
+					<% if g.chairs.include?(@user) %>
+						<span class="chair">[Chair]</span> <% #<<FIX: this ain't right'%>
+					<% end %>
+				</li>
+			<% end %>
+		<% else %>
+			<li><%= @user.full_name %> isn't a member of any groups.
 		<% end %>
-		</ul>
-	<% end %>
+	</ul>
 <% end %>

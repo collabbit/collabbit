@@ -124,6 +124,14 @@
 	margin: 0;
 	padding: 0;
 }
+	#contact-groups {
+		display: inline;
+		padding: 0;
+	}
+		#contact-groups li {
+			display: inline;
+			padding-left: 4px;
+		}
 
 /* EDIT */
 #notifications{
