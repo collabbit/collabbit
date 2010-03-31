@@ -43,7 +43,7 @@ class GroupsController < AuthorizedController
       flash[:notice] = t('notice.group.created')
       redirect_to group_type_group_path(@group_type, @group)
     else
-      flash[:error] = t('error.group.creation_failed', :email => 'support@collabbit.org')
+      flash[:error] = t('error.group.creation_failed', :email => SETTINGS['host.support_email'])
       render :action => 'new'
     end
   end
