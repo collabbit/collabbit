@@ -21,6 +21,7 @@
 
 <% content_for :body do %>
 	<ul id="contact-info-list">
+	    <li><%=link_to 'Download contact as vCard', vcards_path(@user) %></li>
 		<% if @user.email %>
 		<li class="email">
 			<span class="tiny">email:</span> <%=mail_to @user.email, @user.email, :target => '_blank'%>
@@ -50,7 +51,7 @@
 			<% @user.groups.each do |g| %>
 				<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
 					<% if g.chairs.include?(@user) %>
-						<span class="chair">[Chair]</span> <% #<<FIX: this ain't right'%>
+						<span class="chair">[Chair]</span>
 					<% end %>
 				</li>
 			<% end %>

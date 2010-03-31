@@ -28,7 +28,7 @@ def flatten_keys(hsh, prefix='')
   end
 end
 
-settings = flatten_keys YAML.load_file('config/settings/keys.yml')
+SETTINGS = flatten_keys YAML.load_file('config/settings/keys.yml')
 
 Rails::Initializer.run do |config|
   
@@ -42,15 +42,13 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_archive'
     
   config.action_controller.session = {
-     :session_key => settings['action_controller.session.session_key'],
-     :secret      => settings['action_controller.session.secret']
+     :session_key => SETTINGS['action_controller.session.session_key'],
+     :secret      => SETTINGS['action_controller.session.secret']
    }
    
    config.action_mailer.default_url_options = {
-     :host => settings['config.action_mailer.default_url_options.host']
+     :host => SETTINGS['host.base_url']
    }
-  
-  
 end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:std => "%m/%d/%Y")

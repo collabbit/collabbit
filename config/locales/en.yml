@@ -14,6 +14,7 @@ en:
     update:
       created: "You successfully added an update."
       updated: "You successfully modified that update."
+      new: "There {{num_string}} new update{{s}}."
     group:
       created: "You successfully added a group."
       updated: "You successfully updated that group."

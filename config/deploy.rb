@@ -71,7 +71,7 @@ set :deploy_via,  :remote_cache
 ssh_options[:paranoid] = false
 default_run_options[:pty] = true
 
-before 'deploy:restart', :gems#, 'backup:backup'
+before 'deploy:restart', :gems, 'backup:backup'
   
 namespace :passenger do
 
@@ -173,8 +173,10 @@ configuration_for :keys, :filepath => 'config/settings/keys.yml' do
         'secret' => '5695f525eb5ec94353765d4c12c64df56cadc68bb8ba49a1bb1967379bccfd994176645f677d7568cc114bf2f94b'
       }
     },
-   'action_mailer' => {
-     'default_url_options' => {:host => Capistrano::CLI.ui.ask('Base URL for mail links?')}
+   'host' => {
+     'base_url' => Capistrano::CLI.ui.ask('Base URL?'),
+     'support_url' => Capistrano::CLI.ui.ask('Support URL?'),
+     'support_email' => Capistrano::CLI.ui.ask('Support Email?')
    }
   }.to_yaml
 end

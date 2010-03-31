@@ -12,14 +12,14 @@ class UserMailer < ActionMailer::Base
   def approved_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
-    @body[:url]  = "http://#{user.instance.short_name}.collabbit.org/activate/#{user.activation_code}"
+    @body[:url]  = "http://#{user.instance.short_name}.#{SETTINGS['base_url']}/activate/#{user.activation_code}"
   end
   
   # Someone else set up an account
   def new_account_notification(user)
     setup_email(user)
     @subject += 'invitation to join'
-    @body[:url] = "http://#{user.instance.short_name}.collabbit.org/activate/#{user.activation_code}"
+    @body[:url] = "http://#{user.instance.short_name}.#{SETTINGS['base_url']}/activate/#{user.activation_code}"
     @body[:superadmin] = user.instance.roles.last.users.first
   end
   
@@ -32,13 +32,13 @@ class UserMailer < ActionMailer::Base
   def activation(user)
     setup_email(user)
     @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://#{user.instance.short_name}.collabbit.org/"
+    @body[:url]  = "http://#{user.instance.short_name}.#{SETTINGS['base_url']}"
   end
   
   def password_reset(user, password)
     setup_email(user)
     @subject += "password reset notice"
-    @body[:url] = "http://#{user.instance.short_name}.collabbit.org/"
+    @body[:url] = "http://#{user.instance.short_name}.#{SETTINGS['base_url']}"
     @body[:pass] = password
   end
   
@@ -58,7 +58,7 @@ class UserMailer < ActionMailer::Base
     # Sets up some email variables
     def setup_email(user)
       @recipients  = user.email
-      @from        = "Collabbit#{user.instance.short_name}@collabbit.org"
+      @from        = "Collabbit#{user.instance.short_name}@#{SETTINGS['base_url']}"
       @subject     = "Collabbit: "
       @sent_on     = Time.now
       @body[:user] = user
