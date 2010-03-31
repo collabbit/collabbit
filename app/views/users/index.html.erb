@@ -45,21 +45,23 @@
 
 <% content_for :body do %>
 
-	<ul id="index">
-		<li><em>Jump to last name:</em></li>
-	<%  letters = []
-	    @users.each {|u| letters << u.last_name[0,1] unless letters.include?(u.last_name[0,1])}
-	%>
-	<% ('A'..'Z').each do |l| %>
-		<li>
-			<% if letters.include?(l) %>
-				<a href="#<%=l%>"><%=l%></a>
-			<% else %>
-				<span><%=l%></span>
+	<div id="index">
+		<h4>Jump to last name:</h4>
+		<%  letters = []
+			@users.each {|u| letters << u.last_name[0,1] unless letters.include?(u.last_name[0,1])}
+		%>
+		<ul>
+			<% ('A'..'Z').each do |l| %>
+				<li>
+					<% if letters.include?(l) %>
+						<a href="#<%=l%>"><%=l%></a>
+					<% else %>
+						<span><%=l%></span>
+					<% end %>
+				</li>
 			<% end %>
-		</li>
-	<% end %>
-	</ul>
+		</ul>
+	</div>
 
 	<% if @users.size == 0 %>
 		<h3 class="centered">

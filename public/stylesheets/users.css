@@ -1,36 +1,56 @@
-.chair{
+.chair {
 	font-size: .7em;
 	color: #999
 }
 
-#index{
+#index {
 	list-style-type: none;
-	margin: 0;
-	padding: 0;
+	margin: -5px auto 5px;
+	padding: 5px;
+	text-align: center;
+	background: #eee;
+	width: 60%;
 }
-	#index li{
-		display: inline;
-		margin: 0;
-		padding-right: 1px;
-		color: #999;
-		font-size: 13px;
+	#index h4 {
+		margin: 0 0 2px;
+		padding: 0;
+		font-size: 14px;
+		color: #444;
 	}
-		#index li em {
-			color: #444;
-			font-size: 16px;
+	#index ul {
+		margin: 0;
+		padding: 0;
+	}
+		#index li {
+			display: inline;
+			margin: 0;
+			padding-right: 1px;
+			color: #999;
+			font-size: 13px;
 		}
-		#index li a{
-			color: black;
-			font-weight: bold;
-			font-size: 18px;
-		}
+			#index li a {
+				color: white;
+				font-weight: bold;
+				padding: 0 2px;
+				height: 18px;
+				width: 14px;
+				display: inline-block;
+				line-height: 18px;
+				background: #777;
+				font-size: 15px;
+				text-decoration: none;
+				margin: 0 -1px;
+			}
+				#index li a:hover {
+					background: #444;
+				}
 
-#contacts{
+#contacts {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
-	#contacts > li{
+	#contacts > li {
 		width: 340px;
 		height: 132px;
 		float:left;
@@ -44,7 +64,7 @@
 		#contacts > li:hover {
 			border-color: #000;
 		}
-  #contacts > li.separator{
+  #contacts > li.separator {
     width: auto;
     font-weight: bold;
     border: solid;
@@ -58,23 +78,23 @@
     margin: 8px -21px 8px 0;
   }
 
-		#contacts li ul.groups{
+		#contacts li ul.groups {
 			list-style-type: none;
 			margin:0;
 			padding: 0;
 		}
-			#contacts li ul.groups li{
+			#contacts li ul.groups li {
 				margin: 0 1px;
 				display: inline;
 			}
-				#contacts li ul.groups li a{
+				#contacts li ul.groups li a {
 					color: #666;
 					font-size: 13px;
 				}
-					#contacts li ul.groups li a:hover{
+					#contacts li ul.groups li a:hover {
 						color: #000;
 					}
-		#contacts a{
+		#contacts a {
 			color: #000;
 			font-size: 14px;
 		}
@@ -82,26 +102,26 @@
 			text-decoration: none;
 		}
 
-		#contacts .name{
+		#contacts .name {
 			border-bottom: 1px solid #ccc;
 			font-weight: bold;
 		}
-			#contacts .name .vcard a{
+			#contacts .name .vcard a {
 				float: right;
 				font-size: 12px;
 				padding: 2px;
 				color: #666;
 			}
-				#contacts .name .vcard a:hover{
+				#contacts .name .vcard a:hover {
 					background: #000;
 					color: #fff;
 				}
 
-		#contacts .email a{
+		#contacts .email a {
 			color: #00a;
 			text-decoration: none;
 		}
-		.person-info{
+		.person-info {
 			clear:both;
 		}
 			#contacts a.approve {
@@ -111,15 +131,15 @@
 				padding: 5px 0;
 				text-align: right;
 			}
-		.phone, .email{display: block}
-		.groups{display:inline}
-		.contact-label{
+		.phone, .email {display: block}
+		.groups {display:inline}
+		.contact-label {
 			color: #999;
 			font-size: 12px;
 		}
 
 /* SHOW */
-#contact-info-list{
+#contact-info-list {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -134,22 +154,22 @@
 		}
 
 /* EDIT */
-#notifications{
+#notifications {
     text-align: left;
 }
-    #notifications th{
+    #notifications th {
         font-weight: bold;
         font-size: 14px;
         font-variant: small-caps;
     }
-        .incident-title{
+        .incident-title {
             width: 150px;
             font-size: 14px;
         }
-        .feed-email-setting{
+        .feed-email-setting {
             
         }
-        .incident-title, .feed-email-setting, .feed-text-setting{
+        .incident-title, .feed-email-setting, .feed-text-setting {
             border-bottom: 1px solid #ddd;
             padding: 2px 25px 2px 0;
             color: #444;
