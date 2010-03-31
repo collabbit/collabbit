@@ -1,9 +1,10 @@
 <% content_for :title, title('Log In',@instance.short_name) %>
 
-<% content_for :subheader_title, "Log in" %>
+<% content_for :subheader_title, 'Log In' %>
+<% content_for :breadcrumbs, login_breadcrumbs %> 
 
 <% content_for :body do %>
-<%= render :partial => 'new', :locals => {  :path => session_path,
-                                            :show_remember_me => true,
-                                            :show_account_links => true} %>
+	<%= render :partial => 'new', :locals => {  :path => session_path,
+												:show_remember_me => true,
+												:show_account_links => true } %>
 <% end %>

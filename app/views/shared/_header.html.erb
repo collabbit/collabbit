@@ -1,8 +1,5 @@
 <div id="header">
 	<div class="pagewidth">
-
-		<!--<%= yield :branding or render :partial => 'shared/branding' %>-->
-
 		<%= yield :menu or render :partial => 'menu' rescue nil or render :partial => 'shared/menu' %>
 		
 		<% unless promo? %>

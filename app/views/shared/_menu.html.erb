@@ -4,7 +4,8 @@
 	<%= incidents_menu(['incidents', 'updates'].include?(controller_name)) if can?(:list => @instance.incidents) -%>
 	<%= menu_item('Groups', group_types_path,controller_name == 'group_types' || controller_name == 'groups') if can?(:list => @instance.group_types, :list => @instance.groups) -%>
 	<%= menu_item('Contacts', users_path, controller_name == 'users') if can?(:list => @instance.users) -%>
-
+<% else %>
+	<li>Collabbit</li>
 <% end %>
 </ul>
 
