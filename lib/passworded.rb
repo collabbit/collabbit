@@ -8,7 +8,7 @@ module Passworded
   
   # Sets a random salt
   def generate_salt!
-    salt = make_token
+    self.salt = make_token
   end
   
   # Generates the properly encrypted password
@@ -17,11 +17,11 @@ module Passworded
   end
   
   def generate_crypted_password!(plaintext = password)
-    crypted_password = generate_crypted_password(plaintext)
+    self.crypted_password = generate_crypted_password(plaintext)
   end
   
   def password_matches?(plaintext)
-    crypted_password == generate_crypted_password(plaintext)
+    self.crypted_password == generate_crypted_password(plaintext)
   end
   
   # Reencrypt passwords
