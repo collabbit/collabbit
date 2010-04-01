@@ -8,7 +8,7 @@ smtp_setting_keys = {
   :user_name            => 'username',
   :password             => 'password',
   :authentication       => 'authentication'
-}
+} 
 
 ActionMailer::Base.smtp_settings = {}
 

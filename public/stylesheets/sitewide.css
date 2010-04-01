@@ -195,7 +195,7 @@ body {
 	#subheader_text {
 		clear: both;
 		margin: 0;
-		padding: 2px 0 5px;
+		margin: 2px 0 5px;
 		color: #444;
 		font-size: 14px;
 	}
