@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
   #   end
   
   layout :check_if_promo_layout
+  
+  
+  after_filter :set_admin_flash
   before_filter :set_current_account
   before_filter :check_account_redirect
   
@@ -62,6 +65,12 @@ class ApplicationController < ActionController::Base
   end
   def error=(*args)
     flash[:error] = t(*args)
+  end
+  
+  def set_admin_flash
+    if @current_user.can?(:update => User) && User.exists?(:state => 'pending') && flash[:notice].blank?
+      flash[:notice] = t('notice.user.pending_users', :url => users_path(:states_filter => 'pending'))
+    end
   end
   
 end
