@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_admin_flash
-    if @current_user.can?(:update => User) && User.exists?(:state => 'pending') && flash[:notice].blank?
+    if !promo? && logged_in? && @current_user.permission_to?(:update, User) && User.exists?(:state => 'pending') && flash[:notice].blank?
       flash[:notice] = t('notice.user.pending_users', :url => users_path(:states_filter => 'pending'))
     end
   end
