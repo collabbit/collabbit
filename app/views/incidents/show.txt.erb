@@ -8,7 +8,7 @@ Description: "<%= @incident.description%>"
 Updates:
 <% @incident.updates.each do |u| -%>
     <%= u.title %>
-        Posted by "<%= u.issuing_type == :user ? u.issuer.full_name : u.issuer.name %>"
+        Posted by "<%= u.issuing_name %>"
         On <%= time_mdy(u.created_at).strip %>
         Groups:	<%= u.relevant_groups.find(:all, :order => 'name').map(&:name).join(', ') || '(none specified)' %>
         Tags: <%= u.tags.find(:all, :order => 'name').map(&:name).join(', ') || '(none specified)' %>

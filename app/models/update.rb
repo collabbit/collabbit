@@ -31,6 +31,16 @@ class Update < ActiveRecord::Base
   
   owned_by :user
   
+  def issuing_name
+    if issuer == nil
+      ''
+    elsif issuing_type == :group
+      issuer.name
+    else
+      issuer.full_name
+    end
+  end
+  
   # Returns the issuing type as a symbol
   def issuing_type
      issuing_group ? :group : :user
