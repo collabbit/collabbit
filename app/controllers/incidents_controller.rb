@@ -15,7 +15,10 @@ class IncidentsController < AuthorizedController
     @incident = @instance.incidents.find(params[:id])
     return with_rejection unless @current_user.can? :view => @incident
     
-    redirect_to incident_updates_path(@incident)
+    respond_to do |format|
+      format.html { redirect_to incident_updates_path(@incident) }
+      format.text { render 'show.txt' }
+    end
   end
 
   def edit    
