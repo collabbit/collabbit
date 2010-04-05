@@ -40,7 +40,7 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic'
   config.gem 'fastimage', :lib => 'fastimage'
   config.gem 'acts_as_archive'
-  config.gem 'rubyzip'
+  config.gem 'rubyzip', :lib => 'zip/zip'
     
   config.action_controller.session = {
      :session_key => SETTINGS['action_controller.session.session_key'],
