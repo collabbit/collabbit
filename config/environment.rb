@@ -12,8 +12,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'authority'
 require 'set'
 require 'csv'
-require 'zip/zip'
-require 'zip/zipfilesystem'
 
 def flatten_keys(hsh, prefix='')
   hsh.to_a.inject({}) do |memo, pair|
