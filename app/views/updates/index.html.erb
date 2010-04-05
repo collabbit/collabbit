@@ -59,6 +59,14 @@
 		</select>    				
 		<%= submit_tag "Apply Filters", :name => nil, :id => "filters_submit" %>
 	<% end %>
+	
+	<% form_for @current_user do |f| %>
+	    <%= hidden_field_tag 'return_to', :back%>
+	    <% f.fields_for :feeds, @current_user.feeds.find_by_incident_id(@incident.id) do |feed_form| %>
+             Receive SMS alert? <%= feed_form.check_box :email_alert %> Email alert? <%= feed_form.check_box :text_alert %> <br/> <%= submit_tag 'Update' %>
+        <% end %>
+    <% end %>
+    
 <% end %>
 
 
