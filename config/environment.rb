@@ -12,6 +12,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'authority'
 require 'set'
 require 'csv'
+require 'zip/zip'
+require 'zip/zipfilesystem'
 
 def flatten_keys(hsh, prefix='')
   hsh.to_a.inject({}) do |memo, pair|
@@ -40,6 +42,7 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic'
   config.gem 'fastimage', :lib => 'fastimage'
   config.gem 'acts_as_archive'
+  config.gem 'rubyzip'
     
   config.action_controller.session = {
      :session_key => SETTINGS['action_controller.session.session_key'],

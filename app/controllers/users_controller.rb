@@ -199,10 +199,20 @@ class UsersController < AuthorizedController
     @users = @instance.users.find(params[:users].split(','))
     return with_rejection unless @current_user.can? :list => @users
     respond_to do |f|
-      f.vcf do
-        send_data( (@users.map {|u| u.to_vcard.to_s}).join, {
-          :type => 'vcf',
-          :filename => "#{@instance.short_name}-contacts.vcf"})
+      f.zip do
+        Tempfile.open(rand.to_s + Time.now.to_s) do |t|
+          Zip::ZipOutputStream.open(t.path) do |zip|
+            @users.each do |u|
+              zip.put_next_entry "#{u.full_name.gsub(' ', '-')}.vcf"
+              zip << u.to_vcard.to_s
+            end
+          end
+          
+          send_file t.path, :type => 'application/zip',
+                            :filename => "#{@instance.short_name}-contacts.zip",
+                            :disposition => 'attachment'
+        end
+        
       end
     end
   end
