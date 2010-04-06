@@ -1,10 +1,38 @@
-<h2>Collabbit is a web application that helps you coordinate during disasters. It's built to be simple and easy to use.</h2>
+<% content_for(:subheader_title, 'Collabbit') %>
+<% content_for(:subheader_text, 'Stay informed together') %>
 
-<p>Collabbit is built around two core features: updates and contacts. Updates let people and groups communicate and keep a record of what’s happened. Contacts let you get in touch with the people you need to be talking to.</p>
+<p id="what-is-collabbit">Collabbit is web software that helps people from different organizations share information during emergencies. It's secure, sustainable, and easy to use.</p>
 
-<p>Updates let people and groups communicate news and information. An update could be a sentence, a document, or a series of pictures. They're as accessible as we can make them: you can receive new relevant update alerts by text message, by e-mail, and in your RSS reader.</p>
+<div id="about-updates">
+    <h2>Updates</h2>
+    <p>Share news and information with Updates. An Update might be a sentence, document, or series of pictures. Collabbit will send the updates you need to your phone, email, or RSS feed.</p>
+</div>
 
-<p>Need to make a phone call? Send an e-mail? That’s what Contacts are for. Find people based on their profiles and get in touch with the included contact information.</p>
+<div id="about-contacts">
+    <h2>Contacts</h2>
+    <p>Have a question and not sure who can answer it? Collabbit organizes contacts, so you can launch an email to the right person in one click to get quick answers to your pressing questions.</p>
+</div>
 
-<h2>Collabbit is in a closed beta.</h2>
-<p>To get more information or request a trial, please email <%=mail_to SETTINGS['host.support_email'], SETTINGS['host.support_email'], :target => '_blank'%>.</p>
+<div id="collabbit-is-different">
+    <h2>Collabbit is different. Here's how:</h2>
+    <ul>
+        <li><span>Built with you, for you</span>
+            End users are involved in every stage of the Collabbit development process.
+        </li>
+        <li><span>Focused</span>
+            Collabbit is focused. We do a few things really well (instead of everything poorly).
+        </li>
+        <li><span>Free and Open</span>
+            Download, review, use, and change Collabbit for free. While we offer a hosted version, if you want to install Collabbit behind a firewall, you can do so free of charge.
+        </li>
+        <li><span>Volunteer driven</span>
+            Collabbit was started by the <%= link_to 'HFOSS', 'http://hfoss.org' %> project and NYC disaster human services experts. We want your help and ideas. <%= mail_to 'support@collabbit.org', 'Email us' %> and we'll get you involved right away.
+        </li>
+    </ul>
+</div>
+
+<ul id="portals">
+    <li><%= link_to 'Sign up for a free trial', '/trial_signup' %></li>
+    <li><%= link_to 'Get involved with the community', '#' %></li>
+    <li><%= link_to 'Find help and support', 'http://support.collabbit.org' %></li>
+</ul>
