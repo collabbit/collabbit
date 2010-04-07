@@ -5,12 +5,24 @@
 
 class HomeController < ApplicationController
   
-  def index
-  end
-  
   def show
     @return_to = params[:return_to] if params[:return_to]
-    render :action => params[:page]
+    if methods.include? params[:page]  
+      send params[:page].to_sym
+    else
+      render :action => params[:page]
+    end
   end
+  
+  def new_trial
+    SignupMailer.deliver_new_trial_notification(params)
+    
+    flash[:notice] = t('notice.instance.trial_requested',
+                          :email => params[:email],
+                          :support => "<a href=\"mailto:#{SETTINGS['host.support_email']}\">support</a>")
+                          
+    redirect_to '/about'
+  end
+  
   
 end

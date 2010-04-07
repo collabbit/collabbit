@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   helper_method :promo?, :subdomain
   
   def set_current_account
-    @instance = Instance.find_by_short_name(subdomain)    
+    @instance = subdomain == '' ? nil : Instance.find_by_short_name(subdomain)
     raise Instance::Missing, subdomain if @instance.blank? && !subdomain_forbidden?
   end
   
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   
   def promo?
     return true if Instance::FORBIDDEN_SUBDOMAINS.include? subdomain || subdomain.blank?
-    return true unless Instance.exists?(:short_name => subdomain)
+    return true unless !subdomain.blank? && Instance.exists?(:short_name => subdomain)
     return controller_name == 'home' && !params[:page].blank?
   end
   

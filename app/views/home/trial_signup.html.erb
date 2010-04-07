@@ -30,8 +30,8 @@
 		
 		<div>
 		    <h2>How do you want to access your Collabbit?</h2>
-		    <p class="example">Example: an Example Volunteer Corp might choose <tt>evc</tt> to have their Collabbit be located at <tt>http://<strong>evc</strong>.collabbit.org</tt>.</p>
-		    http://<%= text_field_tag :short_name %>.collabbit.org
+		    <p class="example">Example: an Example Volunteer Corp might choose <tt>evc</tt> to have their Collabbit be located at <tt>http://<strong>evc</strong>.<%=SETTINGS['host.base_url']%></tt>.</p>
+		    http://<%= text_field_tag :short_name %>.<%=SETTINGS['host.base_url']%>
 	    </div>
 
 		<div>
