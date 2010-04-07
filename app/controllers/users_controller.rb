@@ -77,6 +77,7 @@ class UsersController < AuthorizedController
   end
   
   def new_bulk
+    @users = (1..5).to_a.map { User.new }
     return with_rejection unless !logged_in? || @current_user.can?(:create => User)
   end
 
@@ -108,22 +109,36 @@ class UsersController < AuthorizedController
   def create_bulk
     return with_rejection unless @current_user.can? :create => User
     errors = false
-    CSV::Reader.parse(params[:csv_file]).each do |u|
-      begin
-        user = create_user({:first_name => u.shift.strip,
-                            :last_name => u.shift.strip,
-                            :email => u.shift.strip,
-                            :state => 'approved' })
-        user.save
-      rescue
-       errors = true
+    if params[:csv_file]
+      CSV::Reader.parse(params[:csv_file]).each do |u|
+        begin
+          user = create_user({:first_name => u.shift.strip,
+                              :last_name => u.shift.strip,
+                              :email => u.shift.strip,
+                              :state => 'approved' })
+          user.save
+        rescue
+         errors = true
+        end
+      end
+    end rescue nil
+    
+    @users = []
+    params[:users].each do |u|
+      @users << if u[:email].blank?
+        User.new
+      else
+        user = create_user(u.merge(:state => 'approved'))
+        errors = true unless user.valid?
+        user
       end
     end
     
     if errors
       flash[:error] = t('error.user.bulk_import_failed')
-      render new_bulk_users_path
+      render :new_bulk
     else
+      @users.each(&:save)
       flash[:notice] = t('notice.user.bulk_import_success')
       redirect_to users_path
     end
