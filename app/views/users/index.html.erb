@@ -31,7 +31,7 @@
 	<%
 		groups = @instance.groups.find(:all, :order => 'name').reject {|g| g.memberships.length == 0 }
 		groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter.to_i )
-		states_options = options_for_select([['Active', 'active'], ['Pending','pending']], @states_filter)
+		states_options = options_for_select([['Active', 'active'], ['Pending','pending'], ['Approved', 'approved']], @states_filter)
 	%>
 
 	<% form_tag users_path, :method => :get do %>
@@ -114,7 +114,7 @@
 						</ul>
 					</div>
 				<% end %>
-				<% if u.state != 'active' && can?(:update => u) %>
+				<% if u.pending? && can?(:update => u) %>
 					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => users_path), {:method => :put, :class => :approve} %>
 				<% end %>
 			</div>
