@@ -4,19 +4,38 @@
 	padding: .5em 1em;
 }
 
-#incident-description{
+#incident-description {
 	color: #777;
 	font-size: 16px;
 }
 
-#new-updates span{
+#new-updates span {
     padding: 5px;
     background: #FFE600;
 }
-    #new-updates span a{
+    #new-updates span a {
         color: #000;
         font-weight: bold;
     }
+
+
+/* updates/index */
+#alerts-checkboxes {
+	text-align: right;
+	padding-top: 6px;
+	font-size: 14px;
+	color: #444;
+}
+	#alerts-checkboxes a {
+		color: #275FE4;
+	}
+		#alerts-checkboxes a:hover {
+			text-decoration: none;
+		}
+	#alerts-form {
+		background: #eee;
+		padding: 5px 0;
+	}
 
 #updates-list{
 	list-style-type: none;

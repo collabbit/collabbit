@@ -61,6 +61,22 @@ jQuery(document).ready(function($){
 		return false;
 	});
 
+	// for alert menu
+	var upArrow = '&#9650;'
+	var downArrow = '&#9660;'
+
+	$('#alert-settings').live("click",function(){
+		if ($('#alerts-form').hasClass('hidden')) {
+			$('#alerts-form').removeClass('hidden');
+			$('#alert-settings .arrow').html(upArrow);
+		}
+		else {
+			$('#alerts-form').addClass('hidden');
+			$('#alert-settings .arrow').html(downArrow);
+		}
+		return false;
+	});
+
 	// for file uploading
 	$('#multi').MultiFile({
 		
