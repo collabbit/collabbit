@@ -1,38 +1,81 @@
-<% content_for(:subheader_title, 'Collabbit') %>
-<% content_for(:subheader_text, 'Stay informed together') %>
+<% content_for :menu do %>
+	<ul id="menu">
+		<%= menu_item 'Home', '/about', :class => 'active' %>
+		<%= menu_item 'Contact', '#' %>
+		<%= menu_item 'Demo', 'http://demo.collabbit.org' %>
+	</ul>
+<% end %>
 
-<p id="what-is-collabbit">Collabbit is web software that helps people from different organizations share information during emergencies. It's secure, sustainable, and easy to use.</p>
+<% content_for :subheader_title do %>
+	Collabbit <span class="subtitle">Stay informed together</span>
+<% end %>
+<% content_for :subheader_text do %>
+	<img src="images/home/collabbit_overview.png" />
+	<p id="description">Collabbit is web software that helps people from different organizations share information during emergencies. It's secure, sustainable, and easy to use.</p>
+	<ul id="portals">
+		<li><%= link_to 'Explore the demo', 'http://demo.collabbit.org' %></li>
+		<li><%= link_to 'Request an instance', '/trial_signup' %></li>
+		<li><%= link_to 'Join the mailing list', '#' %></li>
+		<li><%= link_to 'Help develop Collabbit', 'http://github.com/collabbit/collabbit' %></li>
+	</ul>
+<% end %>
 
-<div id="about-updates">
-    <h2>Updates</h2>
-    <p>Share news and information with Updates. An Update might be a sentence, document, or series of pictures. Collabbit will send the updates you need to your phone, email, or RSS feed.</p>
-</div>
+<% content_for :body do %>
+	<div id="collabbit-is">
+		<h2>Collabbit is...</h2>
+		<ul>
+			<li><h3>Built with you, for you</h3>
+				<p>End users are involved in every stage of the Collabbit development process. We constantly receive and incorporate feedback from our users. We're committed to working with you to make Collabbit as good as possible.</p>
+			</li>
+			<li><h3>Focused</h3>
+				<p>Collabbit is simple. We do a few things very well rather than trying to solve every problem and fit every use case. We want anyone&mdash;regardless of technical background or expertise&mdash; to be able to be use Collabbit without extensive training.</p>
+			</li>
+			<li><h3>Free and open</h3>
+				<p>Collabbit is <strong>free and open source software</strong>. That means that you can download, review, use, and change Collabbit however you want at no cost. A top priority of ours is letting you easily import and export data in Collabbit. We want Collabbit to be able to work with other tools, and we don't want you locked in.</p>
+			</li>
+		</ul>
+	</div>
 
-<div id="about-contacts">
-    <h2>Contacts</h2>
-    <p>Have a question and not sure who can answer it? Collabbit organizes contacts, so you can launch an email to the right person in one click to get quick answers to your pressing questions.</p>
-</div>
+	<div id="collabbit-features">
+		<h2>Features</h2>
+		<div id="about-updates">
+			<h3>Updates</h3>
+			<img src="images/home/collabbit_updates.png" />
+			<p>Share news and information with Updates. An Update might be a sentence, document, or series of pictures. Collabbit will send the updates you need to your phone, email, or RSS feed.</p>
+		</div>
 
-<div id="collabbit-is-different">
-    <h2>Collabbit is different. Here's how:</h2>
-    <ul>
-        <li><h3>Built with you, for you</h3>
-            End users are involved in every stage of the Collabbit development process.
-        </li>
-        <li><h3>Focused</h3>
-            Collabbit is focused. We do a few things really well (instead of everything poorly).
-        </li>
-        <li><h3>Free and Open</h3>
-            Download, review, use, and change Collabbit for free. While we offer a hosted version, if you want to install Collabbit behind a firewall, you can do so free of charge.
-        </li>
-        <li><h3>Volunteer driven</h3>
-            Collabbit was started by the <%= link_to 'HFOSS Project', 'http://hfoss.org' %> and NYC disaster human services experts. We want your help and ideas. <%= mail_to 'support@collabbit.org', 'Email us' %> and we'll get you involved right away.
-        </li>
-    </ul>
-</div>
+		<div id="about-contacts">
+			<h3>Contacts</h3>
+			<img src="images/home/collabbit_contacts.png" />
+			<p>Have a question and not sure who can answer it? Collabbit organizes contacts, so you can launch an email to the right person in one click to get quick answers to your pressing questions.</p>
+		</div>
+	</div>
 
-<ul id="portals">
-    <li><%= link_to 'Sign up for a free trial', '/trial_signup' %></li>
-    <li><%= link_to 'Get involved with the community', '#' %></li>
-    <li><%= link_to 'Find help and support', 'http://support.collabbit.org' %></li>
-</ul>
+	<div id="collabbit-people">
+		<h2>People</h2>
+		Collabbit was started as part of the Humanitarian FOSS Project 2009 Summer Institute, and is actively developed by volunteers.
+		<ul>
+			<li>
+				<img src="images/home/people_other.jpg" />
+				<h3>Will Anderson</h3>
+				<p>Formerly a [insert old job title here] at the New York City Office of Emergency Management and now a [insert new job title here] at Pivotal Labs, Will is Collabbit's domain expert.</p>
+			</li>
+			<li>
+				<img src="images/home/people_sam.jpg" />
+				<h3>Sam DeFabbia-Kane</h3>
+				<p>A computer science major at Wesleyan University, Sam does most of the front-end coding and UI design for Collabbit.
+			</li>
+			<li>
+				<img src="images/home/people_other.jpg" />
+				<h3>Trishan deLanerolle</h3>
+				<p>Trishan is the director of the Humanitarian FOSS Project, and is a general advisor for Collabbit. HFOSS also provides server resources for Collabbit.
+			</li>
+			<li>
+				<img src="images/home/people_eli.jpg" />
+				<h3>Eli Fox-Epstein</h3>
+				<p>Eli is a computer science major at Wesleyan University, and does most of the back-end work for Collabbit.</p>
+			</li>
+		</ul>
+	</div>
+<% end %>
+
