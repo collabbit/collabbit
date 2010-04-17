@@ -1,0 +1,51 @@
+<% content_for :title, title('Contact')%>
+
+<% content_for :subheader_title, 'Contact Us' %>
+
+<% content_for :subheader_text do %>
+  <%= link_to 'Contact us', 'mailto:support@collabbit.org' %> or request an instance.
+<% end %>
+
+<% content_for :body do %>
+    <% form_tag('contact_form',options = {:id => 'contact_form'}) do %>
+        <h2>Contact</h2>
+        <div>
+            <%= label_tag 'contact_email', 'Email address:' %>
+            <%= text_field_tag 'contact_email' %>
+        </div>
+        <div>
+            <%= label_tag 'subject', 'Subject:' %>
+            <%= text_field_tag 'subject' %>
+        </div>
+        <div>
+            <%= label_tag 'message_body', 'Body:' %>
+            <%= text_area_tag 'message_body' %>
+        </div>
+        <div><%= submit_tag 'Send message' %></div>
+    <% end %>
+
+    <% form_tag('new_trial',options = {:id => 'new_trial_form'}) do %>
+        <h2>Request a Collabbit Instance</h2>
+        <div>
+            <%= label_tag :email, 'Email address:' %>
+            <p class="example">You will be the administrator of this Collabbit instance. We will email you once your account is set up.</p>
+            <%= text_field_tag :email %>
+        </div>
+
+        <div>
+            <%= label_tag :long_name, 'What organization or group is this for?' %>
+            <p class="example">Examples: NYC Volunteer Organizations or Utah Police Departments</p>
+            <%= text_field_tag :long_name %>
+        </div>
+
+        <div>
+            <%= label_tag :short_name, 'What address do you want for your Collabbit instance?' %>
+            <p class="example">Example: an Example Volunteer Corp might choose <tt>evc</tt> to have their Collabbit instance be located at <tt>http://<strong>evc</strong>.<%=SETTINGS['host.base_url']%></tt>.</p>
+            <%= text_field_tag :short_name %>
+        </div>
+
+        <div>
+            <%= submit_tag 'Request Instance' %>
+        </div>
+  <% end %>
+<% end %>

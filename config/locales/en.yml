@@ -38,6 +38,7 @@ en:
       destroyed: "You've left the {{group_name}} group."
     instance:
       trial_requested: "Great, we'll email you soon at {{email}}. If you have any questions, email {{support}}."
+      contact_form: "Thanks for the message. We'll get back to you soon at {{email}}."
   warning:
     user:
       no_search_results: "Sorry, we couldn't find any contacts with that search."

@@ -1,3 +1,5 @@
+<% content_for :styles, (stylesheet_link_tag 'home_index') %>
+
 <% content_for :subheader_title do %>
 	Collabbit <span class="subtitle">Stay informed together</span>
 <% end %>
@@ -6,7 +8,7 @@
 	<p id="description">Collabbit is web software that helps people from different organizations share information during emergencies. It's secure, sustainable, and easy to use.</p>
 	<ul id="portals">
 		<li><%= link_to 'Explore the demo', 'http://demo.collabbit.org' %></li>
-		<li><%= link_to 'Request an instance', '/trial_signup' %></li>
+		<li><%= link_to 'Request an instance', '/contact' %></li>
 		<li><%= link_to 'Join the mailing list', 'http://groups.google.com/group/collabbit' %></li>
 		<li><%= link_to 'Help develop Collabbit', 'http://github.com/collabbit/collabbit' %></li>
 	</ul>

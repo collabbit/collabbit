@@ -1,5 +1,7 @@
 <ul id="menu">
-	<%= menu_item 'Home', '/about', :class => 'active' %>
-	<%= menu_item 'Contact', '#' %>
-	<%= menu_item 'Demo', 'http://demo.collabbit.org' %>
+	<% page = request.env['PATH_INFO'] %>
+	<%= menu_item 'Home', '/about', page == '/about'  %>
+	<%= menu_item 'Contact', '/contact', page == '/contact'  %>
+	<%= menu_item 'Downloads', '/downloads', page == '/downloads' %>
+	<%= menu_item 'Demo', 'http://demo.collabbit.org/login', false %>
 </ul>

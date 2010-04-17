@@ -20,7 +20,7 @@
             <%= render :partial => 'shared/header' -%>
             <div id="content" class="pagewidth">
                 <div id="wrap">
-                    <%= flashes %>
+                    <%= yield :flashes or flashes %>
                     <%= yield :body or yield %>
                 </div>
             </div>

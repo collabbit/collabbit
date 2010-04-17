@@ -1,65 +1,11 @@
 #subheader {
-	padding
+
 }
 	#subheader .pagewidth {
-		padding: 20px 40px 30px;
+		padding: 20px 40px 20px;
 		width: 864px;
 		overflow: auto;
 	}
-		#subheader_main {
-			margin-top: 30px;
-			width: 400px;
-			float: left;
-		}
-			#subheader h1 {
-				width: 400px;
-				font-size: 64px;
-				text-align: center;
-			}
-				#subheader h1 span {
-					display: block;
-					font-size: 16px;
-					color: black;
-					letter-spacing: 0;
-					margin-top: -8px;
-					font-weight: normal;
-				}
-		#subheader img {
-			width: 425px;
-			height: 270px;
-			margin-bottom: -20px;
-			float: right;
-			display: block;
-		}
-		#subheader #description {
-			width: 400px;
-			float: left;
-			color: #666;
-		}
-		#subheader #portals {
-			padding: 20px 0 0;
-			margin: 0 0 0 -8px;
-			clear: both;
-			list-style-type: none;
-		}
-			#portals li {
-				text-align: center;
-				width: 210px;
-				margin-left: 8px;
-				float: left;
-			}
-				#portals li a {
-					width: 210px;
-					background: #444;
-					display: block;
-					padding: 10px 0;
-					text-decoration: none;
-					color: white;
-					font-weight: bold;
-				}
-					#portals a:hover {
-						background: #222;
-					}
 
 #content.pagewidth {
 	padding: 0 40px 20px;
@@ -67,121 +13,6 @@
 	color: #333;
 	line-height: 1.5em;
 }
-	#collabbit-is {
-		padding: 10px 0;
-	}
-		#collabbit-is h2 {
-			font-weight: normal;
-			color: #888;
-			font-size: 36px;
-			margin: 0 0 10px;
-		}
-		#collabbit-is ul {
-			list-style-type: none;
-			padding: 20px 0;
-			background: #eee;
-			overflow: auto;
-			font-size: 13px;
-			line-height: 19px;
-			margin: 0;
-		}
-			#collabbit-is li {
-				width: 250px;
-				padding: 0 19px;
-				float: left;
-			}
-				#collabbit-is h3 {
-					margin: 0 0 6px;
-					font-size: 18px;
-					color: black;
-				}
-				#collabbit-is p {
-					margin: 0;
-				}
-	#collabbit-features {
-		overflow: auto;
-		margin-top: 10px;
-		padding-top: 30px;
-	}
-		#collabbit-features h2 {
-			font-weight: normal;
-			color: #888;
-			font-size: 36px;
-			margin: 0 0 10px;
-			line-height: 1em;
-		}
-		#about-updates {
-			width: 420px;
-			float: left;
-			font-size: 14px;
-		}
-		#about-contacts {
-			width: 420px;
-			margin-left: 20px;
-			float: left;
-			font-size: 14px;
-		}
-			#collabbit-features img {
-				display: block;
-				width: 418px;
-				height: 200px;
-				border: 1px solid #aaa;
-			}
-			#collabbit-features h3 {
-				font-size: 18px;
-				margin: 5px 0;
-			}
-	#collabbit-people {
-		clear: both;
-		padding-top: 30px;
-		font-size: 14px;
-	}
-		#collabbit-people h2 {
-			font-weight: normal;
-			color: #888;
-			font-size: 36px;
-			margin: 0 0 10px;
-		}
-		#collabbit-people ul {
-			list-style-type: none;
-			padding: 0;
-			margin: 10px -8px 0 0;
-			overflow: auto;
-		}
-			#collabbit-people li {
-				width: 208px;
-				border: 1px solid #ddd;
-				padding: 0;
-				margin-right: 8px;
-				background: #eee;
-				font-size: 13px;
-				line-height: 19px;
-				height: 420px;
-				float: left;
-			}
-				#collabbit-people img {
-					width: 210px;
-					height: 258px;
-					display: block;
-					margin: 0;
-					margin-left: -1px;
-				}
-				#collabbit-people li h3 {
-					width: 210px;
-					margin: -30px 0 0 -1px;
-					height: 20px;
-					padding: 5px 0;
-					font-size: 18px;
-					color: black;
-					background: rgba(230,230,230,0.8);
-					position: relative;
-					text-align: center;
-				}
-				#collabbit-people li p {
-					padding: 10px;
-					margin: 0;
-				}
-
 	
 .return_to {
 	color: #666;
@@ -190,4 +21,30 @@
 	.return_to:hover {
 		color: #fff;
 		background: #666;
+	}
+
+/* contact */
+input, textarea {
+	display: block;
+}
+form {
+	padding-bottom: 20px;
+}
+#contact_form {
+}
+#new_trial_form {
+
+}
+	p.example {
+		color: #666;
+		font-style: italic;
+		font-size: 14px;
+		margin: 0;
+	}
+	label {
+		padding-top: 10px;
+		display: block;
+	}
+	form h2 {
+		margin: 20px 0 0;
 	}

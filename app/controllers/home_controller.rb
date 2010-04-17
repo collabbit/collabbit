@@ -13,6 +13,15 @@ class HomeController < ApplicationController
       render :action => params[:page]
     end
   end
+
+  def contact_form
+    subject = params[:subject]
+    body = "FROM: #{params[:contact_email]}\n\n#{params[:message_body]}"
+    SignupMailer.deliver_contact_form_notification(subject,body)
+    
+    flash[:notice] = t('notice.instance.contact_form', :email => params[:contact_email])
+    redirect_to '/about'
+  end
   
   def new_trial
     SignupMailer.deliver_new_trial_notification(params)
