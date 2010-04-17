@@ -1,1 +1,2 @@
-<%= render :file => 'layouts/application' -%>
+<%= render :file => 'layouts/application',
+		   :locals => {:menu => (render :partial => 'home/menu')} %>

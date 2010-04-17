@@ -1,4 +1,5 @@
 <ul id="menu">
-	<li><%= menu_item('Overview', '/', action_name == 'index') %></li>
-	<li><%= menu_item('Support', SETTINGS['host.support_url']) %></li>
+	<%= menu_item 'Home', '/about', :class => 'active' %>
+	<%= menu_item 'Contact', '#' %>
+	<%= menu_item 'Demo', 'http://demo.collabbit.org' %>
 </ul>
