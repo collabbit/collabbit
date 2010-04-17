@@ -158,7 +158,7 @@ class UsersController < AuthorizedController
         params[:user].delete(:state)
       end
       
-      params[:user][:role].to_i.tap do |role_id|
+      params[:user][:role_id].to_i.tap do |role_id|
         @user.role = @user.instance.roles.find(role_id) unless role_id == 0 || role_id > @current_user.role.id
       end
     end

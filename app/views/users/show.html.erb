@@ -20,6 +20,10 @@
 <% end %>
 
 <% content_for :body do %>
+    <% form_for @user do |f| %>
+        <%= f.select 'role_id', @user.instance.roles.map {|r| [r.name, r.id] } %>
+        <%= f.submit 'Update Role' %>
+    <% end %>
 	<ul id="contact-info-list">
 	    <li><%=link_to 'Download contact as vCard', vcards_path(@user) %></li>
 		<% if @user.email %>
