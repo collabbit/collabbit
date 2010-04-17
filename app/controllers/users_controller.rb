@@ -151,10 +151,16 @@ class UsersController < AuthorizedController
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :update => @user
 
-    if @current_user.permission_to?(:update, @user) && params[:user][:state] != nil
-      flash[:notice] = t('notice.user.created', :name => @user.first_name) if @user.state == 'pending'  
-      @user.state = params[:user][:state]
-      params[:user].delete(:state)
+    if @current_user.permission_to?(:update, @user)
+      unless params[:user][:state].blank?
+        flash[:notice] = t('notice.user.created', :name => @user.first_name) if @user.state == 'pending'  
+        @user.state = params[:user][:state]
+        params[:user].delete(:state)
+      end
+      
+      params[:user][:role].to_i.tap do |role_id|
+        @user.role = @user.instance.roles.find(role_id) unless role_id == 0 || role_id > @current_user.role.id
+      end
     end
     
     if @user.update_attributes(params[:user])
