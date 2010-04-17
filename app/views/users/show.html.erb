@@ -21,7 +21,9 @@
 
 <% content_for :body do %>
     <% form_for @user do |f| %>
-        <%= f.select 'role_id', @user.instance.roles.map {|r| [r.name, r.id] } %>
+        <% (@instance.roles.select {|r| r.id <= @current_user.role.id }).tap do |roles| %>
+            <%= f.select 'role_id', roles.map {|r| [r.name, r.id] } if roles.size > 1 %>
+        <% end %>
         <%= f.submit 'Update Role' %>
     <% end %>
 	<ul id="contact-info-list">
