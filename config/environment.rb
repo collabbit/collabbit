@@ -41,6 +41,15 @@ Rails::Initializer.run do |config|
   config.gem 'fastimage', :lib => 'fastimage'
   config.gem 'acts_as_archive'
   config.gem 'rubyzip', :lib => 'zip/zip'
+  config.gem 'rack-rewrite'
+
+  require 'rack-rewrite'
+  config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
+    maintenance_file = File.join(RAILS_ROOT, 'public', 'system', 'maintenance.html')
+    send_file /.*/, maintenance_file, :if => Proc.new { |rack_env|
+      File.exists?(maintenance_file) && rack_env['REQUEST_URI'] !~ /\.(css|jpg|png)/
+    }
+  end
     
   config.action_controller.session = {
      :session_key => SETTINGS['action_controller.session.session_key'],
