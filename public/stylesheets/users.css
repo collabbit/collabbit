@@ -174,3 +174,26 @@
             padding: 2px 25px 2px 0;
             color: #444;
         }
+
+/* NEW_BULK */
+div.bulk_user {
+	padding: 10px 0;
+	overflow: auto;
+	width: 590px;
+	border-bottom: 1px solid #eee;
+}
+	div.bulk_user div {
+		width: 200px;
+		float: left;
+	}
+	div.bulk_user div.bulk_email {
+		width: 190px;
+	}
+		div.bulk_user label {
+			font-size: 14px;
+		}
+		div.bulk_user input {
+			display: block;
+			width: 188px;
+			border: 1px solid #aaa;
+		}

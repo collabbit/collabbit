@@ -1,12 +1,3 @@
-<%
-# View which displays a form for creating a user.
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
 <% content_for :title, title ('Bulk Import Accounts', @instance.short_name)%>
 
 <% content_for :subheader_title, 'Bulk Import Accounts' %>
@@ -16,20 +7,32 @@
 	    <h2>Enter up to 5 users at a time</h2>
 	    <p>After you create these users, they will receive emails with instructions on how to log in.</p>
 	    <% @users.each do |u|%>
-	        <div>
-	        <% fields_for 'users[]', u do |user_fields| %>
-	            <% @user = u %>
-	            <%= error_messages_for :user %>
-	            <%= user_fields.label :first_name %><%= user_fields.text_field :first_name %><br/>	            	            
-	            <%= user_fields.label :last_name %><%= user_fields.text_field :last_name %><br/>	            	            
-	            <%= user_fields.label :email %><%= user_fields.text_field :email %><br/>	            	            
-	        <% end%>
+	        <div class="bulk_user">
+				<% fields_for 'users[]', u do |user_fields| %>
+					<% @user = u %>
+					<%= error_messages_for :user %>
+					<div class="bulk_firstname">
+						<%= user_fields.label :first_name %>
+						<%= user_fields.text_field :first_name %>
+					</div>
+					<div class="bulk_lastname">
+						<%= user_fields.label :last_name %>
+						<%= user_fields.text_field :last_name %>
+					</div>
+					<div class="bulk_email">
+						<%= user_fields.label :email %>
+						<%= user_fields.text_field :email %>
+					</div>
+				<% end%>
 	        </div>
 	    <% end %>
 	    
 	    <h2>Or upload a CSV file</h2>
-	    <p>Each row of the CSV file should be <tt>First name, last name, email</tt>. For example, a row might be <tt>John, Smith, john.smith@collabbit.org</tt>.
-	    <p><%= label_tag :csv_file, 'CSV File' %><%= file_field_tag :csv_file%>
+		<p>Each row of the CSV file should be <code>First name, last name, email</code>. For example, a row might be <code>John, Smith, john.smith@collabbit.org</code>.</p>
+		<p>
+			<%= label_tag :csv_file, 'CSV File' %>
+			<%= file_field_tag :csv_file%>
+		</p>
 		<p><%= submit_tag 'Import Users' %></p>
 	<% end %>
 <% end %>
