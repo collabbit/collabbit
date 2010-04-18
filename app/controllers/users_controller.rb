@@ -135,7 +135,7 @@ class UsersController < AuthorizedController
     end
     
     if errors
-      flash[:error] = t('error.user.bulk_import_failed')
+      flash[:error] = t('error.user.bulk_import_failed', :email => SETTINGS['host.support_email'])
       render :new_bulk
     else
       @users.each(&:save)

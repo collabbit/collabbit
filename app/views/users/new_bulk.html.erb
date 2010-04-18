@@ -20,6 +20,8 @@
 	        <% fields_for 'users[]', u do |user_fields| %>
 	            <% @user = u %>
 	            <%= error_messages_for :user %>
+	            <%= user_fields.label :first_name %><%= user_fields.text_field :first_name %><br/>	            	            
+	            <%= user_fields.label :last_name %><%= user_fields.text_field :last_name %><br/>	            	            
 	            <%= user_fields.label :email %><%= user_fields.text_field :email %><br/>	            	            
 	        <% end%>
 	        </div>
