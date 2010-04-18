@@ -29,7 +29,7 @@
 		<% end %>
 	<% end %>
 	<ul id="contact-info-list">
-	    <li><%=link_to 'Download contact as vCard', vcards_path(@user) %></li>
+	    <li><%=link_to 'Download contact as vCard', formatted_user_path(@user, :vcf) %></li>
 		<% if @user.email %>
 		<li class="email">
 			<span class="tiny">email:</span> <%=mail_to @user.email, @user.email, :target => '_blank'%>
