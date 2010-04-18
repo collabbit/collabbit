@@ -82,6 +82,7 @@
 				<div><%= submit_tag 'Update' %></div>
 			<% end %>
 		<% end %>
+		&middot; <%= link_to 'Incident Export', formatted_incident_path(@incident, :text) %>
 	</div>
     
 <% end %>
