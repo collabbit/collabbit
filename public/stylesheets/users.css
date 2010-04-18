@@ -177,14 +177,14 @@
 
 /* NEW_BULK */
 div.bulk_user {
-	padding: 10px 0;
 	overflow: auto;
-	width: 591px;
-	border-bottom: 1px solid #eee;
+	width: 600px;
 }
 	div.bulk_user div {
 		width: 200px;
 		float: left;
+		border-bottom: 1px solid #eee;
+		padding: 10px 0;
 	}
 	div.bulk_user div.bulk_email {
 		width: 190px;
@@ -196,4 +196,5 @@ div.bulk_user {
 			display: block;
 			width: 188px;
 			border: 1px solid #aaa;
+			borde
 		}
