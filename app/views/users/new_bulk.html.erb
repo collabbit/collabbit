@@ -13,7 +13,7 @@
 
 <% content_for :body do %>	
 	<% form_tag create_bulk_users_path, :multipart => true do %>
-	    <h2>Enter up to 5 email addresses at a time</h2>
+	    <h2>Enter up to 5 users at a time</h2>
 	    <p>After you create these users, they will receive emails with instructions on how to log in.</p>
 	    <% @users.each do |u|%>
 	        <div>
