@@ -3,7 +3,9 @@
 # Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 
-class HomeController < ApplicationController
+class HomeController < AuthorizedController
+  
+  skip_authorization_filters
   
   def show
     @return_to = params[:return_to] if params[:return_to]
@@ -33,5 +35,15 @@ class HomeController < ApplicationController
     redirect_to '/about'
   end
   
-  
+  def demo_login
+    @instance = Instance.find_by_short_name SETTINGS['demo.account']
+    if @instance.blank?
+      redirect_to about_path
+    else
+      login_as @instance.users.find_by_email(SETTINGS['demo.user'])
+      handle_remember_cookie!(true)
+      redirect_to "http://#{SETTINGS['demo.account']}.#{SETTINGS['host.base_url']}/overview"
+    end
+  end
+
 end

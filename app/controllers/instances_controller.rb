@@ -29,7 +29,7 @@ class InstancesController < AuthorizedController
   # permissions are organized by their model.
   def edit
     return with_rejection unless @current_user.can? :update => @instance
-    @roles = Role.all
+    @roles = @instance.roles
   end
 
   # Updates an existing instance object in the database specified by its :id

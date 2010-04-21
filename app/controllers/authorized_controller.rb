@@ -8,6 +8,13 @@ class AuthorizedController < ApplicationController
   before_filter :check_right_account
   before_filter :require_login
   
+  class << self
+    def skip_authorization_filters
+      skip_before_filter :check_right_account
+      skip_before_filter :require_login
+    end
+  end
+  
   protected
   def check_right_account
     if logged_in? && @instance && @current_user && @current_user.instance != @instance
@@ -37,7 +44,7 @@ class AuthorizedController < ApplicationController
   end
 
   # Redirects to the login path unless the user is logged in
-  def require_login
+  def require_login 
     unless logged_in?
       @current_user = nil
       path = login_path(:return_to => request.request_uri)

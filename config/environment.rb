@@ -59,6 +59,7 @@ Rails::Initializer.run do |config|
    config.action_mailer.default_url_options = {
      :host => SETTINGS['host.base_url']
    }
+   
 end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:std => "%m/%d/%Y")

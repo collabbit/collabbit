@@ -177,6 +177,10 @@ configuration_for :keys, :filepath => 'config/settings/keys.yml' do
      'base_url' => Capistrano::CLI.ui.ask('Base URL?'),
      'support_url' => Capistrano::CLI.ui.ask('Support URL?'),
      'support_email' => Capistrano::CLI.ui.ask('Support Email?')
+   },
+   'demo' => {
+     'account' => Capistrano::CLI.ui.ask('Demo account?'),
+     'user' => Capistrano::CLI.ui.ask('Demo user?')
    }
   }.to_yaml
 end
