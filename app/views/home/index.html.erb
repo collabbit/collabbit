@@ -7,7 +7,7 @@
 	<img src="images/home/collabbit_overview.png" />
 	<p id="description">Collabbit is web software that helps people from different organizations share information during emergencies. It's secure, sustainable, and easy to use.</p>
 	<ul id="portals">
-		<li><%= link_to 'Explore the demo', "http://demo.#{SETTINGS['host.base_url']}/demo_login" %></li>
+		<li><%= link_to 'Explore the demo', "http://#{SETTINGS['demo.account']}.#{SETTINGS['host.base_url']}/demo_login" %></li>
 		<li><%= link_to 'Request an account', '/contact' %></li>
 		<li><%= link_to 'Join the mailing list', 'http://groups.google.com/group/collabbit' %></li>
 		<li><%= link_to 'Help develop Collabbit', 'http://github.com/collabbit/collabbit' %></li>
