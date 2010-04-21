@@ -3,5 +3,5 @@
 	<%= menu_item 'Home', '/about', page == '/about'  %>
 	<%= menu_item 'Contact', '/contact', page == '/contact'  %>
 	<%= menu_item 'Downloads', '/downloads', page == '/downloads' %>
-	<%= menu_item 'Demo', 'http://demo.collabbit.org/login', false %>
+	<%= menu_item 'Demo', "http://demo.#{SETTINGS['host.base_url']}/demo_login", false %>
 </ul>
