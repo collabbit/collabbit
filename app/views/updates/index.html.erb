@@ -61,7 +61,7 @@
 	<% end %>
 
 	<div id="alerts-checkboxes">
-		<% current_user.feeds.find_by_incident_id(@incident.id).tap do |feed| %>
+		<% @current_user.feeds.find_by_incident_id(@incident.id).tap do |feed| %>
 	    	<% unless feed.blank? %>		
         		You are receiving
         		<% if feed.email_alert && feed.text_alert %>
