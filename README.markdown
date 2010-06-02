@@ -12,18 +12,12 @@ Collabbit is a web-based communication tool which helps coordinate and organize 
 
 ### Installation
 1. `git clone git@github.com:YOURUSERNAME/collabbit.git`
-2. Create a `config/database.yml` file. This is the default:
-	<script src="http://gist.github.com/422927.js?file=database.yml"></script>
+2. Create a `config/database.yml` file. A simple default is available here: [http://gist.github.com/422927]
 	You'll need to add the username/password of a MySQL user with all permissions on tables starting with `collabbit_`
 3. Create a folder `config/settings`
-4. Inside `config/settings` add a `keys.yml`:
-	<script src="http://gist.github.com/422927.js?file=keys.yml"></script>
+4. Inside `config/settings` add a `keys.yml`, an `smtp.yml`, and, if you're going to be deploying, a `deploy.yml`.
 
-	an `smtp.yml`:
-	<script src="http://gist.github.com/422927.js?file=smtp.yml"></script>
-
-	And, if you're going to be deploying, a `deploy.yml`:
-	<script src="http://gist.github.com/422927.js?file=deploy.yml"></script>
+	Updated default versions of these files may be found in this gist: [http://gist.github.com/422927]
 
 	These settings are only suitable for development and **should not be used** on production systems.
 5. Run `rake gems:install` to install all of the necessary gems.
