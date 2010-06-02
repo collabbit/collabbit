@@ -1,0 +1,9 @@
+action_controller:
+    session:
+        session_key: _collabbit_dev
+        secret: sa8a7s98f7a89fa789a7s98a7f89as789fj31r1k2h5k21h511
+host:
+  support_email: 'support@collabbit.org'
+  base_url: 'collabbit.dev:3000'
+  support_url: 'support.collabbit.org'
+

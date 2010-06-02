@@ -1,0 +1,20 @@
+base: &BASE
+    repository: git@github.com:elitheeli/collabbit.git
+    domain: example.org
+    user: billybob
+    
+production:
+    <<: *BASE
+    deploy_to: /var/www/collabbit/production
+    production_database: collabbit_production
+    development_database: collabbit_development
+    branch: stable
+    
+staging:
+    <<: *BASE
+    deploy_to: /var/www/collabbit/staging
+    database: collabbit_staging
+    production_database: collabbit_staging
+    development_database: collabbit_development
+    branch: master
+

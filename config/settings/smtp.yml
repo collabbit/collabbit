@@ -1,0 +1,18 @@
+base: &BASE
+    port: 25
+    domain: example.com
+    address: smtp.gmail.com
+    tls: true
+    authentication: plain
+    username: foo@example.com
+    password: p@ssw0rd
+
+development:
+    <<: *BASE
+
+production:
+    <<: *BASE
+    
+test:
+    <<: *BASE
+
