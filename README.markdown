@@ -2,7 +2,7 @@
 
 Collabbit is a web-based communication tool which helps coordinate and organize relief efforts in times of disaster and recovery. It aims to eliminate burdensome conference calls between the various parties involved, replacing them with quick and easy updates online, as well as provide a written record of the progress of the event.
 
-## Starting Collabbit Development
+## Doing Collabbit Development
 
 ### Before you start...
 
@@ -26,3 +26,69 @@ Collabbit is a web-based communication tool which helps coordinate and organize 
 		127.0.0.1 collabbit.dev demo.collabbit.dev
 
 8. Run `script/server` and go to [`http://demo.collabbit.dev:3000`](http://demo.collabbit.dev:3000). Collabbit should be running, and you can log in with one of the default users' usernames/passwords. (Those can be found in `db/seeds.rb`.)
+
+### Coding Guidelines
+
+For editing Ruby files (.rb), please have your editor configured to use spaces instead of tabs, and have the tab width set to two spaces.
+
+For editing CSS and Erb templates, please have your editor configured to use tabs, not spaces.
+
+We are planning to migrate all templates to Haml and all CSS to Sass over the summer. Once that's complete, we'll standardize on two spaces for all filetypes.
+
+In addition, please nest CSS hierarchically. For an example, see this gist.
+
+		<body>
+			<div id="wrapper">
+				<ul id="header-links">
+					<li><a href="/about">About</a></li>
+					<li><a href="/support">Support</a></li>
+				</ul>
+				<div id="main">
+					<h1>A Page!</h1>
+					...
+				</div>
+			</div>
+		</body>
+
+		/* general styles goes at the top */
+		a {
+			text-decoration: none;
+			color: black;
+		}
+		/* specific styles are hierarchically organized below */
+		body {
+			font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+			font-size: 16px;
+			background: white;
+		}
+			#wrapper {
+				width: 960px;
+				margin: 0 auto;
+			}
+				#header-links {
+					padding: 10px;
+					background: #ddd;
+					text-align: right;
+					margin: 0;
+				}
+					#header-links li {
+						display: inline-block;
+					}
+						#header-links a {
+							color: white;
+							font-weight: bold;
+							display: block;
+							background: #66d;
+							padding: 2px 1px;
+						}
+							#header-links a:hover {
+								background: #229;
+							}
+				#main {
+					font-size: 14px;
+				}
+					h1 {
+						text-align: center;
+						font-size: 36px;
+						margin: 10px 0;
+					}
