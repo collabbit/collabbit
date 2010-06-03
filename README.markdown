@@ -24,6 +24,8 @@ Collabbit is a web-based communication tool which helps coordinate and organize 
 7. Add the following line to your HOSTS file (`/etc/hosts` on Linux):
 
 		127.0.0.1 collabbit.dev demo.collabbit.dev
+	
+	(Alternatively, if you can't modify your HOSTS file for whatever reason, you can also use an external domain that redirects to localhost. One such domain is localhacks.com, which redirects *.localhacks.com to localhost.)
 
 8. Run `script/server` and go to [`http://demo.collabbit.dev:3000`](http://demo.collabbit.dev:3000). Collabbit should be running, and you can log in with one of the default users' usernames/passwords. (Those can be found in `db/seeds.rb`.)
 
