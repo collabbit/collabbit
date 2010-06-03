@@ -35,7 +35,7 @@ For editing Ruby files (.rb), please have your editor configured to use spaces i
 
 In addition, please always indent nested block HTML tags, and nest CSS hierarchically. For a style example, see [this gist](http://gist.github.com/424138).
 
-Do **not** add author or license declarations to the top of files you're committing. All files committed to Collabbit must be licensed by the author under the LGPL. The license is specified here, in the readme, and a copy is available in the top-level files `LICENSE-GPL.txt` and `LICENSE-LGPL.txt`. Commit records provide a record of authorship.
+Do **not** add author or license declarations to the top of files you're committing. All files committed to Collabbit must be licensed by the author under the LGPL. The license is specified here, in the readme, and a copy is available in the top-level files `LICENSE_GPL.txt` and `LICENSE_LGPL.txt`. Commit records provide a record of authorship.
 
 ## License
 
