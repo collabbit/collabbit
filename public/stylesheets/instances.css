@@ -39,6 +39,12 @@
 				font-size: 14px;
 				font-weight: normal;
 			}
+		.incident-description {
+			color: #444;
+			margin: 4px 0;
+			font-size: 14px;
+			font-style: italic;
+		}
 		.incident .new {
 			margin-left: 30px;
 		}

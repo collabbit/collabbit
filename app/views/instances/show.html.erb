@@ -33,11 +33,14 @@
 				<% end %>
 				<% unless i.closed_at? %>
 					<h2><%= link_to i.name, i %>
-						<span class="date"><%=mdy i.created_at%></span></h2>
+						<span class="date"><%=mdy i.created_at%></span>
+					</h2>
+					<p class="incident-description"><%= i.description %></p>
 				<% else %>
 					<span class="closed">closed</span>
 					<h2 class="closed"><%= link_to i.name, i %>
-						<span class="date"><%=mdy i.created_at%> to <%=mdy i.closed_at%></span></h2>
+						<span class="date"><%=mdy i.created_at%> to <%=mdy i.closed_at%></span>
+					</h2>
 				<% end %>
 
 				<% new_updates = i.updates.select {|u| u.created_at > logout} %>
