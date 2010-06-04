@@ -29,20 +29,21 @@
 			font-size: 13px;
 		}
 			#index li a {
-				color: white;
+				color: #444;
 				font-weight: bold;
-				padding: 0 2px;
+				padding: 0 1px;
 				height: 18px;
 				width: 14px;
 				display: inline-block;
 				line-height: 18px;
-				background: #777;
+				background: #ddd;
+				border: 1px solid #aaa;
 				font-size: 15px;
 				text-decoration: none;
 				margin: 0 -1px;
 			}
 				#index li a:hover {
-					background: #444;
+					background: white;
 				}
 
 #contacts {
