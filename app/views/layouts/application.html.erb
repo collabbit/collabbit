@@ -30,24 +30,35 @@
 		<div id="footer">
 			&copy; 2010 HFOSS &middot; <%= link_to 'Terms of Use', home_path(:page => 'terms', :return_to => @return_to) %> &middot; <%= link_to 'Privacy Policy', home_path(:page => 'privacy', :return_to => @return_to) %> &middot; <%= link_to 'Support', '#', :id => 'bottom-support' %>
 		</div>
-		<script type="text/javascript" charset="utf-8">
-          Tender = {
-            hideToggle: true,
-            widgetToggles: [document.getElementById('bottom-support'), document.getElementById('top-support')]
-          }
-        </script>
-        <script type="text/javascript">
-        var baseSslHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-        document.write(unescape("%3Cscript src='" + baseSslHost + "collabbit.tenderapp.com/tender_widget.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-		<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-11125983-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+		<% if @in_production %>
+			<!-- Tender (support) -->
+			<script type="text/javascript" charset="utf-8">
+				Tender = {
+					hideToggle: true,
+					widgetToggles: [document.getElementById('bottom-support'), document.getElementById('top-support')]
+				}
+			</script>
+			<script type="text/javascript">
+				var baseSslHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+				document.write(unescape("%3Cscript src='" + baseSslHost + "collabbit.tenderapp.com/tender_widget.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			
+			<!-- Google Analytics -->
+			<script type="text/javascript">
+				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			
+			</script>
+			<script type="text/javascript">
+				try {
+					var pageTracker = _gat._getTracker("UA-11125983-1");
+					pageTracker._trackPageview();
+				} catch(err) {}
+			</script>
+
+			<!-- Crazy Egg (click heatmap) -->
+			<script type="text/javascript" src="https://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/9664.js"> </script>
+		<% end %>
 	</body>
 </html>
+
