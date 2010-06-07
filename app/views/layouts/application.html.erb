@@ -18,11 +18,13 @@
     <body>
         <div id="content-wrap">
             <%= render :partial => 'shared/header' -%>
-            <div id="content" class="pagewidth">
-                <div id="wrap">
-                    <%= yield :flashes or flashes %>
-                    <%= yield :body or yield %>
-                </div>
+            <div id="content">
+                <div class="pagewidth">
+					<div id="wrap">
+						<%= yield :flashes or flashes %>
+						<%= yield :body or yield %>
+					</div>
+				</div>
             </div>
         </div>
 		<div id="footer">

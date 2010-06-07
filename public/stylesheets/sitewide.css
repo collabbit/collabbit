@@ -33,6 +33,7 @@ body {
 	margin: 0;
 	background: #333;
 	color: white;
+	padding: 0 15px;
 }
 #header .pagewidth {
 	padding: 10px 0 1px;
@@ -250,25 +251,31 @@ body {
 					background: white;
 				}
 
-#content.pagewidth {
-	background: white;
-	color: black;
-	border: 1px solid #bbb;
-	border-width: 0 1px 1px;
-	padding: 0 20px 20px;
-	width: 904px;
+#content {
+	padding: 0 15px;
+	max-width: 946px;
+	margin: 0 auto;
 }
-	#wrap {
-		padding-top: 20px;
-		border-top: 1px solid #eee;
-	}
-	#flashes {
-		background: #ddd;
+	#content .pagewidth {
+		background: white;
 		color: black;
-		font-size: 16px;
-		padding: 10px 5px;
-		margin-bottom: 20px;
+		border: 1px solid #bbb;
+		border-width: 0 1px 1px;
+		padding: 0 20px 20px;
+		max-width: 904px;
+		margin: 0;
 	}
+		#wrap {
+			padding-top: 20px;
+			border-top: 1px solid #eee;
+		}
+		#flashes {
+			background: #ddd;
+			color: black;
+			font-size: 16px;
+			padding: 10px 5px;
+			margin-bottom: 20px;
+		}
 
 #footer{
 	color: #666;
