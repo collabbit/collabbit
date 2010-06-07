@@ -36,7 +36,7 @@
 		</p>
 		<p>
 			<%= f.label :relevant_groups, "Relevant Groups", :class => "toplevel" %>
-			<span class="sublabel"><a href="#" id="showmygroups" class="selected">your groups</a> <a href="#" id="showallgroups">all groups</a></span>
+			<span class="sublabel"><a href="#" id="showmygroups" class="selected">my groups</a> <a href="#" id="showallgroups">all groups</a></span>
 			<br/>
 			<% @groups.sort_by {|g| g.name}.each do |g| %>
 				<% if @current_user.groups.include? g %>
