@@ -1,14 +1,4 @@
-<%
-# View which displays a list of all the groups under an instance,
-# specified by @instance.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title('Groups', @instance.short_name)%>
+<% content_for :title, title('Groups')%>
 
 <% content_for :breadcrumbs,breadcrumbs(['Groups',group_types_url]) %>
 <% content_for :subheader_title, @group_type.name.pluralize %>

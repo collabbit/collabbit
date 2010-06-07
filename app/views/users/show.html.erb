@@ -1,15 +1,4 @@
-<%
-#<<FIX: what is this page for?
-
-# View which displays a single user's information.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title(@user.full_name, 'Contacts', @instance.short_name)%>
+<% content_for :title, title(@user.full_name, 'Contacts') %>
 
 <% content_for :breadcrumbs, 
 	breadcrumbs(['Contacts',users_path]) %>

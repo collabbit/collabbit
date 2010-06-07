@@ -23,9 +23,9 @@
 <div id="subheader">
 	<div class="pagewidth">
 		<div id="subheader_main">
-			<% if @content_for_breadcrumbs || @instance %>
+		        <% if @content_for_breadcrumbs || @instance %>
 				<div id="breadcrumbs">
-					<%= yield :breadcrumbs or link_to(@instance.short_name.capitalize, overview_url)%>
+					<%= yield :breadcrumbs or link_to(@instance.long_name.capitalize, overview_url)%>
 				</div>
 			<% end %>
 			<h1><%= yield :subheader_title %></h1>

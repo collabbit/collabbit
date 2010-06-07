@@ -48,7 +48,8 @@ module ApplicationHelper
   end
 
   def title(*args)
-    args.flatten.concat(['Collabbit']).join(' &laquo; ')
+    default = @instance ? [@instance.long_name,'Collabbit'] : ['Collabbit']
+    args.flatten.concat(default).join(' &laquo; ')
   end
   
   #month day, year
