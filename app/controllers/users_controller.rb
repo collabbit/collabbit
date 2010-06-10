@@ -21,34 +21,41 @@ class UsersController < AuthorizedController
       :order => 'last_name ASC'
     }
     
-    search_options = {}
+    search_clauses = {}
     
     unless params[:groups_filter].blank?
-      search_options[:groups_id_is] = @groups_filter = params[:groups_filter]
+      @groups_filter = params[:groups_filter]
+      unless @groups_filter == '' || @groups_filter == 'mine' || @groups_filter == nil
+        @groups_filter = @groups_filter.to_i
+      end
+      search_clauses[:groups_id_equals_any] = case @groups_filter
+        when 'mine' then @current_user.group_ids
+        else [@groups_filter]
+      end
     end
     
     if params[:states_filter].blank? || !@current_user.can?(:update => @instance.users)
-      search_options[:state_equals] = 'active'
+      search_clauses[:state_equals] = 'active'
       @states_filter = 'active' if @current_user.can?(:update => @instance.users)
     else
-      search_options[:state_equals] = @states_filter = params[:states_filter]
+      search_clauses[:state_equals] = @states_filter = params[:states_filter]
     end
     
     unless params[:search].blank?
       @search = params[:search]    
       if params[:search] =~ /\A([a-zA-Z\-]+), ([a-zA-Z\-]+)\z/
-        search_options[:first_name_starts_with] = $2
-        search_options[:last_name_starts_with] = $1
+        search_clauses[:first_name_starts_with] = $2
+        search_clauses[:last_name_starts_with] = $1
       elsif params[:search] =~ /\A([a-zA-Z\-]+) ([a-zA-Z\-]+)\z/
-        search_options[:first_name_starts_with] = $1
-        search_options[:last_name_starts_with] = $2
+        search_clauses[:first_name_starts_with] = $1
+        search_clauses[:last_name_starts_with] = $2
       else
         key = %w( first_name last_name cell_phone desk_phone email ).map {|e|"#{e}_like"}.join('_or_')
-        search_options[key.to_sym] = @search
+        search_clauses[key.to_sym] = @search
       end
     end
     
-    @users = @instance.users.search(search_options).paginate(pagination_options)
+    @users = @instance.users.search(search_clauses).uniq.paginate(pagination_options)
   end
 
   def show
