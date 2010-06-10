@@ -59,11 +59,13 @@
 			<li><%= @user.full_name %> isn't a member of any groups.
 		<% end %>
 	</ul>
-  <% if can?(:update => @user) %>
-    <% form_tag(memberships_path, :method=>:post) do %>
-      <%= select_tag('group_id', options_from_collection_for_select(@instance.groups, :id, :name)) %>
-      <%= hidden_field_tag(:user_id, @user.id) %> 
-      <%= submit_tag 'Add to group' %>
-    <% end %>
-  <% end %>
+	<% (@instance.groups - @user.groups).tap do |groups| %>
+		<% if can?(:update => @user) && groups.size > 0 %>
+			<% form_tag(memberships_path, :method=>:post) do %>
+				<%= select_tag('group_id', group_select_options(groups)) %>
+				<%= hidden_field_tag(:user_id, @user.id) %> 
+				<%= submit_tag 'Add to group' %>
+			<% end %>
+		<% end %>
+	<% end %>
 <% end %>
