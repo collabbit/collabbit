@@ -178,7 +178,7 @@ body {
 			float: right;
 			color: black;
 			margin-top: 6px;
-			padding: 4px 10px;
+			padding: 6px 10px;
 			display: block;
 			border: 1px solid #aaa;
 			background: #eee;
@@ -374,3 +374,12 @@ body {
 
 .centered{text-align: center;}
 .centered a{color: #000;}
+
+optgroup {
+	font-weight: bold;
+	font-style: normal;
+	color: red;
+}
+option {
+	font-weight: normal;
+}

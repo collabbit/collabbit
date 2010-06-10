@@ -14,7 +14,7 @@
 	<% end%>
 	
 	<% if @group.users.include? @current_user %>
-	    <%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
+	    <%= pretty_button :leave_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
 	<% else %>
 		<%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id), 'Join Group', :method => :post %>	
 	<% end %>

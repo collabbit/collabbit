@@ -51,7 +51,7 @@
 						<span class="chair">[Chair]</span>
 					<% end %>
 					<% if can?(:update => @user) %>
-            <%= pretty_button :join_group, memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), '[x]', :method => :post %>
+						<%= pretty_button :leave_group, memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), '[x]', :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?" %>
           <% end %>
 				</li>
 			<% end %>
@@ -63,7 +63,7 @@
     <% form_tag(memberships_path, :method=>:post) do %>
       <%= select_tag('group_id', options_from_collection_for_select(Group.all, :id, :name)) %>
       <%= hidden_field_tag(:user_id, @user.id) %> 
-      <%= submit_tag 'Join Group' %>
+      <%= submit_tag 'Add to group' %>
     <% end %>
   <% end %>
 <% end %>
