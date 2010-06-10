@@ -172,7 +172,7 @@ module ApplicationHelper
   end
 
   # returns options for all of the groups, grouped into optgroups by group_type
-  def group_select_options(groups,selected)
+  def group_select_options(groups,selected='')
     groups = groups.to_a.sort_by {|g| g.name}
     group_types = Set.new
     group_types.merge groups.collect {|g| g.group_type}
