@@ -55,7 +55,7 @@ class UsersController < AuthorizedController
       end
     end
     
-    @users = @instance.users.search(search_clauses).uniq.paginate(pagination_options)
+    @users = @instance.users.search(search_clauses).uniq.sort_by {|u| [u.last_name,u.first_name]}.paginate(pagination_options)
   end
 
   def show
