@@ -33,13 +33,8 @@
 			groups.merge u.relevant_groups
 			groups.add u.issuing_group unless u.issuing_type == :user || !u.issuing_group
 			tags.merge u.tags
-		end
-		
+		end	
 		tags = (tags.map {|t| [t.name, t.id]}).sort {|a,b| a[0]<=>b[0]}
-		#groups = (groups.map {|g| [g.name, g.id]}).sort {|a,b| a[0]<=>b[0]}
-		groups = groups.to_a.sort_by {|g| g.name}
-		group_types = Set.new
-		group_types.merge groups.collect {|g| g.group_type}
 	%>
 		
 	<% form_tag incident_updates_path(@incident), :method => :get do %>
@@ -48,7 +43,7 @@
 		<select name="groups_filter" id="filters_groups">
 			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
 			<option value="mine" <%= 'selected="selected"' if @groups_filter == 'mine' %>>My Groups</option>
-			<%= option_groups_from_collection_for_select(group_types, 'groups', 'name.pluralize', :id, :name, @groups_filter) %>
+			<%= group_select_options(groups,@groups_filter) %>
 		</select>
 		<select name="tags_filter" id="filters_tags">
 			<%= options_for_select([['All Tags', nil]] + tags, @tags_filter) %>
