@@ -1,14 +1,4 @@
-<%
-# View which displays a list of all the group_types under an instance,
-# specified by @instance.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title('Groups', @instance.short_name)%>
+<% content_for :title, title('Groups') %>
 
 <% content_for :subheader_title, 'Groups' %>
 <% content_for :buttons do %>
@@ -39,7 +29,7 @@
 	<% @group_types.each do |gt| %>
 		<li class="outer">
 			<%= link_to gt.name.pluralize, gt, :class=>:title %>
-			&mdash; <%= gt.groups.size%> groups
+			&mdash; <%= gt.groups.length %> groups
 			<% if gt.destroyable_by?(@current_user) %> 
 			<span class="delete-grouptype">[<%=link_to 'X', gt, :method => :delete, :confirm => 'Really delete group type?'%>]</span>
 			<% end %>

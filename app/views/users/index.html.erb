@@ -8,7 +8,7 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 %>
 
-<% content_for :title, title('Contacts', @instance.short_name)%>
+<% content_for :title, title('Contacts')%>
 <% content_for :javascripts, javascript_include_tag('jquery','users')%>
 
 <% content_for :breadcrumbs, breadcrumbs %>
@@ -31,12 +31,16 @@
 	<%
 		groups = @instance.groups.find(:all, :order => 'name').reject {|g| g.memberships.length == 0 }
 		groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter.to_i )
+		group_types = groups.collect {|g| g.group_type}.uniq
 		states_options = options_for_select([['Active', 'active'], ['Pending','pending'], ['Approved', 'approved']], @states_filter)
 	%>
 
 	<% form_tag users_path, :method => :get do %>
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
-		<%= select_tag(:groups_filter, groups_options, :id => 'filters_groups') %>
+		<select name="groups_filter">
+			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
+			<%= option_groups_from_collection_for_select(group_types,:groups,'name.pluralize',:id,:name,@groups_filter.to_i) %>
+		</select>
 		<%= select_tag(:states_filter, states_options, :id => 'filters_states') if @states_filter %>
 		<%= submit_tag "Apply Filters", :name => nil, :id => 'filters_submit' %>
 	<% end %>
@@ -79,7 +83,8 @@
 		<li>
 			<div class="name">
 				<%= link_to u.last_first, u %>
-				<span class="vcard"><%=link_to 'Download contact', user_path(u, :format => :vcf) -%></span></div>
+				<%=link_to '&#x2b07; Download Contact', user_path(u, :format => :vcf), :class => 'vcard'  -%>
+			</div>
 			<div class="person-info">
 				<% if u.cell_phone? %>
 					<span class="phone">

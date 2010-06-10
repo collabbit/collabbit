@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   
   
   after_filter :set_admin_flash
-  before_filter :set_current_account
+  before_filter :set_current_account, :set_environment
   before_filter :check_account_redirect
   
   helper_method :promo?, :subdomain
@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
   def set_current_account
     @instance = subdomain == '' ? nil : Instance.find_by_short_name(subdomain)
     raise Instance::Missing, subdomain if @instance.blank? && !subdomain_forbidden?
+  end
+
+  def set_environment
+    @in_production = ENV['RAILS_ENV'] == 'production'
   end
   
   def subdomain_forbidden?
