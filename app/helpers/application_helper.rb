@@ -170,4 +170,16 @@ module ApplicationHelper
   def simple_link_format(str)
     simple_format(auto_link(h(str), :html => { :target => '_blank' }))
   end
+
+  # returns options for all of the groups, grouped into optgroups by group_type
+  def group_select_options(groups,selected)
+    groups = groups.to_a.sort_by {|g| g.name}
+    group_types = Set.new
+    group_types.merge groups.collect {|g| g.group_type}
+    group_types = group_types.to_a.sort_by {|g| g.name}.collect do |gt|
+      gt.selected_groups = groups.select {|g| g.group_type == gt}
+      gt
+    end
+    option_groups_from_collection_for_select(group_types, :selected_groups, 'name.pluralize', :id, :name, selected)
+  end
 end
