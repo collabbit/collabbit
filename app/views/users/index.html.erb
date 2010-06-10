@@ -16,9 +16,9 @@
 	<%=link_to 'Contacts', users_path %>
 	<span class="title-small">
 	<% if !@search && !@groups_filter %>
-		showing all of <%= pluralize(@users.size, "contact") %>
+		showing all <%= pluralize(@users.size, "contact") %>
 	<% else %>
-		showing <%=@users.size%> filtered contacts
+		showing <%= pluralize(@users.size,"filtered contact") %>
 	<% end %>
 	</span>
 <% end %>
