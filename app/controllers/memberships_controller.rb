@@ -8,13 +8,23 @@ class MembershipsController < AuthorizedController
     if params[:leave]
       user.groups.delete group
 
-      flash[:notice] = "You have left this group."
-      redirect_to group_type_group_path(group.group_type, group)
+      if @current_user.id == user.id 
+        flash[:notice] = "You have left this group."
+        redirect_to group_type_group_path(group.group_type, group)
+      else 
+        flash[:notice] = user.first_name + " " + user.last_name + " has left " + group.name + "."
+        redirect_to user_path(user)
+      end
     else
       user.groups << group unless user.groups.include?(group)
     
-      flash[:notice] = "You have joined this group."
-      redirect_to group_type_group_path(group.group_type, group)
+      if @current_user.id == user.id 
+        flash[:notice] = "You have joined this group."
+        redirect_to group_type_group_path(group.group_type, group)
+      else 
+        flash[:notice] = user.first_name + " " + user.last_name + " has joined " + group.name + "."
+        redirect_to user_path(user)
+      end
     end
   end
   

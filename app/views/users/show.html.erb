@@ -61,10 +61,20 @@
 					<% if g.chairs.include?(@user) %>
 						<span class="chair">[Chair]</span>
 					<% end %>
+					<% if can?(:update => @user) %>
+            <%= pretty_button :join_group, memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), '[x]', :method => :post %>
+          <% end %>
 				</li>
 			<% end %>
 		<% else %>
 			<li><%= @user.full_name %> isn't a member of any groups.
 		<% end %>
 	</ul>
+  <% if can?(:update => @user) %>
+    <% form_tag(memberships_path, :method=>:post) do %>
+      <%= select_tag('group_id', options_from_collection_for_select(Group.all, :id, :name)) %>
+      <%= hidden_field_tag(:user_id, @user.id) %> 
+      <%= submit_tag 'Join Group' %>
+    <% end %>
+  <% end %>
 <% end %>
