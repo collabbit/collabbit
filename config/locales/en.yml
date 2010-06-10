@@ -22,7 +22,7 @@ en:
     group_type:
       created: "You successfully added a group type."
       updated: "You updated that group successfully."
-    instance:
+    instance_:
       created: "You successfully created an instance. Good Job!"
       updated: "You successfully updated that instance."
     incident:
