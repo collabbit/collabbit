@@ -22,7 +22,7 @@ class MembershipsController < AuthorizedController
         flash[:notice] = "You have joined this group."
         redirect_to group_type_group_path(group.group_type, group)
       else 
-        flash[:notice] = user.first_name + " " + user.last_name + " has joined " + group.name + "."
+        flash[:notice] = "#{user.full_name} has joined #{group.name}."
         redirect_to user_path(user)
       end
     end

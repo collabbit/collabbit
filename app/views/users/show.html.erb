@@ -61,7 +61,7 @@
 	</ul>
   <% if can?(:update => @user) %>
     <% form_tag(memberships_path, :method=>:post) do %>
-      <%= select_tag('group_id', options_from_collection_for_select(Group.all, :id, :name)) %>
+      <%= select_tag('group_id', options_from_collection_for_select(@intstance.groups), :id, :name)) %>
       <%= hidden_field_tag(:user_id, @user.id) %> 
       <%= submit_tag 'Add to group' %>
     <% end %>
