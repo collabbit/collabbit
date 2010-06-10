@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   # Returns the desk phone with its extension
   def desk_phone_with_ext
     if desk_phone_ext
-      desk_phone.to_s + " x " + desk_phone_ext
+      desk_phone.to_s + " x" + desk_phone_ext
     else
       desk_phone
     end
