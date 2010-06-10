@@ -32,12 +32,12 @@
 		<% end
 		if @user.desk_phone %>
 		<li>
-			<span class="tiny">desk phone:</span>
-			<%= phone @user.desk_phone%>
-			<% if @user.desk_phone_ext %>
-				<%= 'x'+@user.desk_phone_ext%>
-			<% end %>
-			<%=preferred unless @user.preferred_is_cell%>
+		  <% if @user.desk_phone? %>
+        <span class="tiny">desk phone:</span>
+          <%=phone @user.desk_phone_with_ext %> <%= preferred if !@user.preferred_is_cell and @user.cell_phone? %>
+        </span>
+      <% end %>
+			
 		</li>
 		<% end %>
 		

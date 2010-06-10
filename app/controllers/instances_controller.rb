@@ -61,7 +61,8 @@ class InstancesController < AuthorizedController
       end
     end
     if @instance.update_attributes(params[:instance])
-      flash[:notice] = t('notice.instance.updated')
+      #flash[:notice] = t('notice.instance.updated')
+      flash[:notice] = t('notice.instance_.updated')
       redirect_to edit_path
     else
       flash[:error] = t('error.instance.update_failed')
