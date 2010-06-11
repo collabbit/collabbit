@@ -3,13 +3,18 @@
 <% content_for :breadcrumbs,breadcrumbs(['Groups',group_types_url]) %>
 <% content_for :subheader_title, @group_type.name.pluralize %>
 <% content_for :buttons do %>
-    <% if can? :update => @group_type %>
-	    <%=pretty_button :edit_group_type, edit_group_type_path(@group_type), 'Edit Group Type' %>
-	<% end %>
-	
-	<% if can? :create => Group %>
-	    <%=pretty_button :new_group, new_group_type_group_path(@group_type), 'New Group' -%>
-	<% end %>
+  <% if can? :destroy => Group %>
+    <%=pretty_delete_button(@group_type, :check => true)%>
+  <% end %>
+
+  <% if can? :update => @group_type %>
+    <%=pretty_button :edit_group_type, edit_group_type_path(@group_type), 'Edit Group Type' %>
+  <% end %>
+
+  <% if can? :create => Group %>
+    <%=pretty_button :new_group, new_group_type_group_path(@group_type), 'New Group' -%>
+  <% end %>
+
 <% end %>
 
 <% content_for :body do %>
