@@ -21,7 +21,7 @@
 		<div class="comment">
 			<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
 			<span class="comment-body"><%=simple_link_format c.body%></span>
-			<% if can? :destroy => c %>
+			<% if (@current_user.id == c.user.id) || (can? :destroy => c) %>
 			    <span class="comment-destroy">
 			        [<%=link_to 'X', [@incident, @update, c], :method => :delete, :confirm => 'Really delete?' %>]
 			    </span>
