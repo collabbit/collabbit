@@ -8,4 +8,6 @@ Posted by <%=@update.user.full_name%> <%="(#{@update.issuing_group.name})" if @u
 Relevant groups: <%= (@update.relevant_groups.map{|g|g.name}).join(', ')%>
 Tags: <%= (@update.tags.map{|t|t.name}).join(', ')%>
 
-Click on this link to see this online: http://<%= @user.instance.short_name %>.collabbit.org<%=incident_update_path(@update.incident, @update)%>
+View this update online: http://<%= @user.instance.short_name %>.collabbit.org<%=incident_update_path(@update.incident, @update)%>
+
+View all updates by your groups online: http://<%= @user.instance.short_name %>.collabbit.org<%= incident_updates_path(@update.incident) %>?groups_filter=mine
