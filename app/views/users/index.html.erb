@@ -23,6 +23,9 @@
 	</span>
 <% end %>
 <% content_for :buttons do %>
+	<% if @current_user.can?(:create => User) %>
+		<%= link_to 'Bulk add contacts', new_bulk_users_path, :class => 'button-link' %>
+	<% end %>
 	<%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
     <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 <% end %>
