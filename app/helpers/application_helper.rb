@@ -62,7 +62,7 @@ module ApplicationHelper
   end
 
   def time_time(x)
-    "#{x.hour % 12 + 1}:#{x.min} #{x.hour > 11 ? 'PM' : 'AM'}"
+    "#{x.hour % 12 + 1}:#{x.min < 10 ? "0#{x.min}" : x.min} #{x.hour > 11 ? 'PM' : 'AM'}"
   end
   
   def pretty_delete_button(to, *opts)
