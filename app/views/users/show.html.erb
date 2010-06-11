@@ -1,7 +1,6 @@
 <% content_for :title, title(@user.full_name, 'Contacts') %>
 
-<% content_for :breadcrumbs, 
-	breadcrumbs(['Contacts',users_path]) %>
+<% content_for :breadcrumbs, breadcrumbs(['Contacts',users_path]) %>
 <% content_for :subheader_title, @user.full_name %>
 <% content_for :buttons do %>
 	<%= pretty_delete_button(@user, :check => true) if can? :destroy => @user %>
