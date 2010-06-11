@@ -7,7 +7,7 @@
 	<%=link_to @incident.name, @incident %>
 	<span class="title-small">
 	<% if !@search && !@groups_filter && !@tags_filter %>
-		showing all <%= pluralize(@updates.size, "update") %>
+		showing <%= @updates.size == 1 ? '':'all' %> <%= pluralize(@updates.size, "update") %>
 	<% else %>
 		showing <%= pluralize(@updates.size, "filtered update") %>
 	<% end %>
