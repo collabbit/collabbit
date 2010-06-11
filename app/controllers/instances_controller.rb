@@ -98,12 +98,13 @@ class InstancesController < AuthorizedController
 
   protected
     def setup_editable_permissions
-      cud = ['create', 'update', 'destroy']
-      @perms_hash = { 'Update'      => cud,
-                      'Comment'     => cud,
-                      'Group'       => cud,
-                      'Group Type'  => cud,
-                      'Incident'    => cud }
+      crud = ['create', 'update', 'destroy']
+      @perms_hash = { 'Update'      => crud,
+                      'Comment'     => crud,
+                      'User'        => crud,
+                      'Group'       => crud,
+                      'Group Type'  => crud,
+                      'Incident'    => crud }
     end
 end
 
