@@ -21,7 +21,15 @@ class TagsController < AuthorizedController
     return with_rejection unless @current_user.can? :destroy => @tag
     @tag.destroy
     flash[:notice] = t('notice.tag.destroyed')
-    redirect_to tags_path
+    redirect_to :back
+  end
+
+  def create_bulk
+    tags = params[:tags].split(',').collect {|t| t.strip}.select {|t| t.length > 0}
+    tags.each do |tag_name|
+      Tag.create(:name => tag_name, :instance => @instance)
+    end
+    redirect_to :back
   end
 end
 

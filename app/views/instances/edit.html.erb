@@ -1,16 +1,17 @@
 <% content_for :title, title('Edit') %>
 
-<% content_for :subheader_title, "Account Settings" %>
+<% content_for :subheader_title, "Instance Administration" %>
 
 <% content_for :body do%>	
 	<%= error_messages_for :instance %>
+	<h2>Settings</h2>
 	<% form_for @instance, :url => {:action => :update} do |f| -%>
 		<p><%= f.label :long_name, 'Name' %><br/>
 		<%= f.text_field :long_name %></p>
 		
 		<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
 		<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
-	
+
 		<table id="permissions" cellspacing="0">
 			<thead>
 				<tr>
@@ -21,7 +22,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @perms_hash.each_pair do |model, actions| %> 
+				<% @perms_hash.sort.each do |model, actions| %> 
 					<tr>
 						<td class="model" rowspan="<%= actions.length %>"><%= model.pluralize %></td>
 					<% actions.each do |action| %>
@@ -32,13 +33,29 @@
 							</td>
 						<% end %>
 						</tr>
-						<!-- %= '<tr>' unless actions.last == action % -->
-					<% end %>	
-					<td class="skip" colspan="<%= @roles.size + 2 %>"</tr>
+					<% end %>
+					<% unless @perms_hash.sort.last[0] == model %>
+						<tr><td class="skip" colspan="<%= @roles.size + 2 %>"</td></tr>
+					<% end %>
 				<% end %> 
 			</tbody>
 		</table>
 	
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>
+
+	<h2>Tags</h2>
+	<ul>
+		<% @instance.tags.each do |tag| %>
+			<li>
+				<%= link_to tag.name, tag_url(tag) %>	
+				<%= link_to '[x]', tag_url(tag), :method => :delete, :confirm => "Delete the tag #{tag.name}?" if can?(:delete => tag) %>
+			</li>
+		<% end %>
+	</ul>
+	<h3>Add tags (comma-separated)</h3>
+	<% form_tag create_bulk_tags_path, :method => :post do %>
+		<%= text_field_tag :tags %>
+		<%= submit_tag "Create tags" %>
+	<% end %>
 <% end %>

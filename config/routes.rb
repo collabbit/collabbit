@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => {:new_bulk => :get, :create_bulk => :post},
     :member => {:activation_update => :put}
   
-  map.resources :tags
+  map.resources :tags, :collection => {:create_bulk => :post}
   
   map.resource :session
   map.resources :roles
