@@ -11,7 +11,7 @@
 		<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
 		<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
 	
-		<table border="1">
+		<table id="permissions" cellspacing="0">
 			<thead>
 				<tr>
 					<th colspan="2">Permissions</th>
@@ -23,21 +23,18 @@
 			<tbody>
 				<% @perms_hash.each_pair do |model, actions| %> 
 					<tr>
-						<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
-						<td><%= actions[0] %></td>
-						<% @roles.each do |r| %>
-							<td><%= permission_checkbox r, actions[0], model.gsub(/ /,'') %></td>
+						<td class="model" rowspan="<%= actions.length %>"><%= model.pluralize %></td>
+					<% actions.each do |action| %>
+						<td class="action"><%= action %></td> 
+						<% @roles.each do |role| %>
+							<td class="cb">
+								<%= permission_checkbox role, action, model.classify.gsub(/ /,'') %>
+							</td>
 						<% end %>
 						</tr>
-						<% actions[1..actions.length].each do |a|%>
-							<tr><td><%= a %></td> 
-							<% @roles.each do |r| %>
-								<td><%= permission_checkbox r, a, model.classify.gsub(/ /,'') %></td>
-							<% end %>
-							</tr>
-						<% end %>
-						<% count = 0 %>
-						<% permissions = []%>
+						<!-- %= '<tr>' unless actions.last == action % -->
+					<% end %>	
+					<td class="skip" colspan="<%= @roles.size + 2 %>"</tr>
 				<% end %> 
 			</tbody>
 		</table>
