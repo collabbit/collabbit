@@ -1,1 +1,11 @@
+/* select boxes don't obey top/bottom
+ * padding, so we'll make inputs the same */
+#filters input {
+	padding-top: 0; padding-bottom: 0;
+}
 
+/* IE7 adds padding to the vertical height of objects,
+ * so the header is way too tall. This fixes that. */
+#header {
+	height: 32px;
+}
