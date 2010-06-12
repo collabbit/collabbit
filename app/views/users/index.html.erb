@@ -86,7 +86,7 @@
 		<li>
 			<div class="name">
 				<%= link_to u.last_first, u %>
-				<%=link_to '&#x2b07; Download Contact', user_path(u, :format => :vcf), :class => 'vcard'  -%>
+				<%= link_to '&#x2b07; Download Contact', user_path(u, :format => :vcf), :class => 'vcard' %>
 			</div>
 			<div class="person-info">
 				<% if u.cell_phone? %>
