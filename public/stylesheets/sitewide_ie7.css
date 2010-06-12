@@ -18,6 +18,7 @@
 		#menu li a {
 			display: inline-block;
 			height: 24px;
+			margin-top: -2px;
 		}
 			#incidents-li:hover a.visible {
 				padding: 3px 7px 1px;
