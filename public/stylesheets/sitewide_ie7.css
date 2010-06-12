@@ -10,9 +10,9 @@
 	height: 32px;
 }
 	#menu li {
-		zoom: 1;
-		height: 24px;
+		display: inline-block;
 	}
 		#menu li a {
-
+			display: inline-block;
+			height: 24px;
 		}
