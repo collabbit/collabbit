@@ -4,7 +4,7 @@
 	padding-top: 2px; padding-bottom: 2px;
 }
 #filters input#filters_submit {
-	padding-top: 1px; padding-bottom: 1px;
+	padding-top: 1px; padding-bottom: 0px;
 }
 
 /* IE7 adds padding to the vertical height of objects,
