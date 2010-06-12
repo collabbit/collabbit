@@ -71,11 +71,10 @@ body {
 	}
 		#menu li {
 			display: inline;
-			margin-bottom: -1px;
 		}
 			#menu a {
 				color: white;
-				padding: 3px 8px 1px;
+				padding: 3px 8px 2px;
 				text-decoration: none;
 			}
 				#menu a:hover {
