@@ -71,6 +71,7 @@ body {
 	}
 		#menu li {
 			display: inline;
+			margin-bottom: -1px;
 		}
 			#menu a {
 				color: white;
