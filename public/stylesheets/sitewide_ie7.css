@@ -1,7 +1,7 @@
 /* select boxes don't obey top/bottom
  * padding, so we'll make inputs the same */
 #filters input, #filters input#search, #filters input#filters_submit {
-	padding-top: 0 !important; padding-bottom: 0 !important;
+	padding-top: 2px !important; padding-bottom: 2px !important;
 }
 
 /* IE7 adds padding to the vertical height of objects,
@@ -15,3 +15,6 @@
 			display: inline-block !important;
 			height: 24px !important;
 		}
+			#incidents-menu {
+				margin-top: -5px;
+			}
