@@ -18,7 +18,7 @@ class UsersController < AuthorizedController
       :page => params[:page],
       :per_page => 100,
       :include => :groups,
-      :order => 'last_name ASC'
+      :order => 'LOWER(last_name) ASC'
     }
     
     search_clauses = {}
@@ -55,7 +55,7 @@ class UsersController < AuthorizedController
       end
     end
     
-    @users = @instance.users.search(search_clauses).uniq.sort_by {|u| [u.last_name,u.first_name]}.paginate(pagination_options)
+    @users = @instance.users.search(search_clauses).paginate(pagination_options)
   end
 
   def show
