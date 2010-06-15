@@ -86,7 +86,7 @@ class UpdatesController < AuthorizedController
     }    
     
     @searched = !search_clauses.blank?
-    @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
+    @updates = @incident.updates.search(search_clauses).uniq.sort_by {|u| -u.created_at }.paginate(pagination_options)
 
     @comment = Comment.new
     @latest_update_id = Update.last.id
