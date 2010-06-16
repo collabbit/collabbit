@@ -72,7 +72,11 @@
 
 	<% if @users.size == 0 %>
 		<h3 class="centered">
-			<%= t('warning.user.no_search_results') %>
+			<% if @states_filter == 'pending' %>
+				<%= t('warning.user.no_pending_search_results') %>
+			<% else %>
+				<%= t('warning.user.no_search_results') %>
+			<% end %>
 		</h3>
 	<% end %>
 	<ul id="contacts">
@@ -123,7 +127,8 @@
 					</div>
 				<% end %>
 				<% if u.pending? && can?(:update => u) %>
-					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => users_path), {:method => :put, :class => :approve} %>
+					<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : users_path %>
+					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => return_path), {:method => :put, :class => :approve} %>
 				<% end %>
 			</div>
 		</li>
