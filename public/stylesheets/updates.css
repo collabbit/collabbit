@@ -51,6 +51,7 @@
 		margin: 0 0 20px 0;
 		position: relative;
 		clear: both;
+		overflow: auto;
 	}
 		.update-meta{
 			color: #666;
