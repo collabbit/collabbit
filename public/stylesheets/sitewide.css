@@ -142,7 +142,7 @@ body {
 	border-width: 0 1px;
 }
 	#subheader_main {
-
+		padding-bottom: 8px;
 	}
 		#breadcrumbs {
 			color: #888;
@@ -198,20 +198,19 @@ body {
 			}
 	#subheader_text {
 		clear: both;
-		margin: 0;
-		margin: 2px 0 5px;
+		margin: -7px 0 0;
 		color: #444;
 		font-size: 14px;
+		padding-bottom: 7px;
 	}
 		#subheader_text a {
 			color: #275FE4;
 		}
 	#filters {
 		max-width: 944px;
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 	}
 		#filters form {
-			padding-top: 7px;
 		}
 			#filters input, #filters select {
 				background: #fafafa;
