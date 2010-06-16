@@ -11,32 +11,38 @@
 
 <% content_for :body do%>
     <% form_for @user do |f| %>
-    <%= error_messages_for :user %>
+		<%= error_messages_for :user %>
 
-    <h2>Notifications</h2>
-    <table id="notifications" cellspacing="0" cellpadding="0">
-        <thead>
-            <th>Incident</th>
-            <th>Email</th>
-            <th>Text</th>
-        </thead>
-        <tbody>
-        <% @user.instance.incidents.each do |i| %>
-            <% f.fields_for :feeds, @user.feeds.find_by_incident_id(i.id) do |feed_form| %>
-            <tr class="feed-settings">
-                <td class="incident-title"><%=i.name%></td>
-                <td class="feed-email-setting"><%= feed_form.check_box :email_alert %></td>
-                <td class="feed-text-setting"><%=feed_form.check_box :text_alert %></td>
-            </tr>
-            <% end %>
-        <% end %>
-        </tbody>
-    </table>
+		<h2>Notifications</h2>
+		<table id="notifications" cellspacing="0" cellpadding="0">
+			<thead>
+				<th>Incident</th>
+				<th>Email</th>
+				<th>Text</th>
+			</thead>
+			<tbody>
+			<% @user.instance.incidents.each do |i| %>
+				<% f.fields_for :feeds, @user.feeds.find_by_incident_id(i.id) do |feed_form| %>
+				<tr class="feed-settings">
+					<td class="incident-title"><%=i.name%></td>
+					<td class="feed-email-setting"><%= feed_form.check_box :email_alert %></td>
+					<td class="feed-text-setting"><%=feed_form.check_box :text_alert %></td>
+				</tr>
+				<% end %>
+			<% end %>
+			</tbody>
+		</table>
 
-    <h2>Account Details</h2>
-	<% @user.password = @user.password_confirmation = '' %>
+		<h2>Account Details</h2>
+		<% @user.password = @user.password_confirmation = '' %>
+		<p><%= f.label 'first_name' %><br/>
+		<%= f.text_field :first_name, :title => 'First name' %></p>
+
+		<p><%= f.label 'last_name' %><br/>
+		<%= f.text_field :last_name, :title => 'Last name' %></p>
+
 		<p><%= f.label 'email' %><br/>
-		<%= f.text_field :email, :title => 'Username' %></p>
+		<%= f.text_field :email, :title => 'Email address' %></p>
 		
 		<p><%= f.label :desk_phone %><br/>
 		<%= f.text_field :desk_phone %></p>
