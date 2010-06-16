@@ -90,7 +90,7 @@ module ApplicationHelper
   end
   
   def phone(p)
-    p = p.split(' x ')
+    p = p.split('x').collect {|s| s.strip}
     p.map! {|q| q.gsub(/[^0-9]/, '').to_i }
     
     opts = {}
