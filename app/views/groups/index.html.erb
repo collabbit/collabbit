@@ -3,7 +3,7 @@
 <% content_for :breadcrumbs,breadcrumbs(['Groups',group_types_url]) %>
 <% content_for :subheader_title, @group_type.name.pluralize %>
 <% content_for :buttons do %>
-  <% if can? :destroy => Group %>
+  <% if can? :destroy => GroupType %>
     <%=pretty_delete_button(@group_type, :check => true)%>
   <% end %>
 
