@@ -63,3 +63,9 @@ Rails::Initializer.run do |config|
 end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:std => "%m/%d/%Y")
+
+# this is causing strange errors when it's in environments/development.rb, so it's here
+if ENV['RAILS_ENV'] == 'development'
+  UserObserver.disable!
+  UpdateObserver.disable!
+end
