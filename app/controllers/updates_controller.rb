@@ -34,11 +34,13 @@ class UpdatesController < AuthorizedController
     if new_updates.size > 0
       user_groups_updates = User.find(params[:user_id]).groups.inject(Set.new){|set, cur| set.merge cur.update_ids}
       user_diff = (user_groups_updates & new_updates.map(&:id)).size
-      render :update do |page|  
-        page.replace_html 'new-updates', "<span>There #{new_updates.size == 1 ? 'is' : 'are'}
-         #{humanize_number new_updates.size} new update#{'s' if new_updates.size != 1},
-         with #{user_diff} in your groups.
-          #{link_to 'Reload the page', incident_updates_path(incident)} to see them.</span>"
+      render :update do |page|
+        size = new_updates.size
+
+        updates = "There #{size == 1 ? 'is' : 'are'} #{humanize_number size, {},'a'} new update#{'s' if new_updates.size != 1}."
+        yourgroups = user_diff > 0 ? "(#{user_diff} in your groups.)" : ''
+        reload = "#{link_to 'Reload the page', incident_updates_path(incident)} to see them."
+        page.replace_html 'new-updates', "<span>#{updates} #{yourgroups} #{reload}</span>"
       end
     else
       render :text => ''
@@ -86,7 +88,7 @@ class UpdatesController < AuthorizedController
     }    
     
     @searched = !search_clauses.blank?
-    @updates = @incident.updates.search(search_clauses).paginate(pagination_options)
+    @updates = @incident.updates.search(search_clauses).uniq.sort_by {|u| -(u.created_at.to_i)}.paginate(pagination_options)
 
     @comment = Comment.new
     @latest_update_id = Update.last.id

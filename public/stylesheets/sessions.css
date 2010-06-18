@@ -10,11 +10,12 @@
 		font-size: 12px;
 
 	}
-#content.pagewidth {
+#content .pagewidth {
 	width: 350px;
 	text-align: left;
 	padding: 10px;
 	background: #fff;
+	margin: 0 auto;
 }
 	#wrap{
 	}

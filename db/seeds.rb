@@ -40,10 +40,12 @@ committee = i.group_types.create(:name => 'Committee')
 john = i.users.create(
   :first_name => 'John', :last_name => 'Smith',
   :email => 'blah@blah.com', :activation_code => '111',
-  :cell_phone => '5857704551', :preferred_is_cell => true)
+  :cell_phone => '5857704551', :preferred_is_cell => true,
+  :desk_phone => '1234567', :desk_phone_ext => '324')
 jane = i.users.create(
   :first_name => 'Jane', :last_name => 'Smith',
-  :email => 'blah2@blah.com', :activation_code => '121')
+  :email => 'blah2@blah.com', :activation_code => '121',
+  :desk_phone => '1234567')
 joey = i.users.create(
   :first_name => 'Joey', :last_name => 'Arnold',
   :email => 'blah3@blah.com', :activation_code => '131')

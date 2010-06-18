@@ -1,13 +1,4 @@
-<%
-# View which displays a single group's information.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title(@group.name, 'Groups', @instance.short_name)%>
+<% content_for :title, title(@group.name, 'Groups')%>
 
 <% content_for :breadcrumbs,
 	breadcrumbs(['Groups',group_types_url],
@@ -23,7 +14,7 @@
 	<% end%>
 	
 	<% if @group.users.include? @current_user %>
-	    <%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
+	    <%= pretty_button :leave_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id, :leave => 'true'), 'Leave Group', :method => :post %>
 	<% else %>
 		<%= pretty_button :join_group, memberships_path(:group_id => @group.id, :user_id => @current_user.id), 'Join Group', :method => :post %>	
 	<% end %>

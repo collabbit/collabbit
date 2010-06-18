@@ -15,5 +15,7 @@ class GroupType < ActiveRecord::Base
   validates_length_of :name, :within => 2..32
   
   attr_accessible :name
-  
+
+  # used for defining a subset of groups to be included in select options
+  attr_accessor :selected_groups
 end

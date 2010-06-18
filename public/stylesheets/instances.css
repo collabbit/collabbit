@@ -39,6 +39,12 @@
 				font-size: 14px;
 				font-weight: normal;
 			}
+		.incident-description {
+			color: #444;
+			margin: 4px 0;
+			font-size: 14px;
+			font-style: italic;
+		}
 		.incident .new {
 			margin-left: 30px;
 		}
@@ -54,3 +60,42 @@
 			.new a {
 				color: #375FE4;
 			}
+
+
+/*
+ * instances/edit
+ */
+#permissions {
+	border: 1px solid #bbb;
+	border-collapse: collapse;
+}
+	#permissions thead {
+		font-size: 14px;
+		color: #444;
+		background: #ddd;
+	}
+		#permissions th {
+			padding: 5px 10px;
+			border: 1px solid #bbb;
+		}
+	#permissions tr {
+
+	}
+		#permissions td {
+			padding: 2px 10px;
+			border: 1px solid #bbb;
+		}
+		#permissions td.model {
+
+		}
+		#permissions td.action {
+			background: #ddd;
+		}
+		#permissions td.cb {
+			text-align: center;
+		}
+		#permissions td.skip {
+			padding: 5px 0;
+			background: #eee;
+		}
+

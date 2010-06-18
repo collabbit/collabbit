@@ -1,18 +1,6 @@
-<%
-# View which displays a specified tag.
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title(@tag.name, 'Tags', @instance.short_name)%>
+<% content_for :title, title(@tag.name, 'Tags') %>
 
 <% content_for :body do %>
-	<%= pretty_delete_button(@tag, :check => true) if can?(:delete => @tag) %>
-	
-	<%= flashes %>
 	<div id="wrap">
 		<h1><%=h @tag.name%> <span class="tiny">&laquo; tag</span></h1>
 		<% unless @tag.groups.empty? %>

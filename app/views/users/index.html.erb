@@ -8,7 +8,7 @@
 # License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
 %>
 
-<% content_for :title, title('Contacts', @instance.short_name)%>
+<% content_for :title, title('Contacts')%>
 <% content_for :javascripts, javascript_include_tag('jquery','users')%>
 
 <% content_for :breadcrumbs, breadcrumbs %>
@@ -16,13 +16,16 @@
 	<%=link_to 'Contacts', users_path %>
 	<span class="title-small">
 	<% if !@search && !@groups_filter %>
-		showing all <%=@users.size%> contacts
+		showing <%= @users.size == 1 ? '':'all' %> <%= pluralize(@users.size, "contact") %>
 	<% else %>
-		showing <%=@users.size%> filtered contacts
+		showing <%= pluralize(@users.size,"filtered contact") %>
 	<% end %>
 	</span>
 <% end %>
 <% content_for :buttons do %>
+	<% if @current_user.can?(:create => User) %>
+		<%= link_to 'Bulk add contacts', new_bulk_users_path, :class => 'button-link' %>
+	<% end %>
 	<%= link_to 'Download these contacts', vcards_path('contacts', :users =>(@users.map {|u|u.id}).join(',')), :class => 'button-link' %>
     <%= mail_to (@users.map {|u| u.email}).join(';'), 'Email these contacts', :class => 'button-link', :target => '_blank' %>
 <% end %>
@@ -30,13 +33,17 @@
 <% content_for :filters do %>
 	<%
 		groups = @instance.groups.find(:all, :order => 'name').reject {|g| g.memberships.length == 0 }
-		groups_options = options_for_select([['All Groups', '']] + groups.map{|g| [g.name, g.id]}, @groups_filter.to_i )
+		group_types = groups.collect {|g| g.group_type}.uniq
 		states_options = options_for_select([['Active', 'active'], ['Pending','pending'], ['Approved', 'approved']], @states_filter)
 	%>
 
 	<% form_tag users_path, :method => :get do %>
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
-		<%= select_tag(:groups_filter, groups_options, :id => 'filters_groups') %>
+		<select name="groups_filter">
+			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
+			<option value="mine" <%= 'selected="selected"' if @groups_filter == "mine" %>>My Groups</option>
+			<%= option_groups_from_collection_for_select(group_types,:groups,'name.pluralize',:id,:name,@groups_filter) %>
+		</select>
 		<%= select_tag(:states_filter, states_options, :id => 'filters_states') if @states_filter %>
 		<%= submit_tag "Apply Filters", :name => nil, :id => 'filters_submit' %>
 	<% end %>
@@ -65,7 +72,11 @@
 
 	<% if @users.size == 0 %>
 		<h3 class="centered">
-			<%= t('warning.user.no_search_results') %>
+			<% if @states_filter == 'pending' %>
+				<%= t('warning.user.no_pending_search_results') %>
+			<% else %>
+				<%= t('warning.user.no_search_results') %>
+			<% end %>
 		</h3>
 	<% end %>
 	<ul id="contacts">
@@ -79,7 +90,8 @@
 		<li>
 			<div class="name">
 				<%= link_to u.last_first, u %>
-				<span class="vcard"><%=link_to 'Download contact', user_path(u, :format => :vcf) -%></span></div>
+				<%= link_to "Download Contact", user_path(u, :format => :vcf), :class => 'vcard' %>
+			</div>
 			<div class="person-info">
 				<% if u.cell_phone? %>
 					<span class="phone">
@@ -115,7 +127,8 @@
 					</div>
 				<% end %>
 				<% if u.pending? && can?(:update => u) %>
-					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => users_path), {:method => :put, :class => :approve} %>
+					<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : users_path %>
+					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => return_path), {:method => :put, :class => :approve} %>
 				<% end %>
 			</div>
 		</li>

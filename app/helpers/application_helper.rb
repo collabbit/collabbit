@@ -48,7 +48,8 @@ module ApplicationHelper
   end
 
   def title(*args)
-    args.flatten.concat(['Collabbit']).join(' &laquo; ')
+    default = @instance ? [@instance.long_name,'Collabbit'] : ['Collabbit']
+    args.flatten.concat(default).join(' &laquo; ')
   end
   
   #month day, year
@@ -61,7 +62,7 @@ module ApplicationHelper
   end
 
   def time_time(x)
-    "#{x.hour % 12 + 1}:#{x.min} #{x.hour > 11 ? 'PM' : 'AM'}"
+    "#{x.hour % 12 + 1}:#{x.min < 10 ? "0#{x.min}" : x.min} #{x.hour > 11 ? 'PM' : 'AM'}"
   end
   
   def pretty_delete_button(to, *opts)
@@ -89,7 +90,7 @@ module ApplicationHelper
   end
   
   def phone(p)
-    p = p.split(' x ')
+    p = p.split('x').collect {|s| s.strip}
     p.map! {|q| q.gsub(/[^0-9]/, '').to_i }
     
     opts = {}
@@ -168,5 +169,17 @@ module ApplicationHelper
   
   def simple_link_format(str)
     simple_format(auto_link(h(str), :html => { :target => '_blank' }))
+  end
+
+  # returns options for all of the groups, grouped into optgroups by group_type
+  def group_select_options(groups,selected='')
+    groups = groups.to_a.sort_by {|g| g.name}
+    group_types = Set.new
+    group_types.merge groups.collect {|g| g.group_type}
+    group_types = group_types.to_a.sort_by {|g| g.name}.collect do |gt|
+      gt.selected_groups = groups.select {|g| g.group_type == gt}
+      gt
+    end
+    option_groups_from_collection_for_select(group_types, :selected_groups, 'name.pluralize', :id, :name, selected)
   end
 end

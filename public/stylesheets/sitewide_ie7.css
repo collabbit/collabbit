@@ -1,6 +1,29 @@
-#menu a {
-	height: 21px;
+/* select boxes don't obey top/bottom
+ * padding, so we'll make inputs the same */
+#filters input#search {
+	padding-top: 2px; padding-bottom: 2px;
 }
-#menu li {
-	height: 21px;
+#filters input#filters_submit {
+	padding-top: 0px; padding-bottom: 0px;
 }
+
+/* IE7 adds padding to the vertical height of objects,
+ * so the header is way too tall. This fixes that. */
+#header {
+	height: 32px;
+}
+	#menu li {
+	}
+		/* get the menu items displaying correctly */
+		#menu li a {
+			display: inline-block;
+			height: 24px;
+			margin-top: -2px;
+		}
+			#incidents-li:hover a.visible {
+				padding: 3px 7px 1px;
+			}
+				/* get the drop-down displaying/working properly */
+				#incidents-menu {
+					margin-top: -8px;
+				}

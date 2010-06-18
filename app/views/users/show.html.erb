@@ -1,18 +1,6 @@
-<%
-#<<FIX: what is this page for?
+<% content_for :title, title(@user.full_name, 'Contacts') %>
 
-# View which displays a single user's information.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title(@user.full_name, 'Contacts', @instance.short_name)%>
-
-<% content_for :breadcrumbs, 
-	breadcrumbs(['Contacts',users_path]) %>
+<% content_for :breadcrumbs, breadcrumbs(['Contacts',users_path]) %>
 <% content_for :subheader_title, @user.full_name %>
 <% content_for :buttons do %>
 	<%= pretty_delete_button(@user, :check => true) if can? :destroy => @user %>
@@ -20,12 +8,12 @@
 <% end %>
 
 <% content_for :body do %>
-	<% if can?(:update => @user) %>
-		<% form_for @user do |f| %>
-			<% (@instance.roles.select {|r| r.id <= @current_user.role.id }).tap do |roles| %>
-				<%= f.select 'role_id', roles.map {|r| [r.name, r.id] } if roles.size > 1 %>
+	<% (@instance.roles.select {|r| r.id <= @current_user.role.id}).tap do |roles| %>
+		<% if can?(:update => @user) && roles.size > 1 %>
+			<% form_for @user do |f| %>
+				<%= f.select 'role_id', roles.map {|r| [r.name, r.id] } %>
+				<%= f.submit 'Update Role' %>
 			<% end %>
-			<%= f.submit 'Update Role' %>
 		<% end %>
 	<% end %>
 	<ul id="contact-info-list">
@@ -43,12 +31,12 @@
 		<% end
 		if @user.desk_phone %>
 		<li>
-			<span class="tiny">desk phone:</span>
-			<%= phone @user.desk_phone%>
-			<% if @user.desk_phone_ext %>
-				<%= 'x'+@user.desk_phone_ext%>
-			<% end %>
-			<%=preferred unless @user.preferred_is_cell%>
+		  <% if @user.desk_phone? %>
+        <span class="tiny">desk phone:</span>
+          <%=phone @user.desk_phone_with_ext %> <%= preferred if !@user.preferred_is_cell and @user.cell_phone? %>
+        </span>
+      <% end %>
+			
 		</li>
 		<% end %>
 		
@@ -61,10 +49,22 @@
 					<% if g.chairs.include?(@user) %>
 						<span class="chair">[Chair]</span>
 					<% end %>
+					<% if can?(:update => @user) %>
+						<%= pretty_button :leave_group, memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), '[x]', :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?" %>
+          <% end %>
 				</li>
 			<% end %>
 		<% else %>
 			<li><%= @user.full_name %> isn't a member of any groups.
 		<% end %>
 	</ul>
+	<% (@instance.groups - @user.groups).tap do |groups| %>
+		<% if can?(:update => @user) && groups.size > 0 %>
+			<% form_tag(memberships_path, :method=>:post) do %>
+				<%= select_tag('group_id', group_select_options(groups)) %>
+				<%= hidden_field_tag(:user_id, @user.id) %> 
+				<%= submit_tag 'Add to group' %>
+			<% end %>
+		<% end %>
+	<% end %>
 <% end %>

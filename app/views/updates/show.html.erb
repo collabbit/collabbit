@@ -1,13 +1,4 @@
-<%
-# View which displays a single update's information.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents', @instance.short_name)%>
+<% content_for :title, title(@update.title, 'Update', @incident.name, 'Incidents') %>
 
 <% content_for :breadcrumbs, 
 	breadcrumbs(['Incidents',incidents_path],
@@ -30,7 +21,7 @@
 		<div class="comment">
 			<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
 			<span class="comment-body"><%=simple_link_format c.body%></span>
-			<% if can? :destroy => c %>
+			<% if (@current_user.id == c.user.id) || (can? :destroy => c) %>
 			    <span class="comment-destroy">
 			        [<%=link_to 'X', [@incident, @update, c], :method => :delete, :confirm => 'Really delete?' %>]
 			    </span>

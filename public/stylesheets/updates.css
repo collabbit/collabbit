@@ -9,14 +9,17 @@
 	font-size: 16px;
 }
 
-#new-updates span {
-    padding: 5px;
-    background: #FFE600;
+#new-updates {
+	margin: -10px 0 10px;
+	text-align: center;
 }
-    #new-updates span a {
-        color: #000;
-        font-weight: bold;
-    }
+	#new-updates span {
+		padding: 5px; background: #ffe600;
+	}
+		#new-updates  a {
+			color: #000;
+			font-weight: bold;
+		}
 
 
 /* updates/index */
@@ -81,6 +84,9 @@
 			margin-left: 20%;
 			margin-right: 20%;
 			width: 60%;
+			position: relative;
+			top: 0;
+			bottom: 0;
 		}
 			#updates-list li a.update-title {
 				color: #275FE4;
@@ -99,7 +105,7 @@
 					margin: 0;
 				}
 				.update-more {
-					color: #444;
+					color: #275FE4;
 				}
 					.update-more:hover {
 						text-decoration: none;
@@ -178,6 +184,8 @@
 					.comment-destroy {
 					    color: #000;
 					}
+						.comment-destroy a {
+						}
 				.new_comment {
 					padding: 4px 0;
 				}
@@ -219,6 +227,9 @@
 			width: 17%;
 			position: absolute;
 			right: 0;
+			top: 0;
+			bottom: 0;
+			overflow: auto;
 		}
 			.relevant-groups, .tags {
 				font-size: 12px;

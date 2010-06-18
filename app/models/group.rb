@@ -8,7 +8,7 @@ class Group < ActiveRecord::Base
   include Authority
   acts_as_archive
     
-  belongs_to :group_type
+  belongs_to :group_type, :counter_cache => true
   has_many :memberships, :dependent => :destroy, :uniq => true
   has_many :users, :through => :memberships
   has_many :chairs, :class_name => 'User',

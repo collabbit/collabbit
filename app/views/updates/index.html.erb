@@ -1,13 +1,4 @@
-<%
-# View which displays the list of updates in an incident.  
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
-
-<% content_for :title, title('Updates', @incident.name, 'Incidents', @instance.short_name)%>
+<% content_for :title, title('Updates', @incident.name, 'Incidents') %>
 <% content_for :javascripts, javascript_include_tag('jquery', 'jquery.multifile', 'updates', 'prototype')%>
 
 <% content_for :breadcrumbs, 
@@ -16,9 +7,9 @@
 	<%=link_to @incident.name, @incident %>
 	<span class="title-small">
 	<% if !@search && !@groups_filter && !@tags_filter %>
-		showing all <%=@updates.size %> updates
+		showing <%= @updates.size == 1 ? '':'all' %> <%= pluralize(@updates.size, "update") %>
 	<% else %>
-		showing <%=@updates.size%> filtered updates
+		showing <%= pluralize(@updates.size, "filtered update") %>
 	<% end %>
 	</span>
 <% end %>
@@ -42,17 +33,17 @@
 			groups.merge u.relevant_groups
 			groups.add u.issuing_group unless u.issuing_type == :user || !u.issuing_group
 			tags.merge u.tags
-		end
-		
+		end	
 		tags = (tags.map {|t| [t.name, t.id]}).sort {|a,b| a[0]<=>b[0]}
-		groups = (groups.map {|g| [g.name, g.id]}).sort {|a,b| a[0]<=>b[0]}
 	%>
 		
 	<% form_tag incident_updates_path(@incident), :method => :get do %>
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 					
 		<select name="groups_filter" id="filters_groups">
-			<%= options_for_select([['All Groups', nil],['My Groups', 'mine']]+groups, @groups_filter) %>
+			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
+			<option value="mine" <%= 'selected="selected"' if @groups_filter == 'mine' %>>My Groups</option>
+			<%= group_select_options(groups,@groups_filter) %>
 		</select>
 		<select name="tags_filter" id="filters_tags">
 			<%= options_for_select([['All Tags', nil]] + tags, @tags_filter) %>
@@ -179,10 +170,8 @@
 					<div class="comment">
 						<span class="comment-author"><%=link_to c.user.full_name, c.user %></span>
 						<span class="comment-body"><%=simple_link_format c.body%></span>
-						<% if can? :destroy => c %>
-						    <span class="comment-destroy">
-						        [<%=link_to 'X', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %>]
-						    </span>
+						<% if (c.user.id == @current_user.id) || (can? :destroy => c) %>
+						    <span class="comment-destroy"><%=link_to '[x]', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %></span>
 						<% end %>
 						<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
 					</div>

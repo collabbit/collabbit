@@ -1,56 +1,61 @@
-<%
-# View which displays a form for editing an instance.
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-%>
+<% content_for :title, title('Edit') %>
 
-<% content_for :title, title('Edit', @instance.short_name) %>
-
-<% content_for :subheader_title, "Account Settings" %>
+<% content_for :subheader_title, "Instance Administration" %>
 
 <% content_for :body do%>	
 	<%= error_messages_for :instance %>
+	<h2>Settings</h2>
 	<% form_for @instance, :url => {:action => :update} do |f| -%>
 		<p><%= f.label :long_name, 'Name' %><br/>
 		<%= f.text_field :long_name %></p>
 		
 		<p><%= f.label :whitelisted_domain_names, 'Whitelisted Domains' %><br/>
 		<%= f.text_area :whitelisted_domain_names, :rows => 5, :cols => 30 %></p>
-	
-		<table border="1">
+
+		<table id="permissions" cellspacing="0">
 			<thead>
 				<tr>
 					<th colspan="2">Permissions</th>
 					<% @roles.each do |r| %>
-						<th><%= link_to r.name, r %></th>
+						<th><%= r.name %></th>
 					<% end %>
 				</tr>
 			</thead>
 			<tbody>
-				<% @perms_hash.each_pair do |model, actions| %> 
+				<% @perms_hash.sort.each do |model, actions| %> 
 					<tr>
-						<td rowspan="<%= @perms_hash[model].length %>"><%= model.pluralize %></td>
-						<td><%= actions[0] %></td>
-						<% @roles.each do |r| %>
-							<td><%= permission_checkbox r, actions[0], model.gsub(/ /,'') %></td>
+						<td class="model" rowspan="<%= actions.length %>"><%= model.pluralize %></td>
+					<% actions.each do |action| %>
+						<td class="action"><%= action %></td> 
+						<% @roles.each do |role| %>
+							<td class="cb">
+								<%= permission_checkbox role, action, model.classify.gsub(/ /,'') %>
+							</td>
 						<% end %>
 						</tr>
-						<% actions[1..actions.length].each do |a|%>
-							<tr><td><%= a %></td> 
-							<% @roles.each do |r| %>
-								<td><%= permission_checkbox r, a, model.classify.gsub(/ /,'') %></td>
-							<% end %>
-							</tr>
-						<% end %>
-						<% count = 0 %>
-						<% permissions = []%>
+					<% end %>
+					<% unless @perms_hash.sort.last[0] == model %>
+						<tr><td class="skip" colspan="<%= @roles.size + 2 %>"</td></tr>
+					<% end %>
 				<% end %> 
 			</tbody>
 		</table>
 	
 		<p><%= submit_tag 'Save' %></p>
 	<% end -%>
+
+	<h2>Tags</h2>
+	<ul>
+		<% @instance.tags.each do |tag| %>
+			<li>
+				<%= link_to tag.name, tag_url(tag) %>	
+				<%= link_to '[x]', tag_url(tag), :method => :delete, :confirm => "Delete the tag #{tag.name}?" if can?(:delete => tag) %>
+			</li>
+		<% end %>
+	</ul>
+	<h3>Add tags (comma-separated)</h3>
+	<% form_tag create_bulk_tags_path, :method => :post do %>
+		<%= text_field_tag :tags %>
+		<%= submit_tag "Create tags" %>
+	<% end %>
 <% end %>

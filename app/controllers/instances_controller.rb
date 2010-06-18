@@ -61,7 +61,8 @@ class InstancesController < AuthorizedController
       end
     end
     if @instance.update_attributes(params[:instance])
-      flash[:notice] = t('notice.instance.updated')
+      #flash[:notice] = t('notice.instance.updated')
+      flash[:notice] = t('notice.instance_.updated')
       redirect_to edit_path
     else
       flash[:error] = t('error.instance.update_failed')
@@ -97,12 +98,13 @@ class InstancesController < AuthorizedController
 
   protected
     def setup_editable_permissions
-      cud = ['create', 'update', 'destroy']
-      @perms_hash = { 'Update'      => cud,
-                      'Comment'     => cud,
-                      'Group'       => cud,
-                      'Group Type'  => cud,
-                      'Incident'    => cud }
+      crud = ['create', 'update', 'destroy']
+      @perms_hash = { 'Update'      => crud,
+                      'Comment'     => crud,
+                      'User'        => crud,
+                      'Group'       => crud,
+                      'Group Type'  => crud,
+                      'Incident'    => crud }
     end
 end
 

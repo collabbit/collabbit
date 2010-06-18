@@ -22,7 +22,7 @@ en:
     group_type:
       created: "You successfully added a group type."
       updated: "You updated that group successfully."
-    instance:
+    instance_:
       created: "You successfully created an instance. Good Job!"
       updated: "You successfully updated that instance."
     incident:
@@ -42,6 +42,7 @@ en:
   warning:
     user:
       no_search_results: "Sorry, we couldn't find any contacts with that search."
+      no_pending_search_results: "There are no pending users to display."
     update:
       no_search_results: "Sorry, we couldn't find a good match. Try again or use the filters to find what you're looking for."
       no_updates: "There aren't any updates yet. {{url}}"

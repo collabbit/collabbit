@@ -29,20 +29,21 @@
 			font-size: 13px;
 		}
 			#index li a {
-				color: white;
+				color: #444;
 				font-weight: bold;
-				padding: 0 2px;
+				padding: 0 1px;
 				height: 18px;
 				width: 14px;
 				display: inline-block;
 				line-height: 18px;
-				background: #777;
+				background: #ddd;
+				border: 1px solid #aaa;
 				font-size: 15px;
 				text-decoration: none;
 				margin: 0 -1px;
 			}
 				#index li a:hover {
-					background: #444;
+					background: white;
 				}
 
 #contacts {
@@ -51,32 +52,31 @@
 	padding: 0;
 }
 	#contacts > li {
-		width: 340px;
+		width: 360px;
 		height: 132px;
 		float:left;
-		margin: 8px 8px 8px 29px;
-		padding: 0 5px;
-		border-right: 1px solid #666;
-		border-bottom: 1px solid #666;
-		border-left: 1px solid #ccc;
-		border-top: 1px solid #ccc;
+		margin: 8px -10px 8px 29px;
+		padding: 2px 10px;
+		border: 1px solid #ccc;
+		border-color: #ccc #999 #999 #ccc;
 	}
 		#contacts > li:hover {
 			border-color: #000;
 		}
-  #contacts > li.separator {
-    width: auto;
-    font-weight: bold;
-    border: solid;
-    border-color: #ccc;
-    border-width: 1px;
-    color: #666;
-    clear:left;
-    height: auto;
-    background: #eee;
-    width: 11px;
-    margin: 8px -21px 8px 0;
-  }
+	#contacts > li.separator {
+		width: auto;
+		font-weight: bold;
+		border: solid;
+		border-color: #ccc;
+		border-width: 1px;
+		color: #666;
+		clear:left;
+		height: auto;
+		background: #eee;
+		width: 11px;
+		padding: 0 5px;
+		margin: 8px -21px 8px 0;
+	}
 
 		#contacts li ul.groups {
 			list-style-type: none;
@@ -97,29 +97,36 @@
 		#contacts a {
 			color: #000;
 			font-size: 14px;
+			text-decoration: none;
 		}
+			#contacts a:hover {
+				text-decoration: underline;
+			}
 		#contacts .more a {
 			text-decoration: none;
 		}
 
 		#contacts .name {
-			border-bottom: 1px solid #ccc;
 			font-weight: bold;
+			padding: 3px 0 1px;
+			margin-bottom: 5px;
+			overflow: auto;
+			border-bottom: 2px dotted #ddd;
 		}
-			#contacts .name .vcard a {
+			#contacts .name a {
+				color: #275FE4;
+				float: left;
+			}
+			#contacts .name a.vcard {
 				float: right;
 				font-size: 12px;
 				padding: 2px;
 				color: #666;
+				display: inline;
 			}
-				#contacts .name .vcard a:hover {
-					background: #000;
-					color: #fff;
-				}
 
 		#contacts .email a {
 			color: #00a;
-			text-decoration: none;
 		}
 		.person-info {
 			clear:both;

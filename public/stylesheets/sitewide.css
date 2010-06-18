@@ -33,9 +33,10 @@ body {
 	margin: 0;
 	background: #333;
 	color: white;
+	padding: 0 15px;
 }
 #header .pagewidth {
-	padding: 10px 0 1px;
+	padding: 10px 0 0;
 }
 	#account-status {
 		font-size: 14px;
@@ -73,7 +74,7 @@ body {
 		}
 			#menu a {
 				color: white;
-				padding: 3px 8px 1px;
+				padding: 3px 8px 2px;
 				text-decoration: none;
 			}
 				#menu a:hover {
@@ -141,7 +142,7 @@ body {
 	border-width: 0 1px;
 }
 	#subheader_main {
-
+		padding-bottom: 8px;
 	}
 		#breadcrumbs {
 			color: #888;
@@ -177,14 +178,14 @@ body {
 			float: right;
 			color: black;
 			margin-top: 6px;
-			padding: 4px 10px;
+			padding: 6px 10px;
 			display: block;
 			border: 1px solid #aaa;
 			background: #eee;
 			text-decoration: none;
 			font-weight: bold;
 			margin-left: 3px;
-			font-size: 14px;
+			font-size: 13px;
 			-moz-border-radius: 2px;
 			-webkit-border-radius: 2px;
 			border-radius: 2px;
@@ -197,20 +198,19 @@ body {
 			}
 	#subheader_text {
 		clear: both;
-		margin: 0;
-		margin: 2px 0 5px;
+		margin: -7px 0 0;
 		color: #444;
 		font-size: 14px;
+		padding-bottom: 7px;
 	}
 		#subheader_text a {
 			color: #275FE4;
 		}
 	#filters {
 		max-width: 944px;
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 	}
 		#filters form {
-			padding-top: 7px;
 		}
 			#filters input, #filters select {
 				background: #fafafa;
@@ -250,25 +250,31 @@ body {
 					background: white;
 				}
 
-#content.pagewidth {
-	background: white;
-	color: black;
-	border: 1px solid #bbb;
-	border-width: 0 1px 1px;
-	padding: 0 20px 20px;
-	width: 904px;
+#content {
+	padding: 0 15px;
+	max-width: 946px;
+	margin: 0 auto;
 }
-	#wrap {
-		padding-top: 20px;
-		border-top: 1px solid #eee;
-	}
-	#flashes {
-		background: #ddd;
+	#content .pagewidth {
+		background: white;
 		color: black;
-		font-size: 16px;
-		padding: 10px 5px;
-		margin-bottom: 20px;
+		border: 1px solid #bbb;
+		border-width: 0 1px 1px;
+		padding: 0 20px 20px;
+		max-width: 904px;
+		margin: 0;
 	}
+		#wrap {
+			padding-top: 20px;
+			border-top: 1px solid #eee;
+		}
+		#flashes {
+			background: #ddd;
+			color: black;
+			font-size: 16px;
+			padding: 10px 5px;
+			margin-bottom: 20px;
+		}
 
 #footer{
 	color: #666;
@@ -367,3 +373,11 @@ body {
 
 .centered{text-align: center;}
 .centered a{color: #000;}
+
+optgroup {
+	font-weight: bold;
+	font-style: normal;
+}
+option {
+	font-weight: normal;
+}
