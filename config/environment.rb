@@ -32,7 +32,9 @@ SETTINGS = flatten_keys YAML.load_file('config/settings/keys.yml')
 
 Rails::Initializer.run do |config|
   
-  config.active_record.observers = :user_observer, :update_observer
+  if ENV['RAILS_ENV'] == 'production'
+    config.active_record.observers = :user_observer, :update_observer
+  end
   config.active_record.colorize_logging = false
   
   config.gem 'vpim'
@@ -59,13 +61,8 @@ Rails::Initializer.run do |config|
    config.action_mailer.default_url_options = {
      :host => SETTINGS['host.base_url']
    }
-   
 end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:std => "%m/%d/%Y")
 
-# this is causing strange errors when it's in environments/development.rb, so it's here
-if ENV['RAILS_ENV'] == 'development'
-  UserObserver.disable!
-  UpdateObserver.disable!
-end
+
