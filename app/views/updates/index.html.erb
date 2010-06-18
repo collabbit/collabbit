@@ -128,8 +128,16 @@
 					<div class="tags">
 						<h5>Tags:</h5>
 						<ul>
+						<% j = 0 %>
+						<% i = u.tags.find(:all).count %>
 						<% u.tags.find(:all, :order => 'name').each do |t| %>
-							<li><%=link_to t.name, t %></li>
+							<% j= j + 1 %>
+							<li><%=link_to t.name, t %>
+								<% if (j < i ) %>  
+									|
+								<% end %> 
+							</li>
+								
 						<% end %>
 						</ul>
 						<div class="clear"></div>
