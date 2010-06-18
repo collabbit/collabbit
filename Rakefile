@@ -18,7 +18,7 @@ namespace :db do
 
   desc "Turn development database into fixtures"
   task :fixturize => :environment do
-    sql  = "SELECT * FROM %s"
+    sql = "SELECT * FROM %s"
     skip_tables = ["schema_info", "schema_migrations"]
     ActiveRecord::Base.establish_connection
     (ActiveRecord::Base.connection.tables - skip_tables).each do |table_name|
