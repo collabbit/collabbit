@@ -142,7 +142,7 @@
 				<%= link_to u.title, incident_update_path(@incident, u), :class => 'update-title' %>
 				<div class="update-text">
 				<%  if u.text.length > 256 %>
-					<%=truncate_at(simple_link_format(u.text).split('</p>')[0],256) %>
+					<%= abbreviated_text(u) %>
 					<%=link_to('&raquo;more', incident_update_path(@incident, u),:class => 'update-more') %>
 				<%  else %>
 					<%=simple_link_format u.text %>

@@ -14,7 +14,7 @@
 <% content_for :body do %>
   <div id="update">
     <h3>Text:</h3>
-    <p><%=simple_link_format @update.text %></p>
+	<%=simple_link_format @update.text %>
     <div class="comments">
       <h3>Comments:</h3>
       <% @update.comments.each do |c| %>
