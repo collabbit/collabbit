@@ -250,7 +250,7 @@
 				}
 					.relevant-groups ul li, .tags ul li {
 						display: inline;
-						margin: 0 0 0 4px;
+						margin: 0 5px;
 						float: left;
 					}
 						.relevant-groups ul li a, .tags ul li a{
