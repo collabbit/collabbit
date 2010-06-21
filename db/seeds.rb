@@ -70,8 +70,6 @@ last_names = %w[
   Clark Lewis Robinson Walker Hall Young Allen Sanchez Wright King Scott Green Baker Adams
   Nelson Hill Ramirez Campbell Mitchell Roberts Carter Phillips Evans Turner Torres Parker]
 
-people = []
-
 def gen_email(first_name,last_name)
   attempts = []
   attempts << "#{first_name[0,1]}#{last_name}"
@@ -115,16 +113,34 @@ last_names_to_use.each_with_index do |last_name,index|
   user.state = 'active'
 
   user.save
-  people << user
 end
 
 #Default Incidents
 evil = i.incidents.create(:name => 'Evil Earthquake')
 flood = i.incidents.create(:name => 'Faketown Flood')
 
+# Default Group Types
+groups = {
+  'Agency' =>             ['City Harvest', 'Clothing Bank',
+                           'Housing Servies', 'Homeless Services'],
+  'Tech Support' =>       ['HFOSS'],
+  'Emergency Support' =>  ['Agriculture and Natural Resources', 'Communications',
+                           'Emergency Management', 'Energy', 'External Affairs',
+                           'Logistics', 'Hazardous Materials Cleanup'],
+  'City' =>               ['Police Department', 'Fire Department', 'Water Services',
+                           'Mayor\'s Office', 'City Council']}
+
+groups.each_key do |group_type|
+  gt = i.group_types.create(:name => group_type)
+  groups[group_type].each do |group|
+    gt.groups.create(:name => group)
+  end
+end
+
+
 #Default Group Types
-agency = i.group_types.create(:name => 'Agency')
-committee = i.group_types.create(:name => 'Committee')
+agency = i.group_types.create(:name => 'Agency.Old')
+committee = i.group_types.create(:name => 'Committee.Old')
 
 
 
