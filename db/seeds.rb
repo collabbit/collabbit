@@ -27,6 +27,97 @@ i.short_name = 'demo'
 i.roles = Role.default_setup
 i.save
 
+# Default Users
+u1 = i.users.create(
+  :first_name => 'John', :last_name => 'Super',
+  :email => 'test1@collabbit.org', :activation_code => '111')
+u2 = i.users.create(
+  :first_name => 'Jane', :last_name => 'Admin',
+  :email => 'test2@collabbit.org', :activation_code => '121')
+u3 = i.users.create(
+  :first_name => 'Joey', :last_name => 'User',
+  :email => 'test3@collabbit.org', :activation_code => '131')
+
+u1.salt = Digest::SHA1.hexdigest('1')
+u1.crypted_password = u1.generate_crypted_password('demo')
+u1.role = i.roles.find_by_name('Super Administrator')
+u1.state = 'active'
+u1.save
+
+u2.salt = Digest::SHA1.hexdigest('2')
+u2.crypted_password = u2.generate_crypted_password('demo')
+u2.role = i.roles.find_by_name('Administrator')
+u2.state = 'active'
+u2.save
+
+u3.salt = Digest::SHA1.hexdigest '1'
+u3.role = i.roles.find_by_name('Normal User')
+u3.crypted_password = u3.generate_crypted_password('demo')
+u3.state = 'active'
+u3.save
+
+
+# lets make some fake people...
+first_names = %w[
+  James John Robert Michael William David Richard Charles Joseph Thomas Chris Daniel Paul
+  Mark Donald George Kenneth Steven Edward Brian Ronald Anthony Kevin Jason Matthew Gary
+  Mary Patricia Linda Barbara Elizabeth Jennifer Maria Susan Margaret Dorothy Lisa Nancy
+  Karen Betty Helen Sandra Donna Carol Ruth Sharon Michelle Laura Sarah Kimberly Deborah]
+
+last_names = %w[
+  Smith Johnson Williams Brown Jones Miller Davis Garcia Rodriguez Wilson Martinez Anderson
+  Taylor Thomas Hernandez Moore Martin Jackson Thompson White Lopez Lee Gonzalez Harris
+  Clark Lewis Robinson Walker Hall Young Allen Sanchez Wright King Scott Green Baker Adams
+  Nelson Hill Ramirez Campbell Mitchell Roberts Carter Phillips Evans Turner Torres Parker]
+
+people = []
+
+def gen_email(first_name,last_name)
+  attempts = []
+  attempts << "#{first_name[0,1]}#{last_name}"
+  attempts << "#{first_name}.#{last_name}"
+  attempts << "#{first_name}#{last_name}"
+  "#{attempts[rand(attempts.size)]}@example.com".downcase
+end
+
+# use all last names at least once, and a couple twice
+last_names_to_use = last_names.sort_by {rand} + last_names.sort_by {rand}[0,rand(9)+2]
+last_names_to_use.each_with_index do |last_name,index|
+  first_name = first_names[rand(first_names.size)]
+  email = gen_email(first_name,last_name)
+  # 555-01xx are reserved for fictional use in the US 
+  #   there will be some number overlap, but we'll
+  #   never call/text real numbers by accident
+  phone_number = "55555501#{'0' if (index % 100) < 10}#{index % 100}"
+  user = i.users.create(
+    :first_name => first_name,
+    :last_name => last_name,
+    :email => email,
+    :activation_code => index)
+
+  # because people don't always capitalize correctly...
+  if rand(30) == 0
+    user.first_name = user.first_name.downcase
+    user.last_name = user.last_name.downcase
+  elsif rand(30) == 0
+    user.first_name = user.first_name.upcase
+    user.last_name = user.last_name.upcase
+  end
+
+  user.preferred_is_cell = [true,false][rand(2)]
+  user.cell_phone = phone_number if  user.preferred_is_cell || rand(3) == 0
+  user.desk_phone = phone_number if !user.preferred_is_cell || rand(3) == 0
+  user.desk_phone_ext = (1..4).collect { rand(10) }.join if user.desk_phone && rand(3) == 0
+  
+  user.salt = Digest::SHA1.hexdigest('1')
+  user.crypted_password = user.generate_crypted_password('demo')
+  user.role = i.roles.find_by_name("Normal User")
+  user.state = 'active'
+
+  user.save
+  people << user
+end
+
 #Default Incidents
 evil = i.incidents.create(:name => 'Evil Earthquake')
 flood = i.incidents.create(:name => 'Faketown Flood')
@@ -35,38 +126,7 @@ flood = i.incidents.create(:name => 'Faketown Flood')
 agency = i.group_types.create(:name => 'Agency')
 committee = i.group_types.create(:name => 'Committee')
 
-# Default Users
 
-john = i.users.create(
-  :first_name => 'John', :last_name => 'Smith',
-  :email => 'blah@blah.com', :activation_code => '111',
-  :cell_phone => '5857704551', :preferred_is_cell => true,
-  :desk_phone => '1234567', :desk_phone_ext => '324')
-jane = i.users.create(
-  :first_name => 'Jane', :last_name => 'Smith',
-  :email => 'blah2@blah.com', :activation_code => '121',
-  :desk_phone => '1234567')
-joey = i.users.create(
-  :first_name => 'Joey', :last_name => 'Arnold',
-  :email => 'blah3@blah.com', :activation_code => '131')
-
-john.salt = Digest::SHA1.hexdigest('1')
-john.crypted_password = john.generate_crypted_password('sahana123')
-john.role = i.roles.find_by_name('Super Administrator')
-john.state = 'active'
-john.save
-
-jane.salt = Digest::SHA1.hexdigest('2')
-jane.crypted_password = jane.generate_crypted_password('sahana123')
-jane.role = i.roles.find_by_name('Normal User')
-jane.state = 'active'
-jane.save
-
-joey.salt = Digest::SHA1.hexdigest '1'
-john.role = i.roles.find_by_name('Administrator')
-joey.crypted_password = joey.generate_crypted_password('sahana123')
-joey.state = 'active'
-joey.save
 
 # Default Groups
 g1 = agency.groups.create(:name => 'Red Cross')
@@ -77,33 +137,33 @@ g3 = committee.groups.create(:name => 'City Hall')
 up1 = evil.updates.create(:title => 'First Update! YAY',
                         :text => 'We have it all under control... nbd...',
                         :issuing_group => g1)
-up1.user = john
+up1.user = u1
 
 
 up2 = evil.updates.create(:id => 2, :title => 'Nevermind!',
                         :text => "I guess we don't really have it under control.. sowwy...",
                         :issuing_group => g2)
-up2.user = john
+up2.user = u1
 
 
 up3 = flood.updates.create(:id => 3, :title => 'Cost update',
                         :text => 'The cost of this incident has now exceeded one billion gagillion fafillion... yen')
-up3.user = jane
+up3.user = u2
 
 
 up4 = evil.updates.create(:id => 4, :title => 'MOAR Volunteers!',
                         :text => 'We have a dire need for volunteers on this incident!')
-up4.user = jane
+up4.user = u2
 
 
 up5 = evil.updates.create(:id => 5, :title => 'Animals problem', :text => 'Lots of animals need shelter!', :group_id => 3)
-up5.user = jane
+up5.user = u2
 
 
 up6 = evil.updates.create(:id => 6, :title => 'Food needed!',
                         :text => 'We need more food to distribute! Please help!',
                         :group_id => 2)
-up6.user = jane  
+up6.user = u2  
 
 
 #Default Tags
@@ -139,15 +199,15 @@ Carrier.create(:name => 'Alltel Wireless', :extension => '@message.alltel.com')
 
 
 #Linking Groups Users
-g1.users << john
-g1.users << jane
-g2.users << jane
-g3.users << john
+g1.users << u1
+g1.users << u2
+g2.users << u2
+g3.users << u1
 
-g1.chairs << john
-g1.chairs << jane
-g2.chairs << john
-g3.chairs << jane
+g1.chairs << u1
+g1.chairs << u2
+g2.chairs << u1
+g3.chairs << u2
 
 g1.save
 g2.save
