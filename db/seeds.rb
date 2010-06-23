@@ -126,6 +126,10 @@ last_names_to_use.each_with_index do |last_name,index|
   user.role = i.roles.find_by_name("Normal User")
   user.state = 'active'
 
+  # give them some random groups
+  group_count = [0,0,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,8,9,10]
+  user.groups = i.groups.sort_by { rand }[0,group_count[rand(group_count.length)]]
+
   user.save
 end
 
