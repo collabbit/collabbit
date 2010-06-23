@@ -30,15 +30,15 @@ i.save
 
 
 # Default Groups and Group Types
-group_names={'Agency' => ['City Harvest', 'Clothing Bank',
+group_names={'Agency' => ['City Harvest', 'Clothing Bank', 'Power Plant',
                           'Housing Services', 'Homeless Services'],
        'Tech Support' => ['HFOSS'],
   'Emergency Support' => ['Agriculture and Natural Resources', 'Communications',
                           'Emergency Management', 'Energy', 'External Affairs',
                           'Logistics', 'Hazardous Materials Cleanup'],
                'City' => ['Police Department', 'Fire Department', 'Water Services',
-                          'Mayor\'s Office', 'City Council', 'Park Services',
-                          'Department of Roads']}
+                          'Mayor\'s Office', 'City Hall', 'Park Services',
+                          'Department of Roads', 'Emergency Services']}
 
 group_types = {}
 groups = {}
@@ -137,6 +137,10 @@ default_tags = ['gov', 'ngo', 'food', 'volunteers', 'medical', 'supplies', 'powe
 tags = default_tags.collect {|name| i.tags.create(:name => name)}
 
 
+# Incidents to fill with updates
+filled_incidents = ['Intimidating Ice Storm', 'Terrible Tornado', 'Maleficent Mudslide',]
+filled_incidents.each {|name| i.incidents.create(:name => name)}
+
 # Default Incidents
 default_incidents = [ # missing: j,k,o,q,u,x,y,z
   'Appalling Avalanche', 'Bothersome Blizzard', 'Contemptible Cyclone',
@@ -148,12 +152,16 @@ default_incidents = [ # missing: j,k,o,q,u,x,y,z
   'Tricky Tsunami', 'Vile Volcano', 'Woeful Wildfire']
 default_incidents.sort_by {rand}.each {|name| i.incidents.create(:name => name)}
 
-# Incidents to fill with updates
-filled_incidents = ['Intimidating Ice Storm', 'Terrible Tornado', 'Maleficent Mudslide']
-filled_incidents.each {|name| i.incidents.create(:name => name)}
-
 
 # Default Updates
+
+# don't automatically timestamp these records, because
+# we want to be able to control that manually
+#
+# for the following records, 'time' is minutes offset from
+# the first record, because that's easy to specify manually
+ActiveRecord::Base.record_timestamps = false
+
 i.incidents.find_by_name('Terrible Tornado').tap do |incident|
   # add some updates here
 end
@@ -168,9 +176,10 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
       :text   => "There is a large storm approaching the city. It is moving in from the " +
                  "southwest, and is expected to reach city limits within the next two " +
                  "hours.",
-      :author => "",
+      :author => :a,
       :groups => ['City Hall', 'Emergency Services'], 
-      :tags   => ['weather', 'hazard']
+      :tags   => ['weather', 'hazard'],
+      :time   => 4
     }, 
     { :title  => "Power to the Eastern and Northeastern Districts out",
       :text   => "We are experiencing a total power outage across all of the Eastern " +
@@ -178,48 +187,55 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
                  "issue and will try to start repairs as soon as possible, however, " +
                  "the storm is hindering exploration. Monitoring systems indicate that " +
                  "there are power lines down across the city.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power', 'east district', 'northeast district']
+      :tags   => ['power', 'east district', 'northeast district'],
+      :time   => 60
     },
     { :title  => "Power to the Southern District is out",
       :text   => "Power issues have spread to the Southern District as well. As with " +
                  "previous problems, we are attempting to investigate the problems and " +
                  "will repair them when the storm abates.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power', 'south district']
+      :tags   => ['power', 'south district'],
+      :time   => 80
     },
     { :title  => "Power lines down across the city",
       :text   => "Power issues across the city are largely the result of downed power " +
                  "lines. We are assessing the damage now and will be sending out repair " +
                  "crews shortly.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall', 'Emergency Services', 'Department of Roads'], 
-      :tags   => ['power', 'repair', 'hazard']
+      :tags   => ['power', 'repair', 'hazard'],
+      :time   => 134
     },
     { :title  => "Worst of the storm has passed",
       :text   => "It is now safe to send out repair crews for critical infrastructure. " +
                  "Please have crews report back and post updates and results here in a " +
                  "timely manner.",
-      :author => "",
+      :author => :a,
       :groups => ['City Hall'], 
-      :tags   => ['weather', 'repair']
+      :tags   => ['weather', 'repair'],
+      :time   => 172
     }, 
     { :title  => "Broken glass covering Main Street",
       :text   => "Glass from storefronts lining main street broke during the storm and is " +
                  "now a hazard. Warning signs need to be put up to prevent accidental " +
                  "injuries and vehicle damage.",
-      :author => "",
-      :groups => ['City Hall', 'Road Services'], 
-      :tags   => ['roads', 'gov', 'central district', 'hazard']
+      :author => :c,
+      :groups => ['City Hall', 'Department of Roads'], 
+      :tags   => ['roads', 'gov', 'central district', 'hazard'],
+      :time   => 200,
       :comments => [
-        { :author => "",
-          :text   => "Is there a plan to clean this up?"
+        { :author => :d,
+          :text   => "Is there a plan to clean this up?",
+          :time   => 217
         },
-        { :author => "",
+        { :author => :e,
           :text   => "A cleaning crew has been dispatched to remove the glass on the " +
-                     "street and sidewalks."
+                     "street and sidewalks.",
+          :time   => 250
         },
       ]
     }, 
@@ -227,38 +243,46 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
       :text   => "Power line repairs are being initiated. We're starting in the Eastern " +
                  "District, and will move on to the Northeastern and then the Southern " +
                  "Districts after that.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall', 'Department of Roads'], 
-      :tags   => ['power', 'repair', 'roads']
+      :tags   => ['power', 'repair', 'roads'],
+      :time   => 204,
       :comments => [
-        { :author => "",
-          :text   => "Has there been any progress on repairs?"
+        { :author => :f,
+          :text   => "Has there been any progress on repairs?",
+          :time   => 230
         },
-        { :author => "",
-          :text   => "We're still working in the Eastern District."
+        { :author => :b,
+          :text   => "We're still working in the Eastern District.",
+          :time   => 233
         },
-        { :author => "",
+        { :author => :b,
           :text   => "Repairs in the Eastern District are completed. See new update for " +
-                     "details. Now moving on to the Northeastern District."
+                     "details. Now moving on to the Northeastern District.",
+          :time   => 253
         },
-        { :author => "",
-          :text   => "Now beginning repairs in the Southern District."
+        { :author => :b,
+          :text   => "Now beginning repairs in the Southern District.",
+          :time   => 260
         },
       ]
     },
     { :title  => "Trees and branches blocking roads throughout the city",
       :text   => "Emergency response groups are reporting difficulty moving through " +
                  "some parts of the city, especially in the Southern District.",
-      :author => "",
+      :author => :c,
       :groups => ['Department of Roads', 'Park Services'], 
-      :tags   => ['roads','hazard']
+      :tags   => ['roads','hazard'],
+      :time   => 214,
       :comments => [
-        { :author => "",
-          :text   => "Cleanup is progressing in all areas."
+        { :author => :e,
+          :text   => "Cleanup is progressing in all areas.",
+          :time   => 240
         },
-        { :author => "",
+        { :author => :e,
           :text   => "Cleanup of all know problem locations is done. Please report" +
-                     "any further problems."
+                     "any further problems.",
+          :time   => 340
         },
       ]
     }, 
@@ -268,9 +292,10 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
                  "safety checks have been run." +
                  "\n\n" +
                  "We are proceeding to work on downed lines in the Northeastern district.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall', 'Department of Roads'], 
-      :tags   => ['power', 'repair', 'roads']
+      :tags   => ['power', 'repair', 'roads'],
+      :time   => 249
     },
     { :title  => "Large ice buildup on court building roof",
       :text   => "There is a large amount of ice building up on the court building's roof. " +
@@ -278,37 +303,44 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
                  "\n\n" +
                  "For now, the building has been evacuated. Emergency ice removal and " +
                  "repairs needs to be initiated as soon as possible.",
-      :author => "",
+      :author => :h,
       :groups => ['City Hall'], 
-      :tags   => ['repair', 'hazard']
+      :tags   => ['repair', 'hazard'],
+      :time   => 250
     }, 
     { :title  => "Several more trees in the Southern District are down",
       :text   => "Trees are preventing emergency and repair vehicles from moving in on " +
                  "the center of the power problems in the Southern District. Please " +
                  "get a crew in to fix this as soon as possible.",
-      :author => "",
+      :author => :c,
       :groups => ['City Hall', 'Department of Roads'], 
-      :tags   => ['hazard', 'roads', 'power']
+      :tags   => ['hazard', 'roads', 'power'],
+      :time   => 251
     }, 
     { :title  => "Power restored to the Eastern District",
       :text   => "Please report any problems.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power']
+      :tags   => ['power'],
+      :time   => 258,
       :comments => [
-        { :author => "",
+        { :author => :g,
           :text   => "We're still having to rely on generator power at the hospital. Are " +
-                     "we sure that power is working across the district?"
+                     "we sure that power is working across the district?",
+          :time   => 265
         },
-        { :author => "",
+        { :author => :b,
           :text   => "It may be a problem isolated to that building complex. We'll send " +
-                     "over a crew to investigate."
+                     "over a crew to investigate.",
+          :time   => 280
         },
-        { :author => "",
-          :text   => "Has any progress been made on this?"
+        { :author => :a,
+          :text   => "Has any progress been made on this?",
+          :time   => 340
         },
-        { :author => "",
-          :text   => "The issue has been resolved."
+        { :author => :g,
+          :text   => "Our power at the hospital is back up.",
+          :time   => 360
         },
       ]
     },
@@ -316,97 +348,112 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
       :text   => "All power lines in the Northeastern district have been repaired. " +
                  "However, we are still having issues restoring power. We are " +
                  "investigating the situation.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall', 'Department of Roads'], 
-      :tags   => ['power', 'repair', 'roads']
+      :tags   => ['power', 'repair', 'roads'],
+      :time   => 303
     },
     { :title  => "Several trees in the downtown park damaged",
       :text   => "Several trees in the downtown park need to be examined and likely " +
                  "removed. Right now they are a probable hazard and should be cordoned " +
-                 "off to prevent accidents."
-      :author => "",
+                 "off to prevent accidents.",
+      :author => :c,
       :groups => ['Park Services'], 
-      :tags   => ['hazard']
+      :tags   => ['hazard'],
+      :time   => 310
     }, 
     { :title  => "Generator problems preventing power restoration " +
                  "in the Northeastern District",
       :text   => "We have isolated the power issues in the Northeastern District to " +
                  "an issue with one of the generators. We are starting repairs now.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power', 'repair']
+      :tags   => ['power', 'repair'],
+      :time   => 320,
       :comments => [
-        { :author => "",
-          :text   => "Is there a time estimate for this?"
+        { :author => :d,
+          :text   => "Is there a time estimate for this?",
+          :time   => 330
         },
-        { :author => "",
-          :text   => "Repairs should take no more than two hours."
+        { :author => :a,
+          :text   => "Repairs should take no more than two hours.",
+          :time   => 338
         },
-        { :author => "",
-          :text   => "Repairs are completed."
+        { :author => :a,
+          :text   => "Repairs are completed.",
+          :time   => 445
         },
       ]
     },
     { :title  => "All power lines in the Southern District repaired",
       :text   => "Power should be restored to the Southern within the next half hour.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall', 'Department of Roads'], 
-      :tags   => ['power', 'repair']
+      :tags   => ['power', 'repair'],
+      :time   => 452
     },
     { :title  => "Power restored to the Southern District",
       :text   => "Please report any further problems here.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power']
+      :tags   => ['power'],
+      :time   => 470
     },
     { :title  => "Power restored for the Northeastern District",
       :text   => "Generator issues have been resolved; please report any problems.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power']
+      :tags   => ['power'],
+      :time   => 500
     },
     { :title  => "Power is now restored to the entire city",
       :text   => "The entire city should have power once again.",
-      :author => "",
+      :author => :b,
       :groups => ['Power Plant', 'City Hall'], 
-      :tags   => ['power']
+      :tags   => ['power'],
+      :time   => 503
     },
   ]
+  # get some random authors
+  people = []
+  updates.each do |u|
+    people << u[:author] if !people.include? u[:author]
+    if u[:comments]
+      u[:comments].each { |c| people << c[:author] if !people.include? c[:author] }
+    end
+  end
+  rand_users = (3..52).to_a.sort_by {rand}[0,people.size].collect {|index| i.users.find(index)}
+  name_mapping = {}
+  people.each_with_index { |sym,index| name_mapping[sym] = rand_users[index] }
+  updates.each do |u|
+    u[:author] = name_mapping[u[:author]]
+    if u[:comments]
+      u[:comments].each { |c| c[:author] = name_mapping[c[:author]] }
+    end
+  end
+  # make actual updates
+  base_time = Time.now - 10.hours
+  updates.each do |u|
+    up = incident.updates.create(:title => u[:title])
+    up.text = u[:text]
+    up.user = u[:author]
+    up.relevant_groups = u[:groups].collect {|g| i.groups.find_by_name(g)}
+    up.tags = u[:tags].collect {|t| i.tags.find_by_name(t)}
+    up.created_at = up.updated_at = base_time + u[:time].minutes
+    up.save
+    if u[:comments]
+      u[:comments].each do |c|
+        com = up.comments.create(:body => c[:text],:user => c[:author],
+                                 :created_at => base_time + c[:time].minutes,
+                                 :updated_at => base_time + c[:time].minutes)
+      end
+    end
+    up.save
+  end
 end
 
-
-# Default Updates
-up1 = evil.updates.create(:title => 'First Update! YAY',
-                        :text => 'We have it all under control... nbd...',
-                        :issuing_group => g1)
-up1.user = u1
-
-
-up2 = evil.updates.create(:id => 2, :title => 'Nevermind!',
-                        :text => "I guess we don't really have it under control.. sowwy...",
-                        :issuing_group => g2)
-up2.user = u1
-
-
-up3 = flood.updates.create(:id => 3, :title => 'Cost update',
-                        :text => 'The cost of this incident has now exceeded one billion gagillion fafillion... yen')
-up3.user = u2
-
-
-up4 = evil.updates.create(:id => 4, :title => 'MOAR Volunteers!',
-                        :text => 'We have a dire need for volunteers on this incident!')
-up4.user = u2
-
-
-up5 = evil.updates.create(:id => 5, :title => 'Animals problem', :text => 'Lots of animals need shelter!', :group_id => 3)
-up5.user = u2
-
-
-up6 = evil.updates.create(:id => 6, :title => 'Food needed!',
-                        :text => 'We need more food to distribute! Please help!',
-                        :group_id => 2)
-up6.user = u2  
-
+# timestamp all following records
+ActiveRecord::Base.record_timestamps = true
 
 
 # Default Carriers
