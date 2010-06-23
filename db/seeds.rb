@@ -426,7 +426,7 @@ i.incidents.find_by_name('Intimidating Ice Storm').tap do |incident|
       u[:comments].each { |c| people << c[:author] if !people.include? c[:author] }
     end
   end
-  rand_users = (3..52).to_a.sort_by {rand}[0,people.size].collect {|index| i.users.find(index)}
+  rand_users = (4..53).to_a.sort_by {rand}[0,people.size].collect {|index| i.users.find(index)}
   name_mapping = {}
   people.each_with_index { |sym,index| name_mapping[sym] = rand_users[index] }
   updates.each do |u|
