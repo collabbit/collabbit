@@ -17,12 +17,11 @@
 	<% if can? :create => Update %>
 		<%= pretty_button(:add_update, new_incident_update_path(@incident), '+ Add Update')%>
 	<% end %>
-	<% if can? :destroy => @incident %>
-		<%= pretty_delete_button(@incident, :check => true) %>
-	<% end %>
-	<% if can? :update => @incident %>
-		<%= pretty_button(:edit_incident, edit_incident_path(@incident), 'Edit Incident') %>
-		<%= pretty_button(:close_incident, incident_close_path(@incident), @incident.closed_at ? 'Reopen Incident' : 'Close Incident') %>
+	<% if can?(:destroy => @incident) || can?(:update => @incident) %>
+		<div id="admin_buttons" class="button-link">
+			Admin
+			<%= incident_admin_buttons(@incident) %>
+		</div>
 	<% end %>
 <% end %>
 <% content_for :subheader_text, subheader_text(@incident.description) if @incident.description %>

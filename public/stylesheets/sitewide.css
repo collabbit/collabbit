@@ -174,7 +174,7 @@ body {
 				#subheader_main h1 a:hover {
 					text-decoration: underline;
 				}
-		#subheader_main #buttons a {
+		#subheader_main #buttons .button-link {
 			float: right;
 			color: black;
 			margin-top: 6px;
@@ -196,6 +196,42 @@ body {
 			#subheader_main #buttons a:active {
 				background: white;
 			}
+			#subheader_main #admin_buttons.button-link {
+				background: white;
+				color: #444;
+				border-color: #ddd;
+			}
+				#subheader_main #admin_buttons:hover {
+					border-color: black;
+					border-width: 1px 1px 0;
+				}
+				#subheader_main #admin_buttons ul {
+					display: none;
+					position: absolute;
+					margin: 0;
+					padding: 0;
+					list-style-type: none;
+					margin: 5px 0 0 -11px;
+					border: 1px solid black;
+				}
+					#subheader_main #admin_buttons:hover ul {
+						display: block;
+					}
+					#subheader_main #admin_buttons a.button-link {
+						border-width: 0;
+						font-weight: normal;
+						margin: 0;
+						padding: 4px 6px;
+						float: none;
+						display: block;
+						width: 100px;
+						-moz-border-radius: 0;
+						-webkit-border-radius: 0;
+						border-radius: 0;
+					}
+						#subheader_main #admin_buttons a.button-link:hover {
+							background: #aaa;
+						}
 	#subheader_text {
 		clear: both;
 		margin: -7px 0 0;

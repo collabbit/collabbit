@@ -49,4 +49,16 @@ module UpdatesHelper
     end
     truncated
   end
+
+  def incident_admin_buttons(incident)
+    buttons = []
+    if @current_user.can? :update => incident
+      buttons << pretty_button(:edit_incident, edit_incident_path(incident), 'Edit Incident')
+      buttons << pretty_button(:close_incident, incident_close_path(incident), incident.closed_at ? 'Reopen Incident' : 'Close Incident')
+    end
+    if @current_user.can? :destroy => incident
+      buttons << pretty_delete_button(incident, :check => true)
+    end
+    "<ul>\n<li>#{buttons.join("</li>\n<li>")}</li>\n</ul>"
+  end
 end
