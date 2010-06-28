@@ -11,7 +11,7 @@ en:
       password_reset: "We reset your password. Check your email (including the spam folder) to retrieve your new password."
       admin_approval_required: "Great, you confirmed your account. An admin needs to approve your request before you can access Collabbit. We'll email you when you've been approved."
       bulk_import_success: "Great, these users were created and emailed instructions to log in."
-      pending_users: "There are users waiting your approval. <a href='{{url}}'>Go to them.</a>"
+      pending_users: "There are users waiting on your approval. <a href='{{url}}'>Go to them.</a>"
     update:
       created: "You successfully added an update."
       updated: "You successfully modified that update."
