@@ -1,7 +1,8 @@
-#incident-closed {
+h2#incident-closed {
 	background: #aa0000;
 	color: white;
 	padding: .5em 1em;
+	margin: 0 0 20px;
 }
 
 #incident-description {
