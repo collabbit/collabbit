@@ -92,7 +92,7 @@ class UsersController < AuthorizedController
   # the :user hash, which is populated by the form on the 'new' page
   def create
     return with_rejection unless !logged_in? || @current_user.can?(:create => User)
-    
+    params[:user][:email].strip!
     @user = create_user(params[:user])
     @user.state = 'approved' if logged_in? || @user.whitelisted?
 
