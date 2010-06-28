@@ -42,7 +42,7 @@
 					
 		<select name="groups_filter" id="filters_groups">
 			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
-			<option value="mine" <%= 'selected="selected"' if @groups_filter == 'mine' %>>My Groups</option>
+			<option value="mine" <%= 'selected="selected"' if @groups_filter == "mine" %> <%= 'style="display: none"' if @current_user.groups.size == 0 %>>My Groups</option>
 			<%= group_select_options(groups,@groups_filter) %>
 		</select>
 		<select name="tags_filter" id="filters_tags">

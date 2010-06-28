@@ -31,7 +31,7 @@
 		<%= text_field_tag :search, (params[:search] || 'Search Keywords'), :size => 20, :class=>(!params[:search] || params[:search] == '' ? 'blank':'') %>
 		<select name="groups_filter">
 			<option value="" <%= 'selected="selected"' if @groups_filter == "" %>>All Groups</option>
-			<option value="mine" <%= 'selected="selected"' if @groups_filter == "mine" %>>My Groups</option>
+			<option value="mine" <%= 'selected="selected"' if @groups_filter == "mine" %> <%= 'style="display: none"' if @current_user.groups.size == 0 %>>My Groups</option>
 			<%= option_groups_from_collection_for_select(group_types,:groups,'name.pluralize',:id,:name,@groups_filter) %>
 		</select>
 		<%= select_tag(:states_filter, states_options, :id => 'filters_states') if @states_filter %>
