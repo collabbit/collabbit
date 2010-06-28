@@ -19,7 +19,7 @@
 	<% end %>
 	<% if can?(:destroy => @incident) || can?(:update => @incident) %>
 		<div id="admin_buttons" class="button-link">
-			Admin
+			Manage
 			<%= incident_admin_buttons(@incident) %>
 		</div>
 	<% end %>
