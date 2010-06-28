@@ -182,4 +182,8 @@ module ApplicationHelper
     end
     option_groups_from_collection_for_select(group_types, :selected_groups, 'name.pluralize', :id, :name, selected)
   end
+
+  def tag_link_helper(tag,incident)
+    link_to tag.name, "#{incident_updates_path(incident)}?tags_filter=#{tag.id}"
+  end
 end

@@ -135,7 +135,7 @@
 						<% i = u.tags.find(:all).count %>
 						<% u.tags.find(:all, :order => 'name').each do |t| %>
 							<% j= j + 1 %>
-							<li><%=link_to t.name, t %></li>	
+							<li><%= tag_link_helper t, u.incident %></li>	
 						<% end %>
 						</ul>
 						<div class="clear"></div>

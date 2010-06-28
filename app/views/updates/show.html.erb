@@ -80,9 +80,9 @@
       <div id="tags">
         <h3>Tags:</h3>
         <ul>
-        <% @update.tags.find(:all, :order => 'name').each do |t| %>
-          <li class="tag"><%=easy_link_to(t.name, t)%></li>
-        <% end %>
+			<% @update.tags.find(:all, :order => 'name').each do |t| %>
+				<li class="tag"><%= tag_link_helper t, @update.incident %></li>	
+			<% end %>
         </ul>
       </div>
     <% end %>
