@@ -140,6 +140,12 @@ module ApplicationHelper
   def preferred
     '<span class="tiny">&laquo;</span>'
   end
+  def preferred_cell(user)
+    preferred if user.preferred_is_cell
+  end
+  def preferred_desk(user)
+    preferred if !user.preferred_is_cell
+  end
   
   def scale_dimensions(w, h, within)
     if w > h

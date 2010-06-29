@@ -168,18 +168,37 @@
 		}
 
 /* SHOW */
-#contact-info-list {
-	list-style-type: none;
+dl#contact {
 	margin: 0;
-	padding: 0;
 }
-	#contact-groups {
-		display: inline;
-		padding: 0;
+	#contact a {
+		color: #275FE4;
 	}
-		#contact-groups li {
-			display: inline;
-			padding-left: 4px;
+		#contact a:hover {
+			text-decoration: none;
+		}
+	#contact dt {
+		font-weight: bold;
+	}
+	#contact dd {
+		margin: 4px 0 12px 20px;
+	}
+		#groups-list {
+			padding: 0;
+			margin: 0 0 4px;
+			color: #aaa;
+		}
+			#groups-list .delete-link {
+				font-size: 12px;
+				vertical-align: middle;
+				text-decoration: none;
+			}
+				#groups-list .delete-link:hover {
+					color: black;
+				}
+		dl#contact .tiny {
+			color: black;
+			font-size: 16px;
 		}
 
 /* EDIT */

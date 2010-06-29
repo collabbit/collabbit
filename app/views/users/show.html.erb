@@ -3,68 +3,66 @@
 <% content_for :breadcrumbs, breadcrumbs(['Contacts',users_path]) %>
 <% content_for :subheader_title, @user.full_name %>
 <% content_for :buttons do %>
+	<%=link_to 'Download Contact (vCard)', formatted_user_path(@user, :vcf), :class => 'button-link' %>
 	<%= pretty_delete_button(@user, :check => true) if can? :destroy => @user %>
 	<%= pretty_button(:edit_user, edit_user_path(@user), 'Edit User') if can? :update => @user %>
 <% end %>
 
 <% content_for :body do %>
-	<% (@instance.roles.select {|r| r.id <= @current_user.role.id}).tap do |roles| %>
-		<% if can?(:update => @user) && roles.size > 1 %>
-			<% form_for @user do |f| %>
-				<%= f.select 'role_id', roles.map {|r| [r.name, r.id] } %>
-				<%= f.submit 'Update Role' %>
-			<% end %>
-		<% end %>
-	<% end %>
-	<ul id="contact-info-list">
-	    <li><%=link_to 'Download contact as vCard', formatted_user_path(@user, :vcf) %></li>
-		<% if @user.email %>
-		<li class="email">
-			<span class="tiny">email:</span> <%=mail_to @user.email, @user.email, :target => '_blank'%>
-		</li>
-		<% end
-		if @user.cell_phone %>
-		<li>
-			<span class="tiny">cell phone:</span> 
-			<%=phone @user.cell_phone%><%=preferred if @user.preferred_is_cell%>
-		</li>
-		<% end
-		if @user.desk_phone %>
-		<li>
-		  <% if @user.desk_phone? %>
-        <span class="tiny">desk phone:</span>
-          <%=phone @user.desk_phone_with_ext %> <%= preferred if !@user.preferred_is_cell and @user.cell_phone? %>
-        </span>
-      <% end %>
-			
-		</li>
-		<% end %>
+	<dl id="contact">
+		<dt>Email:</dt>
+			<dd><%= mail_to @user.email, @user.email, :target => '_blank' %></dd>
 		
-	</ul>
-	<span class="tiny">groups:</span>
-	<ul id="contact-groups">
-		<% unless @user.groups.empty? %>
-			<% @user.groups.each do |g| %>
-				<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
-					<% if g.chairs.include?(@user) %>
-						<span class="chair">[Chair]</span>
+		<% if @user.cell_phone %>
+			<dt>Cell Phone:</dt>
+				<dd><%= phone @user.cell_phone %> <%= preferred_cell(@user) %></dd>
+		<% end %>
+
+		<% if @user.desk_phone %>
+			<dt>Desk Phone:</dt>
+				<dd><%= phone @user.desk_phone %> <%= preferred_desk(@user) %></dd>
+		<% end %>
+
+		<dt>Groups:</dt>
+			<dd><ul id="groups-list">
+					<% if @user.groups.empty? %>
+						<li>No groups</li>
+					<% else %>
+						<% @user.groups.sort_by {|g| g.name}.each do |g| %>
+							<li><%= link_to_if can?(:view => g), g.name, group_type_group_url(g.group_type, g)%>
+								<% if g.chairs.include?(@user) %>
+									<span class="chair">[Chair]</span>
+								<% end %>
+								<% if can?(:update => @user) %>
+									<%= link_to '[x]', memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?", :class => 'delete-link' %>
+								<% end %>
+							</li>
+						<% end %>
 					<% end %>
-					<% if can?(:update => @user) %>
-						<%= link_to '[x]', memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?" %>
-          <% end %>
-				</li>
-			<% end %>
-		<% else %>
-			<li><%= @user.full_name %> isn't a member of any groups.
-		<% end %>
-	</ul>
-	<% (@instance.groups - @user.groups).tap do |groups| %>
-		<% if can?(:update => @user) && groups.size > 0 %>
-			<% form_tag(memberships_path, :method=>:post) do %>
-				<%= select_tag('group_id', group_select_options(groups)) %>
-				<%= hidden_field_tag(:user_id, @user.id) %> 
-				<%= submit_tag 'Add to group' %>
-			<% end %>
-		<% end %>
-	<% end %>
+				</ul>	
+				<% (@instance.groups - @user.groups).tap do |groups| %>
+					<% if can?(:update => @user) && groups.size > 0 %>
+						<% form_tag(memberships_path, :method=>:post) do %>
+							<%= select_tag('group_id', group_select_options(groups)) %>
+							<%= hidden_field_tag(:user_id, @user.id) %> 
+							<%= submit_tag (@user == @current_user ? 'Join group' : 'Add to group') %>
+						<% end %>
+					<% end %>
+				<% end %>	
+			</dd>
+
+		<dt>Collabbit Role:</dt>
+			<dd>
+				<% (@instance.roles.select {|r| r.id <= @current_user.role.id}).tap do |roles| %>
+					<% if can?(:update => @user) && roles.size > 1 %>
+						<% form_for @user do |f| %>
+							<%= f.select 'role_id', roles.map {|r| [r.name, r.id] } %>
+							<%= f.submit 'Update Role' %>
+						<% end %>
+					<% else %>
+						<%= @user.role.name %>
+					<% end %>
+				<% end %>
+			</dd>
+	</dl>
 <% end %>
