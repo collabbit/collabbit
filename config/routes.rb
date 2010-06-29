@@ -35,8 +35,10 @@ ActionController::Routing::Routes.draw do |map|
   map.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
 
   map.resources :users, :as => "contacts",
-    :collection => {:new_bulk => :get, :create_bulk => :post},
-    :member => {:activation_update => :put}
+                        :collection => {:new_bulk => :get, :create_bulk => :post},
+                        :member => {:activation_update => :put} do |user|
+    user.confirmation_email 'confirmation_email', :controller => 'users', :action => 'resend_confirmation'
+  end
   
   map.resources :tags, :collection => {:create_bulk => :post}
   

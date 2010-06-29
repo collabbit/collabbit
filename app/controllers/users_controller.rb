@@ -208,6 +208,13 @@ class UsersController < AuthorizedController
     end
   end
 
+  # re-sends a confirmation email to a user
+  def resend_confirmation
+    @user = @instance.users.find(params[:id])
+    UserMailer.pending_account_notification(@user)
+    redirect_to :back
+  end
+
   # Removes a user object from the database
   def destroy
     @user = @instance.users.find(params[:id])
