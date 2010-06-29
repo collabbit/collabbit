@@ -45,7 +45,7 @@
 	<div id="index">
 		<h4>Jump to last name:</h4>
 		<%  letters = []
-			@users.each {|u| letters << u.last_name[0,1] unless letters.include?(u.last_name[0,1])}
+			@users.each {|u| l=u.last_name[0,1].upcase; letters << l unless letters.include? l}
 		%>
 		<ul>
 			<% ('A'..'Z').each do |l| %>
