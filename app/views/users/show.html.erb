@@ -50,7 +50,7 @@
 						<span class="chair">[Chair]</span>
 					<% end %>
 					<% if can?(:update => @user) %>
-						<%= pretty_button :leave_group, memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), '[x]', :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?" %>
+						<%= link_to '[x]', memberships_path(:group_id => g.id, :user_id => @user.id, :leave => 'true'), :method => :post, :confirm => "Remove #{@user.full_name} from group #{g.name}?" %>
           <% end %>
 				</li>
 			<% end %>
