@@ -132,21 +132,21 @@
 		.person-info {
 			clear:both;
 		}
-			.user-pending {
+			.user-admin {
 				background: #ddd;
 				position: absolute;
 				z-index: 1;
 				bottom: 0; left: 0; right: 0;
 				height: 31px;
 			}
-				#contacts .user-pending a.resend {
+				#contacts .user-admin a.resend {
 					font-size: 12px;
 					position: absolute;
 					display: block;
 					bottom: 5px; left: 10px;
 					line-height: 16px;
 				}
-				#contacts .user-pending a.approve {
+				#contacts .user-admin a.approve {
 					font-weight: bold;
 					position: absolute;
 					display: block;
@@ -156,7 +156,7 @@
 					margin: 0;
 					line-height: 16px;
 				}
-					#contacts .user-pending a.approve:hover {
+					#contacts .user-admin a.approve:hover {
 						text-decoration: none;
 						border-color: black;
 					}

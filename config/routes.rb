@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :as => "contacts",
                         :collection => {:new_bulk => :get, :create_bulk => :post},
                         :member => {:activation_update => :put} do |user|
-    user.confirmation_email 'confirmation_email', :controller => 'users', :action => 'resend_confirmation'
+    user.activation_email 'send_activation_email', :controller => 'users', :action => 'resend_activation'
   end
   
   map.resources :tags, :collection => {:create_bulk => :post}
