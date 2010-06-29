@@ -5,11 +5,11 @@
 <% content_for :subheader_title do %>
 	<%=link_to 'Contacts', users_path %>
 	<span class="title-small">
-	<% if !@search && !@groups_filter %>
-		showing <%= @users.size == 1 ? '':'all' %> <%= pluralize(@users.size, "contact") %>
-	<% else %>
-		showing <%= pluralize(@users.size,"filtered contact") %>
-	<% end %>
+		<% if !@search && !@groups_filter %>
+			showing <%= @users.size == 1 ? '':'all' %> <%= pluralize(@users.size, "contact") %>
+		<% else %>
+			showing <%= pluralize(@users.size,"filtered contact") %>
+		<% end %>
 	</span>
 <% end %>
 <% content_for :buttons do %>
