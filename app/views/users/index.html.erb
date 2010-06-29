@@ -118,7 +118,7 @@
 				<% end %>
 				<% if u.pending? && can?(:update => u) %>
 					<div class="user-admin">
-						<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : users_path %>
+						<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : "#{users_path}?states_filter=approved" %>
 						<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => return_path), {:method => :put, :class => 'approve button-link'} %>
 					</div>
 				<% elsif u.approved? && can?(:update => u) %>
