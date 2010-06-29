@@ -117,8 +117,11 @@
 					</div>
 				<% end %>
 				<% if u.pending? && can?(:update => u) %>
-					<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : users_path %>
-					<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => return_path), {:method => :put, :class => :approve} %>
+					<div class="user-pending">
+						<% return_path = @users.size > 1 ? "#{users_path}?states_filter=pending" : users_path %>
+						<%= link_to('Resend Confirmation Email', user_confirmation_email_url(u), :confirm => "Re-send a confirmation email to #{u.full_name}?", :class => :resend) %>
+						<%= link_to 'Approve User', user_path(u, :user => {:state => :approved}, :return_to => return_path), {:method => :put, :class => 'approve button-link'} %>
+					</div>
 				<% end %>
 			</div>
 		</li>

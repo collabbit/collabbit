@@ -210,8 +210,8 @@ class UsersController < AuthorizedController
 
   # re-sends a confirmation email to a user
   def resend_confirmation
-    @user = @instance.users.find(params[:id])
-    UserMailer.pending_account_notification(@user)
+    @user = @instance.users.find(params[:user_id])
+    UserMailer.deliver_pending_account_notification(@user)
     redirect_to :back
   end
 

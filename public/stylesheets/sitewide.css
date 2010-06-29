@@ -174,7 +174,7 @@ body {
 				#subheader_main h1 a:hover {
 					text-decoration: underline;
 				}
-		#subheader_main #buttons .button-link {
+		.button-link {
 			float: right;
 			color: black;
 			margin-top: 6px;
