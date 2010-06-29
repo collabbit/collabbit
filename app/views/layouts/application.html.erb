@@ -32,10 +32,11 @@
 		</div>
 		<% if @in_production %>
 			<!-- Tender (support) -->
+			<%= link_to 'tender', '#', :id => 'tender-link', :class => 'hidden' %>
 			<script type="text/javascript" charset="utf-8">
 				Tender = {
 					hideToggle: true,
-					widgetToggles: [document.getElementById('bottom-support'), document.getElementById('top-support')]
+					widgetToggles: [document.getElementById('tender-link'), document.getElementById('top-support')]
 				}
 			</script>
 			<script type="text/javascript">

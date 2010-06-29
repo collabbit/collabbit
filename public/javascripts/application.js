@@ -13,4 +13,11 @@ jQuery(document).ready(function() {
         },
         function() {jQuery('#incidents-menu').hide();
     });
+
+	/* triggers the tender link and lets the link go through
+	 * so that the user is brought back to the top of the page
+	 * (and can see the tender box) */
+	jQuery("#bottom-support").live("click",function() {
+		jQuery("#tender-link").trigger("click");
+	});
 });
