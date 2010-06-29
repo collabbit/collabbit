@@ -5,10 +5,11 @@
 <% content_for :subheader_title do %>
 	<%=link_to 'Contacts', users_path %>
 	<span class="title-small">
+		<% state_default = !@states_filter || @states_filter == 'active' %>
 		<% if !@search && !@groups_filter %>
-			showing <%= @users.size == 1 ? '':'all' %> <%= pluralize(@users.size, "contact") %>
+			showing <%= @users.size == 1 ? '':'all' %> <%= pluralize(@users.size, "#{@states_filter if !state_default} contact") %>
 		<% else %>
-			showing <%= pluralize(@users.size,"filtered contact") %>
+			showing <%= pluralize(@users.size,"#{state_default ? 'filtered' : @states_filter} contact") %>
 		<% end %>
 	</span>
 <% end %>
