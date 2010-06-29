@@ -37,8 +37,7 @@
 		<p>
 			<%= f.label :relevant_groups, "Relevant Groups", :class => "toplevel" %>
 			<span class="sublabel"><a href="#" id="showmygroups" class="selected">my groups</a> <a href="#" id="showallgroups">all groups</a></span>
-			<br/>
-			<ul id="group-checkboxes">
+			<ul class="checkboxes">
 				<% @groups.sort_by {|g| g.name}.each do |g| %>
 					<% if @current_user.groups.include? g %>
 						<li>
@@ -58,10 +57,14 @@
 		</p>
 		<p>
 			<%= f.label :tags, "Tags", :class => "toplevel" %><br/>
-			<% @tags.sort_by {|t| t.name}.each do |t| %>
-				<%= check_box_tag("tags[#{t.id}]", '', @update.tags.include?(t)) +
-				    label_tag("tags[#{t.id}]", t.name) %>
-			<% end%>
+			<ul class="checkboxes">
+				<% @tags.sort_by {|t| t.name}.each do |t| %>
+					<li>
+						<%= check_box_tag("tags[#{t.id}]", '', @update.tags.include?(t)) +
+							label_tag("tags[#{t.id}]", t.name) %>
+					</li>
+				<% end%>
+			</ul>
 		</p>
 		<p>
 			<%= f.label :additional_tags, "Additional Tags", :class => "toplevel" %><br/>

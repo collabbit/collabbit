@@ -427,7 +427,7 @@ h2#incident-closed {
 				padding: 0 0 10px;
 				width: 556px;
 			}
-				#group-checkboxes {
+				.checkboxes {
 					list-style-type: none;
 					margin: 0 0 10px -16px;
 					padding: 0;
@@ -435,18 +435,18 @@ h2#incident-closed {
 					font-size: 14px;
 					line-height: 18px;
 				}
-					#group-checkboxes li {
+					.checkboxes li {
 						width: 174px;
 						margin: 0 0 4px 16px ;
 						float: left;
 					}
-						#group-checkboxes input {
+						.checkboxes input {
 							margin: 0 4px 0 0;
 							display: block;
 							width: 14px;
 							float: left;
 						}
-						#group-checkboxes label {
+						.checkboxes label {
 							display: block;
 							float: left;
 							width: 156px;
