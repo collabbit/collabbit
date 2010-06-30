@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
   attr_accessible :first_name,    :last_name,       :email,
                   :desk_phone,    :cell_phone,      :preferred_is_cell,
                   :wants_alerts,  :desk_phone_ext,  :password,
-                  :password_confirmation, :carrier, :carrier_id, :feeds_attributes
+                  :password_confirmation, :carrier, :carrier_id, :feeds_attributes,
+                  :text_alert,    :email_alert
   
   def can?(hsh)
     return false unless hsh.is_a?(Hash) && role != nil
@@ -141,6 +142,14 @@ class User < ActiveRecord::Base
   end
   def preferred_is_cell?
     preferred_is_cell
+  end
+  
+  # check if a user receives text/email alerts
+  def text_alert?
+    text_alert
+  end
+  def email_alert?
+    email_alert
   end
   
   # Gets the user's permissions
