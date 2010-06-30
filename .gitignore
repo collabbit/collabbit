@@ -1,4 +1,5 @@
 log/*
 config/database.yml
 config/settings/
+attachments/*
 
