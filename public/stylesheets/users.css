@@ -307,6 +307,9 @@ dl#contact {
 				.user-form dd.lastname input {
 					width: 170px;
 				}
+			.user-form dt.lastname {
+				margin-top: 0;
+			}
 			.user-form dt.email {
 				clear: both;
 				margin-top: 10px;
