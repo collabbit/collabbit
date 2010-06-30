@@ -1,0 +1,15 @@
+<%= error_messages_for :user %>
+<% form_for @user do |f| -%>
+	<dl id="user-form">
+		<dt class="firstname"><%= f.label 'first_name' %></dt>
+		<dd class="firstname"><%= f.text_field :first_name %></dd>
+
+		<dt class="lastname"><%= f.label 'last_name' %></dt>
+		<dd class="lastname"><%= f.text_field :last_name %></dd>
+
+		<dt><%= f.label 'email' %></dt>
+		<dd><%= f.text_field :email %></dd>
+	</dl>
+
+	<div><%= submit_tag 'Sign up' %></div>
+<% end %>
