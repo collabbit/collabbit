@@ -276,7 +276,7 @@ dl#contact {
 					width: 180px;
 				}
 					.user-form #submit input:hover {
-						background: #2C59C5;	
+						background: #2C59C5;
 						border-color: #5A81E2 #2952B2 #2952B2 #5A81E2;
 					}
 					.user-form #submit input:active {
@@ -386,3 +386,4 @@ div.bulk_user {
 			width: 188px;
 			border: 1px solid #aaa;
 		}
+
