@@ -202,6 +202,23 @@ dl#contact {
 			font-size: 16px;
 		}
 
+/* users/_form_simple and users/_form (new/edit) */
+#user-form {
+	padding: 0;
+	margin: 0;
+}
+	#user-form dt {
+		font-weight: bold;
+	}
+	#user-form dd {
+		margin: 0;
+	}
+		#user-form dd input {
+			border: 1px solid #aaa;
+			padding: 4px 2px;
+		}
+	#user-form dt.firstname 
+
 /* users/edit */
 #notifications {
     text-align: left;
