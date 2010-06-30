@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   validates_length_of       :email, :within => 6..100
   validates_uniqueness_of   :email, :scope => :instance_id
   validates_format_of       :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-  validates_incusion_of     :text_alert, :in => [true,false]
+  validates_inclusion_of    :text_alert, :in => [true,false]
   validates_inclusion_of    :email_alert,:in => [true,false]
 
   attr_accessor :password_confirmation, :password
@@ -260,7 +260,7 @@ class User < ActiveRecord::Base
 
   private
     def default_alert_settings
-      self.email_alert ||= false
+      self.email_alert ||= true
       self.text_alert  ||= false
       self
     end
