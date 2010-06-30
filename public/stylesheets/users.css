@@ -3,6 +3,7 @@
 	color: #999
 }
 
+/* users/index */
 #index {
 	list-style-type: none;
 	margin: -5px auto 5px;
@@ -167,7 +168,7 @@
 			font-size: 12px;
 		}
 
-/* SHOW */
+/* users/show */
 dl#contact {
 	margin: 0;
 }
@@ -201,7 +202,7 @@ dl#contact {
 			font-size: 16px;
 		}
 
-/* EDIT */
+/* users/edit */
 #notifications {
     text-align: left;
 }
@@ -223,7 +224,7 @@ dl#contact {
             color: #444;
         }
 
-/* NEW_BULK */
+/* users/new_bulk */
 div.bulk_user {
 	overflow: auto;
 	width: 600px;
