@@ -1,4 +1,9 @@
-User.reset_column_information
+# resets the columns of all database models so that
+# migrations don't screw things up
+Dir.glob('app/models/*.rb') do |model|
+  klass = File.basename(model).gsub('.rb','').classify.constantize
+  klass.reset_column_information if klass < ActiveRecord::Base
+end
 
 UserObserver.disable!
 UpdateObserver.disable!
