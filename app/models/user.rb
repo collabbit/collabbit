@@ -22,12 +22,16 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy, :uniq => true
   has_many :comments, :dependent => :destroy
 
+  before_validation_on_create :default_alert_settings
+
   validates_presence_of     :first_name
   validates_presence_of     :last_name
   validates_presence_of     :email
   validates_length_of       :email, :within => 6..100
   validates_uniqueness_of   :email, :scope => :instance_id
   validates_format_of       :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  validates_incusion_of     :text_alert, :in => [true,false]
+  validates_inclusion_of    :email_alert,:in => [true,false]
 
   attr_accessor :password_confirmation, :password
   
@@ -253,4 +257,11 @@ class User < ActiveRecord::Base
     save
     UserObserver.enable!
   end
+
+  private
+    def default_alert_settings
+      self.email_alert ||= false
+      self.text_alert  ||= false
+      self
+    end
 end
