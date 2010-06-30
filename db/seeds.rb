@@ -1,3 +1,5 @@
+User.reset_column_information
+
 UserObserver.disable!
 UpdateObserver.disable!
 
@@ -21,13 +23,11 @@ model_to_actions.each_pair do |klass,v|
   end
 end
 
-
 # Default Demo Instance
 i = Instance.create(:long_name => 'Demo Instance')
 i.short_name = 'demo'
 i.roles = Role.default_setup
 i.save
-
 
 # Default Groups and Group Types
 group_names={'Agency' => ['City Harvest', 'Clothing Bank', 'Power Plant',

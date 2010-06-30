@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
   attr_accessible :first_name,    :last_name,       :email,
                   :desk_phone,    :cell_phone,      :preferred_is_cell,
                   :wants_alerts,  :desk_phone_ext,  :password,
-                  :password_confirmation, :carrier, :carrier_id, :feeds_attributes,
+                  :password_confirmation,           :carrier,
+                  :carrier_id,    :feeds_attributes,:state,
                   :text_alert,    :email_alert
   
   def can?(hsh)
