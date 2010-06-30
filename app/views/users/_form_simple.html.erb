@@ -1,15 +1,41 @@
 <%= error_messages_for :user %>
-<% form_for @user do |f| -%>
-	<dl id="user-form">
-		<dt class="firstname"><%= f.label 'first_name' %></dt>
-		<dd class="firstname"><%= f.text_field :first_name %></dd>
+<% form_for(@user,:html => {:class => 'user-form'})  do |f| -%>
+	<fieldset id="required-fields">
+		<legend>Required Fields</legend>
+		<dl>
+			<dt class="firstname"><%= f.label 'first_name', 'First Name' %></dt>
+			<dd class="firstname"><%= f.text_field :first_name %></dd>
 
-		<dt class="lastname"><%= f.label 'last_name' %></dt>
-		<dd class="lastname"><%= f.text_field :last_name %></dd>
+			<dt class="lastname"><%= f.label 'last_name', 'Last Name' %></dt>
+			<dd class="lastname"><%= f.text_field :last_name %></dd>
 
-		<dt><%= f.label 'email' %></dt>
-		<dd><%= f.text_field :email %></dd>
-	</dl>
+			<dt class="email"><%= f.label 'email' %></dt>
+			<dd class="email"><%= f.text_field :email %></dd>
+		</dl>
+	</fieldset>
+	<fieldset id="optional-fields">
+		<legend>Optional Fields <em>(you can fill these in later)</em></legend>
+		<dl>
+			<dt><%= f.label 'desk_phone', 'Desk Phone' %></dt>
+			<dd>
+				<%= f.text_field :desk_phone %>
+				<%= f.label 'desk_phone_ext', 'ext' %>
+				<%= f.text_field :desk_phone_ext, :class => 'extension' %>
+			</dd>
 
-	<div><%= submit_tag 'Sign up' %></div>
+			<dt class="cell"><%= f.label 'cell_phone', 'Cell Phone' %></dt>
+			<dd class="cell"><%= f.text_field :cell_phone %></dd>
+
+			<dt><%= f.label 'carrier', 'Cell Carrier <em>We need this if you want to receive text message alerts.</em>' %></dt>
+			<dd><%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></dd>
+
+			<dt class="cell-pref">Preferred:</dt>
+			<dd class="cell-pref">
+				<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
+				<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<div id="submit"><div><%= submit_tag 'Create Account' %></div></div>
 <% end %>

@@ -1,14 +1,14 @@
 <%= error_messages_for :user %>
-<% form_for @user do |f| -%>
-	<dl id="user-form">
-		<dt class="firstname"><%= f.label 'first_name' %></dt>
+<% form_for(@user,:html => {:class => 'user-form'})  do |f| -%>
+	<dl>
+		<dt class="firstname"><%= f.label 'first_name', 'First Name' %></dt>
 		<dd class="firstname"><%= f.text_field :first_name %></dd>
 
-		<dt class="lastname"><%= f.label 'last_name' %></dt>
+		<dt class="lastname"><%= f.label 'last_name', 'Last Name' %></dt>
 		<dd class="lastname"><%= f.text_field :last_name %></dd>
 
-		<dt><%= f.label 'email' %></dt>
-		<dd><%= f.text_field :email %></dd>
+		<dt class="email"><%= f.label 'email' %></dt>
+		<dd class="email"><%= f.text_field :email %></dd>
 
 		<dt><%= f.label 'desk_phone' %></dt>
 		<dd><%= f.text_field :desk_phone %> <%= f.label 'desk_phone_ext', 'ext' %> <%= f.text_field :desk_phone_ext, :size => 4 %></dd>
