@@ -221,6 +221,7 @@ dl#contact {
 		.user-form dt {
 			font-weight: bold;
 			color: #666;
+			font-size: 14px;
 		}
 			.user-form dt em {
 				font-weight: normal;
@@ -240,17 +241,25 @@ dl#contact {
 				.user-form dd input:focus {
 					border-color: black;
 				}
-		.user-form div#submit {
-			margin-top: 12px;
+		.form-instructions {
+			font-style: italic;
+			font-size: 12px;
 			clear: both;
+			margin: 12px 0 6px;
+		}
+		.user-form div#submit {
+			clear: both;
+			width: 354px;
 		}
 			.user-form #submit div {
 				border: 1px solid black;
-				float: left;
 				-moz-border-radius: 4px;
 				-webkit-border-radius: 4px;
 				border-radius: 4px;
 				-moz-box-shadow: 2px 2px 3px #444;
+				margin: 0 auto;
+				width: 180px;
+				text-align: center;
 			}
 				.user-form #submit input {
 					border: 1px solid #275FE4;
@@ -263,7 +272,8 @@ dl#contact {
 					font-weight: bold;
 					font-size: 16px;
 					text-shadow: 1px 1px #2F3D5E;
-					padding: 6px 16px;
+					padding: 6px 0;
+					width: 180px;
 				}
 					.user-form #submit input:hover {
 						background: #2C59C5;	
@@ -279,7 +289,7 @@ dl#contact {
 			border: 1px solid #aaa;
 			padding: 10px 20px 20px;
 			width: 312px;
-			margin-bottom: 20px;
+			margin: 0 0 20px;
 		}
 			.user-form dt.firstname, .user-form dd.firstname {
 				width: 122px;
@@ -302,10 +312,12 @@ dl#contact {
 				.user-form dd.email input {
 					width: 304px;
 				}
+		/* phone numbers */
 		#optional-fields {
 			width: 314px;
 			padding: 0 20px;
 			border-width: 1px 0 0;
+			margin: 0;
 		}
 			#optional-fields dl {
 				margin: 0 -20px;
@@ -328,13 +340,7 @@ dl#contact {
 
 
 /* users/new */
-.form-instructions {
-	font-style: italic;
-	font-size: 12px;
-	clear: both;
-	margin: 0;
-	padding-top: 12px;
-}
+
 
 /* users/edit */
 #notifications {

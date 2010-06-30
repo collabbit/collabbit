@@ -26,16 +26,17 @@
 			<dt class="cell"><%= f.label 'cell_phone', 'Cell Phone' %></dt>
 			<dd class="cell"><%= f.text_field :cell_phone %></dd>
 
-			<dt><%= f.label 'carrier', 'Cell Carrier <em>We need this if you want to receive text message alerts.</em>' %></dt>
+			<dt><%= f.label 'carrier', 'Cell Carrier <em>We need this for you to receive text message alerts.</em>' %></dt>
 			<dd><%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></dd>
 
 			<dt class="cell-pref">Preferred:</dt>
 			<dd class="cell-pref">
-				<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
 				<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
+				<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
 			</dd>
 		</dl>
 	</fieldset>
 
+	<p class="form-instructions">We'll send you an email with instructions on what to do next.</p>
 	<div id="submit"><div><%= submit_tag 'Create Account' %></div></div>
 <% end %>
