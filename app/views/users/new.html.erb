@@ -3,31 +3,5 @@
 <% content_for :subheader_title, 'Create an account' %>
 
 <% content_for :body do %>
-	
-	<%= error_messages_for :user %>
-	<% form_for @user do |f| -%>
-		<p><%= f.label 'first_name' %><br/>
-		<%= f.text_field :first_name %></p>
-		
-		<p><%= f.label 'last_name' %><br/>
-		<%= f.text_field :last_name %></p>
-	
-		<p><%= f.label 'email' %><br/>
-		<%= f.text_field :email %></p>
-		
-		<p><%= f.label 'desk_phone' %><br/>
-		<%= f.text_field :desk_phone %> <%= f.label 'desk_phone_ext', 'ext' %> <%= f.text_field :desk_phone_ext, :size => 4 %></p>
-		
-		<p><%= f.label 'cell_phone' %><br/>
-		<%= f.text_field :cell_phone %></p>
-		
-		<p>Preferred:</p>
-		<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
-		<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
-		
-		<p><%= f.label 'carrier' %>
-		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></p>
-	
-		<p><%= submit_tag 'Sign up' %></p>
-	<% end %>
+	<%= render :partial => 'form' %>
 <% end %>
