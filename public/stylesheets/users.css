@@ -222,6 +222,7 @@ dl#contact {
 			font-weight: bold;
 			color: #666;
 			font-size: 14px;
+			margin-top: 10px;
 		}
 			.user-form dt em {
 				font-weight: normal;
@@ -247,11 +248,11 @@ dl#contact {
 			clear: both;
 			margin: 12px 0 6px;
 		}
-		.user-form div#submit {
+		.user-form div#submit-create {
 			clear: both;
 			width: 354px;
 		}
-			.user-form #submit div {
+			.user-form #submit-create div {
 				border: 1px solid black;
 				-moz-border-radius: 4px;
 				-webkit-border-radius: 4px;
@@ -261,7 +262,7 @@ dl#contact {
 				width: 180px;
 				text-align: center;
 			}
-				.user-form #submit input {
+				.user-form #submit-create input {
 					border: 1px solid #275FE4;
 					border-color: #819EE5 #2952B2 #2952B2 #819EE5;
 					-moz-border-radius: 4px;
@@ -275,11 +276,11 @@ dl#contact {
 					padding: 6px 0;
 					width: 180px;
 				}
-					.user-form #submit input:hover {
+					.user-form #submit-create input:hover {
 						background: #2C59C5;
 						border-color: #5A81E2 #2952B2 #2952B2 #5A81E2;
 					}
-					.user-form #submit input:active {
+					.user-form #submit-create input:active {
 						border-color: #2952B2 #5A81E2 #5A81E2 #2952B2;
 						padding: 7px 16px 5px;
 					}
@@ -295,6 +296,7 @@ dl#contact {
 				width: 122px;
 				float: left;
 				margin-right: 12px;
+				margin-top: 0;
 			}
 			.user-form dd.firstname {
 				clear: both;
@@ -322,21 +324,13 @@ dl#contact {
 			#optional-fields dl {
 				margin: 0 -20px;
 			}
-				#optional-fields dt {
-
+				.user-form input.phone {
+					width: 94px;
+					display: inline;
 				}
-					#optional-fields dt {
-						margin-top: 10px;
-					}
-				#optional-fields dd {
-
+				.user-form input.extension {
+					width: 36px;
 				}
-					#optional-fields input {
-						width: 94px;
-					}
-					#optional-fields input.extension {
-						width: 36px;
-					}
 
 
 /* users/new */

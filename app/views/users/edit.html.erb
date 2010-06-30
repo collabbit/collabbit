@@ -32,40 +32,9 @@
 			<% end %>
 			</tbody>
 		</table>
-
-		<h2>Account Details</h2>
-		<% @user.password = @user.password_confirmation = '' %>
-		<p><%= f.label 'first_name' %><br/>
-		<%= f.text_field :first_name, :title => 'First name' %></p>
-
-		<p><%= f.label 'last_name' %><br/>
-		<%= f.text_field :last_name, :title => 'Last name' %></p>
-
-		<p><%= f.label 'email' %><br/>
-		<%= f.text_field :email, :title => 'Email address' %></p>
-		
-		<p><%= f.label :desk_phone %><br/>
-		<%= f.text_field :desk_phone %></p>
-		
-		<p><%= f.label :desk_phone_ext, 'Extension' %><br/>
-		<%= f.text_field :desk_phone_ext %></p>
-		
-		<p><%= f.label 'cell_phone' %><br/>
-		<%= f.text_field :cell_phone %></p>
-		
-		<p><%= f.label 'carrier' %>
-		<%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed', :selected => (@user.carrier && @user.carrier.id) %></p>
-		
-		<p>Preferred phone:
-		<%= f.radio_button(:preferred_is_cell, true) + f.label(:preferred_is_cell_true, 'Cell') %>
-		<%= f.radio_button(:preferred_is_cell, false) + f.label(:preferred_is_cell_false, 'Desk') %>
-        </p>
-
-		<p><%= f.label 'password' %><br/>
-		<%= f.password_field :password, :autocomplete => 'off' %></p>
-
-		<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
-		<%= f.password_field :password_confirmation, :autocomplete => 'off' %></p>
 		<p><%= submit_tag 'Save' %></p>
-	<% end -%>
+	<% end %>
+
+	<h2>Account Information</h2>
+	<%= render :partial => 'form' %>
 <% end %>

@@ -1,30 +1,55 @@
+<% new_user_form ||= false %>
 <%= error_messages_for :user %>
 <% form_for(@user,:html => {:class => 'user-form'})  do |f| -%>
-	<dl>
-		<dt class="firstname"><%= f.label 'first_name', 'First Name' %></dt>
-		<dd class="firstname"><%= f.text_field :first_name %></dd>
+	<% if new_user_form %>
+		<fieldset id="required-fields">
+			<legend>Required Fields</legend>
+	<% else %>
+		<div>
+	<% end %>
+		<dl>
+			<dt class="firstname"><%= f.label 'first_name', 'First Name' %></dt>
+			<dd class="firstname"><%= f.text_field :first_name %></dd>
 
-		<dt class="lastname"><%= f.label 'last_name', 'Last Name' %></dt>
-		<dd class="lastname"><%= f.text_field :last_name %></dd>
+			<dt class="lastname"><%= f.label 'last_name', 'Last Name' %></dt>
+			<dd class="lastname"><%= f.text_field :last_name %></dd>
 
-		<dt class="email"><%= f.label 'email' %></dt>
-		<dd class="email"><%= f.text_field :email %></dd>
+			<dt class="email"><%= f.label 'email' %></dt>
+			<dd class="email"><%= f.text_field :email %></dd>
+		</dl>
+	<% if new_user_form %>
+		</fieldset>
+		<fieldset id="optional-fields">
+			<legend>Optional Fields <em>(you can fill these in later)</em></legend>
+	<% else %>
+		</div>
+		<div>
+	<% end %>
+		<dl>
+			<dt><%= f.label 'desk_phone', 'Desk Phone' %></dt>
+			<dd>
+				<%= f.text_field :desk_phone, :class => 'phone' %>
+				<%= f.label 'desk_phone_ext', 'ext' %>
+				<%= f.text_field :desk_phone_ext, :class => 'extension' %>
+			</dd>
 
-		<dt><%= f.label 'desk_phone' %></dt>
-		<dd><%= f.text_field :desk_phone %> <%= f.label 'desk_phone_ext', 'ext' %> <%= f.text_field :desk_phone_ext, :size => 4 %></dd>
+			<dt class="cell"><%= f.label 'cell_phone', 'Cell Phone' %></dt>
+			<dd class="cell"><%= f.text_field :cell_phone, :class => 'phone' %></dd>
 
-		<dt><%= f.label 'cell_phone' %></dt>
-		<dd><%= f.text_field :cell_phone %></dd>
+			<dt><%= f.label 'carrier', 'Cell Carrier <em>We need this for you to receive text message alerts.</em>' %></dt>
+			<dd><%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></dd>
 
-		<dt>Preferred:</dt>
-		<dd>
-			<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
-			<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
-		</dd>
-
-		<dt><%= f.label 'carrier' %></dt>
-		<dd><%= f.select :carrier_id, Carrier.all.map {|c| [c.name, c.id]}, :include_blank => 'Not Listed' %></dd>
-	</dl>
-
-	<div><%= submit_tag 'Sign up' %></div>
+			<dt class="cell-pref">Preferred:</dt>
+			<dd class="cell-pref">
+				<%= f.radio_button(:preferred_is_cell, false) + f.label('preferred_is_cell_false', "Desk phone") %>
+				<%= f.radio_button(:preferred_is_cell, true) + f.label('preferred_is_cell_true', "Cell Phone") %>
+			</dd>
+		</dl>
+	<% if new_user_form %>
+		</fieldset>
+		<p class="form-instructions">We'll send you an email with instructions on what to do next.</p>
+		<div id="submit-create"><div><%= submit_tag 'Create Account' %></div></div>
+	<% else %>
+		<div id="submit-modify"><%= submit_tag 'Save' %></div>
+	<% end %>
 <% end %>
