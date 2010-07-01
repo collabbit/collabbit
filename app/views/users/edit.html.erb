@@ -4,37 +4,10 @@
 	<% content_for :subheader_title, "Account Settings" %>
 <% else # edit user page (for admins) %>
 	<% content_for :breadcrumbs,
-		breadcrumbs(['Contacts',users_url],
-					[@user.full_name,user_url(@user)]) %>
+		breadcrumbs(['Contacts',users_url],	[@user.full_name,user_url(@user)]) %>
 	<% content_for :subheader_title, "Edit user" %>
 <% end %>
 
 <% content_for :body do%>
-    <% form_for @user do |f| %>
-		<%= error_messages_for :user %>
-
-		<h2>Notifications</h2>
-		<table id="notifications" cellspacing="0" cellpadding="0">
-			<thead>
-				<th>Incident</th>
-				<th>Email</th>
-				<th>Text</th>
-			</thead>
-			<tbody>
-			<% @user.instance.incidents.each do |i| %>
-				<% f.fields_for :feeds, @user.feeds.find_by_incident_id(i.id) do |feed_form| %>
-				<tr class="feed-settings">
-					<td class="incident-title"><%=i.name%></td>
-					<td class="feed-email-setting"><%= feed_form.check_box :email_alert %></td>
-					<td class="feed-text-setting"><%=feed_form.check_box :text_alert %></td>
-				</tr>
-				<% end %>
-			<% end %>
-			</tbody>
-		</table>
-		<p><%= submit_tag 'Save' %></p>
-	<% end %>
-
-	<h2>Account Information</h2>
 	<%= render :partial => 'form' %>
 <% end %>
