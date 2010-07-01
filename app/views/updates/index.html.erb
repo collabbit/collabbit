@@ -54,11 +54,12 @@
 		<% @current_user.feeds.find_by_incident_id(@incident.id).tap do |feed| %>
 	    	<% unless feed.blank? %>		
         		You are receiving
-        		<% if feed.email_alert && feed.text_alert %>
+				<% if feed.email_alert? && @current_user.email_alert? &&
+					  feed.text_alert?  && @current_user.text_alert? %>
         			<strong>text</strong> and <strong>email</strong>
-        		<% elsif feed.email_alert %>
+        		<% elsif feed.email_alert? && @current_user.email_alert? %>
         			<strong>email</strong>
-        		<% elsif feed.text_alert %>
+        		<% elsif feed.text_alert?  && @current_user.text_alert? %>
         			<strong>text</strong>
         		<% else %>
         			no
@@ -69,8 +70,18 @@
         		<% form_for(@current_user, :html => {:id => 'alerts-form', :class => 'hidden'}) do |f| %>
         			<%= hidden_field_tag 'return_to', :back %>
         			<% f.fields_for :feeds, @current_user.feeds.find_by_incident_id(@incident.id) do |feed_form| %>
-        				Receive text message alerts? <%= feed_form.check_box :text_alert %>
-        				Email alerts? <%= feed_form.check_box :email_alert %>
+						Receive text message alerts?
+						<% if @current_user.text_alert? %>
+							<%= feed_form.check_box :text_alert %>
+						<% else %>
+							<%= feed_form.check_box :text_alert, {:disabled => 'disabled'} %>
+						<% end %>
+						Email alerts?
+						<% if @current_user.email_alert? %>
+							<%= feed_form.check_box :email_alert %>
+						<% else %>
+							<%= feed_form.check_box :email_alert, {:disabled => 'disabled'} %>
+						<% end %>
         				<div><%= submit_tag 'Update' %></div>
         			<% end %>
         		<% end %>
