@@ -47,16 +47,17 @@
 						f.label('preferred_is_cell_true', "Cell Phone") %>
 				</dd>
 				
-				<dt>Notifications</dt>
+				<dt>Alerts <%= " <em>These override specific incident settings</em>" unless new_user_form %></dt>
 				<dd>
-					<div id="notifications-overall">
-						<%= f.label :email_alert, 'Receive Email Updates' %>
+					<div id="alerts-overall">
 						<%= f.check_box :email_alert %>
-						<%= f.label :text_alert, 'Receive Text Message Updates' %>
+						<%= f.label :email_alert, 'Receive Email Alerts' %>
 						<%= f.check_box :text_alert %>
+						<%= f.label :text_alert, 'Receive Text Message Alerts' %>
 					</div>
 					<% unless new_user_form %>
-						<table id="notifications-individual" cellspacing="0" cellpadding="0">
+						<a id="alerts-toggle" href="#">Specific Incident Settings<span class="arrow">&#9660;</span></a>
+						<table id="alerts-individual" class="hidden" cellspacing="0" cellpadding="0">
 							<thead>
 								<th>Incident</th>
 								<th>Email</th>
@@ -67,8 +68,20 @@
 								<% f.fields_for :feeds, @user.feeds.find_by_incident_id(i.id) do |feed_form| %>
 								<tr class="feed-settings">
 									<td class="incident-title"><%=i.name%></td>
-									<td class="feed-email-setting"><%= feed_form.check_box :email_alert %></td>
-									<td class="feed-text-setting"><%= feed_form.check_box :text_alert %></td>
+									<td class="feed-email-setting">
+										<% if @user.email_alerts? %>
+											<%= feed_form.check_box :email_alert %>
+										<% else %>
+											<%= feed_form.check_box :email_alert, {:disabled => 'disabled'} %>
+										<% end %>
+									</td>
+									<td class="feed-text-setting">
+										<% if @user.text_alerts? %>
+											<%= feed_form.check_box :text_alert %>
+										<% else %>
+											<%= feed_form.check_box :text_alert, {:disabled => 'disabled'} %>
+										<% end %>
+									</td>
 								</tr>
 								<% end %>
 							<% end %>
@@ -79,17 +92,10 @@
 			</dl>
 	<% if new_user_form %>
 		</fieldset>
-	<% else %>
-		</div>
-		<h3>Notifications</h3>
-		
-
-	<% end %>
-
-	<% if new_user_form %>
 		<p class="form-instructions">We'll send you an email with instructions on what to do next.</p>
 		<div id="submit-create"><div><%= submit_tag 'Create Account' %></div></div>
 	<% else %>
-		<div id="submit-modify"><%= submit_tag 'Save' %></div>
+		</div>
+		<div id="submit-update"><%= submit_tag 'Save' %></div>
 	<% end %>
 <% end %>

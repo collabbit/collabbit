@@ -1,4 +1,5 @@
 <% content_for :title, title('Edit user', @user.full_name, 'Contacts')%>
+<% content_for :javascripts, javascript_include_tag('jquery','users')%>
 
 <% if @current_user == @user # account page %>
 	<% content_for :subheader_title, "Account Settings" %>
