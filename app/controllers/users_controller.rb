@@ -165,7 +165,7 @@ class UsersController < AuthorizedController
     
     if @user.update_attributes(params[:user])
       flash[:notice] ||= t('notice.user.updated')
-      redirect_to (params[:return_to] == 'back' ? :back : params[:return_to]) || @user
+      redirect_to (params[:return_to] == 'back' ? :back : params[:return_to]) || edit_user_url(@user)
     else
       render :action => 'new'
     end
