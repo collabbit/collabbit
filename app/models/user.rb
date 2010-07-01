@@ -156,6 +156,12 @@ class User < ActiveRecord::Base
   def email_alert?
     email_alert
   end
+  def text_alerts?
+    text_alert
+  end
+  def email_alerts?
+    email_alert
+  end
   
   # Gets the user's permissions
   def permissions
