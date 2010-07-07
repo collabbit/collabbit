@@ -31,7 +31,7 @@ class UpdatesController < AuthorizedController
   def poll_for_newer
     incident = @instance.incidents.find(params[:incident_id])
     new_updates = incident.updates.find(:all, :select => 'id', :conditions => ['id > ?', params[:update_id].to_i])
-    if new_updates.size > 0 || true
+    if new_updates.size > 0
       user_groups_updates = User.find(params[:user_id]).groups.inject(Set.new){|set, cur| set.merge cur.update_ids}
       user_diff = (user_groups_updates & new_updates.map(&:id)).size
       render :update do |page|
@@ -39,8 +39,9 @@ class UpdatesController < AuthorizedController
 
         updates = "There #{size == 1 ? 'is' : 'are'} #{humanize_number size, {},'a'} new update#{'s' if new_updates.size != 1}."
         yourgroups = user_diff > 0 ? "(#{user_diff} in your groups.)" : ''
-        reload = "<em>#{link_to 'Reload', incident_updates_path(incident)} to see them.</em>"
-        page.replace_html 'new-updates', "<div>#{updates} #{yourgroups} #{reload}</div>"
+        reload = "#{link_to 'Refresh', incident_updates_path(incident)} to see #{size == 1 ? 'it' : 'them'}."
+        shadow = '<div id="shadow"></div>'
+        page.replace_html 'new-updates-inner', "<div id=\"new-updates\">#{updates} #{yourgroups} #{reload}</div>#{shadow}"
       end
     else
       render :text => ''

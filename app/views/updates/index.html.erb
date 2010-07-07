@@ -101,11 +101,9 @@
 	<% end %>
 	
 	<% url = incident_update_poll_for_newer_url(@incident, @latest_update_id, :user_id => @current_user.id)%>
-	<%= periodically_call_remote :url => url, :frequency => '1' %>
-	<div id="new-updates-wrapper">
+	<%= periodically_call_remote :url => url, :frequency => '10' %>
+	<div id="new-updates-outer">
 		<div id="new-updates-inner">
-			<div id="new-updates">
-			</div>
 		</div>
 	</div>
 		
