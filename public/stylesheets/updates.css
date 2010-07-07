@@ -10,17 +10,54 @@ h2#incident-closed {
 	font-size: 16px;
 }
 
-#new-updates {
-	margin: -10px 0 10px;
-	text-align: center;
+#new-updates-wrapper {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	top: 200px;
+	width: 100%;
 }
-	#new-updates span {
-		padding: 5px; background: #ffe600;
+	#new-updates-inner {
+		max-width: 944px;
+		min-width: 777px;
+		margin: 0 auto;
+		padding: 0 15px;
 	}
-		#new-updates  a {
-			color: #000;
-			font-weight: bold;
+	#new-updates {
+		width: 21%;
+		margin-left: -10px;
+		font-size: 14px;
+		background: #ffe600;
+	}
+		#new-updates div {
+			padding: 5px;
+			border: 1px solid #aaa;
 		}
+			#new-updates em {
+				text-align: center;
+				display: block;
+				font-style: normal;
+			}
+				#new-updates a {
+					color: #000;
+					font-weight: bold;
+					display: block;
+					font-size: 16px;
+					margin-top: 8px;
+					background: black;
+					color: #ffe600;
+					text-decoration: none;
+					padding: 4px;
+					margin: 8px 30px 0;
+					-moz-border-radius: 4px;
+					-webkit-border-radius: 4px;
+					border-radius: 4px;
+					border: 1px solid black;
+				}
+					#new-updates a:hover {
+						background: transparent;
+						color: black;
+					}
 
 
 /* updates/index */
