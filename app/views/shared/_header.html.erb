@@ -4,7 +4,7 @@
 		
 		<% unless promo? %>
 	    	<div id="account-status">
-    		<% if @current_user && can?(:view => @instance) %>
+    		<% if @current_user && @instance && can?(:view => @instance) %>
 				Logged in as <%=h @current_user.first_name %>
 				<span class="divider">|</span>
 				<%=link_to "Account", edit_user_path(@current_user)-%>

@@ -1,5 +1,5 @@
 <ul id="menu">
-<% if @current_user && can?(:view => @instance) %>
+<% if @current_user && @instance && can?(:view => @instance) %>
 	<%= menu_item('Overview',overview_path,controller_name == 'instances') -%>
 	<%= incidents_menu(['incidents', 'updates'].include?(controller_name)) if can?(:list => @instance.incidents) -%>
 	<%= menu_item('Groups', group_types_path,controller_name == 'group_types' || controller_name == 'groups') if can?(:list => @instance.group_types, :list => @instance.groups) -%>
