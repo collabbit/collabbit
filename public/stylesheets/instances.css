@@ -1,6 +1,8 @@
+/* instances/show */
 #incidents {
 	list-style-type: none;
 	margin: 0;
+	padding: 0;
 }
 	#incidents li.incident {
 		padding: 0 0 15px;
@@ -21,6 +23,7 @@
 			padding: 0;
 			margin: 0;
 			display: inline;
+			font-size: 21px;
 		}
 		h2.closed {
 		}

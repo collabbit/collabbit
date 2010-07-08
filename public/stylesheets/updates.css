@@ -33,6 +33,12 @@ h2#incident-closed {
 			border: 1px solid #aaa;
 			text-align: center;
 		}
+		#new-updates-inner.small #new-updates {
+			width: 4px;
+			color: #ffe600;
+			overflow: hidden;
+			height: 4px;
+		}
 			#new-updates a {
 				font-weight: bold;
 				display: block;
@@ -60,6 +66,27 @@ h2#incident-closed {
 				z-index: 2;
 				margin-top: -1px;
 			}
+			a#hider {
+				background: transparent;
+				color: black;
+				font-size: 12px;
+				line-height: 12px;
+				width: 12px;
+				font-weight: bold;
+				text-decoration: none;
+				padding: 0 1px 2px;
+				position: absolute;
+				-moz-border-radius: 0;
+				-webkit-border-radius: 0;
+				border-radius: 0;
+				top: 0;
+				right: 0;
+				margin: 0;
+			}
+				a#hider:hover {
+					background: black;
+					color: #ffe600;
+				}
 
 
 /* updates/index */
