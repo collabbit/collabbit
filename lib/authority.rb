@@ -13,7 +13,10 @@ module Authority
   end
   
   module ClassMethods
-    
+    def viewable_by?(usr);    false; end;
+    def destroyable_by?(usr); false; end;
+    def updatable_by?(usr);   false; end;
+
     @override_required = false    
     
     def owned_by(field)
