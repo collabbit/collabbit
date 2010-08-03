@@ -5,7 +5,7 @@ module Authority
   end
   
   def viewable_by?(usr);    self.class.viewable_by?(usr); end;
-  def destroyable_by?(usr); self.class.destroyable_by(usr); end;
+  def destroyable_by?(usr); self.class.destroyable_by?(usr); end;
   def updatable_by?(usr);   self.class.updatable_by?(usr); end;
   
   def requires_override?
