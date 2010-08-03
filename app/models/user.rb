@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
       if obj.empty?
         true
       else
-        permission_to? action, obj.first
+        obj.collect {|o| permission_to? action, o}.inject {|l,r| l && r}
       end
     else
       klass = obj.class == Class ? obj : obj.class
