@@ -1,21 +1,24 @@
-h2 {
-	font-size: 21px;
-	color: #444;
-	margin: 0;
-	padding: 0;
+#wrap {
+	padding-top: 10px;
 }
-ul {
-	list-style-type: none;
-	padding-left: 20px;
-	margin: 8px 0 24px;
-}
-	li {
-		margin: 4px 0 0;
+	h2 {
+		font-size: 21px;
+		color: #444;
+		margin: 0;
+		padding: 0;
 	}
-		li a {
-			color: #275FE4;
+	ul {
+		list-style-type: none;
+		padding-left: 20px;
+		margin: 0;
+	}
+		li {
+			margin: 4px 0 0;
 		}
-			li a:hover {
-				text-decoration: none;
+			li a {
+				color: #275FE4;
 			}
+				li a:hover {
+					text-decoration: none;
+				}
 
