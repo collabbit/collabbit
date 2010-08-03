@@ -1,13 +1,3 @@
-# Controller for managing sitewide administrators. 
-# Admins are different from users; they do not belong to an instance 
-# and have all privileges. 
-# The list of admins can be accessed in /admins 
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-
 class AdminsController < AuthorizedController
 
   skip_before_filter :require_login
