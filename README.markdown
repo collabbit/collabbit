@@ -21,7 +21,7 @@ Collabbit is a web-based communication tool which helps coordinate and organize 
    Default versions of these files may be found [in this gist](http://gist.github.com/422927). The default settings are only suitable for development and **should not be used** on production systems.
 5. Run `rake gems:install` to install all of the necessary gems.
 6. Run `rake db:redo` to create, migrate, and seed the database.
-7. Add the following line to your HOSTS file (`/etc/hosts` on Linux):
+7. Add the following line to your HOSTS file (`/etc/hosts` on Linux; this will require root permissions):
 
 		127.0.0.1 collabbit.dev demo.collabbit.dev
 	
