@@ -1,10 +1,3 @@
-# Controller for operations on users in the database.
-#
-# Author::      Eli Fox-Epstein, efoxepstein@wesleyan.edu
-# Author::      Dimitar Gochev, dimitar.gochev@trincoll.edu
-# Copyright::   Humanitarian FOSS Project (http://www.hfoss.org), Copyright (C) 2009.
-# License::     http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL)
-
 class UpdatesController < AuthorizedController
   def new
     return with_rejection unless @current_user.can? :create => Update
