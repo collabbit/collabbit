@@ -4,22 +4,33 @@ h2 {
 	margin: 0;
 	padding: 0;
 }
-h2.second-heading {
-	padding-top: 20px;
+ul {
+	list-style-type: none;
+	padding-left: 20px;
+	margin: 8px 0 24px;
 }
-.listy {
-	padding-left: 10px;
-}
-.listy.outer {
-	padding-bottom: 20px;
-}
-	.listy.outer li.outer {
-		border-width: 0;
+	li.group-type {
+		margin-bottom: 20px;
 	}
-		li.outer:hover {
-			background: white;
+		h3 {
+			display: inline;
+			font-size: 16px;
+			font-weight: bold;
+			margin-bottom: 3px;
 		}
-		.listy.outer .listy {
-			padding-left: 10px;
-			padding-top: 4px;
+			li h3 a {
+				text-decoration: none;
+			}
+				li h3 a:hover {
+					text-decoration: underline;
+				}
+		li a {
+			color: #275FE4;
 		}
+			li a:hover {
+				text-decoration: none;
+			}
+		li.group-type li {
+			margin: 4px 0 0;
+		}
+

@@ -358,30 +358,6 @@ body {
 	padding: 1px;
 }
 
-.listy{
-	list-style-type: none;
-	margin: 0;
-	padding: 0 0 15px 0;
-}
-	.listy li{
-		margin: 0;
-		padding: 5px 0 5px 3px;
-		border-bottom: 1px solid #ccc;
-		color: #777;
-		font-size: 14px;
-	}
-		.listy li:hover{
-			background: #f0f0f0;
-		}
-		.listy li a{
-			color: #777;
-		}
-			.listy li a.title{
-				color: #000;
-				font-size: 16px;
-			}
-
-
 /* ERROR MESSAGSE */
 .fieldWithErrors{
 	display: inline;

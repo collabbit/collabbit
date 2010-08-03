@@ -1,8 +1,26 @@
-li a.title.closed {
-	color: #555;
-	text-decoration: underline;
+#incidents-list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
-.changed {
-	font-variant: small-caps;
-	font-weight: bold;
-}
+	#incidents-list li {
+		padding: 0 0 5px;
+	}
+		#incidents-list a {
+			color: #275FE4;
+		}
+			#incidents-list a:hover {
+				text-decoration: none;
+			}
+		#incidents-list a.title.closed {
+			color: #555;
+			text-decoration: underline;
+		}
+		#incidents-list .changed {
+			font-variant: small-caps;
+			font-weight: bold;
+		}
+		#incidents-list .date {
+			color: #777;
+			font-size: 13px;
+		}

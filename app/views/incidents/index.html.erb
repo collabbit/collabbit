@@ -12,19 +12,19 @@
         <h3 class="centered">There are no incidents yet.
         Want to <%= link_to 'create one', new_incident_path %>?
     <% else %>
-        <ul id="incidents-list" class="listy">
+        <ul id="incidents-list">
         <% @incidents.each do |i| %>
             <% unless i.closed_at? %>
             <li><%= link_to i.name, i, :class => :title %> 
-                &mdash; <%=h i.description %>
-                <span class="tiny">(<%=mdy i.created_at%>)</span>
+                <%=h i.description %>
+                <span class="date">(<%=mdy i.created_at%>)</span>
             </li>
             <% else %>
             <li>
                 <span class="changed">closed</span>
                 <%= link_to i.name, i, :class => "title closed" %>
-                &mdash; <%=h i.description %>
-                <span class="tiny">(<%=mdy i.created_at%> to <%=mdy i.closed_at%>)</span>
+                <%=h i.description %>
+                <span class="date">(<%=mdy i.created_at%> to <%=mdy i.closed_at%>)</span>
             </li>
             <% end %>
         <% end %>

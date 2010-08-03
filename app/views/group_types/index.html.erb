@@ -9,7 +9,7 @@
 
 <% content_for :body do %>
 	<h2>My Groups</h2>
-	<ul id="groups-list" class="listy">
+	<ul id="groups-list">
 	<% @current_user.groups.find(:all, :order => 'name').each do |g| %>
 		<li>
 			<%= link_to g.name, group_type_group_path(g.group_type, g) %>
@@ -19,21 +19,21 @@
 				<%= (g.chairs.map{|c|c.full_name}).join(', ') %>
 			<% end %>
 			<% @current_user.memberships.find_by_group_id(g.id).tap do |m| %>
-			&ndash; <%= link_to 'Leave', m, :method => :delete, :confirm => "Are you sure you want to leave this group?"%>
+			&ndash; <%= link_to 'Leave', m, :method => :delete, :confirm => "Are you sure you want to leave this group?" %>
 			<% end %>
 		</li>
 	<% end %>
 	</ul>
-	<h2 class="second-heading">All Groups</h2>
-	<ul id="group-type-list" class="listy outer">
+	<h2>Other Groups</h2>
+	<ul id="group-type-list">
 	<% @group_types.each do |gt| %>
-		<li class="outer">
-			<%= link_to gt.name, gt, :class=>:title %>
-			&mdash; <%= pluralize(gt.groups.length, "group")%>
+		<li class="group-type">
+			<h3><%= link_to gt.name, gt, :class => :title %></h3>
+			&ndash; <%= pluralize(gt.groups.length, "group")%>
 			<% if gt.destroyable_by?(@current_user) %> 
 			<span class="delete-grouptype">[<%=link_to 'X', gt, :method => :delete, :confirm => 'Really delete group type?'%>]</span>
 			<% end %>
-			<ul id="groups-list" class="listy">
+			<ul id="groups-list">
 			<% gt.groups.find(:all, :order => 'name').each do |g| %>
 				<li>
 					<%= link_to g.name, group_type_group_url(g.group_type, g) %>
