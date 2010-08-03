@@ -19,7 +19,7 @@
 
 <% content_for :body do %>
 	<h2>Groups</h2>
-	<ul id="groups-list" class="listy">
+	<ul id="groups-list">
 	<% @group_type.groups.each do |g| %>
 		<li>
 			<%= link_to g.name, group_type_group_url(g.group_type, g) %>
