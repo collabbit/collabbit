@@ -1,33 +1,19 @@
 <% content_for :title, title(@tag.name, 'Tags') %>
 
+<% content_for :breadcrumbs,breadcrumbs(['Tags',tags_url]) %>
+<% content_for :subheader_title, @tag.name %>
+
 <% content_for :body do %>
-	<div id="wrap">
-		<h1><%=h @tag.name%> <span class="tiny">&laquo; tag</span></h1>
-		<% unless @tag.groups.empty? %>
-			<div id="groups-tagged">
-				<h2>Groups Tagged</h2>
-				<ul class="listy">
-				<% @tag.groups.each do |g|%>
-					<li>
-						<%=link_to g.name, group_types_group_path(g.group_type, g), :class => 'title'%>
-						(<%=easy_link_to g.group_type.name, g.group_type%>)
-					</li>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-		<% unless @tag.updates.empty? %>
-			<div id="updates-tagged">
-				<h2>Updates Tagged</h2>
-				<ul class="listy">
-				<% @tag.updates.each do |u|%>
-					<li>
-						<%=easy_link_to u.title, u, :class => 'title'%>
-						by <%=link_to_issuer u.issuer%> from <%=easy_link_to u.incident.name, u.incident %> on <%=mdy u.created_at%>.
-					</li>
-				<% end %>
-				</ul>
-			</div>
-		<% end %>
-	</div>
+	<h2>Tagged Updates</h2>
+		<ul class="listy">
+			<% @tag.updates.each do |u|%>
+				<li>
+					<%=easy_link_to u.title, u, :class => 'title'%>
+					by <%=link_to_issuer u.issuer%> from <%=easy_link_to u.incident.name, u.incident %> on <%=mdy u.created_at%>.
+				</li>
+			<% end %>
+			<% if @tag.updates.empty? %>
+				<li>No tagged updates</li>
+			<% end %>
+		</ul>
 <% end %>
