@@ -366,6 +366,7 @@ dl#contact {
 					text-shadow: 1px 1px #2F3D5E;
 					padding: 6px 0;
 					width: 180px;
+					margin: 0;
 				}
 					.user-form #submit-create input:hover {
 						background: #2C59C5;
