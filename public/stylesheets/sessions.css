@@ -75,15 +75,15 @@
 			padding: 0;
 			text-align: center;
 		}
-			#account-links li{
+			#account-links li {
 				display: inline;
 				margin: 0 10px;
 			}
-				#account-links li a{
+				#account-links li a {
 					padding: 2px 4px;
 					color: #666;
 					font-size: 14px;
 				}
-					#account-links li a:hover{
+					#account-links li a:hover {
 						color: #000;
 					}
