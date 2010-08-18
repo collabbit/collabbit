@@ -342,7 +342,7 @@ dl#contact {
 			width: 354px;
 		}
 			.user-form #submit-create div {
-				border: 1px solid black;
+				border: 2px solid black;
 				-moz-border-radius: 4px;
 				-webkit-border-radius: 4px;
 				border-radius: 4px;
@@ -365,8 +365,8 @@ dl#contact {
 					font-size: 16px;
 					text-shadow: 1px 1px #2F3D5E;
 					padding: 6px 0;
-					width: 180px;
-					margin: 0;
+					width: 182px;
+					margin: -1px;
 				}
 					.user-form #submit-create input:hover {
 						background: #2C59C5;
