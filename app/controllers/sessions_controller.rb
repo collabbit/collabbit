@@ -5,6 +5,9 @@ class SessionsController < AuthorizedController
   def new
     @return_to = params[:return_to] || overview_path
     redirect_to overview_path if logged_in?
+    if @instance.short_name == 'demo' && !logged_in?
+      flash[:notice] = "Demo username/password: demo@collabbit.org/demo."
+    end
   end
 
   def create

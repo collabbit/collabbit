@@ -151,6 +151,13 @@ class UsersController < AuthorizedController
     @user = @instance.users.find(params[:id])
     return with_rejection unless @current_user.can? :update => @user
 
+    # prevent people from modifying the demo user account
+    if @instance.short_name == 'demo' &&
+       @current_user.email == 'demo@collabbit.org' && @user == @current_user
+      flash[:error] = "The demo user account cannot be changed."
+      return with_rejection
+    end
+
     if @current_user.permission_to?(:update, @user)
       unless params[:user][:state].blank?
         flash[:notice] = t('notice.user.created', :name => @user.first_name) if @user.state == 'pending'  
