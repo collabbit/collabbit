@@ -152,10 +152,8 @@ class UsersController < AuthorizedController
     return with_rejection unless @current_user.can? :update => @user
 
     # prevent people from modifying the demo user account
-    if @instance.short_name == 'demo' &&
-       @current_user.email == 'demo@collabbit.org' && @user == @current_user
-      flash[:error] = "The demo user account cannot be changed."
-      return with_rejection
+    if @instance.short_name == 'demo' && @current_user.email == 'demo@collabbit.org' && @user == @current_user
+      return with_rejection(:error => "The demo user account cannot be changed.")
     end
 
     if @current_user.permission_to?(:update, @user)
