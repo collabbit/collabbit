@@ -14,5 +14,8 @@ Updates:
         Tags: <%= u.tags.find(:all, :order => 'name').map(&:name).join(', ') || '(none specified)' %>
         Attachments: <%= u.attached_files.size%>
         Text: "<%= u.text %>"
+        Comments: <% u.comments.each do |c| %>
+                "<%= c.body %>" by <%= c.user.full_name %> on <%= time_mdy c.created_at %>
+        <% end %>
         
 <% end %>
