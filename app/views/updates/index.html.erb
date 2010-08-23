@@ -195,7 +195,7 @@
 						<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
 					</div>
 					<% end %>
-					<% form_for [u.incident, u, Comment.new], :id => "#{u.id}-new-comment" do |f| %>
+					<% form_for [u.incident, u, Comment.new], :html => {:id => "#{u.id}-new-comment", :class => "new-comment"} do |f| %>
 						<%= f.text_field :body, :class => "comment-textfield blank" %>
 						<div class="comment-submit-wrapper">
 						    <%= f.submit 'Add Comment', :class => "comment-submit hide" %>

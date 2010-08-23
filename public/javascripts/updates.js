@@ -7,17 +7,17 @@ jQuery(document).ready(function($){
         $txt = $frm.find('.comment-textfield');
         if($txt.val() != commentInitial) return;
         $txt.val('').removeClass('blank');
-        $frm.find('.comment-submit').show();
+        $frm.find('.comment-submit').removeClass('hide');
     }
     
     function unfocusComment($frm){
         $txt = $frm.find('.comment-textfield');
         if($txt.val() != '') return;
         $txt.val(commentInitial).addClass('blank');
-        $frm.find('.comment-submit').hide();
+        $frm.find('.comment-submit').addClass('hide');
     }
     
-    $('.new_comment').each(function(){
+    $('.new-comment').each(function(){
         var $frm = $(this);
         $(this).find('.comment-textfield').focus(function(){  focusComment($frm) })
                                           .blur(function(){ unfocusComment($frm) });

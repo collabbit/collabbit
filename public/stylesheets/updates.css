@@ -253,10 +253,10 @@ h2#incident-closed {
 					}
 						.comment-destroy a {
 						}
-				.new_comment {
+				.new-comment {
 					padding: 4px 0;
 				}
-					.new_comment input {
+					.new-comment input {
 						border: 1px solid #aaa;
 						-moz-border-radius: 2px;
 						-webkit-border-radius: 2px;
