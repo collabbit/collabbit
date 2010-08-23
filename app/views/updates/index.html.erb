@@ -122,8 +122,8 @@
 		<li>
 			<div class="update-meta">
 				<div class="update-author"><%= issuer_link(u)%></div>
-				<div class="update-time">posted <%=time_mdy u.created_at %></div>
-				<div class="update-edited"><%= u.updated_at > u.created_at ? "edited #{time_mdy u.updated_at}" : '' %></div>
+				<div class="update-time">posted <%=time_mdy_smart u.created_at %></div>
+				<div class="update-edited"><%= u.updated_at > u.created_at ? "edited #{time_mdy_smart u.updated_at}" : '' %></div>
 			</div>
 			<div class="update-extra">
 				<% unless u.relevant_groups.empty? %>
