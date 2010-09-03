@@ -178,6 +178,12 @@ class UsersController < AuthorizedController
 
   # for a user changing their password
   def change_password
+    
+    # prevent people from modifying the demo user account
+    if @instance.short_name == 'demo' && @current_user.email == 'demo@collabbit.org' && @user == @current_user
+      return with_rejection(:error => "The demo user account cannot be changed.")
+    end
+
     user = User.find(params[:user_id])
     if user and user.password_matches?(params[:password])
       if params[:new_password].blank? && params[:new_password_confirmation].blank?
