@@ -9,6 +9,7 @@ en:
       need_account_setup: "You're almost there, just fill in these details."
       updated: "Success! User has been updated."
       password_reset: "We reset your password. Check your email (including the spam folder) to retrieve your new password."
+      password_changed: "Your password has been changed."
       admin_approval_required: "Great, you confirmed your account. An admin needs to approve your request before you can access Collabbit. We'll email you when you've been approved."
       bulk_import_success: "Great, these users were created and emailed instructions to log in."
       pending_users: "There are new users pending. <a href='{{url}}'>Go to them.</a>"
@@ -64,4 +65,7 @@ en:
       unauthorized_editing: "Sorry, we can't let you do this."
       password_required: "Uh oh! Please pick a password."
       login_invalid: "Sorry, your username or password was incorrect. Please try again."
+      password_mismatch: "The new password and new password confirmation fields did not match."
+      invalid_password: "The existing password entered was incorrect."
+      blank_password: "You cannot enter a blank new password."
       

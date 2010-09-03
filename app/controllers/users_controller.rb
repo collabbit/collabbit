@@ -176,6 +176,25 @@ class UsersController < AuthorizedController
     end
   end
 
+  # for a user changing their password
+  def change_password
+    user = User.find(params[:user_id])
+    if user and user.password_matches?(params[:password])
+      if params[:new_password].blank? && params[:new_password_confirmation].blank?
+        flash[:notice] = t('error.user.blank_password')
+      elsif params[:new_password] == params[:new_password_confirmation]
+        user.generate_crypted_password!(params[:new_password])
+        user.save
+        flash[:notice] = t('notice.user.password_changed')
+      else
+        flash[:error] = t('error.user.password_mismatch')
+      end
+    else
+      flash[:error] = t('error.user.invalid_password')
+    end
+    redirect_to :back
+  end
+
   # Activates an existing user, identified by the :activation_code provided
   # If the activation code is wrong or missing, the user is not activated
   def activate
