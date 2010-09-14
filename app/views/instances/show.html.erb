@@ -52,7 +52,7 @@
 						<ul><% show.sort_by{|u| u.created_at}[0,3].each do |u| %>
 							<li>
 								<%= link_to u.title, incident_update_url(i,u) %>
-								<span class="tiny">(<%= time_ago_in_words u.created_at %> ago)</span>
+								<span class="tiny">(<%= time_mdy u.created_at %>)</span>
 							</li>
 						<% end %></ul>
 						<%= link_to '&raquo; all updates', i %>

@@ -26,7 +26,7 @@
 			        [<%=link_to 'X', [@incident, @update, c], :method => :delete, :confirm => 'Really delete?' %>]
 			    </span>
 			<% end %>
-			<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+			<span class="comment-date">posted <%=time_mdy c.created_at%></span>
 		</div>
       <% end %>
       
@@ -48,7 +48,9 @@
           <ul>
             <% @update.attached_images.each do |f| %>
               <% w, h = FastImage.size(f.attach.path) %>
-              <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 150).join('x')), f.attach.url)%></li>
+              <% unless w.blank? || h.blank? %>
+                <li><%=link_to(image_tag(f.attach.url, :size => scale_dimensions(w, h, 150).join('x')), f.attach.url)%></li>
+              <% end %>
             <% end %>
           </ul>
         <% end %>
