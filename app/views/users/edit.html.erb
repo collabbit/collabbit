@@ -11,4 +11,20 @@
 
 <% content_for :body do%>
 	<%= render :partial => 'form' %>
+	
+	<% form_tag(changepassword_path, :method => :post) do %>
+		<%= hidden_field_tag(:user_id, @user.id) %>
+		<dl>
+			<dt><%= label_tag 'password', 'Existing Password' %></dt>
+			<dd><%= password_field_tag :password %></dd>
+
+			<dt><%= label_tag 'new_password', 'New Password' %></dt>
+			<dd><%= password_field_tag :new_password, '', :autocomplete => 'off' %></dd>
+
+			<dt><%= label_tag 'new_password_confirmation', 'Confirm New Password' %></dt>
+			<dd><%= password_field_tag :new_password_confirmation, '', :autocomplete => 'off' %></dd>
+		</dl>
+
+		<div><%= submit_tag 'Change Password' %></div>
+	<% end %>
 <% end %>

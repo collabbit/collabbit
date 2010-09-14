@@ -21,11 +21,13 @@ module UpdatesHelper
     if update.text.length <= 256
       text
     else 
-      paragraphs = text.split(/<p>|<\p>/).collect {|p| p.strip}.select {|p| p.length > 0}
+      paragraphs = text.split(/<p>|<\/p>/).collect {|p| p.strip}.select {|p| p.length > 0}
       len = 0
+      total_len = 0
       to_display = paragraphs.select do |p|
+        total_len += p.length
         len += p.length if len < 256
-        len < 256 || len - p.length < 256
+        len < 256 || (total_len - p.length) < 256
       end
       
       if len > 256 # truncate

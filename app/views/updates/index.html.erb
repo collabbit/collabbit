@@ -122,8 +122,8 @@
 		<li>
 			<div class="update-meta">
 				<div class="update-author"><%= issuer_link(u)%></div>
-				<div class="update-time">posted <%=time_mdy u.created_at %></div>
-				<div class="update-edited"><%= u.updated_at > u.created_at ? "edited #{time_mdy u.updated_at}" : '' %></div>
+				<div class="update-time">posted <%=time_mdy_smart u.created_at %></div>
+				<div class="update-edited"><%= u.updated_at > u.created_at ? "edited #{time_mdy_smart u.updated_at}" : '' %></div>
 			</div>
 			<div class="update-extra">
 				<% unless u.relevant_groups.empty? %>
@@ -195,7 +195,7 @@
 						<span class="comment-date">posted <%=time_mdy c.created_at%></span>
 					</div>
 					<% end %>
-					<% form_for [u.incident, u, Comment.new], :id => "#{u.id}-new-comment" do |f| %>
+					<% form_for [u.incident, u, Comment.new], :html => {:id => "#{u.id}-new-comment", :class => "new-comment"} do |f| %>
 						<%= f.text_field :body, :class => "comment-textfield blank" %>
 						<div class="comment-submit-wrapper">
 						    <%= f.submit 'Add Comment', :class => "comment-submit hide" %>

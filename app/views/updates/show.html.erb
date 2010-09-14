@@ -9,7 +9,7 @@
 	<%= pretty_button(:edit_update, edit_incident_update_path(@incident, @update), 'Edit Update') if can?(:update => @update) %>
 <% end %>
 <% content_for :subheader_text,
-	subheader_text('by '+link_to_issuer(@update)+' on '+time_mdy(@update.created_at)) %>
+	subheader_text("by #{link_to_issuer(@update)} on #{time_mdy(@update.created_at)}") %>
 
 <% content_for :body do %>
   <div id="update">
@@ -30,13 +30,13 @@
 		</div>
       <% end %>
       
-        <% form_for [@update.incident, @update, Comment.new], :id => "#{@update.id}-new-comment" do |f| %>
+	  <% form_for [@update.incident, @update, Comment.new], :html => {:id => "#{@update.id}-new-comment", :class => "new-comment"} do |f| %>
             <%= f.text_field :body, :class => "comment-textfield" %>
             <div class="comment-submit-wrapper">
                 <%= f.submit 'Add Comment', :class => "comment-submit" %>
             </div>
             <div class="clear"></div>
-        <% end %>
+		<% end %>
     </div>
   </div>
   <div id="extra">

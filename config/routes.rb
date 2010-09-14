@@ -31,7 +31,8 @@ ActionController::Routing::Routes.draw do |map|
   map.signup 'signup',     :controller => 'users',     :action => 'new'
   map.activate 'activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.forgotpassword 'forgotpassword', :controller => 'users', :action => 'forgot_password'
-  map.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'  
+  map.resetpassword 'resetpassword', :controller => 'users', :action => 'reset_password'
+  map.changepassword 'changepassword', :controller => 'users', :action => 'change_password'
   map.vcards 'contacts/vcards/:name.vcf', :controller => 'users', :action => 'vcards'
 
   map.resources :users, :as => "contacts",
