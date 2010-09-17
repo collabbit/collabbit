@@ -75,6 +75,7 @@ namespace :i18n do
 end
 
 task :update_times => :environment do
+  UpdateObserver.disable!
   ActiveRecord::Base.record_timestamps = false
 
   ActiveRecord::Base.send(:subclasses).each do |k|
@@ -92,5 +93,7 @@ task :update_times => :environment do
         obj.update_attribute(time_field, obj.send(time_field).try(:-, (9.minutes + 20.seconds)))
       end
     end
+    UpdateObserver.enable!
+    
   end
 end
