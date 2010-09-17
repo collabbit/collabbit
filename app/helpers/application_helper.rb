@@ -72,12 +72,10 @@ module ApplicationHelper
   end
   
   def time_mdy(x)
-    x = x - 560.seconds # TEMPORARY: REMOVE
     "#{mdy(x)} at #{time_time(x)}"
   end
 
   def time_mdy_smart(x)
-    x = x - 560.seconds # TEMPORARY: REMOVE
     "#{mdy_smart(x)} at #{time_time(x)}"
   end
 
