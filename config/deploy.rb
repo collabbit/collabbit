@@ -170,7 +170,7 @@ configuration_for :keys, :filepath => 'config/settings/keys.yml' do
   {'action_controller' => {
       'session' => {
         'session_key' => '_collabbit-001-staging',
-        'secret' => '5695f525eb5ec94353765d4c12c64df56cadc68bb8ba49a1bb1967379bccfd994176645f677d7568cc114bf2f94b'
+        'secret' => secret_key
       }
     },
    'host' => {

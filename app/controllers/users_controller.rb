@@ -211,6 +211,7 @@ class UsersController < AuthorizedController
       flash[:error] = t('error.user.invalid_activation_code')
       redirect_to new_session_path
     elsif @user.approved?
+      logout_keeping_session!
       flash[:notice] = t('notice.user.need_account_setup')
     else
       flash[:error] = t('error.user.invalid_activation_code')
