@@ -92,8 +92,8 @@ task :update_times => :environment do
       times.each do |time_field|
         obj.update_attribute(time_field, obj.send(time_field).try(:-, (9.minutes + 20.seconds)))
       end
-    end
-    UpdateObserver.enable!
-    
+    end    
   end
+  UpdateObserver.enable!
+  
 end
