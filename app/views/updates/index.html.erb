@@ -7,9 +7,17 @@
 	<%=link_to @incident.name, @incident %>
 	<span class="title-small">
 	<% if !@search && !@groups_filter && !@tags_filter %>
-		showing <%= @updates.size == 1 ? '':'all' %> <%= pluralize(@updates.size, "update") %>
+		<% if @all_updates.size == @updates.size %>
+			showing <%= @updates.size == 1 ? '':'all' %> <%= pluralize(@updates.size, "update") %>
+		<% else %>
+			showing <%= @updates.size %> of <%= @all_updates.size %> total updates
+		<% end %>
 	<% else %>
-		showing <%= pluralize(@updates.size, "filtered update") %>
+		<% if @all_updates.size == @updates.size %>
+			showing <%= pluralize(@updates.size, "filtered update") %>
+		<% else %>
+			showing <%= @updates.size %> of <%= @all_updates.size %> filtered updates
+		<% end %>
 	<% end %>
 	</span>
 <% end %>
@@ -192,7 +200,7 @@
 						<% if (c.user.id == @current_user.id) || (can? :destroy => c) %>
 						    <span class="comment-destroy"><%=link_to '[x]', [@incident, u, c], :method => :delete, :confirm => 'Really delete?' %></span>
 						<% end %>
-						<span class="comment-date">posted <%=time_ago_in_words c.created_at%> ago</span>
+						<span class="comment-date">posted <%=time_mdy c.created_at%></span>
 					</div>
 					<% end %>
 					<% form_for [u.incident, u, Comment.new], :html => {:id => "#{u.id}-new-comment", :class => "new-comment"} do |f| %>

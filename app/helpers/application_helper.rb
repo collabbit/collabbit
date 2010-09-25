@@ -60,6 +60,7 @@ module ApplicationHelper
   # displays year only if it's not the current one
   # displays 'today' instead of month/day if date is today
   def mdy_smart(x)
+    x = x - 560.seconds # TEMPORARY: REMOVE
     if x.year == Time.now.year
       if x.month == Time.now.month && x.day == Time.now.day
         'today'
@@ -72,16 +73,18 @@ module ApplicationHelper
   end
   
   def time_mdy(x)
+    x = x - 560.seconds # TEMPORARY: REMOVE
     "#{mdy(x)} at #{time_time(x)}"
   end
 
   def time_mdy_smart(x)
+    x = x - 560.seconds # TEMPORARY: REMOVE
     "#{mdy_smart(x)} at #{time_time(x)}"
   end
 
 
   def time_time(x)
-    "#{x.hour % 12 + 1}:#{x.min < 10 ? "0#{x.min}" : x.min}&nbsp;#{x.hour > 11 ? 'PM' : 'AM'}"
+    "#{x.hour % 12 == 0 ? 12 : x.hour % 12 }:#{x.min < 10 ? "0#{x.min}" : x.min}&nbsp;#{x.hour > 11 ? 'PM' : 'AM'}"
   end
   
   def pretty_delete_button(to, *opts)
