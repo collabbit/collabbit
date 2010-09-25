@@ -20,7 +20,7 @@ class Instance < ActiveRecord::Base
   
   validates_presence_of :short_name, :long_name
   validates_length_of :long_name,  :within => 4..255
-  validates_format_of :short_name, :with => /\A[a-z]+\z/
+  validates_format_of :short_name, :with => /\A[a-z]+(_[a-z]+)*\z/
   validates_length_of :short_name, :within => 2..16
   validates_uniqueness_of :short_name
   validates_exclusion_of  :short_name,
