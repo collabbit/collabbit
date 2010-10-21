@@ -1,5 +1,6 @@
 class Role < ActiveRecord::Base
   include Authority
+  extend ActiveSupport::Memoizable
   has_many :users
   belongs_to :instance
   
@@ -12,6 +13,11 @@ class Role < ActiveRecord::Base
   validates_length_of   :name, :within => 2..32
   
   attr_protected :user_ids, :instance_id
+
+  def has_permission_for?(options={})
+    permissions.exists? :model => options[:model], :action => options[:action]
+  end
+  memoize :has_permission_for?
   
   # Returns the default role.
   def self.default
