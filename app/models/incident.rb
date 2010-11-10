@@ -16,5 +16,17 @@ class Incident < ActiveRecord::Base
   def viewable_by?(user)
     instance.viewable_by?(user)
   end
+  
+  def self.incidentsarr(instance)
+    incidents= instance.incidents.find(:all)
+    incidents   
+  end
+  
+  def self.export_incidents(instance)
+    incidents = incidentsarr(instance)
+    result_incidents = incidents.to_yaml
+    result_incidents.gsub!(/\n/,"\r\n")
+    result_incidents
+  end
 
 end

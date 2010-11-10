@@ -257,6 +257,18 @@ class User < ActiveRecord::Base
     save
     UserObserver.enable!
   end
+  
+  def self.usersarr(instance)
+    users = instance.users.find(:all)
+    users
+  end
+  
+  def self.export_users(instance)
+    users = usersarr(instance)
+    result_users = users.to_yaml
+    result_users.gsub!(/\n/,"\r\n")
+    result_users
+  end
 
   private
     def default_alert_settings

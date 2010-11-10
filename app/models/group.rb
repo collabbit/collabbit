@@ -28,6 +28,23 @@ class Group < ActiveRecord::Base
     user.groups.include?(self)
   end
   
+  def self.groupsarr(instance)
+      groups_array =Array.new
+      group_types = GroupType.grouptypesarr(instance)
+      group_types.each do |grp|
+        groups = grp.groups.find(:all)
+        groups_array += groups
+    end
+    groups_array
+  end
+  
+  def self.export_groups(instance)
+    groups_array = groupsarr(instance)
+    result_groups = groups_array.to_yaml
+    result_groups.gsub!(/\n/,"\r\n")
+    result_groups
+  end
+  
   protected
     def clear_user(user)
       memberships.find_all_by_user_id(user.id).each {|m| m.destroy}

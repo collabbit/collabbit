@@ -14,4 +14,21 @@ class Membership < ActiveRecord::Base
     is_chair
   end
   
+  def self.membershipsarr(instance)
+    users = User.usersarr(instance)
+    mem_array = Array.new
+      users.each do |us|
+        memberships = us.memberships.find(:all)
+        mem_array += memberships
+    end
+    mem_array
+  end
+  
+  def self.export_memberships(instance)
+    mem_array = membershipsarr(instance)
+    result_memberships = mem_array.to_yaml
+    result_memberships.gsub!(/\n/,"\r\n")
+    result_memberships
+  end
+  
 end

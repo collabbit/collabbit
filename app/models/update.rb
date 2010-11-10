@@ -87,6 +87,23 @@ class Update < ActiveRecord::Base
     @new_tags
   end
   
+  def self.updatesarr(instance)
+    incidents = instance.incidents.find(:all)
+    update_array = Array.new
+      incidents.each do |inc|
+        updates = inc.updates.find(:all)
+        update_array += updates
+      end
+      update_array
+     end
+      
+   def self.export_updates(instance)
+     update_array = updatesarr(instance)
+    result_updates = update_array.to_yaml
+    result_updates.gsub!(/\n/,"\r\n")
+    result_updates
+  end
+  
   private
     # Turns @new_tags (array of tag names) into real tags and taggings
     def handle_tags

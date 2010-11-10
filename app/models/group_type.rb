@@ -12,4 +12,17 @@ class GroupType < ActiveRecord::Base
 
   # used for defining a subset of groups to be included in select options
   attr_accessor :selected_groups
+
+  def self.grouptypesarr(instance)
+    group_types = instance.group_types.find(:all)
+    group_types
+  end
+
+  def self.export_group_types(instance)
+    group_types = grouptypesarr(instance)
+    result_group_types = group_types.to_yaml
+    result_group_types.gsub!(/\n/,"\r\n")
+    result_group_types
+  end
+
 end

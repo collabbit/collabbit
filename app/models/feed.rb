@@ -48,4 +48,23 @@ class Feed < ActiveRecord::Base
     mine.criterions.build(:kind => 'user_group')
     mine
   end
+  
+  def self.feedsarr(instance)
+    feeds_array = Array.new
+      incidents = Incident.incidentsarr(instance)
+      incidents.each do |fed|
+        feeds = fed.feeds.find(:all)
+        feeds_array += feeds
+    end
+    feeds_array
+  end
+  
+  def self.export_feeds(instance)
+    feeds_array = feedsarr(instance)
+    result_feeds = feeds_array.to_yaml
+    result_feeds.gsub!(/\n/,"\r\n")
+    result_feeds
+  end
+  
+  
 end
