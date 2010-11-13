@@ -14,6 +14,9 @@ require 'active_record/fixtures'
 require 'set'
 require 'fileutils'
 
+require 'delayed/tasks'
+
+
 namespace :db do
 
   desc "Turn development database into fixtures"
