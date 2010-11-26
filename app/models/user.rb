@@ -257,7 +257,50 @@ class User < ActiveRecord::Base
     save
     UserObserver.enable!
   end
+  
+  def self.users_arr(instance)
+    users = instance.users.find(:all)
+    users
+  end
+  
+  def self.export_model(instance)
+    users = users_arr(instance)
+    result_users = users.to_yaml
+    result_users.gsub!(/\n/,"\r\n")
+    result_users
+  end
 
+  def self.model_arri(dest)
+    User
+    Dir.chdir(dest)
+    @usersfile = Dir.glob("*"+ self.name.pluralize + ".yml")
+    yfusers = File.open(@usersfile.to_s)
+    users = YAML.load(yfusers)
+    users  
+  end
+  
+  def self.import_model(instance, dest)
+      users = self.model_arri(dest)
+      users.each do |user|
+        u = instance.users.build({:first_name => "#{user.first_name}", 
+                             :last_name => "#{user.last_name}", 
+                             :email => "#{user.email}", 
+                             :desk_phone => "#{user.desk_phone}", 
+                             :desk_phone_ext => "#{user.desk_phone_ext}", 
+                             :cell_phone => "#{user.cell_phone}", 
+                             :preferred_is_cell => "#{user.preferred_is_cell}",  
+                             :state => "#{user.state}"})  
+        instance.save
+        u.generate_salt!
+        u.generate_crypted_password!
+        u.generate_activation_code!
+   
+      rolename = Role.find_role(user,dest)
+      u.role = instance.roles.find_by_name(rolename)
+      u.save
+    end
+  end
+  
   private
     def default_alert_settings
       self.email_alert ||= true

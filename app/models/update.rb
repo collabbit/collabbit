@@ -87,6 +87,61 @@ class Update < ActiveRecord::Base
     @new_tags
   end
   
+  def self.updates_arr(instance)
+    incidents = Incident.incidents_arr(instance)
+    update_array = Array.new
+      incidents.each do |inc|
+        updates = inc.updates.find(:all)
+        update_array += updates
+      end
+      update_array
+  end
+      
+  def self.export_model(instance)
+      update_array = updates_arr(instance)
+      result_updates = update_array.to_yaml
+      result_updates.gsub!(/\n/,"\r\n")
+      result_updates
+  end
+  
+  def self.model_arri(dest)
+     Update
+     Dir.chdir(dest)
+     @updatesfile = Dir.glob("*"+self.name.pluralize + ".yml")
+     yfupdates = File.open(@updatesfile.to_s)
+     updates = YAML.load(yfupdates)
+     updates
+  end
+  
+  def self.import_model(instance, dest)
+    updates = self.model_arri(dest)
+    users = User.model_arri(dest)
+    incidents = Incident.model_arri dest
+    updates.each do |update|
+       elem=-1
+       incidents.each do |inci|
+         elem += 1
+         break if inci.id == update.incident_id
+       end  
+       @incident=instance.incidents.find_by_name(incidents[elem].name.to_s)
+       up = @incident.updates.build({:title => "#{update.title}", :text => "#{update.text}"})
+       @incident.save
+        
+       e=-1
+       users.each do |yd|
+         e += 1
+         break if yd.id == update.user_id
+       end 
+       
+       user_rec = instance.users.find_by_email(users[e].email.to_s)
+       if(user_rec != nil)
+           up.user_id = user_rec.id
+       end
+       
+       up.save
+     end     
+  end
+  
   private
     # Turns @new_tags (array of tag names) into real tags and taggings
     def handle_tags

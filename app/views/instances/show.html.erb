@@ -5,8 +5,21 @@
     <% if @current_user.can? :update => @instance %>
 	    <%= pretty_button :edit_instance, {:action => "edit"}, 'Edit Instance Settings' %>
 	<% end %>
+	<% if @current_user.can? :update => @instance %>
+	    <%= pretty_button :edit_instance, {:action => "export"}, 'Export Instance' %>
+	<% end %>
 <% end %>
 <% content_for :body do %>
+    <% if @current_user.can? :update => @instance %>
+	<% form_tag import_instances_path, :multipart => true do %>
+	    <h2>Import Instance</h2>
+		<p>
+			<%= label_tag :zip_file, 'ZIP File' %>
+			<%= file_field_tag :zip_file%>
+		</p>
+		<p><%= submit_tag 'Import Instance' %></p>
+	<% end %>
+	<% end %>
 	<% pending_users_count = @instance.users.search({:state_equals => :pending}).length %>
 	<% if @current_user.can?(:update => @instance.users) && pending_users_count > 0 %>
 		<div id="pending-users" class="notification">

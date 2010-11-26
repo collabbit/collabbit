@@ -1,11 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   
-  # map.resources :admins, :only => [:index, :create, :update, :destroy]
-  # map.login 'login',        :controller => 'admin_sessions',  :action => 'new'
-  # map.resource :admin_session
-  # map.logout 'logout',      :controller => 'admin_sessions',  :action => 'destroy'
-  # map.signup 'signup',      :controller => 'admins',    :action => 'new'
-  # map.register 'register',  :controller => 'admins',    :action => 'create'
+  #map.resources :admins, :only => [:index, :create, :update, :destroy]
+  #map.login 'login',        :controller => 'admin_sessions',  :action => 'new'
+  #map.resource :admin_session
+  #map.logout 'logout',      :controller => 'admin_sessions',  :action => 'destroy'
+  #map.signup 'signup',      :controller => 'admins',    :action => 'new'
+  #map.register 'register',  :controller => 'admins',    :action => 'create'
+  map.resources :instances, :collection => {:import => :post,:export => :get }
   
   map.with_options :controller => 'instances' do |instances|
     instances.overview  'overview',         :action => 'show'

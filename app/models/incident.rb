@@ -16,5 +16,35 @@ class Incident < ActiveRecord::Base
   def viewable_by?(user)
     instance.viewable_by?(user)
   end
+  
+  def self.incidents_arr(instance)
+    incidents= instance.incidents.find(:all)
+    incidents   
+  end
+  
+  def self.export_model(instance)
+    incidents = incidents_arr(instance)
+    result_incidents = incidents.to_yaml
+    result_incidents.gsub!(/\n/,"\r\n")
+    result_incidents
+  end
 
+  def self.model_arri(dest)
+    Incident
+    Dir.chdir(dest)
+    @incidentfile = Dir.glob(("*"+self.name.pluralize + ".yml").to_s)
+    yfincidents = File.open(@incidentfile.to_s) 
+    incidents = YAML.load(yfincidents)
+    incidents
+  end
+  
+  def self.import_model(instance, dest)
+    incidents = self.model_arri(dest)
+    incidents.each do |inci|
+      instance.incidents.build(:name => "#{inci.name}", 
+                                :description => "#{inci.description}")
+      instance.save
+    end
+  end
+  
 end
