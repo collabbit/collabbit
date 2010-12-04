@@ -44,6 +44,7 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_archive'
   config.gem 'rubyzip', :lib => 'zip/zip'
   config.gem 'rack-rewrite'
+  require 'prawn'
 
   require 'rack-rewrite'
   config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do

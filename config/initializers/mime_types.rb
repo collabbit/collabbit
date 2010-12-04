@@ -6,3 +6,4 @@
 
 Mime::Type.register 'text/x-vcard', :vcf
 Mime::Type.register 'application/zip', :zip
+Mime::Type.register_alias 'application/pdf', :pdf
