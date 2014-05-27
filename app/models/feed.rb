@@ -48,4 +48,63 @@ class Feed < ActiveRecord::Base
     mine.criterions.build(:kind => 'user_group')
     mine
   end
+  
+  def self.feeds_arr(instance)
+    feeds_array = Array.new
+      incidents = Incident.incidents_arr(instance)
+      incidents.each do |fed|
+        feeds = fed.feeds.find(:all)
+        feeds_array += feeds
+    end
+    feeds_array
+  end
+  
+  def self.export_model(instance)
+    feeds_array = feeds_arr(instance)
+    result_feeds = feeds_array.to_yaml
+    result_feeds.gsub!(/\n/,"\r\n")
+    result_feeds
+  end
+  
+  def self.model_arri(dest)
+    Feed
+    Dir.chdir(dest)
+    @feedsfile = Dir.glob("*"+self.name.pluralize + ".yml")
+    yffeeds = File.open(@feedsfile.to_s)
+    feeds = YAML.load(yffeeds)
+    feeds
+  end
+  
+  def self.import_model(instance, dest)
+    feeds = self.model_arri(dest)
+    users = User.model_arri(dest)
+    ydocs = Incident.model_arri(dest)
+    
+    feeds.each do |fds|
+      fd = -1
+      ydocs.each do |ins|
+        fd += 1
+        break if fds.incident_id == ins.id
+      end
+      
+      u = -1
+      users.each do |us|
+        u += 1
+        break if us.id = fds.owner_id
+      end
+   
+    userr = instance.users.find_by_email(users[u].email.to_s)
+    
+    
+    @incid = instance.incidents.find_by_name(ydocs[fd].name.to_s)
+    feed = @incid.feeds.build(:name => "#{fds.name}", 
+                              :description => "#{fds.description}", 
+                              :text_alert => "#{fds.text_alert}",
+                              :email_alert => "#{fds.email_alert}",
+                              :owner_id => "#{userr.id}")
+    @incid.save
+   
+    end
+  end
+  
 end

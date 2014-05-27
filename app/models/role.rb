@@ -50,4 +50,37 @@ class Role < ActiveRecord::Base
     roles
   end
   
+  def self.roles_arr(instance)
+    roles = instance.roles.find(:all)
+    roles
+  end
+  
+  def self.export_model(instance)
+    roles = roles_arr(instance)
+    result_roles = roles.to_yaml
+    result_roles.gsub!(/\n/,"\r\n")
+    result_roles
+  end
+  
+  def self.model_arri(dest)
+      Role
+      Dir.chdir(dest)
+      @rolesfile = Dir.glob("*"+self.name.pluralize + ".yml")
+      yfroles = File.open(@rolesfile.to_s)
+      roles = YAML.load(yfroles)
+      roles
+  end
+  
+  def self.find_role(user,dest)
+    roles = self.model_arri(dest)
+    @rolename
+    roles.each do |role|
+      if(user.role_id == role.id)
+       @rolename = role.name
+       break
+      end
+    end
+   @rolename
+  end
+ 
 end
