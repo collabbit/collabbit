@@ -24,7 +24,7 @@ class Update < ActiveRecord::Base
   attr_protected :incident_id, :user_id
   
   owned_by :user
-  
+
   def issuing_name
     if issuer == nil
       ''
@@ -101,4 +101,7 @@ class Update < ActiveRecord::Base
         end
       end
     end 
+
+
+
 end

@@ -13,6 +13,7 @@ require 'authority'
 require 'set'
 require 'csv'
 
+
 def flatten_keys(hsh, prefix='')
   hsh.to_a.inject({}) do |memo, pair|
     k,v = pair
@@ -44,6 +45,7 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_archive'
   config.gem 'rubyzip', :lib => 'zip/zip'
   config.gem 'rack-rewrite'
+  config.gem 'delayed_job'
 
   require 'rack-rewrite'
   config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do

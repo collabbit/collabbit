@@ -242,7 +242,8 @@ class UsersController < AuthorizedController
   # re-sends a confirmation email to a user
   def resend_activation
     @user = @instance.users.find(params[:user_id])
-    UserMailer.deliver_approved_notification(@user)
+	# Send later to delayed job
+    UserMailer.send_later :deliver_approved_notification, @user
     redirect_to :back
   end
 
@@ -284,7 +285,8 @@ class UsersController < AuthorizedController
       pass = @user.make_token[0,12]
       @user.password = @user.password_confirmation = pass
       @user.save
-      UserMailer.deliver_password_reset(@user, pass)
+	  # Send later to delayed job	
+      UserMailer.send_later :deliver_password_reset, @user, pass
     end
     flash[:notice] = t( 'notice.password_reset')
     redirect_to new_session_path
