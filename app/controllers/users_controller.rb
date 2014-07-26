@@ -178,19 +178,21 @@ class UsersController < AuthorizedController
 
   # for a user changing their password
   def change_password
-    user = User.find(params[:user_id])
+    user = @instance.users.find(params[:user_id])
+    return with_rejection unless @current_user.can? :update => user
+    
 
     # prevent people from modifying the demo user account
-    if @instance.short_name == 'demo' && @current_user.email == 'demo@collabbit.org'
+    if @instance.short_name == 'demo' && user && user.email == 'demo@collabbit.org'
       return with_rejection(:error => "The demo user account cannot be changed.")
     end
-
+    
     if user and user.password_matches?(params[:password])
       if params[:new_password].blank? && params[:new_password_confirmation].blank?
         flash[:notice] = t('error.user.blank_password')
       elsif params[:new_password] == params[:new_password_confirmation]
         user.generate_crypted_password!(params[:new_password])
-        user.save
+        user.save(false)
         flash[:notice] = t('notice.user.password_changed')
       else
         flash[:error] = t('error.user.password_mismatch')
@@ -279,7 +281,7 @@ class UsersController < AuthorizedController
   def forgot_password; end
 
   def reset_password
-    @user = @instance.users.find_by_email(params[:user][:email])
+    @user = @instance.users.find_by_email(params[:user].try(:[], :email))
     unless @user == nil
       pass = @user.make_token[0,12]
       @user.password = @user.password_confirmation = pass

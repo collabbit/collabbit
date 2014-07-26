@@ -13,7 +13,7 @@ module Passworded
   
   # Generates the properly encrypted password
   def generate_crypted_password(plaintext = password)
-    Digest::SHA1.hexdigest(plaintext + salt) if plaintext && self.salt
+    Digest::SHA1.hexdigest(plaintext + self.salt) if plaintext && self.salt
   end
   
   def generate_crypted_password!(plaintext = password)
