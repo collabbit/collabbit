@@ -6,11 +6,24 @@ class IncidentsController < AuthorizedController
 
   def show    
     @incident = @instance.incidents.find(params[:id])
+    if(params[:group_filter]) 
+        @group = @instance.groups.find(params[:group_filter]).name
+    end
+    if(params[:tags_filter])
+        @tag = @instance.tags.find(params[:tags_filter]).name
+    end
+    @search_filtered_results = @incident.updates_search_filter(params[:search_query])
+    @group_filtered_results = @incident.updates_group_filter(@group)
+    @tag_filtered_results = @incident.updates_tag_filter(@tag)
+    @filtered_updates = @group_filtered_results & @tag_filtered_results
+    @filtered_updates = @filtered_updates & @search_filtered_results
     return with_rejection unless @current_user.can? :view => @incident
     
     respond_to do |format|
       format.html { redirect_to incident_updates_path(@incident) }
       format.text { render 'show.txt' }
+      format.xml  { render :xml => @incident }
+      format.pdf { render :layout => false }
     end
   end
 

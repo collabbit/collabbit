@@ -75,7 +75,8 @@
         		alerts for this incident.
         		<a id="alert-settings" href="#">Alert Settings<span class="arrow">&#9660;</span></a>
 				&middot; <%= link_to 'Incident Export', formatted_incident_path(@incident, :text) %>
-        		<% form_for(@current_user, :html => {:id => 'alerts-form', :class => 'hidden'}) do |f| %>
+				&middot; <%= link_to 'PDF Export', formatted_incident_path(@incident, :pdf, :group_filter => @groups_filter, :tags_filter => @tags_filter, :search_query => params[:search]) %>
+				<% form_for(@current_user, :html => {:id => 'alerts-form', :class => 'hidden'}) do |f| %>
         			<%= hidden_field_tag 'return_to', :back %>
         			<% f.fields_for :feeds, @current_user.feeds.find_by_incident_id(@incident.id) do |feed_form| %>
 						Receive text message alerts?
