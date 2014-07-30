@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
       end
     else
       klass = obj.class == Class ? obj : obj.class
-      role.permissions.exists? :model => klass.to_s, :action => action.to_s
+      role.has_permission_for? :model => klass.to_s, :action => action.to_s
     end
   end
   
