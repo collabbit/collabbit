@@ -50,4 +50,15 @@ class Role < ActiveRecord::Base
     roles
   end
   
+  def self.rolesarr(instance)
+    roles = instance.roles.find(:all)
+    roles
+  end
+  
+  def self.export_roles(instance)
+    roles = rolesarr(instance)
+    result_roles = roles.to_yaml
+    result_roles.gsub!(/\n/,"\r\n")
+    result_roles
+  end
 end

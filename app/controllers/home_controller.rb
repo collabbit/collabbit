@@ -40,5 +40,39 @@ class HomeController < AuthorizedController
       redirect_to "http://#{SETTINGS['demo.account']}.#{SETTINGS['host.base_url']}/overview"
     end
   end
+  
+   def vinay_login
+    @instance = Instance.find_by_short_name SETTINGS['vinay.account']
+    if @instance.blank?
+      redirect_to about_path
+    else
+      login_as @instance.users.find_by_email(SETTINGS['demo.user'])
+      handle_remember_cookie!(true)
+      redirect_to "http://#{SETTINGS['vinay.account']}.#{SETTINGS['host.base_url']}/overview"
+    end
+  end
 
+  def charan_login
+    @instance = Instance.find_by_short_name SETTINGS['charan.account']
+    if @instance.blank?
+      redirect_to about_path
+    else
+      login_as @instance.users.find_by_email(SETTINGS['demo.user'])
+      handle_remember_cookie!(true)
+      redirect_to "http://#{SETTINGS['charan.account']}.#{SETTINGS['host.base_url']}/overview"
+    end
+   
+  end
+  
+  def nafeez_login
+     @instance = Instance.find_by_short_name SETTINGS['nafeez.account']
+    if @instance.blank?
+      redirect_to about_path
+    else
+      login_as @instance.users.find_by_email(SETTINGS['demo.user'])
+      handle_remember_cookie!(true)
+      redirect_to "http://#{SETTINGS['nafeez.account']}.#{SETTINGS['host.base_url']}/overview"
+    end
+   
+  end
 end

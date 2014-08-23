@@ -1,3 +1,4 @@
+require 'yaml';
 class Instance < ActiveRecord::Base 
   include Authority
   
@@ -55,6 +56,8 @@ class Instance < ActiveRecord::Base
     user && user.instance == self
   end
   
+ 
+  
   # Overwrites find so that <tt>Instance.find(x.to_param)</tt> works
   def self.find(*args)
     if args.length == 1 and args.first.is_a?(String)
@@ -63,6 +66,7 @@ class Instance < ActiveRecord::Base
       super(*args)
     end
   end
+ 
   
   class Missing < RuntimeError; end
   

@@ -15,6 +15,18 @@ class Tag < ActiveRecord::Base
     end
   end
   
+  def self.tagsarr(instance)
+    tags = instance.tags.find(:all)
+    tags
+  end
+  
+  def self.export_tags(instance)
+    tags = tagsarr(instance)
+    result_tags = tags.to_yaml
+    result_tags.gsub!(/\n/,"\r\n")
+    result_tags
+  end
+  
   validates_length_of :name, :within => 1..64
   validates_presence_of :name
   
