@@ -125,7 +125,7 @@ class UpdatesController < AuthorizedController
     end
 
     if @update.save
-      flash[:notice] = t('notice.update.created')
+      flash[:notice] = t('notice.update.created')		
       redirect_to @incident
     else
       @tags = @instance.tags

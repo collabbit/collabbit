@@ -207,7 +207,8 @@ class User < ActiveRecord::Base
     self.state = 'active'
     self.activated_at = DateTime.now
     self.save(false)
-    UserMailer.deliver_activation(self)
+	# Send later to delayed job
+    UserMailer.send_later :deliver_activation, self
   end
   def approve!
     self.state = 'approved'
